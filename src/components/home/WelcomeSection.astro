@@ -1,5 +1,5 @@
 ---
-import { ChevronDown, ChevronUp } from '@lucide/astro';
+import { ChevronDown } from '@lucide/astro';
 ---
 
 <section class="w-full bg-[#F3F4F6] text-slate-800 py-14 sm:py-16 md:py-20 px-6 sm:px-10 border-b border-slate-200">
@@ -10,20 +10,20 @@ import { ChevronDown, ChevronUp } from '@lucide/astro';
       Welcome to Robbie’s Marina of Islamorada
     </h2>
 
-    <!-- Body Paragraph Container with Smooth Animated Toggle -->
+    <!-- Body Paragraph Container with Inline Flat Text Read More / Read Less Toggle -->
     <div id="welcome-text-wrapper" class="font-body text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed max-w-3xl mb-8">
       
       <!-- Always Visible Initial Paragraph -->
-      <p class="mb-2">
+      <p class="inline">
         Home of the world-famous tarpon feeding! Here, you can discover the exciting things to do in the Florida Keys during your stop at Robbie’s.
       </p>
 
-      <!-- Smooth Collapsible Content Container -->
+      <!-- Smooth Collapsible Content Container (Smooth Grid Rows Animation) -->
       <div 
         id="welcome-collapsible-content" 
         class="grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out overflow-hidden"
       >
-        <div class="overflow-hidden space-y-4 pt-2 text-left sm:text-center">
+        <div class="overflow-hidden space-y-4 pt-3 text-left sm:text-center">
           <p>
             Whether you want to hand-feed massive tarpon, seek some thrills with our water sports, or stock up on handcrafted souvenirs at our fun, local shops, we’ve got something for everyone at Robbie’s. Gorge on fresh, delicious seafood and sip one of our signature cocktails, local draft beer, or our famous loaded Trailer Trash Bloody Mary on the waterfront deck and enjoy the show of the tarpon feeding frenzy!
           </p>
@@ -33,18 +33,18 @@ import { ChevronDown, ChevronUp } from '@lucide/astro';
         </div>
       </div>
 
-      <!-- Styled Read More / Read Less Toggle Button with Chevron Icon -->
-      <div class="pt-3">
+      <!-- Inline Flat Text Toggle Button (Sin bordes, texto plano azul) -->
+      <span class="inline-block ml-1">
         <button 
           type="button" 
           id="welcome-toggle-btn"
-          class="inline-flex items-center gap-1.5 text-[#2B447A] font-extrabold text-xs sm:text-sm hover:opacity-80 transition-all duration-200 cursor-pointer py-1 px-3 rounded-full hover:bg-blue-50/80 border border-blue-900/15"
+          class="inline-flex items-center gap-1 text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity cursor-pointer whitespace-nowrap"
           aria-expanded="false"
         >
           <span id="welcome-toggle-label">Read More</span>
-          <ChevronDown id="welcome-toggle-icon" class="w-4 h-4 transition-transform duration-300 stroke-[2.5]" />
+          <ChevronDown id="welcome-toggle-icon" class="w-3.5 h-3.5 transition-transform duration-300 stroke-[2.5]" />
         </button>
-      </div>
+      </span>
 
     </div>
 
