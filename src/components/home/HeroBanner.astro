@@ -1,7 +1,28 @@
 ---
+interface Props {
+  videoSrc?: string;
+  crownSrc?: string;
+  badgeSrc?: string;
+  line1?: string;
+  line2?: string;
+  subtitle?: string;
+  buttonText?: string;
+  buttonUrl?: string;
+}
+
+const {
+  videoSrc = "/assets/home/ROBBIES_BANNER-VIDEO-RESUME-V5.mp4",
+  crownSrc = "/assets/home/imgi_7_CROWN-2.png",
+  badgeSrc = "/assets/home/imgi_6_Badge_Page.png",
+  line1 = "VOTED THE #1 PLACE",
+  line2 = "IN THE FLORIDA KEYS",
+  subtitle = "THAT EVERY TOURIST SHOULD VISIT",
+  buttonText = "Learn More",
+  buttonUrl = "https://www.robbies.com/"
+} = Astro.props;
 ---
 
-<section class="relative w-full min-h-[500px] h-[75vh] md:h-[82vh] lg:h-[88vh] max-h-[850px] overflow-hidden bg-slate-950 flex items-center">
+<section class="relative w-full min-h-[480px] h-[72vh] md:h-[78vh] lg:h-[84vh] max-h-[800px] overflow-hidden bg-slate-950 flex items-center">
   <!-- Background Video -->
   <video 
     autoplay 
@@ -9,61 +30,65 @@
     muted 
     playsinline 
     poster="/assets/home/imgi_18_feed-tarpon.webp"
-    class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.9]"
+    class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.88]"
   >
-    <source src="/assets/home/ROBBIES_BANNER-VIDEO-RESUME-V5.mp4" type="video/mp4" />
+    <source src={videoSrc} type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
-  <!-- Overlay Dark Gradient to ensure high text contrast and legibility -->
-  <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/20 z-10"></div>
+  <!-- Overlay Dark Gradient to ensure optimal legibility -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/65 via-black/40 to-black/25 z-10"></div>
 
   <!-- Hero Content Container -->
-  <div class="relative z-20 max-w-[1440px] w-full mx-auto px-6 sm:px-10 md:px-14 lg:px-16 flex items-center justify-between h-full">
+  <div class="relative z-20 max-w-[1440px] w-full mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex items-center justify-between h-full py-8">
     
-    <!-- Left Column: Crown, Title, Subtitle, CTA Button -->
-    <div class="max-w-2xl text-white my-auto pt-6 pb-10">
+    <!-- Left Column: Crown, 2-line Title, Prominent Subtitle, Elongated CTA Button -->
+    <div class="max-w-xl lg:max-w-2xl text-white my-auto">
       
       <!-- Crown Icon -->
-      <div class="mb-3 sm:mb-4">
-        <img 
-          src="/assets/home/imgi_7_CROWN-2.png" 
-          alt="Crown Icon" 
-          class="h-8 sm:h-10 md:h-12 w-auto object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
-        />
-      </div>
+      {crownSrc && (
+        <div class="mb-2 sm:mb-3">
+          <img 
+            src={crownSrc} 
+            alt="Crown Icon" 
+            class="h-7 sm:h-9 md:h-10 w-auto object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
+          />
+        </div>
+      )}
 
-      <!-- Main Heading (Montserrat ExtraBold / Black) -->
-      <h1 class="font-heading font-black text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight uppercase leading-[1.1] mb-3 sm:mb-4 drop-shadow-[0_3px_10px_rgba(0,0,0,0.7)]">
-        VOTED THE #1 PLACE <br class="hidden sm:inline" />
-        IN THE FLORIDA KEYS
+      <!-- Main 2-Line Heading (Refined: ~10px smaller than previous version) -->
+      <h1 class="font-heading font-black text-xl xs:text-2xl sm:text-3xl md:text-[38px] lg:text-[44px] xl:text-[48px] text-white tracking-tight uppercase leading-[1.15] mb-2 sm:mb-3 drop-shadow-[0_3px_10px_rgba(0,0,0,0.8)]">
+        <span>{line1}</span><br />
+        <span>{line2}</span>
       </h1>
 
-      <!-- Subtitle -->
-      <p class="font-heading font-bold text-xs sm:text-sm md:text-base lg:text-lg text-white/95 tracking-wider uppercase mb-6 sm:mb-8 drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)] max-w-xl">
-        THAT EVERY TOURIST SHOULD VISIT
+      <!-- Prominent Subtitle (+10px larger) -->
+      <p class="font-heading font-bold text-sm xs:text-base sm:text-lg md:text-[21px] lg:text-[24px] text-white/95 tracking-wider uppercase mb-6 sm:mb-8 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] leading-snug">
+        {subtitle}
       </p>
 
-      <!-- CTA Button ("Learn More") -->
+      <!-- Elongated Premium CTA Button -->
       <div>
         <a 
-          href="https://www.robbies.com/" 
-          class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm md:text-base px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border border-white/20"
+          href={buttonUrl} 
+          class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-10 sm:px-12 py-3 sm:py-3.5 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border border-white/20"
         >
-          Learn More
+          {buttonText}
         </a>
       </div>
 
     </div>
 
-    <!-- Right Column: 50th Anniversary Badge (imgi_6_Badge_Page.png) -->
-    <div class="absolute top-6 right-6 sm:top-10 sm:right-10 md:top-12 md:right-14 z-20 pointer-events-none">
-      <img 
-        src="/assets/home/imgi_6_Badge_Page.png" 
-        alt="50 Years of Adventure Badge" 
-        class="w-20 xs:w-24 sm:w-32 md:w-40 lg:w-48 h-auto object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]"
-      />
-    </div>
+    <!-- Right Column: Vertically Centered 50th Anniversary Badge -->
+    {badgeSrc && (
+      <div class="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 md:right-12 lg:right-16 z-20 pointer-events-none">
+        <img 
+          src={badgeSrc} 
+          alt="50 Years of Adventure Badge" 
+          class="w-20 xs:w-24 sm:w-32 md:w-40 lg:w-48 xl:w-52 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
+        />
+      </div>
+    )}
 
   </div>
 </section>
