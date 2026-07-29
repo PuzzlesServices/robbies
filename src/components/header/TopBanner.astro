@@ -4,7 +4,7 @@ import { ChevronLeft, ChevronRight } from '@lucide/astro';
 const slides = [
   {
     textDesktop: "Trivia Night Every Tues. 6:30pm - 8:30pm at Hungry Tarpon Restaurant",
-    textMobile: "Trivia Night Every Tues. 6:30pm - 8:30pm",
+    textMobile: "Trivia Night Every Tues. 6:30pm - 8:30pm at Hungry Tarpon",
     url: "#"
   },
   {
@@ -25,20 +25,20 @@ const slides = [
 ];
 ---
 
-<div class="bg-[#2D55FF] text-white text-xs sm:text-sm font-semibold tracking-wide py-2 px-4 relative z-30 select-none overflow-hidden">
-  <div class="max-w-7xl mx-auto flex items-center justify-between">
+<div class="bg-[#2B55FF] text-white text-[11px] xs:text-xs sm:text-sm font-semibold tracking-wide py-1.5 px-3 sm:px-6 relative z-30 select-none overflow-hidden border-b border-blue-400/20">
+  <div class="max-w-[1400px] mx-auto flex items-center justify-between">
     <!-- Prev Arrow Button -->
     <button 
       id="prev-slide-btn"
       aria-label="Previous announcement"
-      class="p-1 hover:bg-white/20 rounded transition-colors duration-150 focus:outline-none"
+      class="p-0.5 hover:bg-white/20 rounded transition-colors duration-150 focus:outline-none flex-shrink-0"
     >
-      <ChevronLeft class="w-4 h-4 text-white" />
+      <ChevronLeft class="w-4 h-4 sm:w-4 sm:h-4 text-white stroke-[2.5]" />
     </button>
 
     <!-- Slider Content Window -->
-    <div class="flex-1 overflow-hidden mx-3 text-center min-h-[22px] flex items-center justify-center">
-      <div id="slider-track" class="relative w-full h-[22px] flex items-center justify-center">
+    <div class="flex-1 overflow-hidden mx-2 sm:mx-4 text-center h-[20px] sm:h-[22px] flex items-center justify-center relative">
+      <div id="slider-track" class="relative w-full h-full flex items-center justify-center">
         {slides.map((slide, index) => (
           <div 
             class={`slide-item absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out ${index === 0 ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}
@@ -49,13 +49,13 @@ const slides = [
                 href={slide.url} 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                class="hover:underline font-bold transition-opacity hover:opacity-90 inline-flex items-center gap-1 text-white drop-shadow-sm"
+                class="hover:underline font-bold transition-opacity hover:opacity-90 inline-flex items-center gap-1 text-white drop-shadow-sm truncate max-w-[280px] xs:max-w-[360px] sm:max-w-none"
               >
                 <span class="hidden sm:inline">{slide.textDesktop}</span>
                 <span class="inline sm:hidden">{slide.textMobile}</span>
               </a>
             ) : (
-              <span class="font-medium text-white drop-shadow-sm">
+              <span class="font-medium text-white drop-shadow-sm truncate max-w-[280px] xs:max-w-[360px] sm:max-w-none">
                 <span class="hidden sm:inline">{slide.textDesktop}</span>
                 <span class="inline sm:hidden">{slide.textMobile}</span>
               </span>
@@ -69,9 +69,9 @@ const slides = [
     <button 
       id="next-slide-btn"
       aria-label="Next announcement"
-      class="p-1 hover:bg-white/20 rounded transition-colors duration-150 focus:outline-none"
+      class="p-0.5 hover:bg-white/20 rounded transition-colors duration-150 focus:outline-none flex-shrink-0"
     >
-      <ChevronRight class="w-4 h-4 text-white" />
+      <ChevronRight class="w-4 h-4 sm:w-4 sm:h-4 text-white stroke-[2.5]" />
     </button>
   </div>
 </div>
