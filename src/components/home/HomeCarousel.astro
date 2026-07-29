@@ -8,7 +8,7 @@ const slides = [
     subtitle: "Get ready for the fishing trip of a lifetime!",
     buttonText: "BOOK ONLINE NOW",
     buttonUrl: "https://www.robbies.com/islamorada-fishing.htm",
-    image: "/assets/home/imgi_195_CAPTAIN-MICHAEL-PARTYBOAT-FISHING.webp"
+    image: "/assets/home/imgi_218_CAPTAIN-MICHAEL-PARTYBOAT-FISHING.webp"
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const slides = [
     subtitle: "Keys-style waterfront Restaurant and Bar with scenic views and a tropical atmosphere!",
     buttonText: "HUNGRY TARPON MENU",
     buttonUrl: "https://www.robbies.com/hungry-tarpon-restaurant.htm",
-    image: "/assets/home/imgi_17_Hungry-tarpon1.webp"
+    image: "/assets/home/imgi_32_hungry-tarpon.webp"
   },
   {
     id: 4,
@@ -32,7 +32,7 @@ const slides = [
     subtitle: "Best Tarpon Feeding in Islamorada, Florida",
     buttonText: "LEARN MORE",
     buttonUrl: "https://www.robbies.com/tarpon-feeding.htm",
-    image: "/assets/home/imgi_18_feed-tarpon.webp"
+    image: "/assets/home/imgi_31_Feed-Tarpon.webp"
   },
   {
     id: 5,
@@ -40,7 +40,7 @@ const slides = [
     subtitle: "Best Snorkeling Tours in Islamorada, Florida",
     buttonText: "BOOK ONLINE NOW",
     buttonUrl: "https://www.robbies.com/",
-    image: "/assets/home/imgi_196_FLORIDA-KEYS-SNORKELING-TOURS.webp"
+    image: "/assets/home/imgi_210_snork.webp"
   },
   {
     id: 6,
@@ -48,16 +48,16 @@ const slides = [
     subtitle: "Experience Luxury on Four Aces",
     buttonText: "LEARN MORE",
     buttonUrl: "https://www.robbies.com/",
-    image: "/assets/home/imgi_198_FOUR-ACES-LUXURY-YACHT-CHARTER.webp"
+    image: "/assets/home/imgi_211_luxury.webp"
   }
 ];
 ---
 
-<!-- Full-Width Interactive Showcase Carousel (100% Real Images, Mouse Drag, Touch Swipe & Indicator Bar) -->
-<section class="w-full relative overflow-hidden bg-slate-900 select-none py-2">
+<!-- Full-Width Showcase Carousel (Imágenes Alta Res 100% Reales, Mayor Altura, Barra Indicadora Deslizable y Sombras Sutiles) -->
+<section class="w-full relative overflow-hidden bg-slate-950 select-none">
   <div 
     id="home-carousel-wrapper"
-    class="relative w-full h-[50vh] sm:h-[60vh] md:h-[68vh] lg:h-[75vh] min-h-[400px] max-h-[700px] cursor-grab active:cursor-grabbing overflow-hidden"
+    class="relative w-full h-[65vh] sm:h-[75vh] md:h-[82vh] lg:h-[88vh] min-h-[520px] max-h-[850px] cursor-grab active:cursor-grabbing overflow-hidden"
   >
     <!-- Slides Track -->
     <div id="home-carousel-track" class="w-full h-full relative">
@@ -66,7 +66,7 @@ const slides = [
           class={`carousel-slide absolute inset-0 w-full h-full transition-all duration-700 ease-in-out ${index === 0 ? 'opacity-100 z-10 scale-100 pointer-events-auto' : 'opacity-0 z-0 scale-95 pointer-events-none'}`}
           data-index={index}
         >
-          <!-- Background Image (100% Real Original sin Filtros ni Capas Oscuras) -->
+          <!-- High-Res Background Image (100% Real Original sin Filtros ni Capas Oscuras) -->
           <img 
             src={slide.image} 
             alt={slide.title} 
@@ -74,17 +74,17 @@ const slides = [
             loading={index === 0 ? "eager" : "lazy"}
           />
 
-          <!-- Overlay Text Content Box -->
+          <!-- Overlay Text Content Box (Sombras sutiles y elegantes) -->
           <div class="absolute inset-0 z-20 max-w-[1180px] mx-auto px-6 sm:px-12 md:px-16 flex items-center justify-center sm:justify-start">
-            <div class="max-w-xl text-center sm:text-left text-white my-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+            <div class="max-w-2xl text-center sm:text-left text-white my-auto">
               
               <!-- Title -->
-              <h2 class="font-heading font-black text-2xl xs:text-3xl sm:text-4xl md:text-[44px] lg:text-[50px] text-white tracking-tight uppercase leading-[1.15] mb-2 sm:mb-3 drop-shadow-[0_3px_10px_rgba(0,0,0,0.9)]">
+              <h2 class="font-heading font-black text-2xl xs:text-3xl sm:text-4xl md:text-[46px] lg:text-[54px] text-white tracking-tight uppercase leading-[1.12] mb-3 sm:mb-4 drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                 {slide.title}
               </h2>
 
               <!-- Subtitle -->
-              <p class="font-heading font-normal text-sm sm:text-lg md:text-xl lg:text-[22px] text-white/95 tracking-wide mb-6 sm:mb-8 leading-snug drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]" set:html={slide.subtitle}>
+              <p class="font-heading font-normal text-base sm:text-xl md:text-[22px] lg:text-[25px] text-white/95 tracking-wide mb-6 sm:mb-8 leading-relaxed drop-shadow-[0_1px_3px_rgba(0,0,0,0.5)]" set:html={slide.subtitle}>
               </p>
 
               <!-- CTA Button -->
@@ -94,7 +94,7 @@ const slides = [
                     href={slide.buttonUrl} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-8 sm:px-10 py-3 sm:py-3.5 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border border-white/20"
+                    class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-8 sm:px-11 py-3.5 sm:py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border border-white/20"
                   >
                     {slide.buttonText}
                   </a>
@@ -112,7 +112,7 @@ const slides = [
     <button 
       id="carousel-prev-btn"
       aria-label="Previous Slide"
-      class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3.5 bg-black/35 hover:bg-[#2B447A] text-white rounded-full transition-all duration-200 focus:outline-none backdrop-blur-xs border border-white/20 hover:scale-110 cursor-pointer shadow-lg"
+      class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 bg-black/25 hover:bg-[#2B447A] text-white rounded-full transition-all duration-200 focus:outline-none backdrop-blur-xs border border-white/20 hover:scale-110 cursor-pointer shadow-md"
     >
       <ChevronLeft class="w-6 h-6 sm:w-8 sm:h-8 stroke-[2.5]" />
     </button>
@@ -121,30 +121,26 @@ const slides = [
     <button 
       id="carousel-next-btn"
       aria-label="Next Slide"
-      class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3.5 bg-black/35 hover:bg-[#2B447A] text-white rounded-full transition-all duration-200 focus:outline-none backdrop-blur-xs border border-white/20 hover:scale-110 cursor-pointer shadow-lg"
+      class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 p-3 sm:p-4 bg-black/25 hover:bg-[#2B447A] text-white rounded-full transition-all duration-200 focus:outline-none backdrop-blur-xs border border-white/20 hover:scale-110 cursor-pointer shadow-md"
     >
       <ChevronRight class="w-6 h-6 sm:w-8 sm:h-8 stroke-[2.5]" />
     </button>
 
-    <!-- Interactive Bottom Indicator Bar & Navigation Dots -->
-    <div class="absolute bottom-5 inset-x-0 z-30 flex flex-col items-center justify-center space-y-2">
-      <!-- Indicators Track -->
-      <div class="flex items-center space-x-2.5 sm:space-x-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
-        {slides.map((_, index) => (
-          <button 
-            type="button" 
-            class={`carousel-indicator-dot h-2.5 rounded-full transition-all duration-300 cursor-pointer ${index === 0 ? 'w-8 bg-white' : 'w-2.5 bg-white/50 hover:bg-white/80'}`}
-            data-index={index}
-            aria-label={`Go to slide ${index + 1}`}
-          ></button>
-        ))}
+    <!-- Horizontal Progress Indicator Bar (Reemplaza los puntos por barra continua) -->
+    <div class="absolute bottom-6 inset-x-0 z-30 max-w-[280px] xs:max-w-[340px] sm:max-w-[420px] mx-auto px-4">
+      <div class="relative w-full h-1.5 bg-white/25 rounded-full overflow-hidden backdrop-blur-xs border border-white/10">
+        <div 
+          id="carousel-progress-bar" 
+          class="absolute top-0 left-0 h-full bg-white transition-all duration-500 ease-out rounded-full shadow-sm" 
+          style="width: 16.66%;"
+        ></div>
       </div>
     </div>
 
   </div>
 </section>
 
-<!-- Inline Script for Carousel Navigation, Mouse Drag & Touch Swipe -->
+<!-- Inline Script for Carousel Navigation, Progress Bar, Mouse Drag & Touch Swipe -->
 <script is:inline>
   document.addEventListener('DOMContentLoaded', initHomeCarousel);
   document.addEventListener('astro:page-load', initHomeCarousel);
@@ -152,7 +148,7 @@ const slides = [
   function initHomeCarousel() {
     const wrapper = document.getElementById('home-carousel-wrapper');
     const slides = document.querySelectorAll('.carousel-slide');
-    const dots = document.querySelectorAll('.carousel-indicator-dot');
+    const progressBar = document.getElementById('carousel-progress-bar');
     const prevBtn = document.getElementById('carousel-prev-btn');
     const nextBtn = document.getElementById('carousel-next-btn');
 
@@ -178,15 +174,12 @@ const slides = [
         }
       });
 
-      dots.forEach((dot, i) => {
-        if (i === targetIndex) {
-          dot.classList.remove('w-2.5', 'bg-white/50');
-          dot.classList.add('w-8', 'bg-white');
-        } else {
-          dot.classList.remove('w-8', 'bg-white');
-          dot.classList.add('w-2.5', 'bg-white/50');
-        }
-      });
+      if (progressBar) {
+        const stepWidth = 100 / totalSlides;
+        const offsetLeft = targetIndex * stepWidth;
+        progressBar.style.width = `${stepWidth}%`;
+        progressBar.style.transform = `translateX(${targetIndex * 100}%)`;
+      }
 
       currentIndex = targetIndex;
     }
@@ -215,16 +208,6 @@ const slides = [
       e.stopPropagation();
       prevSlide();
       resetAutoRotate();
-    });
-
-    // Indicator Dot Clicks
-    dots.forEach((dot) => {
-      dot.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
-        goToSlide(idx);
-        resetAutoRotate();
-      });
     });
 
     // Mouse Drag & Touch Swipe Support
