@@ -8,6 +8,7 @@ interface Props {
 	image?: string;
 	canonicalUrl?: string;
 	schemaType?: 'LocalBusiness' | 'TouristAttraction' | 'WebSite';
+	noindex?: boolean;
 }
 
 const { 
@@ -15,7 +16,9 @@ const {
 	description = "Welcome to Robbie’s Marina, home of the world-famous tarpon feeding! Discover exciting water sports, boat rentals, dining, and shops in Islamorada.",
 	image = "https://robbies.com/assets/home/hero-tarpon.jpg",
 	canonicalUrl = Astro.url.href,
-	schemaType = "TouristAttraction"
+	schemaType = "TouristAttraction",
+	// MODO DESARROLLO: noindex activado por defecto para proteger el SEO contra contenido duplicado en Google
+	noindex = true
 } = Astro.props;
 ---
 
@@ -30,11 +33,18 @@ const {
 		<!-- Canonical URL -->
 		<link rel="canonical" href={canonicalUrl} />
 
-		<!-- Primary Meta Tags (SEO & AEO) -->
+		<!-- Primary Meta Tags (SEO / Protective Mode) -->
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
-		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+		
+		<!-- PROTECCIÓN SEO: noindex, nofollow mientras el sitio esté en desarrollo -->
+		{noindex ? (
+			<meta name="robots" content="noindex, nofollow, noarchive" />
+			<meta name="googlebot" content="noindex, nofollow, noarchive" />
+		) : (
+			<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+		)}
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
@@ -56,7 +66,7 @@ const {
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
-		<!-- Structured Data JSON-LD (Schema.org for SEO & AEO) -->
+		<!-- Structured Data JSON-LD (Schema.org preparado para el lanzamiento) -->
 		<SeoSchema type={schemaType} name={title} description={description} image={image} />
 	</head>
 	<body class="bg-white text-slate-800 font-body antialiased min-h-screen flex flex-col selection:bg-robbies-ocean selection:text-white">

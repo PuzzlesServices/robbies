@@ -1,5 +1,8 @@
-User-agent: *
-Allow: /
+# DEV / STAGING ENVIRONMENT - PREVENT GOOGLE DUPLICATE CONTENT INDEXING
+# Change Disallow: / to Allow: / when launching to production!
 
-# Sitemap
-Sitemap: https://robbies.com/sitemap-index.xml
+User-agent: *
+Disallow: /
+
+# Production Sitemap (Ready for launch)
+# Sitemap: https://robbies.com/sitemap-index.xml
