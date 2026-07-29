@@ -1,0 +1,146 @@
+---
+const cards = [
+  {
+    id: "livecam",
+    title: "ISLAMORADA LIVECAM",
+    image: "/assets/home/imgi_16_islamorada.webp",
+    url: "https://www.robbies.com/webcam.htm",
+    shortText: "Not only do we bring you all the action on your docks, we are also now bringing you what's going on under the docks. See for yourself! Now on livecam from Islamorada!",
+    fullText: "Not only do we bring you all the action on your docks, we are also now bringing you what's going on under the docks. See for yourself! Now on livecam from Islamorada!",
+    hasToggle: false
+  },
+  {
+    id: "restaurant",
+    title: "HUNGRY TARPON RESTAURANT",
+    image: "/assets/home/imgi_17_Hungry-tarpon1.webp",
+    url: "https://www.robbies.com/hungry-tarpon-restaurant.htm",
+    shortText: "Experience a local's dining experience on the water at any time of the day. We are open at 6:30AM for the early birds & sunrise chasers, & close down around 9PM. Don",
+    fullText: "Experience a local's dining experience on the water at any time of the day. We are open at 6:30AM for the early birds & sunrise chasers, & close down around 9PM. Don't miss out on seeing the stars from the Hungry Tarpon deck if dining at night!",
+    hasToggle: true
+  },
+  {
+    id: "tarpon",
+    title: "FEED THE TARPON",
+    image: "/assets/home/imgi_18_feed-tarpon.webp",
+    url: "https://www.robbies.com/tarpon-feeding.htm",
+    shortText: "Maybe the \"Silver Kings\" just come here to see the humans, but toss a bait fish among them and the water churns as these monsters and the resident pelicans vie for the snack, caus",
+    fullText: "Maybe the \"Silver Kings\" just come here to see the humans, but toss a bait fish among them and the water churns as these monsters and the resident pelicans vie for the snack, causing quite a spectacle. Admission: $2.50 per person. Each bucket of fish is $5.00",
+    hasToggle: true
+  },
+  {
+    id: "shop",
+    title: "ROBBIE'S SHOP ONLINE",
+    image: "/assets/home/imgi_19_shop.webp",
+    url: "https://shop.robbies.com/",
+    shortText: "Explore the charm of the Florida Keys with Robbie's of Islamorada's online clothing collection. Browse our Shop Online section for a unique range of beachwear that captures the esse",
+    fullText: "Explore the charm of the Florida Keys with Robbie's of Islamorada's online clothing collection. Browse our Shop Online section for a unique range of beachwear that captures the essence of island living. From vibrant, comfortable designs to casual, chic apparel, find your perfect Keys-inspired outfit with ease and convenience. Shop now and bring a piece of Islamorada's charm into your wardrobe!",
+    hasToggle: true
+  }
+];
+---
+
+<section class="w-full bg-[#F8FAFC] py-14 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200">
+  <div class="max-w-[1400px] mx-auto">
+    
+    <!-- 4 Cards Grid Container (Equal Heights & Uniform Sizing) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-start">
+      {cards.map((card) => (
+        <div class="bg-white rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between overflow-hidden border border-slate-200/80 h-full">
+          
+          <!-- Card Content Top Section -->
+          <div>
+            <!-- Card Image -->
+            <div class="relative w-full aspect-[4/3] overflow-hidden bg-slate-100">
+              <img 
+                src={card.image} 
+                alt={card.title} 
+                class="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- Card Body Text Container -->
+            <div class="p-5 sm:p-6 text-center">
+              <!-- Title -->
+              <h3 class="font-heading font-black text-sm sm:text-base text-[#2B447A] uppercase tracking-wide mb-3 min-h-[40px] flex items-center justify-center">
+                {card.title}
+              </h3>
+
+              <!-- Description Text with Read More / Read Less Toggle -->
+              <div class="font-body text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                {card.hasToggle ? (
+                  <div class="card-text-wrapper" data-id={card.id}>
+                    <!-- Collapsed Text View -->
+                    <p class="collapsed-text inline">
+                      {card.shortText}
+                      <button 
+                        class="toggle-btn text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer"
+                        data-action="expand"
+                      >
+                        Read More &gt;&gt;
+                      </button>
+                    </p>
+
+                    <!-- Expanded Text View -->
+                    <p class="expanded-text hidden inline">
+                      {card.fullText}
+                      <button 
+                        class="toggle-btn text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer block mt-2 mx-auto"
+                        data-action="collapse"
+                      >
+                        Read Less
+                      </button>
+                    </p>
+                  </div>
+                ) : (
+                  <p>{card.fullText}</p>
+                )}
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom CTA Button Bar -->
+          <div class="mt-4">
+            <a 
+              href={card.url} 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="w-full bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-bold text-xs sm:text-sm py-3 px-6 text-right block transition-colors duration-200"
+            >
+              Learn More
+            </a>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Read More / Read Less Toggle Handler
+  const toggleButtons = document.querySelectorAll('.toggle-btn');
+
+  toggleButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = e.currentTarget as HTMLElement;
+      const wrapper = target.closest('.card-text-wrapper');
+      
+      if (!wrapper) return;
+
+      const collapsedText = wrapper.querySelector('.collapsed-text');
+      const expandedText = wrapper.querySelector('.expanded-text');
+      const action = target.getAttribute('data-action');
+
+      if (action === 'expand') {
+        collapsedText?.classList.add('hidden');
+        expandedText?.classList.remove('hidden');
+      } else {
+        expandedText?.classList.add('hidden');
+        collapsedText?.classList.remove('hidden');
+      }
+    });
+  });
+</script>
