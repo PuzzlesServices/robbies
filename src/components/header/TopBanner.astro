@@ -1,0 +1,125 @@
+---
+import { ChevronLeft, ChevronRight } from '@lucide/astro';
+
+const slides = [
+  {
+    textDesktop: "Trivia Night Every Tues. 6:30pm - 8:30pm at Hungry Tarpon Restaurant",
+    textMobile: "Trivia Night Every Tues. 6:30pm - 8:30pm",
+    url: "#"
+  },
+  {
+    textDesktop: "Click To Shop Robbie's Merch",
+    textMobile: "Tap To Shop Robbie's Merch",
+    url: "https://shop.robbies.com/"
+  },
+  {
+    textDesktop: "Click To Book A Fishing Trip",
+    textMobile: "Tap To Book A Fishing Trip",
+    url: "https://www.robbies.com/islamorada-fishing.htm"
+  },
+  {
+    textDesktop: "Click For Best Charter Boat Fishing in Islamorada",
+    textMobile: "Best Charter Boat Fishing in Islamorada",
+    url: "https://www.robbies.com/boat-rentals.htm"
+  }
+];
+---
+
+<div class="bg-[#2D55FF] text-white text-xs sm:text-sm font-semibold tracking-wide py-2 px-4 relative z-30 select-none overflow-hidden">
+  <div class="max-w-7xl mx-auto flex items-center justify-between">
+    <!-- Prev Arrow Button -->
+    <button 
+      id="prev-slide-btn"
+      aria-label="Previous announcement"
+      class="p-1 hover:bg-white/20 rounded transition-colors duration-150 focus:outline-none"
+    >
+      <ChevronLeft class="w-4 h-4 text-white" />
+    </button>
+
+    <!-- Slider Content Window -->
+    <div class="flex-1 overflow-hidden mx-3 text-center min-h-[22px] flex items-center justify-center">
+      <div id="slider-track" class="relative w-full h-[22px] flex items-center justify-center">
+        {slides.map((slide, index) => (
+          <div 
+            class={`slide-item absolute inset-0 flex items-center justify-center transition-all duration-500 ease-in-out ${index === 0 ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'}`}
+            data-index={index}
+          >
+            {slide.url !== '#' ? (
+              <a 
+                href={slide.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="hover:underline font-bold transition-opacity hover:opacity-90 inline-flex items-center gap-1 text-white drop-shadow-sm"
+              >
+                <span class="hidden sm:inline">{slide.textDesktop}</span>
+                <span class="inline sm:hidden">{slide.textMobile}</span>
+              </a>
+            ) : (
+              <span class="font-medium text-white drop-shadow-sm">
+                <span class="hidden sm:inline">{slide.textDesktop}</span>
+                <span class="inline sm:hidden">{slide.textMobile}</span>
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- Next Arrow Button -->
+    <button 
+      id="next-slide-btn"
+      aria-label="Next announcement"
+      class="p-1 hover:bg-white/20 rounded transition-colors duration-150 focus:outline-none"
+    >
+      <ChevronRight class="w-4 h-4 text-white" />
+    </button>
+  </div>
+</div>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.slide-item');
+  const totalSlides = slides.length;
+  let autoSlideTimer: number;
+
+  function showSlide(index: number) {
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+        slide.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+      } else {
+        slide.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+        slide.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+      }
+    });
+    currentIndex = index;
+  }
+
+  function nextSlide() {
+    const nextIndex = (currentIndex + 1) % totalSlides;
+    showSlide(nextIndex);
+  }
+
+  function prevSlide() {
+    const prevIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    showSlide(prevIndex);
+  }
+
+  function resetTimer() {
+    clearInterval(autoSlideTimer);
+    autoSlideTimer = window.setInterval(nextSlide, 4500);
+  }
+
+  document.getElementById('next-slide-btn')?.addEventListener('click', () => {
+    nextSlide();
+    resetTimer();
+  });
+
+  document.getElementById('prev-slide-btn')?.addEventListener('click', () => {
+    prevSlide();
+    resetTimer();
+  });
+
+  // Start auto rotate
+  resetTimer();
+</script>
