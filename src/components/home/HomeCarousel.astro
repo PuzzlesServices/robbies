@@ -1,0 +1,285 @@
+---
+import { ChevronLeft, ChevronRight } from '@lucide/astro';
+
+const slides = [
+  {
+    id: 1,
+    title: "PARTY BOAT FISHING",
+    subtitle: "Get ready for the fishing trip of a lifetime!",
+    buttonText: "BOOK ONLINE NOW",
+    buttonUrl: "https://www.robbies.com/islamorada-fishing.htm",
+    image: "/assets/home/imgi_195_CAPTAIN-MICHAEL-PARTYBOAT-FISHING.webp"
+  },
+  {
+    id: 2,
+    title: "BEACH DINING",
+    subtitle: "Monday - Saturday: 10:30 AM - Sunset<br />Sunday: 11 AM - Sunset",
+    buttonText: "",
+    buttonUrl: "#",
+    image: "/assets/home/imgi_30_Beach-Dining-is-Back-1.webp"
+  },
+  {
+    id: 3,
+    title: "THE HUNGRY TARPON RESTAURANT",
+    subtitle: "Keys-style waterfront Restaurant and Bar with scenic views and a tropical atmosphere!",
+    buttonText: "HUNGRY TARPON MENU",
+    buttonUrl: "https://www.robbies.com/hungry-tarpon-restaurant.htm",
+    image: "/assets/home/imgi_17_Hungry-tarpon1.webp"
+  },
+  {
+    id: 4,
+    title: "FEED THE TARPON",
+    subtitle: "Best Tarpon Feeding in Islamorada, Florida",
+    buttonText: "LEARN MORE",
+    buttonUrl: "https://www.robbies.com/tarpon-feeding.htm",
+    image: "/assets/home/imgi_18_feed-tarpon.webp"
+  },
+  {
+    id: 5,
+    title: "FLORIDA KEYS SNORKELING",
+    subtitle: "Best Snorkeling Tours in Islamorada, Florida",
+    buttonText: "BOOK ONLINE NOW",
+    buttonUrl: "https://www.robbies.com/",
+    image: "/assets/home/imgi_196_FLORIDA-KEYS-SNORKELING-TOURS.webp"
+  },
+  {
+    id: 6,
+    title: "EXPERIENCE LUXURY ON FOUR ACES",
+    subtitle: "Experience Luxury on Four Aces",
+    buttonText: "LEARN MORE",
+    buttonUrl: "https://www.robbies.com/",
+    image: "/assets/home/imgi_198_FOUR-ACES-LUXURY-YACHT-CHARTER.webp"
+  }
+];
+---
+
+<!-- Full-Width Interactive Showcase Carousel (100% Real Images, Mouse Drag, Touch Swipe & Indicator Bar) -->
+<section class="w-full relative overflow-hidden bg-slate-900 select-none py-2">
+  <div 
+    id="home-carousel-wrapper"
+    class="relative w-full h-[50vh] sm:h-[60vh] md:h-[68vh] lg:h-[75vh] min-h-[400px] max-h-[700px] cursor-grab active:cursor-grabbing overflow-hidden"
+  >
+    <!-- Slides Track -->
+    <div id="home-carousel-track" class="w-full h-full relative">
+      {slides.map((slide, index) => (
+        <div 
+          class={`carousel-slide absolute inset-0 w-full h-full transition-all duration-700 ease-in-out ${index === 0 ? 'opacity-100 z-10 scale-100 pointer-events-auto' : 'opacity-0 z-0 scale-95 pointer-events-none'}`}
+          data-index={index}
+        >
+          <!-- Background Image (100% Real Original sin Filtros ni Capas Oscuras) -->
+          <img 
+            src={slide.image} 
+            alt={slide.title} 
+            class="w-full h-full object-cover block"
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+
+          <!-- Overlay Text Content Box -->
+          <div class="absolute inset-0 z-20 max-w-[1180px] mx-auto px-6 sm:px-12 md:px-16 flex items-center justify-center sm:justify-start">
+            <div class="max-w-xl text-center sm:text-left text-white my-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+              
+              <!-- Title -->
+              <h2 class="font-heading font-black text-2xl xs:text-3xl sm:text-4xl md:text-[44px] lg:text-[50px] text-white tracking-tight uppercase leading-[1.15] mb-2 sm:mb-3 drop-shadow-[0_3px_10px_rgba(0,0,0,0.9)]">
+                {slide.title}
+              </h2>
+
+              <!-- Subtitle -->
+              <p class="font-heading font-normal text-sm sm:text-lg md:text-xl lg:text-[22px] text-white/95 tracking-wide mb-6 sm:mb-8 leading-snug drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]" set:html={slide.subtitle}>
+              </p>
+
+              <!-- CTA Button -->
+              {slide.buttonText && (
+                <div>
+                  <a 
+                    href={slide.buttonUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-8 sm:px-10 py-3 sm:py-3.5 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border border-white/20"
+                  >
+                    {slide.buttonText}
+                  </a>
+                </div>
+              )}
+
+            </div>
+          </div>
+
+        </div>
+      ))}
+    </div>
+
+    <!-- Navigation Arrow Left (<) -->
+    <button 
+      id="carousel-prev-btn"
+      aria-label="Previous Slide"
+      class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3.5 bg-black/35 hover:bg-[#2B447A] text-white rounded-full transition-all duration-200 focus:outline-none backdrop-blur-xs border border-white/20 hover:scale-110 cursor-pointer shadow-lg"
+    >
+      <ChevronLeft class="w-6 h-6 sm:w-8 sm:h-8 stroke-[2.5]" />
+    </button>
+
+    <!-- Navigation Arrow Right (>) -->
+    <button 
+      id="carousel-next-btn"
+      aria-label="Next Slide"
+      class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-30 p-2.5 sm:p-3.5 bg-black/35 hover:bg-[#2B447A] text-white rounded-full transition-all duration-200 focus:outline-none backdrop-blur-xs border border-white/20 hover:scale-110 cursor-pointer shadow-lg"
+    >
+      <ChevronRight class="w-6 h-6 sm:w-8 sm:h-8 stroke-[2.5]" />
+    </button>
+
+    <!-- Interactive Bottom Indicator Bar & Navigation Dots -->
+    <div class="absolute bottom-5 inset-x-0 z-30 flex flex-col items-center justify-center space-y-2">
+      <!-- Indicators Track -->
+      <div class="flex items-center space-x-2.5 sm:space-x-3 bg-black/40 backdrop-blur-md px-4 py-2 rounded-full border border-white/20">
+        {slides.map((_, index) => (
+          <button 
+            type="button" 
+            class={`carousel-indicator-dot h-2.5 rounded-full transition-all duration-300 cursor-pointer ${index === 0 ? 'w-8 bg-white' : 'w-2.5 bg-white/50 hover:bg-white/80'}`}
+            data-index={index}
+            aria-label={`Go to slide ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Inline Script for Carousel Navigation, Mouse Drag & Touch Swipe -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', initHomeCarousel);
+  document.addEventListener('astro:page-load', initHomeCarousel);
+
+  function initHomeCarousel() {
+    const wrapper = document.getElementById('home-carousel-wrapper');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const dots = document.querySelectorAll('.carousel-indicator-dot');
+    const prevBtn = document.getElementById('carousel-prev-btn');
+    const nextBtn = document.getElementById('carousel-next-btn');
+
+    if (!wrapper || slides.length === 0) return;
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+    let autoRotateTimer;
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    function goToSlide(index) {
+      const targetIndex = (index + totalSlides) % totalSlides;
+      
+      slides.forEach((slide, i) => {
+        if (i === targetIndex) {
+          slide.classList.remove('opacity-0', 'z-0', 'scale-95', 'pointer-events-none');
+          slide.classList.add('opacity-100', 'z-10', 'scale-100', 'pointer-events-auto');
+        } else {
+          slide.classList.remove('opacity-100', 'z-10', 'scale-100', 'pointer-events-auto');
+          slide.classList.add('opacity-0', 'z-0', 'scale-95', 'pointer-events-none');
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === targetIndex) {
+          dot.classList.remove('w-2.5', 'bg-white/50');
+          dot.classList.add('w-8', 'bg-white');
+        } else {
+          dot.classList.remove('w-8', 'bg-white');
+          dot.classList.add('w-2.5', 'bg-white/50');
+        }
+      });
+
+      currentIndex = targetIndex;
+    }
+
+    function nextSlide() {
+      goToSlide(currentIndex + 1);
+    }
+
+    function prevSlide() {
+      goToSlide(currentIndex - 1);
+    }
+
+    function resetAutoRotate() {
+      clearInterval(autoRotateTimer);
+      autoRotateTimer = setInterval(nextSlide, 5000);
+    }
+
+    // Button Click Listeners
+    nextBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nextSlide();
+      resetAutoRotate();
+    });
+
+    prevBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      prevSlide();
+      resetAutoRotate();
+    });
+
+    // Indicator Dot Clicks
+    dots.forEach((dot) => {
+      dot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const idx = parseInt(dot.getAttribute('data-index') || '0', 10);
+        goToSlide(idx);
+        resetAutoRotate();
+      });
+    });
+
+    // Mouse Drag & Touch Swipe Support
+    wrapper.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      currentX = e.clientX;
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX;
+    });
+
+    wrapper.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diffX = currentX - startX;
+      if (diffX < -40) {
+        nextSlide();
+        resetAutoRotate();
+      } else if (diffX > 40) {
+        prevSlide();
+        resetAutoRotate();
+      }
+    });
+
+    // Touch events for mobile swiping
+    wrapper.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+      currentX = e.touches[0].clientX;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diffX = currentX - startX;
+      if (diffX < -40) {
+        nextSlide();
+        resetAutoRotate();
+      } else if (diffX > 40) {
+        prevSlide();
+        resetAutoRotate();
+      }
+    });
+
+    // Start auto rotation
+    resetAutoRotate();
+  }
+
+  initHomeCarousel();
+</script>
