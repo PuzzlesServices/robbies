@@ -23,26 +23,23 @@ const {
 ---
 
 <section class="relative w-full min-h-[480px] h-[72vh] md:h-[78vh] lg:h-[84vh] max-h-[800px] overflow-hidden bg-slate-950 flex items-center">
-  <!-- Background Video -->
+  <!-- Background Video (Original sin filtros ni oscurecimiento) -->
   <video 
     autoplay 
     loop 
     muted 
     playsinline 
     poster="/assets/home/imgi_18_feed-tarpon.webp"
-    class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.88]"
+    class="absolute inset-0 w-full h-full object-cover z-0"
   >
     <source src={videoSrc} type="video/mp4" />
     Your browser does not support the video tag.
   </video>
 
-  <!-- Overlay Dark Gradient to ensure optimal legibility -->
-  <div class="absolute inset-0 bg-gradient-to-r from-black/65 via-black/40 to-black/25 z-10"></div>
-
-  <!-- Hero Content Container -->
+  <!-- Hero Content Container (Sin capa oscura sobre el video) -->
   <div class="relative z-20 max-w-[1440px] w-full mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex items-center justify-between h-full py-8">
     
-    <!-- Left Column: Crown, 2-line Title, Prominent Subtitle, Elongated CTA Button -->
+    <!-- Left Column: Crown, 2-line Title, Subtitle (font-400), Elongated CTA Button -->
     <div class="max-w-xl lg:max-w-2xl text-white my-auto">
       
       <!-- Crown Icon -->
@@ -56,14 +53,14 @@ const {
         </div>
       )}
 
-      <!-- Main 2-Line Heading (Refined: ~10px smaller than previous version) -->
+      <!-- Main 2-Line Heading (Montserrat Black) -->
       <h1 class="font-heading font-black text-xl xs:text-2xl sm:text-3xl md:text-[38px] lg:text-[44px] xl:text-[48px] text-white tracking-tight uppercase leading-[1.15] mb-2 sm:mb-3 drop-shadow-[0_3px_10px_rgba(0,0,0,0.8)]">
         <span>{line1}</span><br />
         <span>{line2}</span>
       </h1>
 
-      <!-- Prominent Subtitle (+10px larger) -->
-      <p class="font-heading font-bold text-sm xs:text-base sm:text-lg md:text-[21px] lg:text-[24px] text-white/95 tracking-wider uppercase mb-6 sm:mb-8 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] leading-snug">
+      <!-- Subtitle (font-normal / weight 400 como fue solicitado) -->
+      <p class="font-heading font-normal text-sm xs:text-base sm:text-lg md:text-[21px] lg:text-[24px] text-white/95 tracking-wider uppercase mb-6 sm:mb-8 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] leading-snug">
         {subtitle}
       </p>
 
