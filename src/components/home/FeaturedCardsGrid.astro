@@ -43,7 +43,7 @@ const cards = [
   <div class="max-w-[1400px] mx-auto">
     
     <!-- 4 Cards Grid Container (Equal Heights & Uniform Sizing) -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-start">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 items-stretch">
       {cards.map((card) => (
         <div class="bg-white rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col justify-between overflow-hidden border border-slate-200/80 h-full">
           
@@ -69,28 +69,30 @@ const cards = [
               <!-- Description Text with Read More / Read Less Toggle -->
               <div class="font-body text-slate-600 text-xs sm:text-[13px] leading-relaxed">
                 {card.hasToggle ? (
-                  <div class="card-text-wrapper" data-id={card.id}>
+                  <div class="card-text-wrapper" id={`wrapper-${card.id}`}>
                     <!-- Collapsed Text View -->
-                    <p class="collapsed-text inline">
-                      {card.shortText}
+                    <div class="collapsed-view">
+                      <span>{card.shortText}</span>
                       <button 
-                        class="toggle-btn text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer"
-                        data-action="expand"
+                        type="button"
+                        class="btn-expand text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer inline-block"
+                        data-target={`wrapper-${card.id}`}
                       >
                         Read More &gt;&gt;
                       </button>
-                    </p>
+                    </div>
 
                     <!-- Expanded Text View -->
-                    <p class="expanded-text hidden inline">
-                      {card.fullText}
+                    <div class="expanded-view hidden">
+                      <span>{card.fullText}</span>
                       <button 
-                        class="toggle-btn text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer block mt-2 mx-auto"
-                        data-action="collapse"
+                        type="button"
+                        class="btn-collapse text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer block mt-2 mx-auto"
+                        data-target={`wrapper-${card.id}`}
                       >
                         Read Less
                       </button>
-                    </p>
+                    </div>
                   </div>
                 ) : (
                   <p>{card.fullText}</p>
@@ -99,13 +101,13 @@ const cards = [
             </div>
           </div>
 
-          <!-- Bottom CTA Button Bar -->
+          <!-- Bottom CTA Button Bar (Centrado según especificación de cliente) -->
           <div class="mt-4">
             <a 
               href={card.url} 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="w-full bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-bold text-xs sm:text-sm py-3 px-6 text-right block transition-colors duration-200"
+              class="w-full bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-bold text-xs sm:text-sm py-3 px-6 text-center block transition-colors duration-200 uppercase tracking-wider"
             >
               Learn More
             </a>
@@ -118,29 +120,47 @@ const cards = [
   </div>
 </section>
 
-<script>
-  // Read More / Read Less Toggle Handler
-  const toggleButtons = document.querySelectorAll('.toggle-btn');
-
-  toggleButtons.forEach((btn) => {
-    btn.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = e.currentTarget as HTMLElement;
-      const wrapper = target.closest('.card-text-wrapper');
-      
-      if (!wrapper) return;
-
-      const collapsedText = wrapper.querySelector('.collapsed-text');
-      const expandedText = wrapper.querySelector('.expanded-text');
-      const action = target.getAttribute('data-action');
-
-      if (action === 'expand') {
-        collapsedText?.classList.add('hidden');
-        expandedText?.classList.remove('hidden');
-      } else {
-        expandedText?.classList.add('hidden');
-        collapsedText?.classList.remove('hidden');
-      }
-    });
+<!-- Script Inline ejecutable 100% garantizado en navegador -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    initReadMore();
   });
+
+  // Re-run in case of Astro view transitions or dynamic loads
+  document.addEventListener('astro:page-load', () => {
+    initReadMore();
+  });
+
+  function initReadMore() {
+    document.querySelectorAll('.btn-expand').forEach((btn) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        const targetId = btn.getAttribute('data-target');
+        const wrapper = document.getElementById(targetId);
+        if (wrapper) {
+          const collapsed = wrapper.querySelector('.collapsed-view');
+          const expanded = wrapper.querySelector('.expanded-view');
+          collapsed?.classList.add('hidden');
+          expanded?.classList.remove('hidden');
+        }
+      };
+    });
+
+    document.querySelectorAll('.btn-collapse').forEach((btn) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        const targetId = btn.getAttribute('data-target');
+        const wrapper = document.getElementById(targetId);
+        if (wrapper) {
+          const collapsed = wrapper.querySelector('.collapsed-view');
+          const expanded = wrapper.querySelector('.expanded-view');
+          expanded?.classList.add('hidden');
+          collapsed?.classList.remove('hidden');
+        }
+      };
+    });
+  }
+
+  // Initial execution immediately
+  initReadMore();
 </script>
