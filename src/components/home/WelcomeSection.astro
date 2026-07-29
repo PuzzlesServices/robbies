@@ -9,19 +9,47 @@
       Welcome to Robbie’s Marina of Islamorada
     </h2>
 
-    <!-- Body Paragraph with Inline Read More Link -->
-    <p class="font-body text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed max-w-3xl mb-8">
-      Home of the world-famous tarpon feeding! Here, you can discover the exciting things to do in the Florida Keys during your stop at Robbie's.
-      Whether you want to hand-feed massive tarpon, seek some thrills with our water sports, or stock up on handcrafted souvenirs 
-      <a 
-        href="https://www.robbies.com/" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        class="text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 whitespace-nowrap"
-      >
-        Read More &gt;&gt;
-      </a>
-    </p>
+    <!-- Body Paragraph Container with Read More / Read Less Interactive Toggle -->
+    <div id="welcome-text-wrapper" class="font-body text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed max-w-3xl mb-8">
+      
+      <!-- Collapsed State (First Paragraph + Read More >>) -->
+      <div id="welcome-collapsed" class="block">
+        <p>
+          Home of the world-famous tarpon feeding! Here, you can discover the exciting things to do in the Florida Keys during your stop at Robbie’s.
+          <button 
+            type="button" 
+            id="welcome-read-more-btn"
+            class="text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer whitespace-nowrap inline-block"
+          >
+            Read More &gt;&gt;
+          </button>
+        </p>
+      </div>
+
+      <!-- Expanded State (All 3 Paragraphs + Read Less) -->
+      <div id="welcome-expanded" class="hidden space-y-4 text-left sm:text-center">
+        <p>
+          Home of the world-famous tarpon feeding! Here, you can discover the exciting things to do in the Florida Keys during your stop at Robbie’s.
+        </p>
+        <p>
+          Whether you want to hand-feed massive tarpon, seek some thrills with our water sports, or stock up on handcrafted souvenirs at our fun, local shops, we’ve got something for everyone at Robbie’s. Gorge on fresh, delicious seafood and sip one of our signature cocktails, local draft beer, or our famous loaded Trailer Trash Bloody Mary on the waterfront deck and enjoy the show of the tarpon feeding frenzy!
+        </p>
+        <p>
+          As a must-visit destination in the Florida Keys, our site shares what to do and where to eat at Robbie’s Marina of Islamorada to help you plan your stop and create memorable moments with your family and friends. Remember, it’s not a trip to the Keys without a visit to Robbie’s!
+        </p>
+        
+        <div class="pt-2 text-center">
+          <button 
+            type="button" 
+            id="welcome-read-less-btn"
+            class="text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity cursor-pointer inline-block"
+          >
+            Read Less
+          </button>
+        </div>
+      </div>
+
+    </div>
 
     <!-- Pill CTA Button ("View Our Live Webcam") -->
     <div>
@@ -37,3 +65,42 @@
 
   </div>
 </section>
+
+<!-- Inline Script para Toggle 100% Funcional del Welcome Text -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    initWelcomeToggle();
+  });
+
+  document.addEventListener('astro:page-load', () => {
+    initWelcomeToggle();
+  });
+
+  function initWelcomeToggle() {
+    const collapsedView = document.getElementById('welcome-collapsed');
+    const expandedView = document.getElementById('welcome-expanded');
+    const readMoreBtn = document.getElementById('welcome-read-more-btn');
+    const readLessBtn = document.getElementById('welcome-read-less-btn');
+
+    if (readMoreBtn && readLessBtn && collapsedView && expandedView) {
+      readMoreBtn.onclick = (e) => {
+        e.preventDefault();
+        collapsedView.classList.add('hidden');
+        collapsedView.classList.remove('block');
+        expandedView.classList.remove('hidden');
+        expandedView.classList.add('block');
+      };
+
+      readLessBtn.onclick = (e) => {
+        e.preventDefault();
+        expandedView.classList.add('hidden');
+        expandedView.classList.remove('block');
+        collapsedView.classList.remove('hidden');
+        collapsedView.classList.add('block');
+      };
+    }
+  }
+
+  // Run immediately
+  initWelcomeToggle();
+</script>
