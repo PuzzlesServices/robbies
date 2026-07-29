@@ -1,0 +1,69 @@
+---
+---
+
+<section class="relative w-full min-h-[500px] h-[75vh] md:h-[82vh] lg:h-[88vh] max-h-[850px] overflow-hidden bg-slate-950 flex items-center">
+  <!-- Background Video -->
+  <video 
+    autoplay 
+    loop 
+    muted 
+    playsinline 
+    poster="/assets/home/imgi_18_feed-tarpon.webp"
+    class="absolute inset-0 w-full h-full object-cover z-0 filter brightness-[0.9]"
+  >
+    <source src="/assets/home/ROBBIES_BANNER-VIDEO-RESUME-V5.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+
+  <!-- Overlay Dark Gradient to ensure high text contrast and legibility -->
+  <div class="absolute inset-0 bg-gradient-to-r from-black/60 via-black/35 to-black/20 z-10"></div>
+
+  <!-- Hero Content Container -->
+  <div class="relative z-20 max-w-[1440px] w-full mx-auto px-6 sm:px-10 md:px-14 lg:px-16 flex items-center justify-between h-full">
+    
+    <!-- Left Column: Crown, Title, Subtitle, CTA Button -->
+    <div class="max-w-2xl text-white my-auto pt-6 pb-10">
+      
+      <!-- Crown Icon -->
+      <div class="mb-3 sm:mb-4">
+        <img 
+          src="/assets/home/imgi_7_CROWN-2.png" 
+          alt="Crown Icon" 
+          class="h-8 sm:h-10 md:h-12 w-auto object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]"
+        />
+      </div>
+
+      <!-- Main Heading (Montserrat ExtraBold / Black) -->
+      <h1 class="font-heading font-black text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white tracking-tight uppercase leading-[1.1] mb-3 sm:mb-4 drop-shadow-[0_3px_10px_rgba(0,0,0,0.7)]">
+        VOTED THE #1 PLACE <br class="hidden sm:inline" />
+        IN THE FLORIDA KEYS
+      </h1>
+
+      <!-- Subtitle -->
+      <p class="font-heading font-bold text-xs sm:text-sm md:text-base lg:text-lg text-white/95 tracking-wider uppercase mb-6 sm:mb-8 drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)] max-w-xl">
+        THAT EVERY TOURIST SHOULD VISIT
+      </p>
+
+      <!-- CTA Button ("Learn More") -->
+      <div>
+        <a 
+          href="https://www.robbies.com/" 
+          class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm md:text-base px-6 py-2.5 sm:px-8 sm:py-3.5 rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border border-white/20"
+        >
+          Learn More
+        </a>
+      </div>
+
+    </div>
+
+    <!-- Right Column: 50th Anniversary Badge -->
+    <div class="absolute top-6 right-6 sm:top-10 sm:right-10 md:top-12 md:right-14 z-20 pointer-events-none">
+      <img 
+        src="/assets/home/imgi_194_fb89dc4f136928a42a32991b5ec49634.Banner_50th.png" 
+        alt="50 Years of Adventure - Florida Keys" 
+        class="w-20 xs:w-24 sm:w-32 md:w-40 lg:w-48 h-auto object-contain drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)] animate-fade-in"
+      />
+    </div>
+
+  </div>
+</section>

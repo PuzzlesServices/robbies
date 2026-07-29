@@ -24,7 +24,7 @@ const navItems = [
     <div class="max-w-[1440px] mx-auto flex items-center justify-between gap-2 lg:gap-4">
       
       <!-- Brand Logo -->
-      <a href="/" class="flex-shrink-0 flex items-center group transition-transform duration-200 hover:scale-[1.01]">
+      <a href="/" class="flex-shrink-0 flex items-center group transition-transform duration-200 hover:opacity-95">
         <img 
           src="/assets/common/robbies_logo_mobile.webp" 
           alt="Robbie's of Islamorada" 
@@ -40,7 +40,7 @@ const navItems = [
             <li class="flex items-center">
               <a 
                 href={item.url} 
-                class="hover:text-amber-300 transition-colors duration-200 py-1 px-1.5 lg:px-2 uppercase whitespace-nowrap"
+                class="hover:opacity-80 transition-opacity duration-200 py-1 px-1.5 lg:px-2 uppercase whitespace-nowrap"
               >
                 {item.name}
               </a>
@@ -59,7 +59,7 @@ const navItems = [
           href="https://shop.robbies.com/" 
           target="_blank"
           aria-label="Shop Robbie's Merch"
-          class="hover:text-amber-300 transition-colors duration-200 p-1.5 rounded-full hover:bg-white/10"
+          class="hover:opacity-80 transition-opacity duration-200 p-1.5 rounded-full hover:bg-white/10"
           title="Shop Merch"
         >
           <ShoppingBag class="w-5 h-5 stroke-[2]" />
@@ -69,16 +69,16 @@ const navItems = [
         <button 
           id="search-trigger-btn"
           aria-label="Search Robbie's site"
-          class="hover:text-amber-300 transition-colors duration-200 p-1.5 rounded-full hover:bg-white/10 focus:outline-none"
+          class="hover:opacity-80 transition-opacity duration-200 p-1.5 rounded-full hover:bg-white/10 focus:outline-none"
           title="Search"
         >
           <Search class="w-5 h-5 stroke-[2]" />
         </button>
 
-        <!-- Phone Contact (Pixel-perfect exact replica from image) -->
+        <!-- Phone Contact -->
         <a 
           href="tel:3056648070" 
-          class="flex items-center space-x-2 text-white hover:text-amber-300 transition-colors duration-200 font-bold text-xs lg:text-sm tracking-wide ml-1"
+          class="flex items-center space-x-2 text-white hover:opacity-85 transition-opacity duration-200 font-bold text-xs lg:text-sm tracking-wide ml-1"
         >
           <Phone class="w-4 h-4 fill-white stroke-none flex-shrink-0" />
           <span class="whitespace-nowrap">(305) 664-8070</span>
@@ -117,7 +117,7 @@ const navItems = [
       {navItems.map((item) => (
         <a 
           href={item.url} 
-          class="text-white hover:text-amber-300 text-base sm:text-lg font-extrabold tracking-wider py-2.5 border-b border-white/10 uppercase transition-colors"
+          class="text-white hover:opacity-80 text-base sm:text-lg font-extrabold tracking-wider py-2.5 border-b border-white/10 uppercase transition-opacity"
         >
           {item.name}
         </a>
@@ -127,7 +127,7 @@ const navItems = [
         <a 
           href="https://shop.robbies.com/" 
           target="_blank"
-          class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-xl text-center flex items-center justify-center space-x-2 shadow-md transition-colors text-sm"
+          class="w-full py-3 bg-[#2B55FF] hover:bg-[#1D4ED8] text-white font-bold rounded-xl text-center flex items-center justify-center space-x-2 shadow-md transition-colors text-sm"
         >
           <ShoppingBag class="w-4 h-4" />
           <span>Shop Robbie's Merch</span>
@@ -169,12 +169,12 @@ const navItems = [
           type="text" 
           name="q"
           placeholder="What are you looking for?"
-          class="flex-1 bg-white/10 text-white placeholder-slate-300 px-4 py-2.5 rounded-xl border border-white/20 focus:outline-none focus:border-amber-400 text-sm"
+          class="flex-1 bg-white/10 text-white placeholder-slate-300 px-4 py-2.5 rounded-xl border border-white/20 focus:outline-none focus:border-[#2B55FF] text-sm"
           required
         />
         <button 
           type="submit"
-          class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl transition-colors flex items-center space-x-1 text-sm"
+          class="bg-[#2B55FF] hover:bg-[#1D4ED8] text-white font-bold px-5 py-2.5 rounded-xl transition-colors flex items-center space-x-1 text-sm"
         >
           <Search class="w-4 h-4" />
           <span>Search</span>
