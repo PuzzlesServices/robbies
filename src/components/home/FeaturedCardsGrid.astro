@@ -1,14 +1,12 @@
 ---
-import { ChevronDown } from '@lucide/astro';
-
 const cards = [
   {
     id: "livecam",
     title: "ISLAMORADA LIVECAM",
     image: "/assets/home/imgi_16_islamorada.webp",
     url: "https://www.robbies.com/webcam.htm",
-    shortText: "Not only do we bring you all the action on your docks, we are also now bringing you what's going on under the docks. See for yourself! Now on livecam from Islamorada!",
-    fullText: "Not only do we bring you all the action on your docks, we are also now bringing you what's going on under the docks. See for yourself! Now on livecam from Islamorada!",
+    baseText: "Not only do we bring you all the action on your docks, we are also now bringing you what’s going on under the docks. See for yourself! Now on livecam from Islamorada!",
+    extraText: "",
     hasToggle: false
   },
   {
@@ -16,8 +14,8 @@ const cards = [
     title: "HUNGRY TARPON RESTAURANT",
     image: "/assets/home/imgi_17_Hungry-tarpon1.webp",
     url: "https://www.robbies.com/hungry-tarpon-restaurant.htm",
-    shortText: "Experience a local's dining experience on the water at any time of the day. We are open at 6:30AM for the early birds & sunrise chasers, & close down around 9PM. Don",
-    fullText: "Experience a local's dining experience on the water at any time of the day. We are open at 6:30AM for the early birds & sunrise chasers, & close down around 9PM. Don't miss out on seeing the stars from the Hungry Tarpon deck if dining at night!",
+    baseText: "Experience a local’s dining experience on the water at any time of the day. We are open at 6:30AM for the early birds & sunrise chasers, & close down around 9PM. Don’t miss out",
+    extraText: " on seeing the stars from the Hungry Tarpon deck if dining at night!",
     hasToggle: true
   },
   {
@@ -25,17 +23,17 @@ const cards = [
     title: "FEED THE TARPON",
     image: "/assets/home/imgi_18_feed-tarpon.webp",
     url: "https://www.robbies.com/tarpon-feeding.htm",
-    shortText: "Maybe the \"Silver Kings\" just come here to see the humans, but toss a bait fish among them and the water churns as these monsters and the resident pelicans vie for the snack, caus",
-    fullText: "Maybe the \"Silver Kings\" just come here to see the humans, but toss a bait fish among them and the water churns as these monsters and the resident pelicans vie for the snack, causing quite a spectacle. Admission: $2.50 per person. Each bucket of fish is $5.00",
+    baseText: "Maybe the “Silver Kings” just come here to see the humans, but toss a bait fish among them and the water churns as these monsters and the resident pelicans vie for the snack, causing quite a spectacle. Admission: $2.50 per person.",
+    extraText: "Each bucket of fish is $5.00",
     hasToggle: true
   },
   {
     id: "shop",
-    title: "ROBBIE'S SHOP ONLINE",
+    title: "ROBBIE’S SHOP ONLINE",
     image: "/assets/home/imgi_19_shop.webp",
     url: "https://shop.robbies.com/",
-    shortText: "Explore the charm of the Florida Keys with Robbie's of Islamorada's online clothing collection. Browse our Shop Online section for a unique range of beachwear that captures the esse",
-    fullText: "Explore the charm of the Florida Keys with Robbie's of Islamorada's online clothing collection. Browse our Shop Online section for a unique range of beachwear that captures the essence of island living. From vibrant, comfortable designs to casual, chic apparel, find your perfect Keys-inspired outfit with ease and convenience. Shop now and bring a piece of Islamorada's charm into your wardrobe!",
+    baseText: "Explore the charm of the Florida Keys with Robbie’s of Islamorada’s online clothing collection. Browse our Shop Online section for a unique range of beachwear that captures the essence of island living.",
+    extraText: " From vibrant, comfortable designs to casual, chic apparel, find your perfect Keys-inspired outfit with ease and convenience. Shop now and bring a piece of Islamorada’s charm into your wardrobe!",
     hasToggle: true
   }
 ];
@@ -62,46 +60,27 @@ const cards = [
             </div>
 
             <!-- Card Body Text Container -->
-            <div class="p-5 sm:p-6 text-center">
-              <!-- Title -->
-              <h3 class="font-heading font-black text-sm sm:text-base text-[#2B447A] uppercase tracking-wide mb-3 min-h-[40px] flex items-center justify-center">
+            <div class="p-5 sm:p-6">
+              <!-- Title (Centrado) -->
+              <h3 class="font-heading font-black text-sm sm:text-base text-[#2B447A] uppercase tracking-wide mb-3 text-center">
                 {card.title}
               </h3>
 
-              <!-- Description Text with Smooth Read More / Read Less Toggle -->
-              <div class="font-body text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+              <!-- Description Text (Alineado a la Derecha sin Huecos Vacíos) -->
+              <div class="font-body text-slate-600 text-xs sm:text-[13px] leading-relaxed text-right">
                 {card.hasToggle ? (
-                  <div class="card-toggle-wrapper" id={`card-wrapper-${card.id}`}>
-                    
-                    <!-- Short Base Text -->
-                    <p class="inline">
-                      {card.shortText}
-                    </p>
-
-                    <!-- Expandable Text Content (Smooth CSS Grid Rows Animation) -->
-                    <div 
-                      class="card-expand-content grid grid-rows-[0fr] opacity-0 transition-all duration-500 ease-in-out overflow-hidden"
+                  <p class="inline-card-wrapper" id={`card-wrapper-${card.id}`}>
+                    <span class="base-text">{card.baseText}</span>
+                    <span class="extra-text hidden">{card.extraText}</span>
+                    <button 
+                      type="button" 
+                      class="card-toggle-btn text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer inline-whitespace-nowrap"
                     >
-                      <div class="overflow-hidden pt-1">
-                        <span>{card.fullText.replace(card.shortText, '')}</span>
-                      </div>
-                    </div>
-
-                    <!-- Styled Toggle Button with Chevron Icon -->
-                    <div class="pt-2 text-center">
-                      <button 
-                        type="button"
-                        class="card-toggle-btn inline-flex items-center gap-1 text-[#2B447A] font-extrabold text-xs hover:opacity-80 transition-opacity cursor-pointer px-2 py-0.5 rounded-full hover:bg-blue-50"
-                        data-[#2B447A]
-                      >
-                        <span class="btn-label">Read More</span>
-                        <ChevronDown class="btn-icon w-3.5 h-3.5 transition-transform duration-300 stroke-[2.5]" />
-                      </button>
-                    </div>
-
-                  </div>
+                      <span class="btn-text">Read More &gt;&gt;</span>
+                    </button>
+                  </p>
                 ) : (
-                  <p>{card.fullText}</p>
+                  <p>{card.baseText}</p>
                 )}
               </div>
             </div>
@@ -143,19 +122,18 @@ const cards = [
   }
 </style>
 
-<!-- Inline Script for Card Read More Toggle with Smooth Expansion -->
+<!-- Inline Script for Card Read More Inline Toggle (Zero Gap) -->
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', initCardToggles);
-  document.addEventListener('astro:page-load', initCardToggles);
+  document.addEventListener('DOMContentLoaded', initCardInlineToggles);
+  document.addEventListener('astro:page-load', initCardInlineToggles);
 
-  function initCardToggles() {
-    document.querySelectorAll('.card-toggle-wrapper').forEach((wrapper) => {
+  function initCardInlineToggles() {
+    document.querySelectorAll('.inline-card-wrapper').forEach((wrapper) => {
       const btn = wrapper.querySelector('.card-toggle-btn');
-      const content = wrapper.querySelector('.card-expand-content');
-      const label = wrapper.querySelector('.btn-label');
-      const icon = wrapper.querySelector('.btn-icon');
+      const extraText = wrapper.querySelector('.extra-text');
+      const btnText = wrapper.querySelector('.btn-text');
 
-      if (btn && content && label && icon) {
+      if (btn && extraText && btnText) {
         let isExpanded = false;
 
         btn.onclick = (e) => {
@@ -163,20 +141,16 @@ const cards = [
           isExpanded = !isExpanded;
 
           if (isExpanded) {
-            content.classList.remove('grid-rows-[0fr]', 'opacity-0');
-            content.classList.add('grid-rows-[1fr]', 'opacity-100');
-            label.textContent = 'Read Less';
-            icon.style.transform = 'rotate(180deg)';
+            extraText.classList.remove('hidden');
+            btnText.innerHTML = 'Read Less';
           } else {
-            content.classList.remove('grid-rows-[1fr]', 'opacity-100');
-            content.classList.add('grid-rows-[0fr]', 'opacity-0');
-            label.textContent = 'Read More';
-            icon.style.transform = 'rotate(0deg)';
+            extraText.classList.add('hidden');
+            btnText.innerHTML = 'Read More &gt;&gt;';
           }
         };
       }
     });
   }
 
-  initCardToggles();
+  initCardInlineToggles();
 </script>
