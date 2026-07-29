@@ -1,16 +1,21 @@
 ---
 import '../styles/global.css';
+import SeoSchema from '../components/common/SeoSchema.astro';
 
 interface Props {
 	title?: string;
 	description?: string;
 	image?: string;
+	canonicalUrl?: string;
+	schemaType?: 'LocalBusiness' | 'TouristAttraction' | 'WebSite';
 }
 
 const { 
 	title = "Robbie’s of Islamorada | Voted #1 Place To Visit in Florida Keys", 
 	description = "Welcome to Robbie’s Marina, home of the world-famous tarpon feeding! Discover exciting water sports, boat rentals, dining, and shops in Islamorada.",
-	image = "/images/og-image.jpg"
+	image = "https://robbies.com/assets/home/hero-tarpon.jpg",
+	canonicalUrl = Astro.url.href,
+	schemaType = "TouristAttraction"
 } = Astro.props;
 ---
 
@@ -22,21 +27,26 @@ const {
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 
-		<!-- Primary Meta Tags -->
+		<!-- Canonical URL -->
+		<link rel="canonical" href={canonicalUrl} />
+
+		<!-- Primary Meta Tags (SEO & AEO) -->
 		<title>{title}</title>
 		<meta name="title" content={title} />
 		<meta name="description" content={description} />
+		<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
 		<!-- Open Graph / Facebook -->
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url} />
+		<meta property="og:url" content={canonicalUrl} />
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:image" content={image} />
+		<meta property="og:site_name" content="Robbie's of Islamorada" />
 
 		<!-- Twitter -->
 		<meta property="twitter:card" content="summary_large_image" />
-		<meta property="twitter:url" content={Astro.url} />
+		<meta property="twitter:url" content={canonicalUrl} />
 		<meta property="twitter:title" content={title} />
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={image} />
@@ -45,6 +55,9 @@ const {
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+		<!-- Structured Data JSON-LD (Schema.org for SEO & AEO) -->
+		<SeoSchema type={schemaType} name={title} description={description} image={image} />
 	</head>
 	<body class="bg-white text-slate-800 font-body antialiased min-h-screen flex flex-col selection:bg-robbies-ocean selection:text-white">
 		<slot />
