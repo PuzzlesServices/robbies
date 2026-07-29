@@ -1,0 +1,65 @@
+---
+const logos = [
+  {
+    name: "National Geographic",
+    src: "/assets/home/imgi_11_NATIONAL-GEOGRAPHIC_1.png",
+    url: "#"
+  },
+  {
+    name: "Hilton Grand Vacations",
+    src: "/assets/home/imgi_12_HILTON-GRAND-VACATIONS_1.png",
+    url: "#"
+  },
+  {
+    name: "Vogue",
+    src: "/assets/home/imgi_13_VOGUE_1.png",
+    url: "#"
+  },
+  {
+    name: "The New York Times",
+    src: "/assets/home/imgi_14_THE-NEW-YORK-TIMES_1.png",
+    url: "#"
+  },
+  {
+    name: "CNN",
+    src: "/assets/home/imgi_15_CNN_1.png",
+    url: "#"
+  }
+];
+---
+
+<section class="w-full bg-[#2B447A] text-white py-6 px-4 sm:px-6 lg:px-8 border-t border-b border-blue-900/40 select-none">
+  <div class="max-w-[1440px] mx-auto flex flex-col items-center justify-center">
+    
+    <!-- Section Title Label -->
+    <span class="text-[11px] sm:text-xs font-heading font-extrabold tracking-widest text-white/90 uppercase mb-4 sm:mb-5">
+      FEATURED IN:
+    </span>
+
+    <!-- Press Logos Grid / Flex Container -->
+    <div class="w-full flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14 lg:gap-16 xl:gap-20">
+      {logos.map((logo) => (
+        <div class="flex items-center justify-center p-1 hover:scale-105 transition-transform duration-200">
+          {logo.url !== '#' ? (
+            <a href={logo.url} target="_blank" rel="noopener noreferrer" title={logo.name}>
+              <img 
+                src={logo.src} 
+                alt={logo.name} 
+                class="h-6 xs:h-7 sm:h-8 md:h-9 lg:h-10 w-auto object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
+                loading="lazy"
+              />
+            </a>
+          ) : (
+            <img 
+              src={logo.src} 
+              alt={logo.name} 
+              class="h-6 xs:h-7 sm:h-8 md:h-9 lg:h-10 w-auto object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
+              loading="lazy"
+            />
+          )}
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
