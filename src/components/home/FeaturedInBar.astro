@@ -3,27 +3,27 @@ const logos = [
   {
     name: "National Geographic",
     src: "/assets/home/imgi_11_NATIONAL-GEOGRAPHIC_1.png",
-    url: "#"
+    url: "https://www.nationalgeographic.com/travel/article/island-escapes"
   },
   {
     name: "Hilton Grand Vacations",
     src: "/assets/home/imgi_12_HILTON-GRAND-VACATIONS_1.png",
-    url: "#"
+    url: "https://www.hiltongrandvacations.com/en/plan-your-vacation/where-to/where-to-go/10-winter-vacation-gems-use-your-hilton-honors-points-and-beat-the-winter-blues"
   },
   {
     name: "Vogue",
     src: "/assets/home/imgi_13_VOGUE_1.png",
-    url: "#"
+    url: "https://www.vogue.com/article/best-winter-vacation-escapes-2016"
   },
   {
     name: "The New York Times",
     src: "/assets/home/imgi_14_THE-NEW-YORK-TIMES_1.png",
-    url: "#"
+    url: "https://archive.nytimes.com/tmagazine.blogs.nytimes.com/2011/11/16/the-place-florida-part-four/"
   },
   {
-    name: "CNN",
+    name: "CNN / Wanderlog",
     src: "/assets/home/imgi_15_CNN_1.png",
-    url: "#"
+    url: "https://wanderlog.com/list/geoCategory/320998/best-spots-for-lunch-in-florida-keys"
   }
 ];
 ---
@@ -40,23 +40,14 @@ const logos = [
     <div class="w-full flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14 lg:gap-16 xl:gap-20">
       {logos.map((logo) => (
         <div class="flex items-center justify-center p-1 hover:scale-105 transition-transform duration-200">
-          {logo.url !== '#' ? (
-            <a href={logo.url} target="_blank" rel="noopener noreferrer" title={logo.name}>
-              <img 
-                src={logo.src} 
-                alt={logo.name} 
-                class="h-6 xs:h-7 sm:h-8 md:h-9 lg:h-10 w-auto object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
-                loading="lazy"
-              />
-            </a>
-          ) : (
+          <a href={logo.url} target="_blank" rel="noopener noreferrer" title={logo.name}>
             <img 
               src={logo.src} 
               alt={logo.name} 
               class="h-6 xs:h-7 sm:h-8 md:h-9 lg:h-10 w-auto object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
               loading="lazy"
             />
-          )}
+          </a>
         </div>
       ))}
     </div>
