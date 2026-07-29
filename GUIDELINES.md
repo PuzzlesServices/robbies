@@ -4,53 +4,31 @@ Bienvenido al proyecto **Robbies** (Puzzles Services). Este documento establece 
 
 ---
 
-## 🛑 REGLAS DE ORO STRICT (OJO CLÍNICO PIXEL PERFECT)
+## 🛑 REGLAS DE ORO STRICT (OJO CLÍNICO PIXEL PERFECT & UX/UI)
 
-1. **PROHIBIDO EL USO DE AMARILLO / TONOS INVENTADOS**:
-   - Queda estrictamente prohibido usar colores amarillos (`amber`, `yellow`, `gold`) en botones, enlaces o estados hover.
-   - Todo debe responder a la paleta exacta original de Robbie's: **Blanco (`#FFFFFF`)**, **Azul Marino (`#2B447A`)**, **Azul Eléctrico (`#2B55FF`)** y **Azul Real (`#1C366E`)**.
+1. **ANCHO MÁXIMO CONTENEDOR UNIFICADO (`1180px`)**:
+   - Todo el contenido principal de la web (Header, Hero, Featured In Bar, Welcome Section, Cards Grid) se alinea a un contenedor con `max-w-[1180px] mx-auto` para garantizar orden visual y densidad de información idéntica a los estándares modernos.
 
-2. **FIRMA DE COMMITS**:
-   - Cada commit en Git debe incluir obligatoriamente la firma `by Alvaro Mejia` al final del mensaje. Ejemplo: `feat: add hero banner section by Alvaro Mejia`.
+2. **PROHIBIDO EL USO DE AMARILLO / TONOS INVENTADOS**:
+   - Mantener la paleta estricta: **Blanco (`#FFFFFF`)**, **Azul Marino (`#2B447A`)**, **Azul Eléctrico (`#2B55FF`)** y **Azul Real (`#1C366E`)**.
 
-3. **ESTÁNDAR UNIFICADO PARA HERO BANNERS (TODAS LAS PÁGINAS)**:
-   - **Título Principal (Heading)**:
-     - Formato: Estrictamente 2 líneas.
-     - Línea 1: `VOTED THE #1 PLACE`
-     - Línea 2: `IN THE FLORIDA KEYS`
-     - Tamaño: `text-xl xs:text-2xl sm:text-3xl md:text-[38px] lg:text-[44px] xl:text-[48px]` (~10px más compacto).
-     - Peso: `Montserrat Black / ExtraBold`, `font-black`, `uppercase`, `tracking-tight`.
-   - **Subtítulo (Subheading)**:
-     - Texto: `THAT EVERY TOURIST SHOULD VISIT`
-     - Tamaño: `text-sm xs:text-base sm:text-lg md:text-[22px] lg:text-[25px]` (~10px más prominente).
-     - Peso: `Montserrat Bold`, `font-bold`, `uppercase`, `tracking-wider`.
-   - **Botón CTA (`Learn More`)**:
-     - Estilo: Alargado elegante (`px-10 sm:px-12 py-3 sm:py-3.5`), texto refinado (`text-xs sm:text-sm font-extrabold uppercase tracking-widest`), bordes `rounded-full`, fondo `#2B447A`.
-   - **Insignia 50º Aniversario (`imgi_6_Badge_Page.png`)**:
-     - Posicionamiento: Centrado verticalmente a la derecha (`top-1/2 -translate-y-1/2 right-6 sm:right-10 md:right-14 lg:right-16`).
+3. **FIRMA DE COMMITS**:
+   - Cada commit en Git debe incluir obligatoriamente la firma `by Alvaro Mejia` al final del mensaje.
+
+4. **ANIMACIONES Y FLECHAS DE EXPANSIÓN (READ MORE / READ LESS)**:
+   - Reemplazar texto crudo `>>` por íconos SVG/Lucide estilizados (`ChevronDown` / `ChevronUp`).
+   - Aplicar transiciones suaves de opacidad y altura (`transition-all duration-300 ease-in-out`) para evitar saltos bruscos.
+
+5. **CARRUSEL MÓVIL EN SECCIÓN DE 4 TARJETAS**:
+   - En pantallas pequeñas/móviles, mostrar las tarjetas en formato carrusel deslizable horizontal (`flex overflow-x-auto snap-x snap-mandatory`), mientras que en escritorio se mantienen en 4 columnas estables (`lg:grid lg:grid-cols-4`).
 
 ---
 
 ## 🛠️ 1. Stack Tecnológico
 
-- **Framework Core**: [Astro 5](https://astro.build)
-- **Estilos**: [Tailwind CSS v4](https://tailwindcss.com)
+- **Framework Core**: Astro 5
+- **Estilos**: Tailwind CSS v4
 - **Gestor de Paquetes**: `pnpm`
 - **Lenguaje**: TypeScript
 - **Iconografía**: `@lucide/astro`
-- **Despliegue**: Vercel (Conectado a GitHub `main`)
-
----
-
-## 📁 2. Estructura de Directorios
-
-```text
-public/assets/
-├── common/         # Logotipos, favicon, marca de agua
-├── home/           # Video hero (ROBBIES_BANNER-VIDEO-RESUME-V5.mp4), imgi_6_Badge_Page.png, fotos home
-├── attractions/    # Tarpon feeding, tours
-├── rentals/        # Boat rentals, kayaks, jet skis
-├── dining/         # Hungry Tarpon restaurant
-├── about/          # Historia
-└── contact/        # Ubicación
-```
+- **Despliegue**: Vercel (`main`)

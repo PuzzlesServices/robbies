@@ -14,14 +14,14 @@ const navItems = [
 ];
 ---
 
-<!-- Header Contenedor Fijo / Sticky (Permanente al hacer scroll) -->
+<!-- Header Contenedor Fijo / Sticky -->
 <header id="main-header" class="w-full sticky top-0 z-50 shadow-md font-heading transition-all duration-300">
   <!-- Top Blue Banner Rotativo -->
   <TopBanner />
 
   <!-- Main Royal Navy Navbar (Color exacto Robbie's #2B447A) -->
   <nav class="bg-[#2B447A] text-white py-2.5 px-3 sm:px-6 lg:px-8 border-b border-blue-900/30">
-    <div class="max-w-[1440px] mx-auto flex items-center justify-between gap-2 lg:gap-4">
+    <div class="max-w-[1180px] mx-auto flex items-center justify-between gap-2 lg:gap-4">
       
       <!-- MOBILE ORDER (1º MENÚ IZQUIERDA, 2º LOGO, 3º ICONOS DERECHA) -->
       <!-- 1º: Mobile Menu Toggle Button (Extremo Izquierdo en Móvil) -->
@@ -118,12 +118,11 @@ const navItems = [
     </div>
   </nav>
 
-  <!-- Mobile Drawer Overlay (Deslizable desde el LADO IZQUIERDO) -->
+  <!-- Mobile Drawer Overlay -->
   <div 
     id="mobile-menu-drawer"
     class="fixed inset-y-0 left-0 w-[82vw] max-w-sm bg-[#2B447A] backdrop-blur-xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col p-6 overflow-y-auto border-r border-white/15 shadow-2xl xl:hidden"
   >
-    <!-- Drawer Header -->
     <div class="flex items-center justify-between pb-4 border-b border-white/15 mb-4">
       <span class="text-xs uppercase tracking-widest text-white/70 font-semibold">Robbie's Navigation</span>
       <button 
@@ -135,7 +134,6 @@ const navItems = [
       </button>
     </div>
 
-    <!-- Mobile Links (font-weight 400 / font-normal como solicitó el cliente) -->
     <div class="flex flex-col space-y-2 my-auto">
       {navItems.map((item) => (
         <a 

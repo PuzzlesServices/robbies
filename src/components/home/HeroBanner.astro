@@ -23,7 +23,7 @@ const {
 ---
 
 <section class="relative w-full min-h-[480px] h-[72vh] md:h-[78vh] lg:h-[84vh] max-h-[800px] overflow-hidden bg-slate-950 flex items-center">
-  <!-- Background Video (Original sin filtros ni oscurecimiento) -->
+  <!-- Background Video (Original) -->
   <video 
     autoplay 
     loop 
@@ -36,10 +36,10 @@ const {
     Your browser does not support the video tag.
   </video>
 
-  <!-- Hero Content Container (Sin capa oscura sobre el video) -->
-  <div class="relative z-20 max-w-[1440px] w-full mx-auto px-5 sm:px-8 md:px-12 lg:px-16 flex items-center justify-between h-full py-8">
+  <!-- Hero Content Container (Max-width 1180px) -->
+  <div class="relative z-20 max-w-[1180px] w-full mx-auto px-5 sm:px-8 md:px-12 lg:px-12 flex items-center justify-between h-full py-8">
     
-    <!-- Left Column: Crown, 2-line Title, Subtitle (font-400), Elongated CTA Button -->
+    <!-- Left Column: Crown, 2-line Title, Subtitle, Elongated CTA Button -->
     <div class="max-w-xl lg:max-w-2xl text-white my-auto">
       
       <!-- Crown Icon -->
@@ -53,13 +53,13 @@ const {
         </div>
       )}
 
-      <!-- Main 2-Line Heading (Montserrat Black) -->
+      <!-- Main 2-Line Heading -->
       <h1 class="font-heading font-black text-xl xs:text-2xl sm:text-3xl md:text-[38px] lg:text-[44px] xl:text-[48px] text-white tracking-tight uppercase leading-[1.15] mb-2 sm:mb-3 drop-shadow-[0_3px_10px_rgba(0,0,0,0.8)]">
         <span>{line1}</span><br />
         <span>{line2}</span>
       </h1>
 
-      <!-- Subtitle (font-normal / weight 400 como fue solicitado) -->
+      <!-- Prominent Subtitle (font-normal / weight 400) -->
       <p class="font-heading font-normal text-sm xs:text-base sm:text-lg md:text-[21px] lg:text-[24px] text-white/95 tracking-wider uppercase mb-6 sm:mb-8 drop-shadow-[0_2px_6px_rgba(0,0,0,0.8)] leading-snug">
         {subtitle}
       </p>
@@ -78,7 +78,7 @@ const {
 
     <!-- Right Column: Vertically Centered 50th Anniversary Badge -->
     {badgeSrc && (
-      <div class="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 md:right-12 lg:right-16 z-20 pointer-events-none">
+      <div class="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 md:right-12 lg:right-12 z-20 pointer-events-none">
         <img 
           src={badgeSrc} 
           alt="50 Years of Adventure Badge" 
