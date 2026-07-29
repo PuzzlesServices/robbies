@@ -1,0 +1,52 @@
+---
+interface Props {
+  videoSrc?: string;
+  title?: string;
+}
+
+const {
+  videoSrc = "/assets/home/segundo-video-robbies-1.mp4",
+  title = "ROBBIE’S OF ISLAMORADA"
+} = Astro.props;
+---
+
+<!-- Split Video & Intro Text Section (Pegado directamente al carrusel superior con 0 margen) -->
+<section class="w-full bg-[#F3F4F6] overflow-hidden select-none border-b border-slate-200">
+  <div class="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch">
+    
+    <!-- Left Column: Original Video Player (100% Real sin Filtros ni Capas Oscuras) -->
+    <div class="relative w-full h-[320px] xs:h-[380px] sm:h-[440px] lg:h-auto min-h-[320px] lg:min-h-[500px] bg-slate-950 overflow-hidden">
+      <video 
+        autoplay 
+        loop 
+        muted 
+        playsinline 
+        class="w-full h-full object-cover block"
+      >
+        <source src={videoSrc} type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- Right Column: Centered Text Content (Fondo gris neutro #F3F4F6) -->
+    <div class="w-full bg-[#F3F4F6] p-8 sm:p-12 md:p-16 lg:p-20 flex flex-col items-center justify-center text-center my-auto">
+      <div class="max-w-xl mx-auto flex flex-col items-center">
+        
+        <!-- Main Section Title -->
+        <h2 class="font-heading font-black text-xl sm:text-2xl md:text-3xl lg:text-[32px] text-[#2B447A] tracking-tight uppercase mb-6 leading-snug">
+          {title}
+        </h2>
+
+        <!-- Paragraph Description with Centered Alignment & Exact Copy -->
+        <p class="font-body text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed text-center space-y-2">
+          We are the "MUST" stop & visit place to experience the Florida Keys in one place. Just an hour away from Miami, Robbie's is located in Islamorada. The perfect spot for outdoor lovers, foodies, local souvenirs, and art shopaholics or to make the most out of life and nature's simple but memorable things. 
+          <strong class="font-bold text-slate-900">Robbie's is voted the #1 place to visit for tourists.</strong> 
+          This is all thanks to a fantastic location and fun-filled activities such as feeding the <strong class="font-bold text-slate-900">Tarpon</strong>, <strong class="font-bold text-slate-900">snorkeling</strong>, <strong class="font-bold text-slate-900">fishing</strong>, <strong class="font-bold text-slate-900">kayaking</strong>, <strong class="font-bold text-slate-900">and more!</strong> 
+          <strong class="font-bold text-slate-900">Close to perfect, far from normal...</strong> Discover why coming here is one of Islamorada's true gems!
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+</section>
