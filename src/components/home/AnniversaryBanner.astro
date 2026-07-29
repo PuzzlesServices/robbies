@@ -1,0 +1,40 @@
+---
+interface Props {
+  imageSrc?: string;
+  altText?: string;
+  url?: string;
+}
+
+const {
+  imageSrc = "/assets/home/imgi_194_fb89dc4f136928a42a32991b5ec49634.Banner_50th.png",
+  altText = "Celebrating 50 Years of Adventure - Thank you for being part of our story since 1976",
+  url = "https://www.robbies.com/"
+} = Astro.props;
+---
+
+<section class="w-full bg-white py-10 sm:py-14 px-4 sm:px-6 lg:px-8 select-none">
+  <div class="max-w-[1180px] mx-auto">
+    
+    <!-- 50th Anniversary Showcase Banner Container with Rounded Corners & Premium Elevation -->
+    <div class="w-full rounded-2xl sm:rounded-3xl lg:rounded-[32px] overflow-hidden shadow-xl sm:shadow-2xl border border-slate-200/60 hover:shadow-[0_20px_50px_rgba(43,68,122,0.18)] transition-all duration-500 group">
+      {url !== '#' ? (
+        <a href={url} target="_blank" rel="noopener noreferrer" class="block w-full h-full cursor-pointer">
+          <img 
+            src={imageSrc} 
+            alt={altText} 
+            class="w-full h-auto object-cover block transition-transform duration-700 group-hover:scale-[1.01]"
+            loading="lazy"
+          />
+        </a>
+      ) : (
+        <img 
+          src={imageSrc} 
+          alt={altText} 
+          class="w-full h-auto object-cover block transition-transform duration-700 group-hover:scale-[1.01]"
+          loading="lazy"
+        />
+      )}
+    </div>
+
+  </div>
+</section>
