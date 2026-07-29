@@ -25,7 +25,7 @@
           id="welcome-inline-toggle-btn"
           class="text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer whitespace-nowrap inline"
         >
-          <span id="welcome-inline-label">Read More &gt;&gt;</span>
+          <span id="welcome-inline-label">Read More</span>
         </button>
       </p>
 
@@ -65,10 +65,10 @@
 
         if (isExpanded) {
           extraText.classList.remove('hidden');
-          label.innerHTML = 'Read Less';
+          label.textContent = 'Read Less';
         } else {
           extraText.classList.add('hidden');
-          label.innerHTML = 'Read More &gt;&gt;';
+          label.textContent = 'Read More';
         }
       };
     }
