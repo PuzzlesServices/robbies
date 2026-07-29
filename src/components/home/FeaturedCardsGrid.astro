@@ -66,12 +66,12 @@ const cards = [
                 {card.title}
               </h3>
 
-              <!-- Description Text (Alineado a la Izquierda, sin flechas) -->
+              <!-- Description Text (Alineado a la Izquierda, con animación suave) -->
               <div class="font-body text-slate-600 text-xs sm:text-[13px] leading-relaxed text-left">
                 {card.hasToggle ? (
                   <p class="inline-card-wrapper" id={`card-wrapper-${card.id}`}>
                     <span class="base-text">{card.baseText}</span>
-                    <span class="extra-text hidden">{card.extraText}</span>
+                    <span class="extra-text hidden opacity-0 transition-opacity duration-300 ease-in-out">{card.extraText}</span>
                     <button 
                       type="button" 
                       class="card-toggle-btn text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer inline whitespace-nowrap"
@@ -122,7 +122,7 @@ const cards = [
   }
 </style>
 
-<!-- Inline Script for Card Read More Inline Toggle (Zero Gap & Clean Text) -->
+<!-- Inline Script for Card Read More Inline Toggle (Smooth Fade) -->
 <script is:inline>
   document.addEventListener('DOMContentLoaded', initCardInlineToggles);
   document.addEventListener('astro:page-load', initCardInlineToggles);
@@ -142,9 +142,17 @@ const cards = [
 
           if (isExpanded) {
             extraText.classList.remove('hidden');
+            requestAnimationFrame(() => {
+              extraText.classList.remove('opacity-0');
+              extraText.classList.add('opacity-100');
+            });
             btnText.textContent = 'Read Less';
           } else {
-            extraText.classList.add('hidden');
+            extraText.classList.remove('opacity-100');
+            extraText.classList.add('opacity-0');
+            setTimeout(() => {
+              if (!isExpanded) extraText.classList.add('hidden');
+            }, 300);
             btnText.textContent = 'Read More';
           }
         };

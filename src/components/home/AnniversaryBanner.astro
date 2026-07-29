@@ -1,13 +1,19 @@
 ---
 interface Props {
-  imageSrc?: string;
-  altText?: string;
+  bgImage?: string;
+  badgeImage?: string;
+  topTitle?: string;
+  subtitle?: string;
+  mainHeading?: string;
   url?: string;
 }
 
 const {
-  imageSrc = "/assets/home/imgi_194_fb89dc4f136928a42a32991b5ec49634.Banner_50th.png",
-  altText = "Celebrating 50 Years of Adventure - Thank you for being part of our story since 1976",
+  bgImage = "/assets/home/imgi_194_fb89dc4f136928a42a32991b5ec49634.Banner_50th.png",
+  badgeImage = "/assets/home/imgi_6_Badge_Page.png",
+  topTitle = "Celebrating 50 Years of Adventure",
+  subtitle = "We're officially hitting the big 5-0. From a small bait shop to an Islamorada icon,",
+  mainHeading = "THANK YOU FOR BEING PART OF OUR STORY SINCE 1976.",
   url = "https://www.robbies.com/"
 } = Astro.props;
 ---
@@ -15,25 +21,49 @@ const {
 <section class="w-full bg-white py-10 sm:py-14 px-4 sm:px-6 lg:px-8 select-none">
   <div class="max-w-[1180px] mx-auto">
     
-    <!-- 50th Anniversary Showcase Banner Container with Rounded Corners & Premium Elevation -->
-    <div class="w-full rounded-2xl sm:rounded-3xl lg:rounded-[32px] overflow-hidden shadow-xl sm:shadow-2xl border border-slate-200/60 hover:shadow-[0_20px_50px_rgba(43,68,122,0.18)] transition-all duration-500 group">
-      {url !== '#' ? (
-        <a href={url} target="_blank" rel="noopener noreferrer" class="block w-full h-full cursor-pointer">
+    <!-- 50th Anniversary Banner Container (Exact Pixel-Perfect Replica) -->
+    <div class="relative w-full rounded-2xl sm:rounded-3xl lg:rounded-[32px] overflow-hidden shadow-2xl border border-slate-200/80 group min-h-[340px] sm:min-h-[400px] md:min-h-[460px] flex items-center justify-center">
+      
+      <!-- Background Image (Half B&W, Half Turquoise Ocean Bridge) -->
+      <img 
+        src={bgImage} 
+        alt="Robbie's 50th Anniversary Background" 
+        class="absolute inset-0 w-full h-full object-cover z-0 transition-transform duration-700 group-hover:scale-[1.02]"
+        loading="lazy"
+      />
+
+      <!-- Subtle Dark Overlay for Optimal Contrast & Text Pop -->
+      <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/75 z-10 pointer-events-none"></div>
+
+      <!-- Banner Foreground Content -->
+      <div class="relative z-20 w-full h-full px-6 py-8 sm:py-10 md:py-12 flex flex-col items-center justify-between text-center text-white my-auto">
+        
+        <!-- Top Title -->
+        <h3 class="font-heading font-extrabold text-base xs:text-lg sm:text-2xl md:text-3xl text-white tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)] mb-2">
+          {topTitle}
+        </h3>
+
+        <!-- Center 50th Badge Image -->
+        <div class="my-3 sm:my-4 transform transition-transform duration-300 hover:scale-105">
           <img 
-            src={imageSrc} 
-            alt={altText} 
-            class="w-full h-auto object-cover block transition-transform duration-700 group-hover:scale-[1.01]"
-            loading="lazy"
+            src={badgeImage} 
+            alt="50 Years of Adventure Badge" 
+            class="h-28 xs:h-32 sm:h-40 md:h-48 lg:h-52 w-auto object-contain drop-shadow-[0_4px_20px_rgba(0,0,0,0.9)] mx-auto"
           />
-        </a>
-      ) : (
-        <img 
-          src={imageSrc} 
-          alt={altText} 
-          class="w-full h-auto object-cover block transition-transform duration-700 group-hover:scale-[1.01]"
-          loading="lazy"
-        />
-      )}
+        </div>
+
+        <!-- Bottom Text Group -->
+        <div class="max-w-3xl mx-auto space-y-1 sm:space-y-1.5">
+          <p class="font-body text-xs sm:text-sm md:text-base text-white/95 font-medium leading-snug drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+            {subtitle}
+          </p>
+          <h4 class="font-heading font-black text-xs sm:text-base md:text-lg lg:text-xl text-white tracking-wider uppercase drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+            {mainHeading}
+          </h4>
+        </div>
+
+      </div>
+
     </div>
 
   </div>

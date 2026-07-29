@@ -9,14 +9,17 @@
       Welcome to Robbie’s Marina of Islamorada
     </h2>
 
-    <!-- Body Paragraph Container with Inline Read More / Read Less Toggle -->
+    <!-- Body Paragraph Container with Inline Smooth Read More / Read Less Toggle -->
     <div id="welcome-text-wrapper" class="font-body text-slate-700 text-xs sm:text-sm md:text-base leading-relaxed max-w-3xl mb-8 text-center">
       
-      <!-- Base Always Visible Text + Inline Extra Text + Inline Read More Button -->
+      <!-- Base Always Visible Text + Inline Extra Text with Smooth Fade Transition -->
       <p class="inline">
         <span>Home of the world-famous tarpon feeding! Here, you can discover the exciting things to do in the Florida Keys during your stop at Robbie’s.</span>
         
-        <span id="welcome-extra-text" class="hidden">
+        <span 
+          id="welcome-extra-text" 
+          class="inline opacity-0 max-w-0 pointer-events-none hidden transition-all duration-500 ease-in-out"
+        >
           &nbsp;Whether you want to hand-feed massive tarpon, seek some thrills with our water sports, or stock up on handcrafted souvenirs at our fun, local shops, we’ve got something for everyone at Robbie’s. Gorge on fresh, delicious seafood and sip one of our signature cocktails, local draft beer, or our famous loaded Trailer Trash Bloody Mary on the waterfront deck and enjoy the show of the tarpon feeding frenzy! As a must-visit destination in the Florida Keys, our site shares what to do and where to eat at Robbie’s Marina of Islamorada to help you plan your stop and create memorable moments with your family and friends. Remember, it’s not a trip to the Keys without a visit to Robbie’s!
         </span>
 
@@ -46,7 +49,7 @@
   </div>
 </section>
 
-<!-- Inline Script for Seamless Inline Toggle (Zero Gap) -->
+<!-- Inline Script for Smooth Animated Inline Toggle -->
 <script is:inline>
   document.addEventListener('DOMContentLoaded', initWelcomeInlineToggle);
   document.addEventListener('astro:page-load', initWelcomeInlineToggle);
@@ -64,10 +67,15 @@
         isExpanded = !isExpanded;
 
         if (isExpanded) {
-          extraText.classList.remove('hidden');
+          extraText.classList.remove('hidden', 'opacity-0', 'pointer-events-none');
+          extraText.classList.add('opacity-100');
           label.textContent = 'Read Less';
         } else {
-          extraText.classList.add('hidden');
+          extraText.classList.remove('opacity-100');
+          extraText.classList.add('opacity-0', 'pointer-events-none');
+          setTimeout(() => {
+            if (!isExpanded) extraText.classList.add('hidden');
+          }, 300);
           label.textContent = 'Read More';
         }
       };
