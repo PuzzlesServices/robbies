@@ -6,21 +6,22 @@ Bienvenido al proyecto **Robbies** (Puzzles Services). Este documento establece 
 
 ## 🛑 REGLAS DE ORO STRICT (OJO CLÍNICO PIXEL PERFECT & UX/UI)
 
-1. **ANCHO MÁXIMO CONTENEDOR UNIFICADO (`1180px`)**:
-   - Todo el contenido principal de la web (Header, Hero, Featured In Bar, Welcome Section, Cards Grid) se alinea a un contenedor con `max-w-[1180px] mx-auto` para garantizar orden visual y densidad de información idéntica a los estándares modernos.
+1. **NO INVENTAR TEXTOS NI IMÁGENES**:
+   - Queda estrictamente prohibido alterar o inventar contenidos, títulos, imágenes o textos. Utilizar única y exclusivamente los textos e imágenes provistos explícitamente por el usuario o extraídos de los assets originales del proyecto.
 
-2. **PROHIBIDO EL USO DE AMARILLO / TONOS INVENTADOS**:
+2. **ANCHO DE CONTENEDORES**:
+   - Header y Navbar en ancho completo (`1440px`).
+   - Secciones del contenido principal (Hero, Featured In, Welcome Section, Anniversary Banner, Cards Grid) alineadas a `max-w-[1180px] mx-auto`.
+
+3. **PROHIBIDO EL USO DE AMARILLO / TONOS INVENTADOS**:
    - Mantener la paleta estricta: **Blanco (`#FFFFFF`)**, **Azul Marino (`#2B447A`)**, **Azul Eléctrico (`#2B55FF`)** y **Azul Real (`#1C366E`)**.
 
-3. **FIRMA DE COMMITS**:
+4. **FIRMA DE COMMITS OBLIGATORIA**:
    - Cada commit en Git debe incluir obligatoriamente la firma `by Alvaro Mejia` al final del mensaje.
 
-4. **ANIMACIONES Y FLECHAS DE EXPANSIÓN (READ MORE / READ LESS)**:
-   - Reemplazar texto crudo `>>` por íconos SVG/Lucide estilizados (`ChevronDown` / `ChevronUp`).
-   - Aplicar transiciones suaves de opacidad y altura (`transition-all duration-300 ease-in-out`) para evitar saltos bruscos.
-
-5. **CARRUSEL MÓVIL EN SECCIÓN DE 4 TARJETAS**:
-   - En pantallas pequeñas/móviles, mostrar las tarjetas en formato carrusel deslizable horizontal (`flex overflow-x-auto snap-x snap-mandatory`), mientras que en escritorio se mantienen en 4 columnas estables (`lg:grid lg:grid-cols-4`).
+5. **TRANSICIONES DE EXPANDIR (READ MORE / READ LESS)**:
+   - El botón `Read More` debe ir estrictamente **inline** al final del párrafo, sin saltos de línea ni divisores flotantes.
+   - La expansión del texto debe ser suave (`transition-all duration-300 ease-in-out`), sin saltos bruscos ni huecos vacíos.
 
 ---
 
