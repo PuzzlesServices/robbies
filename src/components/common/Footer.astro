@@ -1,5 +1,5 @@
 ---
-import { MapPin, Clock, Mail, Phone, Globe, Plus, Minus } from '@lucide/astro';
+import { MapPin, Clock, Mail, Phone, Globe } from '@lucide/astro';
 
 const activitiesList = [
   { name: "Tarpon Feeding", url: "https://www.robbies.com/tarpon-feeding.htm" },
@@ -49,11 +49,11 @@ const exploreMoreList = [
     <!-- Top Section: Brand Logo, EXPLORE Accordions & Verification Badge -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
       
-      <!-- Column 1: Brand Logo & Slogan -->
+      <!-- Column 1: Brand Logo & Slogan (Usando asset oficial /assets/footer/Robbies.png) -->
       <div class="space-y-4">
         <a href="/" class="block">
           <img 
-            src="/assets/common/robbies_logo_mobile.webp" 
+            src="/assets/footer/Robbies.png" 
             alt="Robbie's of Islamorada" 
             class="h-14 sm:h-16 w-auto object-contain drop-shadow-md"
             loading="lazy"
@@ -185,10 +185,10 @@ const exploreMoreList = [
       <!-- Column 4: Pet Friendly Badge, Reviews & LocalKeysGuide Verified Badge -->
       <div class="space-y-4 flex flex-col items-center md:items-start">
         
-        <!-- Pet Friendly Badge -->
+        <!-- Pet Friendly Badge (Usando asset oficial /assets/footer/PET-FRIENDLY_LOGO-1000x1000.png) -->
         <div class="flex items-center space-x-3">
           <img 
-            src="/assets/home/imgi_103_PET-FRIENDLY_LOGO.png" 
+            src="/assets/footer/PET-FRIENDLY_LOGO-1000x1000.png" 
             alt="Pet Friendly Logo" 
             class="h-16 w-auto object-contain drop-shadow"
             loading="lazy"
@@ -361,7 +361,7 @@ const exploreMoreList = [
   </div>
 </footer>
 
-<!-- Script para la lógica de acordeón de los ítems de EXPLORE (Todos cerrados por defecto) -->
+<!-- Script para la lógica de acordeón de los ítems de EXPLORE -->
 <script is:inline>
   document.addEventListener('DOMContentLoaded', initFooterAccordions);
   document.addEventListener('astro:page-load', initFooterAccordions);
