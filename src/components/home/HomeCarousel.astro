@@ -53,11 +53,11 @@ const slides = [
 ];
 ---
 
-<!-- Full-Width Showcase Carousel (Flechas compactas elegantes, Imágenes Alta Res, Barra Indicadora y Sombras Sutiles) -->
+<!-- Full-Width Showcase Carousel (Imágenes +100px Más Grandes, Flechas Compactas, Barra Indicadora y Sombras Sutiles) -->
 <section class="w-full relative overflow-hidden bg-slate-950 select-none">
   <div 
     id="home-carousel-wrapper"
-    class="relative w-full h-[65vh] sm:h-[75vh] md:h-[82vh] lg:h-[88vh] min-h-[520px] max-h-[850px] cursor-grab active:cursor-grabbing overflow-hidden"
+    class="relative w-full h-[75vh] sm:h-[85vh] md:h-[90vh] lg:h-[95vh] min-h-[620px] max-h-[950px] cursor-grab active:cursor-grabbing overflow-hidden"
   >
     <!-- Slides Track -->
     <div id="home-carousel-track" class="w-full h-full relative">
@@ -66,7 +66,7 @@ const slides = [
           class={`carousel-slide absolute inset-0 w-full h-full transition-all duration-700 ease-in-out ${index === 0 ? 'opacity-100 z-10 scale-100 pointer-events-auto' : 'opacity-0 z-0 scale-95 pointer-events-none'}`}
           data-index={index}
         >
-          <!-- High-Res Background Image -->
+          <!-- High-Res Background Image (+100px Taller Display) -->
           <img 
             src={slide.image} 
             alt={slide.title} 
@@ -108,7 +108,7 @@ const slides = [
       ))}
     </div>
 
-    <!-- Navigation Arrow Left (<) - Tamaño compacto y elegante -->
+    <!-- Navigation Arrow Left (<) -->
     <button 
       id="carousel-prev-btn"
       aria-label="Previous Slide"
@@ -117,7 +117,7 @@ const slides = [
       <ChevronLeft class="w-4 h-4 sm:w-5 sm:h-5 stroke-[2]" />
     </button>
 
-    <!-- Navigation Arrow Right (>) - Tamaño compacto y elegante -->
+    <!-- Navigation Arrow Right (>) -->
     <button 
       id="carousel-next-btn"
       aria-label="Next Slide"
