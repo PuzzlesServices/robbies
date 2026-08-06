@@ -1,0 +1,396 @@
+---
+import { MapPin, Clock, Mail, Phone, Globe, Plus, Minus } from '@lucide/astro';
+
+const activitiesList = [
+  { name: "Tarpon Feeding", url: "https://www.robbies.com/tarpon-feeding.htm" },
+  { name: "Jet-ski Adventures", url: "https://www.robbies.com/jet-ski.htm" },
+  { name: "Snorkeling", url: "https://www.robbies.com/snorkeling.htm" },
+  { name: "Snuba Diving", url: "https://www.robbies.com/snuba.htm" },
+  { name: "Kayak and Paddle Board Rentals/Tours", url: "https://www.robbies.com/kayak.htm" },
+  { name: "Sunset Cruises", url: "https://www.robbies.com/sunset-cruises.htm" },
+  { name: "Eco-Tours", url: "https://www.robbies.com/eco-tours.htm" },
+  { name: "Boat Rentals", url: "https://www.robbies.com/boat-rentals.htm" },
+  { name: "Glass Bottom Boat Tours", url: "https://www.robbies.com/glass-bottom.htm" },
+  { name: "Islamorada Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" }
+];
+
+const fishingList = [
+  { name: "Party Boat Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" },
+  { name: "Charter Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" },
+  { name: "Backcountry Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" }
+];
+
+const islamoradaFishingList = [
+  { name: "Deep Sea Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" },
+  { name: "Reef & Wreck Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" }
+];
+
+const captainsList = [
+  { name: "Captain Michael", url: "https://www.robbies.com/islamorada-fishing.htm" },
+  { name: "Captain Sam", url: "https://www.robbies.com/islamorada-fishing.htm" }
+];
+
+const exploreMoreList = [
+  { name: "Webcam", url: "https://www.robbies.com/webcam.htm" },
+  { name: "Contact Us", url: "https://www.robbies.com/" },
+  { name: "Our History", url: "https://www.robbies.com/" },
+  { name: "Featured In", url: "https://www.robbies.com/" },
+  { name: "Directions", url: "https://www.robbies.com/" },
+  { name: "Careers", url: "https://www.robbies.com/" },
+  { name: "Islamorada Location Shoots", url: "https://www.robbies.com/" },
+  { name: "Weddings And Events", url: "https://www.robbies.com/" },
+  { name: "Influencers Collaboration", url: "https://www.robbies.com/" }
+];
+---
+
+<footer class="w-full bg-[#182A4D] text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-t border-blue-950 font-body select-none">
+  <div class="max-w-[1180px] mx-auto space-y-12">
+    
+    <!-- Top Section: Brand Logo, EXPLORE Accordions & Verification Badge -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
+      
+      <!-- Column 1: Brand Logo & Slogan -->
+      <div class="space-y-4">
+        <a href="/" class="block">
+          <img 
+            src="/assets/common/robbies_logo_mobile.webp" 
+            alt="Robbie's of Islamorada" 
+            class="h-14 sm:h-16 w-auto object-contain drop-shadow-md"
+            loading="lazy"
+          />
+        </a>
+        <p class="text-xs sm:text-sm text-white/90 leading-relaxed font-medium max-w-xs">
+          Robbie’s of Islamorada, home of the world-famous tarpon feeding!
+        </p>
+      </div>
+
+      <!-- Column 2 & 3: EXPLORE Accordion Card Boxes (TODOS CERRADOS POR DEFECTO POR DIRECTRIZ) -->
+      <div class="lg:col-span-2 space-y-4">
+        <h3 class="font-heading font-extrabold text-sm sm:text-base tracking-widest text-white uppercase mb-3">
+          EXPLORE
+        </h3>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          
+          <!-- Box 1: SHOP ONLINE (Boton unico) -->
+          <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 hover:border-white/20 transition-all">
+            <a 
+              href="https://shop.robbies.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="font-heading font-bold text-xs uppercase tracking-wider text-white hover:text-blue-300 block"
+            >
+              SHOP ONLINE
+            </a>
+          </div>
+
+          <!-- Box 2: ACTIVITIES (CERRADO POR DEFECTO POR INSTRUCCION DEL USUARIO) -->
+          <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-activities">
+            <button 
+              type="button" 
+              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+            >
+              <span>ACTIVITIES</span>
+              <span class="icon-plus text-sm font-bold">+</span>
+              <span class="icon-minus text-sm font-bold hidden">-</span>
+            </button>
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+              {activitiesList.map((item) => (
+                <li>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Box 3: FISHING (CERRADO POR DEFECTO) -->
+          <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-fishing">
+            <button 
+              type="button" 
+              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+            >
+              <span>FISHING</span>
+              <span class="icon-plus text-sm font-bold">+</span>
+              <span class="icon-minus text-sm font-bold hidden">-</span>
+            </button>
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+              {fishingList.map((item) => (
+                <li>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Box 4: ISLAMORADA FISHING (CERRADO POR DEFECTO) -->
+          <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-islamorada-fishing">
+            <button 
+              type="button" 
+              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+            >
+              <span>ISLAMORADA FISHING</span>
+              <span class="icon-plus text-sm font-bold">+</span>
+              <span class="icon-minus text-sm font-bold hidden">-</span>
+            </button>
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+              {islamoradaFishingList.map((item) => (
+                <li>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Box 5: OUR CAPTAINS (CERRADO POR DEFECTO) -->
+          <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-captains">
+            <button 
+              type="button" 
+              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+            >
+              <span>OUR CAPTAINS</span>
+              <span class="icon-plus text-sm font-bold">+</span>
+              <span class="icon-minus text-sm font-bold hidden">-</span>
+            </button>
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+              {captainsList.map((item) => (
+                <li>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Box 6: EXPLORE MORE (CERRADO POR DEFECTO) -->
+          <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-explore-more">
+            <button 
+              type="button" 
+              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+            >
+              <span>EXPLORE MORE</span>
+              <span class="icon-plus text-sm font-bold">+</span>
+              <span class="icon-minus text-sm font-bold hidden">-</span>
+            </button>
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+              {exploreMoreList.map((item) => (
+                <li>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Column 4: Pet Friendly Badge, Reviews & LocalKeysGuide Verified Badge -->
+      <div class="space-y-4 flex flex-col items-center md:items-start">
+        
+        <!-- Pet Friendly Badge -->
+        <div class="flex items-center space-x-3">
+          <img 
+            src="/assets/home/imgi_103_PET-FRIENDLY_LOGO.png" 
+            alt="Pet Friendly Logo" 
+            class="h-16 w-auto object-contain drop-shadow"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Tell us about your experience -->
+        <div class="space-y-2 text-center md:text-left">
+          <span class="text-xs font-semibold text-white/90 block">Tell us about your experience</span>
+          <div class="flex items-center justify-center md:justify-start space-x-2">
+            <a href="https://www.tripadvisor.com" target="_blank" rel="noopener noreferrer" class="p-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
+              <img src="/assets/home/imgi_106_ICON-DIA.webp" alt="Tripadvisor" class="h-4 w-auto" />
+            </a>
+            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" class="p-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors font-bold text-xs">
+              G
+            </a>
+          </div>
+        </div>
+
+        <!-- Exact Verified Badge Provided by User -->
+        <div class="pt-2">
+          <div style="display: inline-block; border: 2px solid #008080; border-radius: 6px; background: #ffffff; padding: 5px 10px; font-family: Helvetica, Arial, sans-serif; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <a href="https://localkeysguide.com" target="_blank" rel="noopener noreferrer" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                <img src="https://localkeysguide.com/wp-content/uploads/2025/04/Local-Keys-Guide-Conch-Shell-1.png" alt="Local Keys Guide" style="height: 40px; width: auto; display: block;" />
+                <div style="display: flex; flex-direction: column; justify-content: center; text-align: left;">
+                     <span style="font-weight: 800; color: #008080; font-size: 14px; line-height: 1.2; text-transform: uppercase; letter-spacing: 0.5px;">
+                        Verified <span style="color:#28a745; font-size: 16px;">&#10004;</span>
+                     </span>
+                     <span style="color: #666666; font-size: 10px; line-height: 1.2; margin-top: 2px;">
+                        LocalKeysGuide.com
+                     </span>
+                </div>
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- Middle Section: 4 Location Info Cards (Fondo Azul Marino #243A66 con Bordes Redondeados) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      
+      <!-- Card 1: Robbie's of Islamorada -->
+      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90">
+        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
+          Robbie’s of Islamorada
+        </h4>
+        <div class="flex items-start space-x-2.5">
+          <MapPin class="w-4 h-4 text-blue-300 flex-shrink-0 mt-0.5" />
+          <span>77522 Overseas Hwy Islamorada, FL 33036</span>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Clock class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <span>Mon-Sun: 7:00am - 9:00pm</span>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Mail class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="mailto:booth@robbies.com" class="hover:underline">booth@robbies.com</a>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Phone class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="tel:3056648070" class="hover:underline">(305) 664-8070</a>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Globe class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="https://www.robbies.com/" target="_blank" class="hover:underline">robbies.com</a>
+        </div>
+      </div>
+
+      <!-- Card 2: Captain Michael Fishing -->
+      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90">
+        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
+          Captain Michael Fishing
+        </h4>
+        <div class="flex items-start space-x-2.5">
+          <MapPin class="w-4 h-4 text-blue-300 flex-shrink-0 mt-0.5" />
+          <span>77522 Overseas Hwy Islamorada, FL 33036</span>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Clock class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <span>Mon-Sun: 7:00am - 8:00pm</span>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Mail class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="mailto:booth@robbies.com" class="hover:underline">booth@robbies.com</a>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Phone class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="tel:3056648070" class="hover:underline">(305) 664-8070</a>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Globe class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="https://captainmichaelfishing.com" target="_blank" class="hover:underline">captainmichaelfishing.com</a>
+        </div>
+      </div>
+
+      <!-- Card 3: Hungry Tarpon Restaurant -->
+      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90">
+        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
+          Hungry Tarpon Restaurant
+        </h4>
+        <div class="flex items-start space-x-2.5">
+          <MapPin class="w-4 h-4 text-blue-300 flex-shrink-0 mt-0.5" />
+          <span>77522 Overseas Hwy Islamorada, FL 33036</span>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Clock class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <span>Mon-Sun: 6:30am - 9:00pm</span>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Mail class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="mailto:hungrytarpon@robbies.com" class="hover:underline">hungrytarpon@robbies.com</a>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Phone class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="tel:3056640535" class="hover:underline">(305) 664-0535</a>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Globe class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="https://hungrytarpon.com" target="_blank" class="hover:underline">hungrytarpon.com</a>
+        </div>
+      </div>
+
+      <!-- Card 4: Robbie's Marina of Key West -->
+      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90">
+        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
+          Robbie’s Marina of Key West
+        </h4>
+        <div class="flex items-start space-x-2.5">
+          <MapPin class="w-4 h-4 text-blue-300 flex-shrink-0 mt-0.5" />
+          <span>7281 Shrimp Rd, Key West, FL 33040</span>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Clock class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <span>Mon-Fri: 7:30am - 5:30pm</span>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Mail class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="mailto:frontdesk@robbies.com" class="hover:underline">frontdesk@robbies.com</a>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Phone class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="tel:3052941124" class="hover:underline">(305) 294-1124</a>
+        </div>
+        <div class="flex items-center space-x-2.5">
+          <Globe class="w-4 h-4 text-blue-300 flex-shrink-0" />
+          <a href="https://robbieskw.com" target="_blank" class="hover:underline">robbieskw.com</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bottom Legal Bar -->
+    <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-white/70 gap-3 text-center sm:text-left">
+      <div class="flex flex-wrap items-center justify-center gap-3">
+        <a href="https://www.robbies.com/" class="hover:underline hover:text-white">Privacy policy</a>
+        <span>|</span>
+        <a href="https://www.robbies.com/" class="hover:underline hover:text-white">Terms of service</a>
+        <span>|</span>
+        <a href="https://www.robbies.com/" class="hover:underline hover:text-white">Click for Accessibility</a>
+        <span>|</span>
+        <a href="https://www.robbies.com/" class="hover:underline hover:text-white">Cookie Policy and Consent Tool</a>
+      </div>
+      <p class="text-[11px] text-white/50">
+        &copy; {new Date().getFullYear()} Robbie’s of Islamorada. All rights reserved.
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- Script para la lógica de acordeón de los ítems de EXPLORE (Todos cerrados por defecto) -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', initFooterAccordions);
+  document.addEventListener('astro:page-load', initFooterAccordions);
+
+  function initFooterAccordions() {
+    document.querySelectorAll('.accordion-item').forEach((item) => {
+      const trigger = item.querySelector('.accordion-trigger');
+      const content = item.querySelector('.accordion-content');
+      const iconPlus = item.querySelector('.icon-plus');
+      const iconMinus = item.querySelector('.icon-minus');
+
+      if (trigger && content) {
+        trigger.onclick = (e) => {
+          e.preventDefault();
+          const isOpen = !content.classList.contains('hidden');
+
+          if (isOpen) {
+            content.classList.add('hidden');
+            iconPlus?.classList.remove('hidden');
+            iconMinus?.classList.add('hidden');
+          } else {
+            content.classList.remove('hidden');
+            iconPlus?.classList.add('hidden');
+            iconMinus?.classList.remove('hidden');
+          }
+        };
+      }
+    });
+  }
+
+  initFooterAccordions();
+</script>
