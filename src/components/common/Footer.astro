@@ -43,37 +43,37 @@ const exploreMoreList = [
 ];
 ---
 
-<footer class="w-full bg-[#182A4D] text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-t border-blue-950 font-body select-none">
+<footer class="w-full bg-[#182A4D] text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-t border-blue-950 font-sans select-none">
   <div class="max-w-[1180px] mx-auto space-y-12">
     
     <!-- Top Section: Brand Logo, EXPLORE Accordions & Verification Badge -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 items-start">
       
-      <!-- Column 1: Brand Logo & Slogan (Usando asset oficial /assets/footer/Robbies.png) -->
-      <div class="space-y-4">
-        <a href="/" class="block">
+      <!-- Column 1: Brand Logo & Slogan -->
+      <div class="space-y-4 text-center md:text-left">
+        <a href="/" class="inline-block">
           <img 
             src="/assets/footer/Robbies.png" 
             alt="Robbie's of Islamorada" 
-            class="h-14 sm:h-16 w-auto object-contain drop-shadow-md"
+            class="h-14 sm:h-16 w-auto object-contain drop-shadow-md mx-auto md:mx-0"
             loading="lazy"
           />
         </a>
-        <p class="text-xs sm:text-sm text-white/90 leading-relaxed font-medium max-w-xs">
+        <p class="text-xs sm:text-sm text-white/90 leading-relaxed font-sans max-w-xs mx-auto md:mx-0">
           Robbie’s of Islamorada, home of the world-famous tarpon feeding!
         </p>
       </div>
 
-      <!-- Column 2 & 3: EXPLORE Accordion Card Boxes (TODOS CERRADOS POR DEFECTO POR DIRECTRIZ) -->
+      <!-- Column 2 & 3: EXPLORE Accordion Card Boxes (Acordeón Exclusivo: al abrir uno se cierra el otro) -->
       <div class="lg:col-span-2 space-y-4">
-        <h3 class="font-heading font-extrabold text-sm sm:text-base tracking-widest text-white uppercase mb-3">
+        <h3 class="font-heading font-extrabold text-sm sm:text-base tracking-widest text-white uppercase mb-3 text-center md:text-left">
           EXPLORE
         </h3>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="footer-accordion-group">
           
-          <!-- Box 1: SHOP ONLINE (Boton unico) -->
-          <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 hover:border-white/20 transition-all">
+          <!-- Box 1: SHOP ONLINE -->
+          <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 hover:border-white/20 transition-all shadow-sm">
             <a 
               href="https://shop.robbies.com/" 
               target="_blank" 
@@ -84,96 +84,96 @@ const exploreMoreList = [
             </a>
           </div>
 
-          <!-- Box 2: ACTIVITIES (CERRADO POR DEFECTO POR INSTRUCCION DEL USUARIO) -->
+          <!-- Box 2: ACTIVITIES (Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-activities">
             <button 
               type="button" 
               class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>ACTIVITIES</span>
-              <span class="icon-plus text-sm font-bold">+</span>
-              <span class="icon-minus text-sm font-bold hidden">-</span>
+              <span class="icon-plus text-sm font-bold text-blue-200">+</span>
+              <span class="icon-minus text-sm font-bold text-blue-200 hidden">-</span>
             </button>
-            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {activitiesList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          <!-- Box 3: FISHING (CERRADO POR DEFECTO) -->
+          <!-- Box 3: FISHING (Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-fishing">
             <button 
               type="button" 
               class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>FISHING</span>
-              <span class="icon-plus text-sm font-bold">+</span>
-              <span class="icon-minus text-sm font-bold hidden">-</span>
+              <span class="icon-plus text-sm font-bold text-blue-200">+</span>
+              <span class="icon-minus text-sm font-bold text-blue-200 hidden">-</span>
             </button>
-            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {fishingList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          <!-- Box 4: ISLAMORADA FISHING (CERRADO POR DEFECTO) -->
+          <!-- Box 4: ISLAMORADA FISHING (Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-islamorada-fishing">
             <button 
               type="button" 
               class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>ISLAMORADA FISHING</span>
-              <span class="icon-plus text-sm font-bold">+</span>
-              <span class="icon-minus text-sm font-bold hidden">-</span>
+              <span class="icon-plus text-sm font-bold text-blue-200">+</span>
+              <span class="icon-minus text-sm font-bold text-blue-200 hidden">-</span>
             </button>
-            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {islamoradaFishingList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          <!-- Box 5: OUR CAPTAINS (CERRADO POR DEFECTO) -->
+          <!-- Box 5: OUR CAPTAINS (Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-captains">
             <button 
               type="button" 
               class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>OUR CAPTAINS</span>
-              <span class="icon-plus text-sm font-bold">+</span>
-              <span class="icon-minus text-sm font-bold hidden">-</span>
+              <span class="icon-plus text-sm font-bold text-blue-200">+</span>
+              <span class="icon-minus text-sm font-bold text-blue-200 hidden">-</span>
             </button>
-            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {captainsList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          <!-- Box 6: EXPLORE MORE (CERRADO POR DEFECTO) -->
+          <!-- Box 6: EXPLORE MORE (Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-explore-more">
             <button 
               type="button" 
               class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>EXPLORE MORE</span>
-              <span class="icon-plus text-sm font-bold">+</span>
-              <span class="icon-minus text-sm font-bold hidden">-</span>
+              <span class="icon-plus text-sm font-bold text-blue-200">+</span>
+              <span class="icon-minus text-sm font-bold text-blue-200 hidden">-</span>
             </button>
-            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85">
+            <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {exploreMoreList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors">{item.name}</a>
+                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>
@@ -185,8 +185,8 @@ const exploreMoreList = [
       <!-- Column 4: Pet Friendly Badge, Reviews & LocalKeysGuide Verified Badge -->
       <div class="space-y-4 flex flex-col items-center md:items-start">
         
-        <!-- Pet Friendly Badge (Usando asset oficial /assets/footer/PET-FRIENDLY_LOGO-1000x1000.png) -->
-        <div class="flex items-center space-x-3">
+        <!-- Pet Friendly Badge -->
+        <div class="flex items-center justify-center md:justify-start">
           <img 
             src="/assets/footer/PET-FRIENDLY_LOGO-1000x1000.png" 
             alt="Pet Friendly Logo" 
@@ -195,15 +195,32 @@ const exploreMoreList = [
           />
         </div>
 
-        <!-- Tell us about your experience -->
+        <!-- Tell us about your experience con iconos perfeccionados -->
         <div class="space-y-2 text-center md:text-left">
-          <span class="text-xs font-semibold text-white/90 block">Tell us about your experience</span>
-          <div class="flex items-center justify-center md:justify-start space-x-2">
-            <a href="https://www.tripadvisor.com" target="_blank" rel="noopener noreferrer" class="p-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors">
-              <img src="/assets/home/imgi_106_ICON-DIA.webp" alt="Tripadvisor" class="h-4 w-auto" />
+          <span class="text-xs font-sans font-semibold text-white/90 block">Tell us about your experience</span>
+          <div class="flex items-center justify-center md:justify-start space-x-2.5">
+            <!-- Tripadvisor Badge Icon -->
+            <a 
+              href="https://www.tripadvisor.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              title="Tell us on Tripadvisor"
+              class="p-2 bg-[#243A66] hover:bg-[#1C3058] rounded-lg border border-white/15 transition-all inline-flex items-center justify-center hover:scale-105"
+            >
+              <img src="/assets/home/imgi_106_ICON-DIA.webp" alt="Tripadvisor Review" class="h-4 w-auto object-contain" />
             </a>
-            <a href="https://www.google.com" target="_blank" rel="noopener noreferrer" class="p-1.5 bg-white/10 rounded-lg hover:bg-white/20 transition-colors font-bold text-xs">
-              G
+
+            <!-- Google Review Icon -->
+            <a 
+              href="https://www.google.com/search?q=robbies+islamorada" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              title="Review us on Google"
+              class="p-2 bg-[#243A66] hover:bg-[#1C3058] rounded-lg border border-white/15 transition-all inline-flex items-center justify-center hover:scale-105 text-white font-heading font-black text-xs h-8 w-8"
+            >
+              <svg class="w-4 h-4 fill-current text-white" viewBox="0 0 24 24">
+                <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 15.987 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -229,12 +246,12 @@ const exploreMoreList = [
 
     </div>
 
-    <!-- Middle Section: 4 Location Info Cards (Fondo Azul Marino #243A66 con Bordes Redondeados) -->
+    <!-- Middle Section: 4 Location Info Cards (Títulos en Montserrat Bold, Textos en Open Sans) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       
       <!-- Card 1: Robbie's of Islamorada -->
-      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90">
-        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
+      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90 font-sans shadow-sm">
+        <h4 class="font-heading font-bold text-sm text-white tracking-wide border-b border-white/10 pb-2">
           Robbie’s of Islamorada
         </h4>
         <div class="flex items-start space-x-2.5">
@@ -257,11 +274,30 @@ const exploreMoreList = [
           <Globe class="w-4 h-4 text-blue-300 flex-shrink-0" />
           <a href="https://www.robbies.com/" target="_blank" class="hover:underline">robbies.com</a>
         </div>
+        
+        <!-- Social Icons Bar Card 1 -->
+        <div class="pt-2 border-t border-white/10 flex items-center space-x-2 text-white">
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
+          </a>
+          <a href="https://pinterest.com" target="_blank" aria-label="Pinterest" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+          </a>
+          <a href="https://tiktok.com" target="_blank" aria-label="TikTok" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.82.57-1.31 1.56-1.3 2.56.01 1.1.66 2.1 1.65 2.54.99.44 2.18.29 3.02-.37.77-.6 1.2-1.57 1.21-2.55.01-5.5.01-11 .01-16.5z"/></svg>
+          </a>
+        </div>
       </div>
 
       <!-- Card 2: Captain Michael Fishing -->
-      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90">
-        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
+      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90 font-sans shadow-sm">
+        <h4 class="font-heading font-bold text-sm text-white tracking-wide border-b border-white/10 pb-2">
           Captain Michael Fishing
         </h4>
         <div class="flex items-start space-x-2.5">
@@ -284,11 +320,27 @@ const exploreMoreList = [
           <Globe class="w-4 h-4 text-blue-300 flex-shrink-0" />
           <a href="https://captainmichaelfishing.com" target="_blank" class="hover:underline">captainmichaelfishing.com</a>
         </div>
+
+        <!-- Social Icons Bar Card 2 -->
+        <div class="pt-2 border-t border-white/10 flex items-center space-x-2 text-white">
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
+          </a>
+          <a href="https://pinterest.com" target="_blank" aria-label="Pinterest" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com" target="_blank" aria-label="X Twitter" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
       </div>
 
       <!-- Card 3: Hungry Tarpon Restaurant -->
-      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90">
-        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
+      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90 font-sans shadow-sm">
+        <h4 class="font-heading font-bold text-sm text-white tracking-wide border-b border-white/10 pb-2">
           Hungry Tarpon Restaurant
         </h4>
         <div class="flex items-start space-x-2.5">
@@ -311,11 +363,27 @@ const exploreMoreList = [
           <Globe class="w-4 h-4 text-blue-300 flex-shrink-0" />
           <a href="https://hungrytarpon.com" target="_blank" class="hover:underline">hungrytarpon.com</a>
         </div>
+
+        <!-- Social Icons Bar Card 3 -->
+        <div class="pt-2 border-t border-white/10 flex items-center space-x-2 text-white">
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
+          </a>
+          <a href="https://pinterest.com" target="_blank" aria-label="Pinterest" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+          </a>
+          <a href="https://x.com" target="_blank" aria-label="X Twitter" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+        </div>
       </div>
 
       <!-- Card 4: Robbie's Marina of Key West -->
-      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90">
-        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
+      <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90 font-sans shadow-sm">
+        <h4 class="font-heading font-bold text-sm text-white tracking-wide border-b border-white/10 pb-2">
           Robbie’s Marina of Key West
         </h4>
         <div class="flex items-start space-x-2.5">
@@ -338,12 +406,22 @@ const exploreMoreList = [
           <Globe class="w-4 h-4 text-blue-300 flex-shrink-0" />
           <a href="https://robbieskw.com" target="_blank" class="hover:underline">robbieskw.com</a>
         </div>
+
+        <!-- Social Icons Bar Card 4 -->
+        <div class="pt-2 border-t border-white/10 flex items-center space-x-2 text-white">
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook" class="p-1 hover:text-blue-300 transition-colors">
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
+          </a>
+        </div>
       </div>
 
     </div>
 
-    <!-- Bottom Legal Bar -->
-    <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-white/70 gap-3 text-center sm:text-left">
+    <!-- Bottom Legal Bar (Textos en Open Sans) -->
+    <div class="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-xs text-white/70 gap-3 text-center sm:text-left font-sans">
       <div class="flex flex-wrap items-center justify-center gap-3">
         <a href="https://www.robbies.com/" class="hover:underline hover:text-white">Privacy policy</a>
         <span>|</span>
@@ -361,13 +439,15 @@ const exploreMoreList = [
   </div>
 </footer>
 
-<!-- Script para la lógica de acordeón de los ítems de EXPLORE -->
+<!-- Script para Acordeón Exclusivo (Al abrir un botón se cierra automáticamente cualquier otro abierto) -->
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', initFooterAccordions);
-  document.addEventListener('astro:page-load', initFooterAccordions);
+  document.addEventListener('DOMContentLoaded', initFooterExclusiveAccordions);
+  document.addEventListener('astro:page-load', initFooterExclusiveAccordions);
 
-  function initFooterAccordions() {
-    document.querySelectorAll('.accordion-item').forEach((item) => {
+  function initFooterExclusiveAccordions() {
+    const items = document.querySelectorAll('#footer-accordion-group .accordion-item');
+
+    items.forEach((item) => {
       const trigger = item.querySelector('.accordion-trigger');
       const content = item.querySelector('.accordion-content');
       const iconPlus = item.querySelector('.icon-plus');
@@ -376,9 +456,23 @@ const exploreMoreList = [
       if (trigger && content) {
         trigger.onclick = (e) => {
           e.preventDefault();
-          const isOpen = !content.classList.contains('hidden');
+          const isCurrentlyOpen = !content.classList.contains('hidden');
 
-          if (isOpen) {
+          // 1. Cierra automáticamente todos los demás acordeones abiertos
+          items.forEach((otherItem) => {
+            const otherContent = otherItem.querySelector('.accordion-content');
+            const otherPlus = otherItem.querySelector('.icon-plus');
+            const otherMinus = otherItem.querySelector('.icon-minus');
+
+            if (otherContent && otherItem !== item) {
+              otherContent.classList.add('hidden');
+              otherPlus?.classList.remove('hidden');
+              otherMinus?.classList.add('hidden');
+            }
+          });
+
+          // 2. Alterna el estado del acordeón clickeado
+          if (isCurrentlyOpen) {
             content.classList.add('hidden');
             iconPlus?.classList.remove('hidden');
             iconMinus?.classList.add('hidden');
@@ -392,5 +486,5 @@ const exploreMoreList = [
     });
   }
 
-  initFooterAccordions();
+  initFooterExclusiveAccordions();
 </script>
