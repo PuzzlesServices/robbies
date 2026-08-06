@@ -64,31 +64,31 @@ const exploreMoreList = [
         </p>
       </div>
 
-      <!-- Column 2 & 3: EXPLORE Accordion Card Boxes (Acordeón Exclusivo: al abrir uno se cierra el otro) -->
+      <!-- Column 2 & 3: EXPLORE Accordion Card Boxes (Títulos de Tabs en Montserrat Black/Bold) -->
       <div class="lg:col-span-2 space-y-4">
-        <h3 class="font-heading font-extrabold text-sm sm:text-base tracking-widest text-white uppercase mb-3 text-center md:text-left">
+        <h3 class="font-heading font-black text-base sm:text-lg tracking-widest text-white uppercase mb-3 text-center md:text-left">
           EXPLORE
         </h3>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3" id="footer-accordion-group">
           
-          <!-- Box 1: SHOP ONLINE -->
+          <!-- Box 1: SHOP ONLINE (Montserrat Black Bold) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 hover:border-white/20 transition-all shadow-sm">
             <a 
               href="https://shop.robbies.com/" 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="font-heading font-bold text-xs uppercase tracking-wider text-white hover:text-blue-300 block"
+              class="font-heading font-black text-xs sm:text-[13px] uppercase tracking-wider text-white hover:text-blue-300 block"
             >
               SHOP ONLINE
             </a>
           </div>
 
-          <!-- Box 2: ACTIVITIES (Cerrado por defecto) -->
+          <!-- Box 2: ACTIVITIES (Montserrat Black Bold - Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-activities">
             <button 
               type="button" 
-              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+              class="w-full flex items-center justify-between font-heading font-black text-xs sm:text-[13px] uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>ACTIVITIES</span>
               <span class="icon-plus text-sm font-bold text-blue-200">+</span>
@@ -103,11 +103,11 @@ const exploreMoreList = [
             </ul>
           </div>
 
-          <!-- Box 3: FISHING (Cerrado por defecto) -->
+          <!-- Box 3: FISHING (Montserrat Black Bold - Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-fishing">
             <button 
               type="button" 
-              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+              class="w-full flex items-center justify-between font-heading font-black text-xs sm:text-[13px] uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>FISHING</span>
               <span class="icon-plus text-sm font-bold text-blue-200">+</span>
@@ -122,11 +122,11 @@ const exploreMoreList = [
             </ul>
           </div>
 
-          <!-- Box 4: ISLAMORADA FISHING (Cerrado por defecto) -->
+          <!-- Box 4: ISLAMORADA FISHING (Montserrat Black Bold - Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-islamorada-fishing">
             <button 
               type="button" 
-              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+              class="w-full flex items-center justify-between font-heading font-black text-xs sm:text-[13px] uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>ISLAMORADA FISHING</span>
               <span class="icon-plus text-sm font-bold text-blue-200">+</span>
@@ -141,11 +141,11 @@ const exploreMoreList = [
             </ul>
           </div>
 
-          <!-- Box 5: OUR CAPTAINS (Cerrado por defecto) -->
+          <!-- Box 5: OUR CAPTAINS (Montserrat Black Bold - Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-captains">
             <button 
               type="button" 
-              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+              class="w-full flex items-center justify-between font-heading font-black text-xs sm:text-[13px] uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>OUR CAPTAINS</span>
               <span class="icon-plus text-sm font-bold text-blue-200">+</span>
@@ -160,11 +160,11 @@ const exploreMoreList = [
             </ul>
           </div>
 
-          <!-- Box 6: EXPLORE MORE (Cerrado por defecto) -->
+          <!-- Box 6: EXPLORE MORE (Montserrat Black Bold - Cerrado por defecto) -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 accordion-item" id="accordion-explore-more">
             <button 
               type="button" 
-              class="w-full flex items-center justify-between font-heading font-bold text-xs uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
+              class="w-full flex items-center justify-between font-heading font-black text-xs sm:text-[13px] uppercase tracking-wider text-white focus:outline-none accordion-trigger cursor-pointer"
             >
               <span>EXPLORE MORE</span>
               <span class="icon-plus text-sm font-bold text-blue-200">+</span>
@@ -195,33 +195,48 @@ const exploreMoreList = [
           />
         </div>
 
-        <!-- Tell us about your experience con iconos perfeccionados -->
+        <!-- Tell us about your experience (Cajas Blancas con Iconos de Tripadvisor, Yelp y Google exactos a la imagen) -->
         <div class="space-y-2 text-center md:text-left">
           <span class="text-xs font-sans font-semibold text-white/90 block">Tell us about your experience</span>
           <div class="flex items-center justify-center md:justify-start space-x-2.5">
-            <!-- Tripadvisor Badge Icon -->
+            
+            <!-- 1º: Tripadvisor (Caja blanca redondeada con búho) -->
             <a 
               href="https://www.tripadvisor.com/" 
               target="_blank" 
               rel="noopener noreferrer" 
               title="Tell us on Tripadvisor"
-              class="p-2 bg-[#243A66] hover:bg-[#1C3058] rounded-lg border border-white/15 transition-all inline-flex items-center justify-center hover:scale-105"
+              class="w-9 h-9 bg-white rounded-lg border border-slate-200 shadow hover:scale-105 transition-transform flex items-center justify-center p-1.5"
             >
-              <img src="/assets/home/imgi_106_ICON-DIA.webp" alt="Tripadvisor Review" class="h-4 w-auto object-contain" />
+              <img src="/assets/home/imgi_106_ICON-DIA.webp" alt="Tripadvisor" class="w-full h-full object-contain" />
             </a>
 
-            <!-- Google Review Icon -->
+            <!-- 2º: Yelp (Caja blanca redondeada con ráfaga Yelp) -->
+            <a 
+              href="https://www.yelp.com/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              title="Review us on Yelp"
+              class="w-9 h-9 bg-white rounded-lg border border-slate-200 shadow hover:scale-105 transition-transform flex items-center justify-center p-1.5"
+            >
+              <svg class="w-5 h-5 fill-[#182A4D]" viewBox="0 0 24 24">
+                <path d="M20.16 12.74c-.28-.5-.95-.66-1.44-.35l-3.9 2.45c-.32.2-.42.61-.22.93l1.83 2.92c.2.32.61.42.93.22l3.07-1.92c.48-.3.62-.95.35-1.45l-.62-2.8zm-7.63-2.18l.84-4.5c.09-.54-.27-1.05-.81-1.14l-3.56-.6c-.54-.09-1.05.27-1.14.81l-.83 4.5c-.09.54.27 1.05.81 1.14l3.56.6c.54.09 1.04-.27 1.13-.81zm-2.82 4.41l-4.48-1.07c-.54-.13-1.08.2-1.21.74l-.84 3.52c-.13.54.2 1.08.74 1.21l4.48 1.07c.54.13 1.08-.2 1.21-.74l.84-3.52c.13-.54-.2-1.08-.74-1.21zm8.79.16l-3.54-2.94c-.42-.35-1.04-.29-1.39.13l-1.99 2.4c-.35.42-.29 1.04.13 1.39l3.54 2.94c.42.35 1.04.29 1.39-.13l1.99-2.4c.36-.42.29-1.04-.13-1.39z"/>
+              </svg>
+            </a>
+
+            <!-- 3º: Google (Caja blanca redondeada con la G de Google) -->
             <a 
               href="https://www.google.com/search?q=robbies+islamorada" 
               target="_blank" 
               rel="noopener noreferrer" 
               title="Review us on Google"
-              class="p-2 bg-[#243A66] hover:bg-[#1C3058] rounded-lg border border-white/15 transition-all inline-flex items-center justify-center hover:scale-105 text-white font-heading font-black text-xs h-8 w-8"
+              class="w-9 h-9 bg-white rounded-lg border border-slate-200 shadow hover:scale-105 transition-transform flex items-center justify-center p-1.5"
             >
-              <svg class="w-4 h-4 fill-current text-white" viewBox="0 0 24 24">
+              <svg class="w-5 h-5 fill-[#182A4D]" viewBox="0 0 24 24">
                 <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 15.987 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
               </svg>
             </a>
+
           </div>
         </div>
 
@@ -246,12 +261,12 @@ const exploreMoreList = [
 
     </div>
 
-    <!-- Middle Section: 4 Location Info Cards (Títulos en Montserrat Bold, Textos en Open Sans) -->
+    <!-- Middle Section: 4 Location Info Cards (Títulos en Montserrat Black/Bold, Textos en Open Sans) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       
       <!-- Card 1: Robbie's of Islamorada -->
       <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90 font-sans shadow-sm">
-        <h4 class="font-heading font-bold text-sm text-white tracking-wide border-b border-white/10 pb-2">
+        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
           Robbie’s of Islamorada
         </h4>
         <div class="flex items-start space-x-2.5">
@@ -284,7 +299,7 @@ const exploreMoreList = [
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M9 8H6v4h3v12h5V12h3.642L18 8h-4V6.333C14 5.374 14.5 5 15.5 5H18V0h-3.808C10.592 0 9 1.583 9 4.615V8z"/></svg>
           </a>
           <a href="https://pinterest.com" target="_blank" aria-label="Pinterest" class="p-1 hover:text-blue-300 transition-colors">
-            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.372-12 12 0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738.098.119.112.224.083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 10.43-1.002 2.35-1.492 3.146 1.124.347 2.317.535 3.554.535 6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z"/></svg>
           </a>
           <a href="https://youtube.com" target="_blank" aria-label="YouTube" class="p-1 hover:text-blue-300 transition-colors">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
@@ -297,7 +312,7 @@ const exploreMoreList = [
 
       <!-- Card 2: Captain Michael Fishing -->
       <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90 font-sans shadow-sm">
-        <h4 class="font-heading font-bold text-sm text-white tracking-wide border-b border-white/10 pb-2">
+        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
           Captain Michael Fishing
         </h4>
         <div class="flex items-start space-x-2.5">
@@ -340,7 +355,7 @@ const exploreMoreList = [
 
       <!-- Card 3: Hungry Tarpon Restaurant -->
       <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90 font-sans shadow-sm">
-        <h4 class="font-heading font-bold text-sm text-white tracking-wide border-b border-white/10 pb-2">
+        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
           Hungry Tarpon Restaurant
         </h4>
         <div class="flex items-start space-x-2.5">
@@ -383,7 +398,7 @@ const exploreMoreList = [
 
       <!-- Card 4: Robbie's Marina of Key West -->
       <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 space-y-3.5 text-xs text-white/90 font-sans shadow-sm">
-        <h4 class="font-heading font-bold text-sm text-white tracking-wide border-b border-white/10 pb-2">
+        <h4 class="font-heading font-black text-sm text-white tracking-wide border-b border-white/10 pb-2">
           Robbie’s Marina of Key West
         </h4>
         <div class="flex items-start space-x-2.5">
@@ -439,7 +454,7 @@ const exploreMoreList = [
   </div>
 </footer>
 
-<!-- Script para Acordeón Exclusivo (Al abrir un botón se cierra automáticamente cualquier otro abierto) -->
+<!-- Script para Acordeón Exclusivo -->
 <script is:inline>
   document.addEventListener('DOMContentLoaded', initFooterExclusiveAccordions);
   document.addEventListener('astro:page-load', initFooterExclusiveAccordions);
