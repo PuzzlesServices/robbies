@@ -1,0 +1,305 @@
+---
+import { ChevronLeft, ChevronRight, Star } from '@lucide/astro';
+
+interface Review {
+  id: number;
+  name: string;
+  avatarBg: string;
+  avatarText: string;
+  avatarImg?: string;
+  text: string;
+  rating: number;
+}
+
+const reviews: Review[] = [
+  {
+    id: 1,
+    name: "Allen Powers",
+    avatarBg: "bg-purple-700",
+    avatarText: "A",
+    text: "Fabulous. Good food, great service. All A's",
+    rating: 5
+  },
+  {
+    id: 2,
+    name: "Justin D Canada",
+    avatarBg: "bg-indigo-600",
+    avatarText: "J",
+    text: "What an awesome experience! You pay $5 to feed the tarpon and the sharks. Quite awesome. Just don't feed the pelicans. They're kind of jerks",
+    rating: 5
+  },
+  {
+    id: 3,
+    name: "Jerome Brenner",
+    avatarBg: "bg-blue-600",
+    avatarText: "J",
+    text: "One of the best experiences even as a Florida Native. Feeding the Tarpon as they swallow your arm, will be a memory I'll never forget. Can 100% recommend",
+    rating: 5
+  },
+  {
+    id: 4,
+    name: "Sarah Jenkins",
+    avatarBg: "bg-emerald-600",
+    avatarText: "S",
+    text: "Feeding the tarpon at Robbie's is a must-do in the Keys! Unforgettable family experience and great food at Hungry Tarpon.",
+    rating: 5
+  },
+  {
+    id: 5,
+    name: "Michael Miller",
+    avatarBg: "bg-amber-600",
+    avatarText: "M",
+    text: "Great atmosphere, super friendly staff, and the sunset cruise was top notch. We will definitely come back every year!",
+    rating: 5
+  },
+  {
+    id: 6,
+    name: "David Smith",
+    avatarBg: "bg-rose-600",
+    avatarText: "D",
+    text: "Voted #1 for a reason. Great food, awesome boat rentals, and the fish feeding is incredible for kids and adults alike.",
+    rating: 5
+  }
+];
+
+const googleMapsReviewUrl = "https://www.google.com/maps/place//@24.882662,-80.690772,17z/data=!3m1!4b1!4m3!3m2!1s0x88d739d9432cadf7:0x6f81d18cc5c799cc!12e1?entry=ttu&g_ep=EgoyMDI2MDgxOS4wIKXMDSoASAFQAw%3D%3D";
+---
+
+<!-- Section: "Your opinion Matters" Google Reviews Showcase Carousel (Réplica Exacta) -->
+<section class="w-full bg-[#2B447A] py-16 sm:py-20 px-4 sm:px-6 lg:px-8 text-white select-none overflow-hidden relative border-t border-blue-900">
+  <div class="max-w-[1180px] mx-auto space-y-10">
+    
+    <!-- Title -->
+    <div class="text-center">
+      <h2 class="font-heading font-black text-3xl sm:text-4xl md:text-[42px] text-white tracking-tight leading-tight">
+        Your opinion Matters
+      </h2>
+    </div>
+
+    <!-- Carousel Cards Container -->
+    <div class="relative w-full px-2 sm:px-8" id="testimonials-carousel-wrapper">
+      
+      <!-- Track Wrapper -->
+      <div class="overflow-hidden w-full cursor-grab active:cursor-grabbing" id="testimonials-track-wrapper">
+        <div 
+          id="testimonials-track" 
+          class="flex transition-transform duration-500 ease-out gap-6"
+        >
+          {reviews.map((rev) => (
+            <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0 flex flex-col justify-between bg-white text-slate-800 rounded-2xl p-6 sm:p-7 shadow-xl border border-white/20 min-h-[220px]">
+              
+              <!-- Card Header Row: Avatar, Name & Google G Logo -->
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-3">
+                  <!-- User Avatar -->
+                  <div class={`w-10 h-10 rounded-full ${rev.avatarBg} text-white flex items-center justify-center font-heading font-black text-base shadow-xs flex-shrink-0`}>
+                    {rev.avatarText}
+                  </div>
+                  <!-- User Name -->
+                  <span class="font-sans font-bold text-sm sm:text-base text-slate-900 leading-snug">
+                    {rev.name}
+                  </span>
+                </div>
+
+                <!-- Google Multi-colored G Logo -->
+                <svg class="w-5 h-5 flex-shrink-0" viewBox="0 0 24 24">
+                  <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                  <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                  <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+                  <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+                </svg>
+              </div>
+
+              <!-- Rating Stars + Verified Badge -->
+              <div class="flex items-center space-x-1 mb-3">
+                <div class="flex items-center space-x-0.5 text-amber-400">
+                  <Star class="w-4 h-4 fill-current stroke-none" />
+                  <Star class="w-4 h-4 fill-current stroke-none" />
+                  <Star class="w-4 h-4 fill-current stroke-none" />
+                  <Star class="w-4 h-4 fill-current stroke-none" />
+                  <Star class="w-4 h-4 fill-current stroke-none" />
+                </div>
+                <!-- Verified Checkmark Badge -->
+                <svg class="w-4 h-4 fill-blue-500 ml-1 flex-shrink-0" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+              </div>
+
+              <!-- Review Text Body -->
+              <p class="font-sans text-xs sm:text-sm text-slate-700 leading-relaxed font-normal flex-1">
+                {rev.text}
+              </p>
+
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Left Arrow (<) -->
+      <button 
+        id="testimonials-prev-btn"
+        aria-label="Previous Reviews"
+        class="absolute left-0 sm:-left-2 top-1/2 -translate-y-1/2 z-20 p-2 text-white/70 hover:text-white transition-colors cursor-pointer focus:outline-none"
+      >
+        <ChevronLeft class="w-7 h-7 stroke-[2.5]" />
+      </button>
+
+      <!-- Right Arrow (>) -->
+      <button 
+        id="testimonials-next-btn"
+        aria-label="Next Reviews"
+        class="absolute right-0 sm:-right-2 top-1/2 -translate-y-1/2 z-20 p-2 text-white/70 hover:text-white transition-colors cursor-pointer focus:outline-none"
+      >
+        <ChevronRight class="w-7 h-7 stroke-[2.5]" />
+      </button>
+
+    </div>
+
+    <!-- Progress Indicator Bar -->
+    <div class="max-w-[200px] mx-auto pt-2">
+      <div class="w-full h-1 bg-white/20 rounded-full overflow-hidden">
+        <div 
+          id="testimonials-progress-bar" 
+          class="h-full bg-white rounded-full transition-all duration-300 ease-out"
+          style="width: 33.333%;"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Bottom CTA Button: LEAVE REVIEW -->
+    <div class="text-center pt-2">
+      <a 
+        href={googleMapsReviewUrl} 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="inline-flex items-center justify-center bg-white hover:bg-slate-100 text-[#2B447A] font-heading font-black text-xs sm:text-sm uppercase tracking-widest px-10 sm:px-12 py-3.5 sm:py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 border border-white/40"
+      >
+        LEAVE REVIEW
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- Inline Script for Testimonials Carousel & Progress Bar -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', initTestimonialsCarousel);
+  document.addEventListener('astro:page-load', initTestimonialsCarousel);
+
+  function initTestimonialsCarousel() {
+    const track = document.getElementById('testimonials-track');
+    const wrapper = document.getElementById('testimonials-track-wrapper');
+    const prevBtn = document.getElementById('testimonials-prev-btn');
+    const nextBtn = document.getElementById('testimonials-next-btn');
+    const progressBar = document.getElementById('testimonials-progress-bar');
+
+    if (!track || !wrapper) return;
+
+    let currentIndex = 0;
+    const totalCards = 6;
+
+    function getCardsPerPage() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 640) return 2;
+      return 1;
+    }
+
+    function getMaxIndex() {
+      const perPage = getCardsPerPage();
+      return Math.max(0, totalCards - perPage);
+    }
+
+    function updateCarousel() {
+      const maxIndex = getMaxIndex();
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+      if (currentIndex < 0) currentIndex = 0;
+
+      const cardWidth = track.children[0]?.getBoundingClientRect().width || 0;
+      const gap = 24;
+      const offset = (cardWidth + gap) * currentIndex;
+      
+      track.style.transform = `translateX(-${offset}px)`;
+
+      // Update progress bar
+      if (progressBar) {
+        const stepWidth = 100 / (maxIndex + 1);
+        progressBar.style.width = `${stepWidth}%`;
+        progressBar.style.transform = `translateX(${currentIndex * 100}%)`;
+      }
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      currentIndex--;
+      if (currentIndex < 0) currentIndex = getMaxIndex();
+      updateCarousel();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      currentIndex++;
+      if (currentIndex > getMaxIndex()) currentIndex = 0;
+      updateCarousel();
+    });
+
+    // Drag & Touch Swipe
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    wrapper.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      currentX = e.clientX;
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX;
+    });
+
+    wrapper.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diffX = currentX - startX;
+      if (diffX < -40) {
+        currentIndex++;
+        if (currentIndex > getMaxIndex()) currentIndex = 0;
+        updateCarousel();
+      } else if (diffX > 40) {
+        currentIndex--;
+        if (currentIndex < 0) currentIndex = getMaxIndex();
+        updateCarousel();
+      }
+    });
+
+    wrapper.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+      currentX = e.touches[0].clientX;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diffX = currentX - startX;
+      if (diffX < -40) {
+        currentIndex++;
+        if (currentIndex > getMaxIndex()) currentIndex = 0;
+        updateCarousel();
+      } else if (diffX > 40) {
+        currentIndex--;
+        if (currentIndex < 0) currentIndex = getMaxIndex();
+        updateCarousel();
+      }
+    });
+
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+  }
+
+  initTestimonialsCarousel();
+</script>
