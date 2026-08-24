@@ -1,0 +1,117 @@
+---
+interface Props {
+  sunsetImg?: string;
+  yachtImg?: string;
+}
+
+const {
+  sunsetImg = "/assets/home/imgi_239_BEST-SUNSET-CRUISES-IN-THE-FLORIDA-KEYS.webp",
+  yachtImg = "/assets/home/imgi_248_FOUR-ACES-LUXURY-YACHT-CHARTER.webp"
+} = Astro.props;
+---
+
+<!-- Section 1: Best Sunset Cruises & Section 2: Four Aces Luxury Yacht Charter (Zig-Zag Layout) -->
+<section class="w-full bg-[#F4F5F7] select-none overflow-hidden border-b border-slate-200">
+  
+  <!-- 1. Best Sunset Cruises in the Florida Keys (Left Image, Right Info Box) -->
+  <div class="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch">
+    
+    <!-- Left Column: High-Res Sunset Lighthouse Image -->
+    <div class="relative w-full h-[340px] xs:h-[400px] sm:h-[460px] lg:h-auto min-h-[340px] lg:min-h-[540px] bg-slate-950 overflow-hidden">
+      <img 
+        src={sunsetImg} 
+        alt="Best Sunset Cruises in the Florida Keys" 
+        class="w-full h-full object-cover block"
+        loading="lazy"
+      />
+    </div>
+
+    <!-- Right Column: Info Content Box (Gris Clarito #F4F5F7) -->
+    <div class="w-full bg-[#F4F5F7] p-8 sm:p-12 md:p-14 lg:p-16 flex flex-col items-center justify-center text-center my-auto">
+      <div class="max-w-xl mx-auto space-y-4 flex flex-col items-center">
+        
+        <!-- Title -->
+        <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-[34px] text-[#2B447A] tracking-tight uppercase leading-snug mb-2">
+          BEST SUNSET CRUISES<br class="hidden sm:inline" /> IN THE FLORIDA KEYS
+        </h2>
+
+        <!-- Body Text -->
+        <p class="font-sans text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+          If you are looking for <strong class="font-bold text-slate-900">Sunset Cruises in Islamorada, Florida Keys</strong>, Robbie's is the best spot to visit! We offer three options:
+          <strong class="font-bold text-slate-900">Sundance Watersports:</strong> A 100+ passenger catamaran, <strong class="font-bold text-slate-900">Blue</strong>, offers a cruise through Florida Bay, serving complimentary Champagne, with beer and wine available for purchase. We also offer private charters for special occasions such as weddings and larger group events.
+        </p>
+
+        <p class="font-sans text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+          <strong class="font-bold text-slate-900">KeyZ Charters:</strong> Take a private sunset cruise tour with Captain Sam on her 21' deck boat. Each trip can be customized to fulfill your desires: a specific destination, a catered picnic, or a birthday or anniversary celebration.
+        </p>
+
+        <p class="font-sans text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+          <strong class="font-bold text-slate-900">Four Aces:</strong> Luxury private sunset cruise in the Florida Bay on a 55' Hatteras. Four Aces gives you flexibility; stay local to take advantage of world-class fishing, set a course to the Dry Tortugas/Fort Jefferson in Key West, or head to the Bahamas for a multi-day excursion.
+        </p>
+
+        <!-- CTA Button -->
+        <div class="pt-3">
+          <a 
+            href="https://www.robbies.com/sunset-cruises.htm" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-8 sm:px-10 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20"
+          >
+            SUNSET CRUISES
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 2. Four Aces Luxury Yacht Charter (Left Info Box, Right Yacht Image - Zig-Zag) -->
+  <div class="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch border-t border-slate-200">
+    
+    <!-- Left Column: Info Content Box (Gris Clarito #F4F5F7) -->
+    <div class="w-full bg-[#F4F5F7] p-8 sm:p-12 md:p-14 lg:p-16 flex flex-col items-center justify-center text-center my-auto">
+      <div class="max-w-xl mx-auto space-y-4 flex flex-col items-center">
+        
+        <!-- Title -->
+        <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-[34px] text-[#2B447A] tracking-tight uppercase leading-snug mb-2">
+          FOUR ACES LUXURY YACHT<br class="hidden sm:inline" /> CHARTER
+        </h2>
+
+        <!-- Body Text -->
+        <p class="font-sans text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+          Four Aces, a 55' foot Hatteras, is waiting to take you on any adventure you can imagine. From a full day of fishing off Islamorada to cruising to the Bahamas, the Four Aces' customer-focused captain and crew are ready and able to make your dreams a reality. Fully air-conditioned and loaded with all the modern amenities for a high-end owner's sportfishing and recreation yacht.
+        </p>
+
+        <p class="font-sans text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+          This vessel is a place to go and stay on the water, not just a day boat. It was designed to travel and live aboard. She has space and comfort for 2 couples, or a traveling group of up to 6 (USCG Coast Guard passenger limit). Families or other larger groups can be on board overnight or for entertainment events. We also package larger groups with luxury shore accommodations. It works great for someone who prefers "yacht days" for only a portion of their vacation stay.
+        </p>
+
+        <!-- CTA Button -->
+        <div class="pt-3">
+          <a 
+            href="https://www.robbies.com/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-8 sm:px-10 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20"
+          >
+            FOUR ACES
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right Column: High-Res Luxury Yacht Image -->
+    <div class="relative w-full h-[340px] xs:h-[400px] sm:h-[460px] lg:h-auto min-h-[340px] lg:min-h-[540px] bg-slate-950 overflow-hidden">
+      <img 
+        src={yachtImg} 
+        alt="Four Aces Luxury Yacht Charter" 
+        class="w-full h-full object-cover block"
+        loading="lazy"
+      />
+    </div>
+
+  </div>
+
+</section>
