@@ -1,0 +1,233 @@
+---
+import { Star } from '@lucide/astro';
+
+const items = [
+  {
+    id: 1,
+    title: "KAYAK & PADDLE BOARD RENTALS",
+    shortText: `"The Kayak Shack" offers the BEST kayaking in the Florida Keys. Explore two state parks - Indian Key & Lignumvitae Key. Observe mangrove eco-systems, island exploration & snc`,
+    fullText: `"The Kayak Shack" offers the BEST kayaking in the Florida Keys. Explore two state parks - Indian Key & Lignumvitae Key. Observe mangrove eco-systems, island exploration & snorkeling in the turquoise waters of Islamorada.`,
+    image: "/assets/home/imgi_58_kayak.webp",
+    url: "https://www.robbies.com/kayak.htm",
+    isList: false
+  },
+  {
+    id: 2,
+    title: "THIRSTY TARPON BAR",
+    shortText: `Hungry Tarpon Restaurant and Bar offers a large menu with a wide variety of options that will make the entire family happy. Relax on our deck enjoying one of our signature cocktails,`,
+    fullText: `Hungry Tarpon Restaurant and Bar offers a large menu with a wide variety of options that will make the entire family happy. Relax on our deck enjoying one of our signature cocktails, we recommend the famous loaded Trailer Trash Bloody Mary!`,
+    image: "/assets/home/imgi_59_thirsty-tarpon.webp",
+    url: "https://www.robbies.com/hungry-tarpon-restaurant.htm",
+    isList: false
+  },
+  {
+    id: 3,
+    title: "JET SKI ADVENTURES",
+    shortText: `Fantastic Ride! 14-22 MILE TOURS! Explore the beautiful bays basins & mangrove tunnels in Islamorada! Get out and ride! Our 1 & 2 hour tours are fantastic. Discover 14 to 20 miles of beaut`,
+    fullText: `Fantastic Ride! 14-22 MILE TOURS! Explore the beautiful bays basins & mangrove tunnels in Islamorada! Get out and ride! Our 1 & 2 hour tours are fantastic. Discover 14 to 20 miles of beautiful turquoise waters all around Islamorada and experience dolphins and manatees playing in their natural habitats. Enjoy "The Best Part Of Your Vacation" right here with the Kayak Shack! New Yamahas with reverse and step up ladders. "We love to ride!"`,
+    image: "/assets/home/imgi_60_jet-ski.webp",
+    url: "https://www.robbies.com/jet-ski.htm",
+    isList: false
+  },
+  {
+    id: 4,
+    title: "GLASS BOTTOM BOAT TOUR",
+    shortText: `Join us aboard our beautiful, brand new, Seakeeper stabilized 46-foot glass bottom boat Transparensea. Visit reefs such as Checca Rocks, Alligator Reef, Caloosa Rocks and more while our ec`,
+    fullText: `Join us aboard our beautiful, brand new, Seakeeper stabilized 46-foot glass bottom boat Transparensea. Visit reefs such as Checca Rocks, Alligator Reef, Caloosa Rocks and more while our educated guides tell you everything you want to know about the underwater world beneath your feet.`,
+    image: "/assets/home/imgi_61_glass.webp",
+    url: "https://www.robbies.com/glass-bottom.htm",
+    isList: false
+  },
+  {
+    id: 5,
+    title: "ROBBIE'S TROPICAL OPEN AIR MARKET",
+    listItemsLeft: ["Fresh Coconuts", "Niknax", "Bead Shack", "Glass Shack"],
+    listItemsRight: ["The Shop at Robbie's", "Tim Rahn Photography", "Barbara Weingardt Art", "Charli's Icee Shack"],
+    image: "/assets/home/imgi_63_air-market.webp",
+    url: "https://www.robbies.com/",
+    isList: true
+  },
+  {
+    id: 6,
+    title: "ECO TOURS",
+    shortText: `Robbie's Eco-Tours are a perfect way to experience the raw beauty and wonder of the Florida Bay. Our two-hour trips take you on an excursion through passages among the sea gra`,
+    fullText: `Robbie's Eco-Tours are a perfect way to experience the raw beauty and wonder of the Florida Bay. Our two-hour trips take you on an excursion through passages among the sea grass beds that rim the many protected shallow bays. We take you among the hundreds of small, uninhabited mangrove and hardwood hammock islands, which host an amazing variety of wildlife and create the island network of the Florida Bay.`,
+    image: "/assets/home/imgi_64_eco-tours.webp",
+    url: "https://www.robbies.com/eco-tours.htm",
+    isList: false
+  },
+  {
+    id: 7,
+    title: "SNUBA DIVE",
+    shortText: `Dive into the enchanting world beneath the sea with a guided SNUBA adventure at SNUBA the Reef. Explore the depths and discover the vibrant marine life in an unforgettabl`,
+    fullText: `Dive into the enchanting world beneath the sea with a guided SNUBA adventure at SNUBA the Reef. Explore the depths and discover the vibrant marine life in an unforgettable experience. Located in Robbie's of Islamorada it is a destination you simply can't miss. We offer an all-in-one experience that encapsulates the essence of the Florida Keys, giving you a taste of its mesmerizing beauty and endless wonders. Whether you're seeking thrilling adventures, serene relaxation, or a memorable getaway, Robbie's of Islamorada is the ultimate must-visit destination.`,
+    image: "/assets/home/imgi_65_snuba.webp",
+    url: "https://www.robbies.com/snuba.htm",
+    isList: false
+  },
+  {
+    id: 8,
+    title: "BOAT RENTALS",
+    shortText: `Robbie's Boat Rentals in Islamorada is the perfect starting point for your Florida Keys trip. Our prime location provides quick access to popular attractions, including top fishi`,
+    fullText: `Robbie's Boat Rentals in Islamorada is the perfect starting point for your Florida Keys trip. Our prime location provides quick access to popular attractions, including top fishing spots in the Atlantic Ocean and Florida Bay. Nearby, tranquil mangrove-lined channels offer excellent bird watching opportunities. We are also close to two renowned shallow water reefs, Alligator Lighthouse and Cheeca Rocks, where you can snorkel or dive in depths ranging from 6 to 100 feet, with coral heads rising just 3 feet below the surface. Within a mile from Robbie's, you can explore the Spanish Galleon, San Pedro, known for its historic cannons, ballast stones, and timbers.`,
+    image: "/assets/home/imgi_66_boat-rentals.webp",
+    url: "https://www.robbies.com/boat-rentals.htm",
+    isList: false
+  }
+];
+---
+
+<!-- Section: THE BEST THINGS TO DO in Islamorada (8-Card Grid with Inline Smooth Read More Toggles) -->
+<section class="w-full bg-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-100 select-none overflow-hidden">
+  <div class="max-w-[1180px] mx-auto space-y-10">
+    
+    <!-- Top Header: 5 Stars & Title -->
+    <div class="text-center space-y-2">
+      <!-- 5 Navy Stars -->
+      <div class="flex items-center justify-center space-x-1 text-[#2B447A] mb-2">
+        <Star class="w-6 h-6 fill-current stroke-none" />
+        <Star class="w-6 h-6 fill-current stroke-none" />
+        <Star class="w-6 h-6 fill-current stroke-none" />
+        <Star class="w-6 h-6 fill-current stroke-none" />
+        <Star class="w-6 h-6 fill-current stroke-none" />
+      </div>
+
+      <!-- Main Title -->
+      <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-[34px] text-[#2B447A] tracking-tight uppercase leading-snug">
+        THE BEST THINGS TO DO
+      </h2>
+      <p class="font-sans text-sm text-slate-500 font-medium">
+        in Islamorada
+      </p>
+    </div>
+
+    <!-- 8 Cards Grid (4 Columns Desktop, 2 Columns Tablet, 1 Column Mobile) -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
+      {items.map((card) => (
+        <div class="w-full flex flex-col justify-between bg-white rounded-3xl border border-slate-200/80 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden self-stretch">
+          
+          <!-- Card Image Top -->
+          <div class="relative w-full h-56 sm:h-64 overflow-hidden bg-slate-100">
+            <img 
+              src={card.image} 
+              alt={card.title} 
+              class="w-full h-full object-cover block transition-transform duration-500 hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Card Content Box -->
+          <div class="p-5 flex-1 flex flex-col justify-start text-left font-sans">
+            <!-- Title -->
+            <h3 class="font-heading font-extrabold text-slate-900 text-sm sm:text-base tracking-tight uppercase mb-3 leading-snug text-center">
+              {card.title}
+            </h3>
+
+            <!-- List Content for Open Air Market -->
+            {card.isList ? (
+              <div class="grid grid-cols-2 gap-x-2 text-[11px] sm:text-xs text-slate-600 space-y-1 my-auto">
+                <ul class="space-y-1">
+                  {card.listItemsLeft?.map((li) => (
+                    <li class="flex items-start">
+                      <span class="mr-1 text-slate-400">•</span>
+                      <span>{li}</span>
+                    </li>
+                  ))}
+                </ul>
+                <ul class="space-y-1">
+                  {card.listItemsRight?.map((li) => (
+                    <li class="flex items-start">
+                      <span class="mr-1 text-slate-400">•</span>
+                      <span>{li}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : (
+              /* Inline Read More / Read Less Toggle Text */
+              <div class="text-xs sm:text-[13px] text-slate-600 leading-relaxed font-sans text-left">
+                <span class="short-text-inline inline">
+                  {card.shortText}
+                </span>
+                <span class="full-text-inline hidden">
+                  {card.fullText}
+                </span>
+                
+                <!-- Toggle Link -->
+                <button 
+                  type="button" 
+                  class="read-toggle-btn text-[#2B447A] font-bold underline hover:text-[#1F3664] ml-1 cursor-pointer focus:outline-none inline"
+                  aria-expanded="false"
+                >
+                  <span class="read-more-lbl inline">Read More &gt;&gt;</span>
+                  <span class="read-less-lbl hidden">Read Less</span>
+                </button>
+              </div>
+            )}
+          </div>
+
+          <!-- Bottom Blue Bar -->
+          <a 
+            href={card.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="w-full bg-[#2B447A] hover:bg-[#1F3664] text-white py-3.5 px-6 flex items-center justify-end font-heading font-extrabold text-xs uppercase tracking-wider transition-colors mt-auto"
+          >
+            Learn More
+          </a>
+
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<!-- Inline Script for Read More / Read Less Toggle Logic -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', initReadMoreToggles);
+  document.addEventListener('astro:page-load', initReadMoreToggles);
+
+  function initReadMoreToggles() {
+    document.querySelectorAll('.read-toggle-btn').forEach((btn) => {
+      btn.onclick = (e) => {
+        e.preventDefault();
+        const container = btn.parentElement;
+        if (!container) return;
+
+        const shortText = container.querySelector('.short-text-inline');
+        const fullText = container.querySelector('.full-text-inline');
+        const readMoreLbl = btn.querySelector('.read-more-lbl');
+        const readLessLbl = btn.querySelector('.read-less-lbl');
+
+        const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+        if (isExpanded) {
+          // Collapse to short text
+          btn.setAttribute('aria-expanded', 'false');
+          shortText?.classList.remove('hidden');
+          shortText?.classList.add('inline');
+          fullText?.classList.remove('inline');
+          fullText?.classList.add('hidden');
+          readMoreLbl?.classList.remove('hidden');
+          readMoreLbl?.classList.add('inline');
+          readLessLbl?.classList.remove('inline');
+          readLessLbl?.classList.add('hidden');
+        } else {
+          // Expand to full text
+          btn.setAttribute('aria-expanded', 'true');
+          shortText?.classList.remove('inline');
+          shortText?.classList.add('hidden');
+          fullText?.classList.remove('hidden');
+          fullText?.classList.add('inline');
+          readMoreLbl?.classList.remove('inline');
+          readMoreLbl?.classList.add('hidden');
+          readLessLbl?.classList.remove('hidden');
+          readLessLbl?.classList.add('inline');
+        }
+      };
+    });
+  }
+
+  initReadMoreToggles();
+</script>
