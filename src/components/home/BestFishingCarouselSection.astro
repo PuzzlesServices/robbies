@@ -1,0 +1,284 @@
+---
+import { ChevronLeft, ChevronRight, Star } from '@lucide/astro';
+
+const fishingCards = [
+  {
+    id: 1,
+    title: "TARPON & SHARK FISHING",
+    description: "Islamorada offers some of the best Tarpon Fishing in the Florida Keys. Active months: March through September.",
+    image: "/assets/home/imgi_51_TARPON-SHARK-FISHING.webp",
+    url: "https://www.robbies.com/islamorada-fishing.htm"
+  },
+  {
+    id: 2,
+    title: "OFFSHORE FISHING",
+    description: "Sport-fishing is one of the things that Islamorada is famous for and Robbie's has been doing it for more than 30 years.",
+    image: "/assets/home/imgi_52_OFFSHORE-FISHING.webp",
+    url: "https://www.robbies.com/islamorada-fishing.htm"
+  },
+  {
+    id: 3,
+    title: "SWORDFISH FISHING",
+    description: "Seek the mighty swordfish, known for their strength and tenacity. Experience the thrill of an unforgettable adventure.",
+    image: "/assets/home/imgi_53_SWORDFISH-FISHING.webp",
+    url: "https://www.robbies.com/islamorada-fishing.htm"
+  },
+  {
+    id: 4,
+    title: "SPLIT (SHARED) CHARTERS",
+    description: "Catch the big ones without spending the big bucks! You can share the expense of a Private Fishing Charter.",
+    image: "/assets/home/imgi_54_SPLIT-SHARED-CHARTERS.webp",
+    url: "https://www.robbies.com/islamorada-fishing.htm"
+  },
+  {
+    id: 5,
+    title: "BACKCOUNTRY FISHING",
+    description: "Located in the most ideal location in the Florida Keys. The Everglades National Park is a short boat ride away.",
+    image: "/assets/home/imgi_55_BACKCOUNTRY-FISHING.webp",
+    url: "https://www.robbies.com/islamorada-fishing.htm"
+  },
+  {
+    id: 6,
+    title: "REEF & WRECK FISHING",
+    description: "Some of the best fishing to be had in the Florida Keys lies only a few miles from shore.",
+    image: "/assets/home/imgi_56_REEF-WRECK-FISHING.webp",
+    url: "https://www.robbies.com/islamorada-fishing.htm"
+  }
+];
+---
+
+<!-- Section: BEST FISHING IN ISLAMORADA Interactive Cards Carousel (Réplica Exacta) -->
+<section class="w-full bg-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-100 select-none overflow-hidden">
+  <div class="max-w-[1180px] mx-auto space-y-10">
+    
+    <!-- Top Header: 5 Stars & Title -->
+    <div class="text-center space-y-2">
+      <!-- 5 Navy Stars -->
+      <div class="flex items-center justify-center space-x-1 text-[#2B447A] mb-2">
+        <Star class="w-6 h-6 fill-current stroke-none" />
+        <Star class="w-6 h-6 fill-current stroke-none" />
+        <Star class="w-6 h-6 fill-current stroke-none" />
+        <Star class="w-6 h-6 fill-current stroke-none" />
+        <Star class="w-6 h-6 fill-current stroke-none" />
+      </div>
+
+      <!-- Main Title -->
+      <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-[34px] text-[#2B447A] tracking-tight uppercase leading-snug">
+        BEST FISHING IN ISLAMORADA
+      </h2>
+      <p class="font-sans text-sm text-slate-500 font-medium">
+        at Robbie’s
+      </p>
+    </div>
+
+    <!-- Carousel Container with Navigation Arrows & Track -->
+    <div class="relative w-full px-2 sm:px-6" id="best-fishing-carousel-wrapper">
+      
+      <!-- Track Wrapper -->
+      <div class="overflow-hidden w-full cursor-grab active:cursor-grabbing" id="best-fishing-track-wrapper">
+        <div 
+          id="best-fishing-track" 
+          class="flex transition-transform duration-500 ease-out gap-6"
+        >
+          {fishingCards.map((card) => (
+            <div class="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] flex-shrink-0 flex flex-col justify-between bg-white rounded-3xl border border-slate-200/80 shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden">
+              
+              <!-- Card Top Image -->
+              <div class="relative w-full h-64 sm:h-72 overflow-hidden bg-slate-100">
+                <img 
+                  src={card.image} 
+                  alt={card.title} 
+                  class="w-full h-full object-cover block transition-transform duration-500 hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+
+              <!-- Card Body Content -->
+              <div class="p-6 space-y-2 flex-1 flex flex-col justify-start text-left">
+                <h3 class="font-heading font-extrabold text-slate-900 text-sm sm:text-base tracking-tight uppercase">
+                  {card.title}
+                </h3>
+                <p class="font-sans text-slate-600 text-xs sm:text-[13px] leading-relaxed">
+                  {card.description}
+                </p>
+              </div>
+
+              <!-- Card Footer Blue Bar -->
+              <a 
+                href={card.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                class="w-full bg-[#2B447A] hover:bg-[#1F3664] text-white py-3.5 px-6 flex items-center justify-end font-heading font-extrabold text-xs uppercase tracking-wider transition-colors"
+              >
+                Learn More
+              </a>
+
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Arrow Left (<) -->
+      <button 
+        id="fishing-prev-btn"
+        aria-label="Previous Cards"
+        class="absolute left-0 sm:-left-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-white border border-slate-200 hover:bg-[#2B447A] hover:text-white text-slate-700 rounded-full transition-all shadow-md cursor-pointer focus:outline-none"
+      >
+        <ChevronLeft class="w-5 h-5 stroke-[2.5]" />
+      </button>
+
+      <!-- Arrow Right (>) -->
+      <button 
+        id="fishing-next-btn"
+        aria-label="Next Cards"
+        class="absolute right-0 sm:-right-4 top-1/2 -translate-y-1/2 z-20 p-2.5 bg-white border border-slate-200 hover:bg-[#2B447A] hover:text-white text-slate-700 rounded-full transition-all shadow-md cursor-pointer focus:outline-none"
+      >
+        <ChevronRight class="w-5 h-5 stroke-[2.5]" />
+      </button>
+
+      <!-- Dots Indicators -->
+      <div class="flex items-center justify-center space-x-2 pt-8" id="fishing-dots-container">
+        <button class="w-2.5 h-2.5 rounded-full bg-[#2B447A] transition-all cursor-pointer" data-slide="0"></button>
+        <button class="w-2.5 h-2.5 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer" data-slide="1"></button>
+        <button class="w-2.5 h-2.5 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer" data-slide="2"></button>
+        <button class="w-2.5 h-2.5 rounded-full bg-slate-300 hover:bg-slate-400 transition-all cursor-pointer" data-slide="3"></button>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- Inline Script for Carousel Logic & Touch/Mouse Swipe -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', initBestFishingCarousel);
+  document.addEventListener('astro:page-load', initBestFishingCarousel);
+
+  function initBestFishingCarousel() {
+    const track = document.getElementById('best-fishing-track');
+    const wrapper = document.getElementById('best-fishing-track-wrapper');
+    const prevBtn = document.getElementById('fishing-prev-btn');
+    const nextBtn = document.getElementById('fishing-next-btn');
+    const dots = document.querySelectorAll('#fishing-dots-container button');
+
+    if (!track || !wrapper) return;
+
+    let currentIndex = 0;
+
+    function getCardsPerPage() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 640) return 2;
+      return 1;
+    }
+
+    function getMaxIndex() {
+      const totalCards = 6;
+      const perPage = getCardsPerPage();
+      return Math.max(0, totalCards - perPage);
+    }
+
+    function updateCarousel() {
+      const maxIndex = getMaxIndex();
+      if (currentIndex > maxIndex) currentIndex = maxIndex;
+      if (currentIndex < 0) currentIndex = 0;
+
+      const cardWidth = track.children[0]?.getBoundingClientRect().width || 0;
+      const gap = 24; // 6 * 4 = 24px gap
+      const offset = (cardWidth + gap) * currentIndex;
+      
+      track.style.transform = `translateX(-${offset}px)`;
+
+      // Update dots state
+      dots.forEach((dot, idx) => {
+        if (idx === currentIndex) {
+          dot.classList.remove('bg-slate-300');
+          dot.classList.add('bg-[#2B447A]', 'w-3', 'h-3');
+        } else {
+          dot.classList.remove('bg-[#2B447A]', 'w-3', 'h-3');
+          dot.classList.add('bg-slate-300');
+        }
+      });
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      currentIndex--;
+      if (currentIndex < 0) currentIndex = getMaxIndex();
+      updateCarousel();
+    });
+
+    nextBtn?.addEventListener('click', () => {
+      currentIndex++;
+      if (currentIndex > getMaxIndex()) currentIndex = 0;
+      updateCarousel();
+    });
+
+    dots.forEach((dot, idx) => {
+      dot.addEventListener('click', () => {
+        currentIndex = idx;
+        updateCarousel();
+      });
+    });
+
+    // Touch & Mouse Swipe Support
+    let startX = 0;
+    let currentX = 0;
+    let isDragging = false;
+
+    wrapper.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX;
+      currentX = e.clientX;
+    });
+
+    wrapper.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX;
+    });
+
+    wrapper.addEventListener('mouseup', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diffX = currentX - startX;
+      if (diffX < -40) {
+        currentIndex++;
+        if (currentIndex > getMaxIndex()) currentIndex = 0;
+        updateCarousel();
+      } else if (diffX > 40) {
+        currentIndex--;
+        if (currentIndex < 0) currentIndex = getMaxIndex();
+        updateCarousel();
+      }
+    });
+
+    wrapper.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].clientX;
+      currentX = e.touches[0].clientX;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      currentX = e.touches[0].clientX;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', () => {
+      if (!isDragging) return;
+      isDragging = false;
+      const diffX = currentX - startX;
+      if (diffX < -40) {
+        currentIndex++;
+        if (currentIndex > getMaxIndex()) currentIndex = 0;
+        updateCarousel();
+      } else if (diffX > 40) {
+        currentIndex--;
+        if (currentIndex < 0) currentIndex = getMaxIndex();
+        updateCarousel();
+      }
+    });
+
+    window.addEventListener('resize', updateCarousel);
+    updateCarousel();
+  }
+
+  initBestFishingCarousel();
+</script>
