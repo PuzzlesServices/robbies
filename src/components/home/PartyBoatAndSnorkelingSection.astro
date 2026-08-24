@@ -1,0 +1,174 @@
+---
+interface Props {
+  partyBoatImg?: string;
+  snorkelingImg?: string;
+}
+
+const {
+  partyBoatImg = "/assets/home/imgi_218_CAPTAIN-MICHAEL-PARTYBOAT-FISHING.webp",
+  snorkelingImg = "/assets/home/imgi_210_snork.webp"
+} = Astro.props;
+---
+
+<!-- Section 1: Captain Michael Partyboat Fishing & Section 2: Florida Keys Snorkeling Tours (Zig-Zag Layout) -->
+<section class="w-full bg-[#F4F5F7] select-none overflow-hidden border-b border-slate-200">
+  
+  <!-- 1. Captain Michael Partyboat Fishing (Left Image, Right Info Box) -->
+  <div class="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch">
+    
+    <!-- Left Column: High-Res Boat Image -->
+    <div class="relative w-full h-[340px] xs:h-[400px] sm:h-[460px] lg:h-auto min-h-[340px] lg:min-h-[540px] bg-slate-950 overflow-hidden">
+      <img 
+        src={partyBoatImg} 
+        alt="Captain Michael Partyboat Fishing" 
+        class="w-full h-full object-cover block"
+        loading="lazy"
+      />
+    </div>
+
+    <!-- Right Column: Info & Pricing Card Box (Gris Clarito #F4F5F7) -->
+    <div class="w-full bg-[#F4F5F7] p-8 sm:p-12 md:p-14 lg:p-16 flex flex-col items-center justify-center text-center my-auto">
+      <div class="max-w-xl mx-auto flex flex-col items-center">
+        
+        <!-- Section Title -->
+        <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-[34px] text-[#2B447A] tracking-tight uppercase leading-snug mb-1">
+          CAPTAIN MICHAEL PARTYBOAT FISHING
+        </h2>
+        <p class="font-heading font-bold text-xs uppercase tracking-widest text-slate-500 mb-6 sm:mb-8">
+          Three Trips per Day
+        </p>
+
+        <!-- 3 Trips Pricing Columns -->
+        <div class="grid grid-cols-3 gap-2 sm:gap-4 w-full my-2 pb-4 border-b border-slate-200">
+          
+          <!-- Trip 1: Morning Trip -->
+          <div class="flex flex-col items-center space-y-1">
+            <img src="/assets/home/imgi_41_ICON-DIA.png" alt="Morning Trip" class="h-10 sm:h-12 w-auto object-contain mb-1" />
+            <span class="font-heading font-extrabold text-[10px] sm:text-xs uppercase tracking-wider text-slate-600">
+              MORNING TRIP
+            </span>
+            <span class="font-sans font-bold text-xs sm:text-sm text-slate-800">
+              9 am to 2pm
+            </span>
+            <span class="font-heading font-black text-xl sm:text-2xl text-[#2B447A] pt-1">
+              $100
+            </span>
+            <span class="font-sans text-[10px] sm:text-xs uppercase text-slate-500 font-semibold tracking-wider">
+              PER PERSON
+            </span>
+          </div>
+
+          <!-- Trip 2: Afternoon Trip -->
+          <div class="flex flex-col items-center space-y-1 border-x border-slate-200 px-1 sm:px-2">
+            <img src="/assets/home/imgi_42_ICON-TARDE.png" alt="Afternoon Trip" class="h-10 sm:h-12 w-auto object-contain mb-1" />
+            <span class="font-heading font-extrabold text-[10px] sm:text-xs uppercase tracking-wider text-slate-600">
+              AFTERNOON TRIP
+            </span>
+            <span class="font-sans font-bold text-xs sm:text-sm text-slate-800">
+              2:30 pm to 6:30 pm
+            </span>
+            <span class="font-heading font-black text-xl sm:text-2xl text-[#2B447A] pt-1">
+              $75
+            </span>
+            <span class="font-sans text-[10px] sm:text-xs uppercase text-slate-500 font-semibold tracking-wider">
+              PER PERSON
+            </span>
+          </div>
+
+          <!-- Trip 3: Night Trip -->
+          <div class="flex flex-col items-center space-y-1">
+            <img src="/assets/home/imgi_43_ICON-NOCHE.png" alt="Night Trip" class="h-10 sm:h-12 w-auto object-contain mb-1" />
+            <span class="font-heading font-extrabold text-[10px] sm:text-xs uppercase tracking-wider text-slate-600">
+              NIGHT TRIP
+            </span>
+            <span class="font-sans font-bold text-xs sm:text-sm text-slate-800">
+              7:30 pm to 12:30 am
+            </span>
+            <span class="font-heading font-black text-xl sm:text-2xl text-[#2B447A] pt-1">
+              $100
+            </span>
+            <span class="font-sans text-[10px] sm:text-xs uppercase text-slate-500 font-semibold tracking-wider">
+              PER PERSON
+            </span>
+          </div>
+
+        </div>
+
+        <!-- Description -->
+        <p class="font-sans text-xs sm:text-sm text-slate-600 leading-relaxed my-4 max-w-lg">
+          <strong class="font-semibold text-slate-800">What's Included:</strong> All Bait, Tackle and Rods. If you bring your own rod, please, no braided line. Rotation of the Stern. Bathrooms and shaded cabin available
+        </p>
+
+        <!-- CTA Button -->
+        <a 
+          href="https://captainmichaelfishing.com" 
+          target="_blank" 
+          rel="noopener noreferrer" 
+          class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-8 sm:px-10 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20 my-2"
+        >
+          LEARN MORE
+        </a>
+
+        <!-- Disclaimer -->
+        <p class="font-sans text-[11px] text-slate-500 italic mt-1">
+          *Check in 30 minutes before departure of trip.
+        </p>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 2. Florida Keys Snorkeling Tours (Left Text Box, Right Sea Life Image - Zig-Zag) -->
+  <div class="w-full grid grid-cols-1 lg:grid-cols-2 items-stretch border-t border-slate-200">
+    
+    <!-- Left Column: Text Box Content -->
+    <div class="w-full bg-[#F4F5F7] p-8 sm:p-12 md:p-14 lg:p-16 flex flex-col justify-center text-left my-auto">
+      <div class="max-w-xl mx-auto space-y-4">
+        
+        <!-- Title -->
+        <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-[34px] text-[#2B447A] tracking-tight uppercase leading-snug mb-2">
+          FLORIDA KEYS SNORKELING TOURS
+        </h2>
+
+        <!-- Paragraphs -->
+        <p class="font-sans text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+          Experience the <strong class="font-bold text-slate-900">best snorkeling in Islamorada</strong> at Robbie's Marina. Dive into the Florida Keys' stunning underwater world for an unforgettable adventure. Visit soon and create lifelong memories!
+        </p>
+
+        <p class="font-sans text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+          Snorkel trips available on two different vessels. Blue, or Sundance Watersports, departs twice a day, 10:00AM and 1:30PM. <strong class="font-bold text-slate-900">KeyZ Charters</strong> can be booked for private parties of 6 people or less.
+        </p>
+
+        <p class="font-sans text-xs sm:text-sm md:text-base text-slate-700 leading-relaxed">
+          Jump into the water and into some fun with snorkeling tours in the Florida Keys! Come aboard our boat Blue for one of our two daily snorkel excursions, 10 a.m. or 1:30 p.m., or a <strong class="font-bold text-slate-900">sunset cruise</strong> on Wednesday, Friday, or Saturday.
+        </p>
+
+        <!-- CTA Button -->
+        <div class="pt-2">
+          <a 
+            href="https://www.robbies.com/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-8 sm:px-10 py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20"
+          >
+            SNORKELING TOURS
+          </a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right Column: High-Res Snorkeling Underwater Image -->
+    <div class="relative w-full h-[340px] xs:h-[400px] sm:h-[460px] lg:h-auto min-h-[340px] lg:min-h-[540px] bg-slate-950 overflow-hidden">
+      <img 
+        src={snorkelingImg} 
+        alt="Florida Keys Snorkeling Tours" 
+        class="w-full h-full object-cover block"
+        loading="lazy"
+      />
+    </div>
+
+  </div>
+
+</section>
