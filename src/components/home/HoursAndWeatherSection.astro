@@ -1,0 +1,165 @@
+---
+import { Calendar } from '@lucide/astro';
+
+const hoursData = [
+  {
+    title: "Robbie's of Islamorada",
+    days: "Mon-Sun:",
+    time: "7:00am - 9:00pm"
+  },
+  {
+    title: "Tarpon Booth",
+    days: "Mon-Sun:",
+    time: "7:00am - 9:00pm"
+  },
+  {
+    title: "Hungry Tarpon Restaurant",
+    days: "Mon-Sun:",
+    time: "6:30am - 9:00pm"
+  },
+  {
+    title: "Captain Michael Fishing",
+    days: "Mon-Sun:",
+    time: "7:00am - 8:00pm"
+  }
+];
+---
+
+<!-- Section: Hours of Operation & 7-Day Weather Forecast (Réplica exacta pixel-perfect) -->
+<section class="w-full bg-white py-16 sm:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-100 select-none">
+  <div class="max-w-[1180px] mx-auto space-y-16">
+    
+    <!-- 1. Hours of Operation Grid -->
+    <div class="space-y-10 sm:space-y-12">
+      <!-- Main Title -->
+      <h2 class="font-heading font-black text-2xl sm:text-3xl md:text-[34px] text-[#2B447A] text-center tracking-tight leading-snug">
+        Robbie’s of Islamorada Hours of Operation
+      </h2>
+
+      <!-- 4 Quadrants Grid with Cross Divider -->
+      <div class="max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-slate-300 relative">
+        
+        <!-- Top Left: Robbie's of Islamorada -->
+        <div class="p-6 sm:p-8 flex items-start space-x-3.5 sm:border-b sm:border-slate-300">
+          <div class="p-2 bg-blue-50 text-[#2B447A] rounded-lg flex-shrink-0">
+            <Calendar class="w-5 h-5 stroke-[2.5]" />
+          </div>
+          <div class="space-y-1 font-sans">
+            <h3 class="font-heading font-bold text-base sm:text-lg text-slate-900 leading-snug">
+              {hoursData[0].title}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">
+              {hoursData[0].days}
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">
+              {hoursData[0].time}
+            </p>
+          </div>
+        </div>
+
+        <!-- Top Right: Tarpon Booth -->
+        <div class="p-6 sm:p-8 flex items-start space-x-3.5 sm:border-b sm:border-slate-300">
+          <div class="p-2 bg-blue-50 text-[#2B447A] rounded-lg flex-shrink-0">
+            <Calendar class="w-5 h-5 stroke-[2.5]" />
+          </div>
+          <div class="space-y-1 font-sans">
+            <h3 class="font-heading font-bold text-base sm:text-lg text-slate-900 leading-snug">
+              {hoursData[1].title}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">
+              {hoursData[1].days}
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">
+              {hoursData[1].time}
+            </p>
+          </div>
+        </div>
+
+        <!-- Bottom Left: Hungry Tarpon Restaurant -->
+        <div class="p-6 sm:p-8 flex items-start space-x-3.5">
+          <div class="p-2 bg-blue-50 text-[#2B447A] rounded-lg flex-shrink-0">
+            <Calendar class="w-5 h-5 stroke-[2.5]" />
+          </div>
+          <div class="space-y-1 font-sans">
+            <h3 class="font-heading font-bold text-base sm:text-lg text-slate-900 leading-snug">
+              {hoursData[2].title}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">
+              {hoursData[2].days}
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">
+              {hoursData[2].time}
+            </p>
+          </div>
+        </div>
+
+        <!-- Bottom Right: Captain Michael Fishing -->
+        <div class="p-6 sm:p-8 flex items-start space-x-3.5">
+          <div class="p-2 bg-blue-50 text-[#2B447A] rounded-lg flex-shrink-0">
+            <Calendar class="w-5 h-5 stroke-[2.5]" />
+          </div>
+          <div class="space-y-1 font-sans">
+            <h3 class="font-heading font-bold text-base sm:text-lg text-slate-900 leading-snug">
+              {hoursData[3].title}
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">
+              {hoursData[3].days}
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 font-medium">
+              {hoursData[3].time}
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- 2. Weather in Islamorada The Next 7 Days Widget -->
+    <div class="space-y-4 pt-4 border-t border-slate-100">
+      <!-- Title -->
+      <h3 class="font-heading font-bold text-slate-900 text-lg sm:text-xl text-center sm:text-left">
+        Weather in Islamorada The Next 7 Days
+      </h3>
+
+      <!-- Forecast Widget Embed -->
+      <div class="w-full bg-slate-50 border border-slate-200 rounded-xl p-2 sm:p-4 min-h-[120px] shadow-xs">
+        <a 
+          class="weatherwidget-io" 
+          rel="nofollow" 
+          href="https://forecast7.com/en/24d92n80d63/islamorada/?unit=us" 
+          data-label_1="ISLAMORADA" 
+          data-label_2="WEATHER" 
+          data-font="Roboto" 
+          data-icons="Climacons Animated" 
+          data-theme="pure"
+        >
+          ISLAMORADA WEATHER
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WeatherWidget.io Async Loader Script -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', loadWeatherWidget);
+  document.addEventListener('astro:page-load', loadWeatherWidget);
+
+  function loadWeatherWidget() {
+    if (!document.getElementById('weatherwidget-io-js')) {
+      var d = document;
+      var s = 'script';
+      var id = 'weatherwidget-io-js';
+      var js, fjs = d.getElementsByTagName(s)[0];
+      js = d.createElement(s);
+      js.id = id;
+      js.src = 'https://weatherwidget.io/js/widget.min.js';
+      fjs.parentNode.insertBefore(js, fjs);
+    } else if (window.__weatherwidget_init) {
+      window.__weatherwidget_init();
+    }
+  }
+
+  loadWeatherWidget();
+</script>
