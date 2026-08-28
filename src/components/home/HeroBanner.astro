@@ -13,7 +13,7 @@ interface Props {
 const {
   videoSrc = "/assets/home/ROBBIES_BANNER-VIDEO-RESUME-V5.mp4",
   crownSrc = "/assets/home/imgi_7_CROWN-2.png",
-  badgeSrc = "/assets/home/imgi_194_fb89dc4f136928a42a32991b5ec49634.Banner_50th.png",
+  badgeSrc = "/assets/home/imgi_6_Badge_Page.png",
   line1 = "VOTED THE #1 PLACE",
   line2 = "IN THE FLORIDA KEYS",
   subtitle = "THAT EVERY TOURIST SHOULD VISIT",
@@ -76,13 +76,13 @@ const {
 
     </div>
 
-    <!-- Top Right Corner: 50th Anniversary Badge -->
+    <!-- Right Column: Vertically Centered 50th Anniversary Badge -->
     {badgeSrc && (
-      <div class="absolute top-3 right-3 sm:top-5 sm:right-6 md:top-6 md:right-10 lg:top-8 lg:right-12 z-20 pointer-events-none">
+      <div class="absolute top-1/2 -translate-y-1/2 right-4 sm:right-8 md:right-12 lg:right-12 z-20 pointer-events-none">
         <img 
           src={badgeSrc} 
           alt="50 Years of Adventure Badge" 
-          class="w-20 xs:w-24 sm:w-32 md:w-40 lg:w-44 xl:w-48 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
+          class="w-20 xs:w-24 sm:w-32 md:w-40 lg:w-48 xl:w-52 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
         />
       </div>
     )}
