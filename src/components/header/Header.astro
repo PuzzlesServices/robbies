@@ -223,47 +223,43 @@ const contactMega = {
 
   <!-- ==================== DESKTOP MEGA MENUS ==================== -->
 
-  <!-- ==================== DESKTOP MEGA MENUS ==================== -->
-
   <!-- 1. ACTIVITIES MEGA MENU -->
   <div 
     id="mega-menu-activities" 
     class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
   >
-    <div class="w-full grid grid-cols-12 min-h-[460px]">
+    <div class="w-full grid grid-cols-12 h-[480px]">
       
-      <!-- Left Column: Links -->
-      <div class="col-span-8 py-16 flex flex-col justify-center items-center">
-        <div class="w-full max-w-3xl xl:max-w-4xl px-8">
-          <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
-            {activitiesMega.title}
-          </h3>
-          
-          <div class="grid grid-cols-2 gap-x-12">
-            <ul class="space-y-4">
-              {activitiesMega.col1.map((link) => (
-                <li>
-                  <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <ul class="space-y-4">
-              {activitiesMega.col2.map((link) => (
-                <li>
-                  <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+      <!-- Left Navy Column: Content Area -->
+      <div class="col-span-7 xl:col-span-8 h-full bg-[#2B447A] px-12 xl:px-16 py-12 flex flex-col justify-start">
+        <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
+          {activitiesMega.title}
+        </h3>
+        
+        <div class="grid grid-cols-2 gap-x-12 max-w-2xl">
+          <ul class="space-y-4">
+            {activitiesMega.col1.map((item) => (
+              <li>
+                <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                  {item.name}
+                </span>
+              </li>
+            ))}
+          </ul>
+          <ul class="space-y-4">
+            {activitiesMega.col2.map((item) => (
+              <li>
+                <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                  {item.name}
+                </span>
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
 
-      <!-- Right Column: Image -->
-      <div class="col-span-4 relative overflow-hidden bg-slate-900">
+      <!-- Right Column: Full-Height HD Image (Identical dimensions across all 4 menus) -->
+      <div class="col-span-5 xl:col-span-4 h-full relative overflow-hidden bg-slate-900">
         <img 
           src={activitiesMega.image} 
           alt="Tarpon Feeding at Robbie's" 
@@ -271,6 +267,7 @@ const contactMega = {
           loading="lazy"
         />
       </div>
+
     </div>
   </div>
 
@@ -279,33 +276,33 @@ const contactMega = {
     id="mega-menu-fishing" 
     class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
   >
-    <div class="w-full grid grid-cols-12 min-h-[460px]">
+    <div class="w-full grid grid-cols-12 h-[480px]">
       
-      <!-- Left Column: Divided -->
-      <div class="col-span-8 py-16 flex items-stretch justify-center">
-        <div class="w-full max-w-3xl xl:max-w-4xl px-8 flex items-stretch">
+      <!-- Left Navy Column: Content Area -->
+      <div class="col-span-7 xl:col-span-8 h-full bg-[#2B447A] px-8 xl:px-12 py-12 flex flex-col justify-start">
+        <div class="w-full flex items-stretch h-full">
           
           <!-- Section 1: ISLAMORADA FISHING -->
-          <div class="w-1/2 pr-8 md:pr-12 border-r border-white flex flex-col justify-start">
+          <div class="w-1/2 pr-8 xl:pr-10 border-r border-white/30 flex flex-col justify-start">
             <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
               {fishingMega.section1.title}
             </h3>
-            <div class="grid grid-cols-2 gap-x-6">
+            <div class="grid grid-cols-2 gap-x-4">
               <ul class="space-y-4">
-                {fishingMega.section1.colA.map((link) => (
+                {fishingMega.section1.colA.map((item) => (
                   <li>
-                    <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
-                      {link.name}
-                    </a>
+                    <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                      {item.name}
+                    </span>
                   </li>
                 ))}
               </ul>
               <ul class="space-y-4">
-                {fishingMega.section1.colB.map((link) => (
+                {fishingMega.section1.colB.map((item) => (
                   <li>
-                    <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
-                      {link.name}
-                    </a>
+                    <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                      {item.name}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -313,26 +310,26 @@ const contactMega = {
           </div>
 
           <!-- Section 2: OUR CAPTAINS -->
-          <div class="w-1/2 pl-8 md:pl-12 flex flex-col justify-start">
+          <div class="w-1/2 pl-8 xl:pl-10 flex flex-col justify-start">
             <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
               {fishingMega.section2.title}
             </h3>
-            <div class="grid grid-cols-2 gap-x-6">
+            <div class="grid grid-cols-2 gap-x-4">
               <ul class="space-y-4">
-                {fishingMega.section2.colA.map((link) => (
+                {fishingMega.section2.colA.map((item) => (
                   <li>
-                    <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
-                      {link.name}
-                    </a>
+                    <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                      {item.name}
+                    </span>
                   </li>
                 ))}
               </ul>
               <ul class="space-y-4">
-                {fishingMega.section2.colB.map((link) => (
+                {fishingMega.section2.colB.map((item) => (
                   <li>
-                    <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
-                      {link.name}
-                    </a>
+                    <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                      {item.name}
+                    </span>
                   </li>
                 ))}
               </ul>
@@ -342,8 +339,8 @@ const contactMega = {
         </div>
       </div>
 
-      <!-- Right Column: Image -->
-      <div class="col-span-4 relative overflow-hidden bg-slate-900">
+      <!-- Right Column: Full-Height HD Image -->
+      <div class="col-span-5 xl:col-span-4 h-full relative overflow-hidden bg-slate-900">
         <img 
           src={fishingMega.image} 
           alt="Offshore Fishing at Robbie's" 
@@ -360,34 +357,27 @@ const contactMega = {
     id="mega-menu-shop" 
     class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
   >
-    <div class="w-full grid grid-cols-12 min-h-[460px]">
+    <div class="w-full grid grid-cols-12 h-[480px]">
       
-      <!-- Left Column: Links List -->
-      <div class="col-span-8 py-16 flex flex-col justify-center items-center">
-        <div class="w-full max-w-3xl xl:max-w-4xl px-8">
-          <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
-            {shopMega.title}
-          </h3>
-          
-          <ul class="space-y-4">
-            {shopMega.items.map((link) => (
-              <li>
-                <a 
-                  href={link.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left"
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <!-- Left Navy Column: Content Area -->
+      <div class="col-span-7 xl:col-span-8 h-full bg-[#2B447A] px-12 xl:px-16 py-12 flex flex-col justify-start">
+        <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
+          {shopMega.title}
+        </h3>
+        
+        <ul class="space-y-4 max-w-xs">
+          {shopMega.items.map((item) => (
+            <li>
+              <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                {item.name}
+              </span>
+            </li>
+          ))}
+        </ul>
       </div>
 
-      <!-- Right Column: Image -->
-      <div class="col-span-4 relative overflow-hidden bg-slate-900">
+      <!-- Right Column: Full-Height HD Image -->
+      <div class="col-span-5 xl:col-span-4 h-full relative overflow-hidden bg-slate-900">
         <img 
           src={shopMega.image} 
           alt="Shop Merch at Robbie's" 
@@ -404,39 +394,39 @@ const contactMega = {
     id="mega-menu-contact" 
     class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
   >
-    <div class="w-full grid grid-cols-12 min-h-[460px]">
+    <div class="w-full grid grid-cols-12 h-[480px]">
       
-      <!-- Left Column: Divided -->
-      <div class="col-span-8 py-16 flex items-stretch justify-center">
-        <div class="w-full max-w-3xl xl:max-w-4xl px-8 flex items-stretch">
+      <!-- Left Navy Column: Content Area -->
+      <div class="col-span-7 xl:col-span-8 h-full bg-[#2B447A] px-8 xl:px-12 py-12 flex flex-col justify-start">
+        <div class="w-full flex items-stretch h-full">
           
           <!-- Section 1: CONTACT US -->
-          <div class="w-1/2 pr-12 xl:pr-16 border-r border-white flex flex-col justify-start">
+          <div class="w-1/2 pr-8 xl:pr-10 border-r border-white/30 flex flex-col justify-start">
             <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
               {contactMega.section1.title}
             </h3>
             <ul class="space-y-4">
-              {contactMega.section1.items.map((link) => (
+              {contactMega.section1.items.map((item) => (
                 <li>
-                  <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
-                    {link.name}
-                  </a>
+                  <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                    {item.name}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
 
           <!-- Section 2: MORE FROM ROBBIE'S -->
-          <div class="w-1/2 pl-12 xl:pl-16 flex flex-col justify-start">
+          <div class="w-1/2 pl-8 xl:pl-10 flex flex-col justify-start">
             <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
               {contactMega.section2.title}
             </h3>
             <ul class="space-y-4">
-              {contactMega.section2.items.map((link) => (
+              {contactMega.section2.items.map((item) => (
                 <li>
-                  <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
-                    {link.name}
-                  </a>
+                  <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                    {item.name}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -445,8 +435,8 @@ const contactMega = {
         </div>
       </div>
 
-      <!-- Right Column: Image -->
-      <div class="col-span-4 relative overflow-hidden bg-slate-900">
+      <!-- Right Column: Full-Height HD Image -->
+      <div class="col-span-5 xl:col-span-4 h-full relative overflow-hidden bg-slate-900">
         <img 
           src={contactMega.image} 
           alt="Contact Robbie's" 
@@ -489,9 +479,9 @@ const contactMega = {
         </button>
         <div id="mobile-acc-activities" class="hidden pl-4 pb-3 space-y-2 text-xs font-semibold text-white/80">
           {activitiesMega.col1.concat(activitiesMega.col2).map((sub) => (
-            <a href={sub.url} class="block py-1.5 hover:text-white uppercase transition-colors border-b border-white/5">
+            <span class="block py-1.5 hover:text-white uppercase transition-colors border-b border-white/5 cursor-pointer">
               • {sub.name}
-            </a>
+            </span>
           ))}
         </div>
       </div>
@@ -510,17 +500,17 @@ const contactMega = {
           <div>
             <span class="block text-white font-black text-xs uppercase mb-1 border-b border-white/20 pb-1">ISLAMORADA FISHING</span>
             {fishingMega.section1.colA.concat(fishingMega.section1.colB).map((sub) => (
-              <a href={sub.url} class="block py-1 hover:text-white uppercase transition-colors">
+              <span class="block py-1 hover:text-white uppercase transition-colors cursor-pointer">
                 • {sub.name}
-              </a>
+              </span>
             ))}
           </div>
           <div class="pt-2">
             <span class="block text-white font-black text-xs uppercase mb-1 border-b border-white/20 pb-1">OUR CAPTAINS</span>
             {fishingMega.section2.colA.concat(fishingMega.section2.colB).map((sub) => (
-              <a href={sub.url} class="block py-1 hover:text-white uppercase transition-colors">
+              <span class="block py-1 hover:text-white uppercase transition-colors cursor-pointer">
                 • {sub.name}
-              </a>
+              </span>
             ))}
           </div>
         </div>
@@ -546,9 +536,9 @@ const contactMega = {
         </button>
         <div id="mobile-acc-shop" class="hidden pl-4 pb-3 space-y-2 text-xs font-semibold text-white/80">
           {shopMega.items.map((sub) => (
-            <a href={sub.url} target="_blank" rel="noopener noreferrer" class="block py-1.5 hover:text-white uppercase transition-colors border-b border-white/5">
+            <span class="block py-1.5 hover:text-white uppercase transition-colors border-b border-white/5 cursor-pointer">
               • {sub.name}
-            </a>
+            </span>
           ))}
         </div>
       </div>
@@ -575,17 +565,17 @@ const contactMega = {
           <div>
             <span class="block text-white font-black text-xs uppercase mb-1 border-b border-white/20 pb-1">CONTACT US</span>
             {contactMega.section1.items.map((sub) => (
-              <a href={sub.url} class="block py-1 hover:text-white uppercase transition-colors">
+              <span class="block py-1 hover:text-white uppercase transition-colors cursor-pointer">
                 • {sub.name}
-              </a>
+              </span>
             ))}
           </div>
           <div class="pt-2">
             <span class="block text-white font-black text-xs uppercase mb-1 border-b border-white/20 pb-1">MORE FROM ROBBIE'S</span>
             {contactMega.section2.items.map((sub) => (
-              <a href={sub.url} class="block py-1 hover:text-white uppercase transition-colors">
+              <span class="block py-1 hover:text-white uppercase transition-colors cursor-pointer">
                 • {sub.name}
-              </a>
+              </span>
             ))}
           </div>
         </div>
