@@ -9,7 +9,7 @@ const navItems = [
   { name: 'SHOP', id: 'shop', hasMega: true, url: 'https://shop.robbies.com/' },
   { name: 'OPEN-AIR SHOPPING', id: 'open-air', hasMega: false, url: 'https://www.robbies.com/' },
   { name: 'WEBCAM', id: 'webcam', hasMega: false, url: 'https://www.robbies.com/webcam.htm' },
-  { name: 'CONTACT US', id: 'contact', hasMega: false, url: 'https://www.robbies.com/' },
+  { name: 'CONTACT US', id: 'contact', hasMega: true, url: 'https://www.robbies.com/' },
   { name: "VISITOR'S CENTER", id: 'visitor', hasMega: false, url: 'https://www.robbies.com/' },
 ];
 
@@ -76,7 +76,7 @@ const fishingMega = {
       { name: "CONCHED OUT CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
     ]
   },
-  image: "/assets/home/imgi_52_OFFSHORE-FISHING.webp"
+  image: "/assets/home/imgi_51_TARPON-SHARK-FISHING.webp"
 };
 
 const shopMega = {
@@ -89,7 +89,31 @@ const shopMega = {
     { name: "HATS", url: "https://shop.robbies.com/collections/hats" },
     { name: "TIM RAHN", url: "https://shop.robbies.com/collections/tim-rahn" },
   ],
-  image: "/assets/home/imgi_56_REEF-WRECK-FISHING.webp"
+  image: "/assets/home/imgi_52_OFFSHORE-FISHING.webp"
+};
+
+const contactMega = {
+  section1: {
+    title: "CONTACT US",
+    items: [
+      { name: "CONTACT US", url: "https://www.robbies.com/" },
+      { name: "DIRECTIONS", url: "https://www.robbies.com/" },
+      { name: "CAREERS", url: "https://www.robbies.com/" },
+      { name: "INFLUENCERS COLLABORATION", url: "https://www.robbies.com/" },
+      { name: "ABOUT US", url: "https://www.robbies.com/" },
+      { name: "LOCATION SHOOTS", url: "https://www.robbies.com/" },
+      { name: "WEDDINGS AND EVENTS", url: "https://www.robbies.com/" },
+    ]
+  },
+  section2: {
+    title: "MORE FROM ROBBIE'S",
+    items: [
+      { name: "ROBBIE'S OF KEY WEST", url: "https://www.robbies.com/" },
+      { name: "HUNGRY TARPON", url: "https://www.robbies.com/" },
+      { name: "CAPTAIN MICHAEL", url: "https://www.robbies.com/" },
+    ]
+  },
+  image: "/assets/home/imgi_9_Robbies-of-Islamorada.webp"
 };
 ---
 
@@ -199,50 +223,47 @@ const shopMega = {
 
   <!-- ==================== DESKTOP MEGA MENUS ==================== -->
 
+  <!-- ==================== DESKTOP MEGA MENUS ==================== -->
+
   <!-- 1. ACTIVITIES MEGA MENU -->
   <div 
     id="mega-menu-activities" 
     class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
   >
-    <div class="w-full grid grid-cols-12 min-h-[420px]">
+    <div class="w-full grid grid-cols-12 min-h-[460px]">
       
-      <!-- Left Column: Title & 2-Column Links Grid -->
-      <div class="col-span-6 lg:col-span-7 xl:col-span-6 p-8 sm:p-10 md:p-12 flex flex-col justify-center my-auto">
-        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wider mb-8 border-b border-white/20 pb-3">
-          {activitiesMega.title}
-        </h3>
-        
-        <div class="grid grid-cols-2 gap-x-8 gap-y-4">
-          <ul class="space-y-3.5">
-            {activitiesMega.col1.map((link) => (
-              <li>
-                <a 
-                  href={link.url} 
-                  class="font-heading font-bold text-xs sm:text-sm text-white/90 hover:text-white hover:underline transition-all uppercase tracking-wide block"
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+      <!-- Left Column: Links -->
+      <div class="col-span-8 py-16 flex flex-col justify-center items-center">
+        <div class="w-full max-w-3xl xl:max-w-4xl px-8">
+          <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
+            {activitiesMega.title}
+          </h3>
           
-          <ul class="space-y-3.5">
-            {activitiesMega.col2.map((link) => (
-              <li>
-                <a 
-                  href={link.url} 
-                  class="font-heading font-bold text-xs sm:text-sm text-white/90 hover:text-white hover:underline transition-all uppercase tracking-wide block"
-                >
-                  {link.name}
-                </a>
-              </li>
-            ))}
-          </ul>
+          <div class="grid grid-cols-2 gap-x-12">
+            <ul class="space-y-4">
+              {activitiesMega.col1.map((link) => (
+                <li>
+                  <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <ul class="space-y-4">
+              {activitiesMega.col2.map((link) => (
+                <li>
+                  <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
 
-      <!-- Right Column: Full-Height HD Tarpon Photo -->
-      <div class="col-span-6 lg:col-span-5 xl:col-span-6 relative overflow-hidden bg-slate-900">
+      <!-- Right Column: Image -->
+      <div class="col-span-4 relative overflow-hidden bg-slate-900">
         <img 
           src={activitiesMega.image} 
           alt="Tarpon Feeding at Robbie's" 
@@ -250,7 +271,6 @@ const shopMega = {
           loading="lazy"
         />
       </div>
-
     </div>
   </div>
 
@@ -259,68 +279,70 @@ const shopMega = {
     id="mega-menu-fishing" 
     class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
   >
-    <div class="w-full grid grid-cols-12 min-h-[440px]">
+    <div class="w-full grid grid-cols-12 min-h-[460px]">
       
-      <!-- Left Column: Divided into ISLAMORADA FISHING & OUR CAPTAINS -->
-      <div class="col-span-8 p-8 sm:p-10 flex items-stretch my-auto">
-        
-        <!-- Section 1: ISLAMORADA FISHING -->
-        <div class="w-1/2 pr-6 border-r border-white/25 flex flex-col justify-start space-y-6">
-          <h3 class="font-heading font-black text-lg sm:text-xl text-white uppercase tracking-wider border-b border-white/20 pb-2">
-            {fishingMega.section1.title}
-          </h3>
-          <div class="grid grid-cols-2 gap-x-4 gap-y-3 text-xs sm:text-[13px]">
-            <ul class="space-y-2.5">
-              {fishingMega.section1.colA.map((link) => (
-                <li>
-                  <a href={link.url} class="font-heading font-bold text-white/90 hover:text-white hover:underline transition-all uppercase block">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <ul class="space-y-2.5">
-              {fishingMega.section1.colB.map((link) => (
-                <li>
-                  <a href={link.url} class="font-heading font-bold text-white/90 hover:text-white hover:underline transition-all uppercase block">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+      <!-- Left Column: Divided -->
+      <div class="col-span-8 py-16 flex items-stretch justify-center">
+        <div class="w-full max-w-3xl xl:max-w-4xl px-8 flex items-stretch">
+          
+          <!-- Section 1: ISLAMORADA FISHING -->
+          <div class="w-1/2 pr-8 md:pr-12 border-r border-white flex flex-col justify-start">
+            <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
+              {fishingMega.section1.title}
+            </h3>
+            <div class="grid grid-cols-2 gap-x-6">
+              <ul class="space-y-4">
+                {fishingMega.section1.colA.map((link) => (
+                  <li>
+                    <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <ul class="space-y-4">
+                {fishingMega.section1.colB.map((link) => (
+                  <li>
+                    <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <!-- Section 2: OUR CAPTAINS -->
-        <div class="w-1/2 pl-6 flex flex-col justify-start space-y-6">
-          <h3 class="font-heading font-black text-lg sm:text-xl text-white uppercase tracking-wider border-b border-white/20 pb-2">
-            {fishingMega.section2.title}
-          </h3>
-          <div class="grid grid-cols-2 gap-x-4 gap-y-3 text-xs sm:text-[13px]">
-            <ul class="space-y-2.5">
-              {fishingMega.section2.colA.map((link) => (
-                <li>
-                  <a href={link.url} class="font-heading font-bold text-white/90 hover:text-white hover:underline transition-all uppercase block">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-            <ul class="space-y-2.5">
-              {fishingMega.section2.colB.map((link) => (
-                <li>
-                  <a href={link.url} class="font-heading font-bold text-white/90 hover:text-white hover:underline transition-all uppercase block">
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <!-- Section 2: OUR CAPTAINS -->
+          <div class="w-1/2 pl-8 md:pl-12 flex flex-col justify-start">
+            <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
+              {fishingMega.section2.title}
+            </h3>
+            <div class="grid grid-cols-2 gap-x-6">
+              <ul class="space-y-4">
+                {fishingMega.section2.colA.map((link) => (
+                  <li>
+                    <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <ul class="space-y-4">
+                {fishingMega.section2.colB.map((link) => (
+                  <li>
+                    <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
 
-      <!-- Right Column: Full-Height HD Fishing Photo -->
+      <!-- Right Column: Image -->
       <div class="col-span-4 relative overflow-hidden bg-slate-900">
         <img 
           src={fishingMega.image} 
@@ -338,35 +360,96 @@ const shopMega = {
     id="mega-menu-shop" 
     class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
   >
-    <div class="w-full grid grid-cols-12 min-h-[400px]">
+    <div class="w-full grid grid-cols-12 min-h-[460px]">
       
-      <!-- Left Column: Title & Links List -->
-      <div class="col-span-5 p-8 sm:p-10 md:p-12 flex flex-col justify-center my-auto space-y-6">
-        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wider border-b border-white/20 pb-3">
-          {shopMega.title}
-        </h3>
-        
-        <ul class="space-y-3.5">
-          {shopMega.items.map((link) => (
-            <li>
-              <a 
-                href={link.url} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="font-heading font-bold text-sm sm:text-base text-white/90 hover:text-white hover:underline transition-all uppercase tracking-wide block"
-              >
-                {link.name}
-              </a>
-            </li>
-          ))}
-        </ul>
+      <!-- Left Column: Links List -->
+      <div class="col-span-8 py-16 flex flex-col justify-center items-center">
+        <div class="w-full max-w-3xl xl:max-w-4xl px-8">
+          <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
+            {shopMega.title}
+          </h3>
+          
+          <ul class="space-y-4">
+            {shopMega.items.map((link) => (
+              <li>
+                <a 
+                  href={link.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
-      <!-- Right Column: Full-Height HD Shop Photo -->
-      <div class="col-span-7 relative overflow-hidden bg-slate-900">
+      <!-- Right Column: Image -->
+      <div class="col-span-4 relative overflow-hidden bg-slate-900">
         <img 
           src={shopMega.image} 
           alt="Shop Merch at Robbie's" 
+          class="w-full h-full object-cover block"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 4. CONTACT MEGA MENU -->
+  <div 
+    id="mega-menu-contact" 
+    class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
+  >
+    <div class="w-full grid grid-cols-12 min-h-[460px]">
+      
+      <!-- Left Column: Divided -->
+      <div class="col-span-8 py-16 flex items-stretch justify-center">
+        <div class="w-full max-w-3xl xl:max-w-4xl px-8 flex items-stretch">
+          
+          <!-- Section 1: CONTACT US -->
+          <div class="w-1/2 pr-12 xl:pr-16 border-r border-white flex flex-col justify-start">
+            <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
+              {contactMega.section1.title}
+            </h3>
+            <ul class="space-y-4">
+              {contactMega.section1.items.map((link) => (
+                <li>
+                  <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Section 2: MORE FROM ROBBIE'S -->
+          <div class="w-1/2 pl-12 xl:pl-16 flex flex-col justify-start">
+            <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
+              {contactMega.section2.title}
+            </h3>
+            <ul class="space-y-4">
+              {contactMega.section2.items.map((link) => (
+                <li>
+                  <a href={link.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-all uppercase tracking-wide block text-left">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right Column: Image -->
+      <div class="col-span-4 relative overflow-hidden bg-slate-900">
+        <img 
+          src={contactMega.image} 
+          alt="Contact Robbie's" 
           class="w-full h-full object-cover block"
           loading="lazy"
         />
@@ -477,9 +560,37 @@ const shopMega = {
       <a href="https://www.robbies.com/webcam.htm" class="text-white hover:opacity-75 text-base font-bold tracking-wider py-3 border-b border-white/10 uppercase">
         WEBCAM
       </a>
-      <a href="https://www.robbies.com/" class="text-white hover:opacity-75 text-base font-bold tracking-wider py-3 border-b border-white/10 uppercase">
-        CONTACT US
-      </a>
+
+      <!-- CONTACT US Accordion -->
+      <div class="border-b border-white/10">
+        <button 
+          type="button" 
+          class="mobile-accordion-btn w-full text-left py-3 text-white text-base font-bold uppercase tracking-wider flex items-center justify-between"
+          data-target="mobile-acc-contact"
+        >
+          <span>CONTACT US</span>
+          <ChevronDown class="w-5 h-5 transition-transform duration-200 acc-chevron" />
+        </button>
+        <div id="mobile-acc-contact" class="hidden pl-4 pb-3 space-y-3 text-xs font-semibold text-white/80">
+          <div>
+            <span class="block text-white font-black text-xs uppercase mb-1 border-b border-white/20 pb-1">CONTACT US</span>
+            {contactMega.section1.items.map((sub) => (
+              <a href={sub.url} class="block py-1 hover:text-white uppercase transition-colors">
+                • {sub.name}
+              </a>
+            ))}
+          </div>
+          <div class="pt-2">
+            <span class="block text-white font-black text-xs uppercase mb-1 border-b border-white/20 pb-1">MORE FROM ROBBIE'S</span>
+            {contactMega.section2.items.map((sub) => (
+              <a href={sub.url} class="block py-1 hover:text-white uppercase transition-colors">
+                • {sub.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
       <a href="https://www.robbies.com/" class="text-white hover:opacity-75 text-base font-bold tracking-wider py-3 border-b border-white/10 uppercase">
         VISITOR'S CENTER
       </a>
@@ -592,7 +703,7 @@ const shopMega = {
 
     megaTriggers.forEach(trigger => {
       const megaId = trigger.getAttribute('data-mega');
-      if (!megaId || !['activities', 'fishing', 'shop'].includes(megaId)) return;
+      if (!megaId || !['activities', 'fishing', 'shop', 'contact'].includes(megaId)) return;
 
       trigger.addEventListener('mouseenter', () => showMega(megaId));
       trigger.addEventListener('mouseleave', () => {
