@@ -10,7 +10,7 @@ const navItems = [
   { name: 'OPEN-AIR SHOPPING', id: 'open-air', hasMega: false, url: 'https://www.robbies.com/' },
   { name: 'WEBCAM', id: 'webcam', hasMega: false, url: 'https://www.robbies.com/webcam.htm' },
   { name: 'CONTACT US', id: 'contact', hasMega: true, url: 'https://www.robbies.com/' },
-  { name: "VISITOR'S CENTER", id: 'visitor', hasMega: false, url: 'https://www.robbies.com/' },
+  { name: "VISITOR'S CENTER", id: 'visitor', hasMega: true, url: 'https://www.robbies.com/' },
 ];
 
 const activitiesMega = {
@@ -114,6 +114,19 @@ const contactMega = {
     ]
   },
   image: "/assets/home/imgi_9_Robbies-of-Islamorada.webp"
+};
+
+const visitorMega = {
+  title: "VISITOR'S CENTER",
+  items: [
+    { name: "VISITOR'S CENTER" },
+    { name: "OUR HISTORY" },
+    { name: "GIFT CARDS" },
+    { name: "FLORIDA KEYS TOP 10 THINGS TO DO" },
+    { name: "FEATURED IN" },
+    { name: "GUIDES" },
+  ],
+  image: "/assets/home/imgi_188_Navigating_Menu_visitor.webp"
 };
 ---
 
@@ -450,6 +463,43 @@ const contactMega = {
     </div>
   </div>
 
+  <!-- 5. VISITOR'S CENTER MEGA MENU -->
+  <div 
+    id="mega-menu-visitor" 
+    class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
+  >
+    <div class="w-full grid grid-cols-12 h-[480px]">
+      
+      <!-- Left Navy Column: Content Area -->
+      <div class="col-span-7 xl:col-span-8 h-full bg-[#2B447A] px-12 xl:px-16 py-12 flex flex-col justify-start">
+        <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
+          {visitorMega.title}
+        </h3>
+        
+        <ul class="space-y-4 max-w-sm">
+          {visitorMega.items.map((item) => (
+            <li>
+              <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                {item.name}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Right Column: Full-Height HD Image -->
+      <div class="col-span-5 xl:col-span-4 h-full relative overflow-hidden bg-slate-900">
+        <img 
+          src={visitorMega.image} 
+          alt="Visitor's Center at Robbie's" 
+          class="w-full h-full object-cover block"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+
   <!-- Mobile Drawer Overlay -->
   <div 
     id="mobile-menu-drawer"
@@ -583,9 +633,24 @@ const contactMega = {
         </div>
       </div>
 
-      <a href="https://www.robbies.com/" class="text-white hover:opacity-75 text-base font-bold tracking-wider py-3 border-b border-white/10 uppercase">
-        VISITOR'S CENTER
-      </a>
+      <!-- VISITOR'S CENTER Accordion -->
+      <div class="border-b border-white/10">
+        <button 
+          type="button" 
+          class="mobile-accordion-btn w-full text-left py-3 text-white text-base font-bold uppercase tracking-wider flex items-center justify-between"
+          data-target="mobile-acc-visitor"
+        >
+          <span>VISITOR'S CENTER</span>
+          <ChevronDown class="w-5 h-5 transition-transform duration-200 acc-chevron" />
+        </button>
+        <div id="mobile-acc-visitor" class="hidden pl-4 pb-3 space-y-2 text-xs font-semibold text-white/80">
+          {visitorMega.items.map((sub) => (
+            <span class="block py-1.5 hover:text-white uppercase transition-colors border-b border-white/5 cursor-pointer">
+              • {sub.name}
+            </span>
+          ))}
+        </div>
+      </div>
 
       <div class="pt-6 flex flex-col gap-3">
         <a 
@@ -695,7 +760,7 @@ const contactMega = {
 
     megaTriggers.forEach(trigger => {
       const megaId = trigger.getAttribute('data-mega');
-      if (!megaId || !['activities', 'fishing', 'shop', 'contact'].includes(megaId)) return;
+      if (!megaId || !['activities', 'fishing', 'shop', 'contact', 'visitor'].includes(megaId)) return;
 
       trigger.addEventListener('mouseenter', () => showMega(megaId));
       trigger.addEventListener('mouseleave', () => {
