@@ -28,23 +28,24 @@ const logos = [
 ];
 ---
 
-<section class="w-full bg-[#2B447A] text-white py-6 px-4 sm:px-6 lg:px-8 border-t border-b border-blue-900/40 select-none">
-  <div class="max-w-[1180px] mx-auto flex flex-col items-center justify-center">
+<!-- Section: FEATURED IN Press Bar (Ampliado y con Enlaces Oficiales) -->
+<section class="w-full bg-[#2B447A] text-white py-8 sm:py-10 md:py-12 px-4 sm:px-6 lg:px-8 border-t border-b border-blue-900/40 select-none">
+  <div class="max-w-[1180px] mx-auto flex flex-col items-center justify-center space-y-6">
     
     <!-- Section Title Label -->
-    <span class="text-[11px] sm:text-xs font-heading font-extrabold tracking-widest text-white/90 uppercase mb-4 sm:mb-5">
+    <span class="text-xs sm:text-sm font-heading font-extrabold tracking-widest text-white/90 uppercase">
       FEATURED IN:
     </span>
 
-    <!-- Press Logos Grid / Flex Container -->
-    <div class="w-full flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14 lg:gap-16 xl:gap-20">
+    <!-- Press Logos Grid / Flex Container (Imágenes más grandes) -->
+    <div class="w-full flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 xl:gap-24">
       {logos.map((logo) => (
-        <div class="flex items-center justify-center p-1 hover:scale-105 transition-transform duration-200">
-          <a href={logo.url} target="_blank" rel="noopener noreferrer" title={logo.name}>
+        <div class="flex items-center justify-center p-2 hover:scale-105 transition-transform duration-200">
+          <a href={logo.url} target="_blank" rel="noopener noreferrer" title={logo.name} class="block">
             <img 
               src={logo.src} 
               alt={logo.name} 
-              class="h-6 xs:h-7 sm:h-8 md:h-9 lg:h-10 w-auto object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity"
+              class="h-10 xs:h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto max-w-[200px] sm:max-w-[260px] object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity drop-shadow-sm"
               loading="lazy"
             />
           </a>

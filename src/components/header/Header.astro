@@ -1,26 +1,105 @@
 ---
 import TopBanner from './TopBanner.astro';
-import { ShoppingBag, Search, Phone, Menu, X } from '@lucide/astro';
+import { ShoppingBag, Search, Phone, Menu, X, ChevronDown } from '@lucide/astro';
 
 const navItems = [
-  { name: 'ACTIVITIES', url: 'https://www.robbies.com/' },
-  { name: 'FISHING', url: 'https://www.robbies.com/islamorada-fishing.htm' },
-  { name: 'RESTAURANT', url: 'https://www.robbies.com/' },
-  { name: 'SHOP', url: 'https://shop.robbies.com/' },
-  { name: 'OPEN-AIR SHOPPING', url: 'https://www.robbies.com/' },
-  { name: 'WEBCAM', url: 'https://www.robbies.com/' },
-  { name: 'CONTACT US', url: 'https://www.robbies.com/' },
-  { name: "VISITOR'S CENTER", url: 'https://www.robbies.com/' },
+  { name: 'ACTIVITIES', id: 'activities', hasMega: true, url: 'https://www.robbies.com/' },
+  { name: 'FISHING', id: 'fishing', hasMega: true, url: 'https://www.robbies.com/islamorada-fishing.htm' },
+  { name: 'RESTAURANT', id: 'restaurant', hasMega: false, url: 'https://www.robbies.com/hungry-tarpon-restaurant.htm' },
+  { name: 'SHOP', id: 'shop', hasMega: true, url: 'https://shop.robbies.com/' },
+  { name: 'OPEN-AIR SHOPPING', id: 'open-air', hasMega: false, url: 'https://www.robbies.com/' },
+  { name: 'WEBCAM', id: 'webcam', hasMega: false, url: 'https://www.robbies.com/webcam.htm' },
+  { name: 'CONTACT US', id: 'contact', hasMega: false, url: 'https://www.robbies.com/' },
+  { name: "VISITOR'S CENTER", id: 'visitor', hasMega: false, url: 'https://www.robbies.com/' },
 ];
+
+const activitiesMega = {
+  title: "ACTIVITIES IN ISLAMORADA",
+  col1: [
+    { name: "ALL ACTIVITIES", url: "https://www.robbies.com/" },
+    { name: "MORNING ACTIVITIES", url: "https://www.robbies.com/" },
+    { name: "EVENING ACTIVITIES", url: "https://www.robbies.com/" },
+    { name: "TARPON FEEDING", url: "https://www.robbies.com/tarpon-feeding.htm" },
+    { name: "JET SKI ADVENTURES", url: "https://www.robbies.com/jet-ski.htm" },
+    { name: "SNORKELING", url: "https://www.robbies.com/snorkeling-tours.htm" },
+    { name: "SNUBA DIVE", url: "https://www.robbies.com/snuba.htm" },
+  ],
+  col2: [
+    { name: "ISLAMORADA FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+    { name: "SUNSET CRUISES", url: "https://www.robbies.com/sunset-cruises.htm" },
+    { name: "KAYAK AND PADDLE BOARD RENTALS/TOURS", url: "https://www.robbies.com/kayak.htm" },
+    { name: "BOAT RENTALS", url: "https://www.robbies.com/boat-rentals.htm" },
+    { name: "ISLAMORADA ECO TOURS", url: "https://www.robbies.com/eco-tours.htm" },
+    { name: "GLASS BOTTOM BOAT TOURS", url: "https://www.robbies.com/glass-bottom.htm" },
+  ],
+  image: "/assets/home/imgi_18_feed-tarpon.webp"
+};
+
+const fishingMega = {
+  section1: {
+    title: "ISLAMORADA FISHING",
+    colA: [
+      { name: "ALL FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "PARTYBOAT FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "ISLAMORADA NIGHT FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "SPLIT CHARTER FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "OFFSHORE FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "MAHI-MAHI FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "SWORDFISH FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+    ],
+    colB: [
+      { name: "REEF & WRECK FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "TARPON & SHARK FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "BACKCOUNTRY FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "FAMILY FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "FLY FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "FISHING CALENDAR", url: "https://www.robbies.com/islamorada-fishing.htm" },
+    ]
+  },
+  section2: {
+    title: "OUR CAPTAINS",
+    colA: [
+      { name: "ALL CAPTAINS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "BLUE HEAVEN CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "CONTAGIOUS CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "DIRTYBOAT CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "FIN TASTIC CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "FOUR ACES CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "MISS PENNY CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+    ],
+    colB: [
+      { name: "GO TIME CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "KATSIKAS CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "I'M BIT CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "CAPT. RICHARD HASTINGS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "SATISFACTION CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "CONCHED OUT CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+    ]
+  },
+  image: "/assets/home/imgi_52_OFFSHORE-FISHING.webp"
+};
+
+const shopMega = {
+  title: "SHOP",
+  items: [
+    { name: "MEN", url: "https://shop.robbies.com/collections/men" },
+    { name: "WOMEN", url: "https://shop.robbies.com/collections/women" },
+    { name: "KIDS", url: "https://shop.robbies.com/collections/kids" },
+    { name: "TODDLERS", url: "https://shop.robbies.com/collections/toddlers" },
+    { name: "HATS", url: "https://shop.robbies.com/collections/hats" },
+    { name: "TIM RAHN", url: "https://shop.robbies.com/collections/tim-rahn" },
+  ],
+  image: "/assets/home/imgi_56_REEF-WRECK-FISHING.webp"
+};
 ---
 
 <!-- Header Contenedor Fijo / Sticky -->
-<header id="main-header" class="w-full sticky top-0 z-50 shadow-md font-heading transition-all duration-300">
+<header id="main-header" class="w-full sticky top-0 z-50 shadow-md font-heading transition-all duration-300 select-none">
   <!-- Top Blue Banner Rotativo -->
   <TopBanner />
 
   <!-- Main Royal Navy Navbar (Color exacto Robbie's #2B447A) -->
-  <nav class="bg-[#2B447A] text-white py-2.5 px-3 sm:px-6 lg:px-8 border-b border-blue-900/30">
+  <nav class="bg-[#2B447A] text-white py-2.5 px-3 sm:px-6 lg:px-8 border-b border-blue-900/30 relative">
     <div class="max-w-[1440px] mx-auto flex items-center justify-between gap-2 lg:gap-4">
       
       <!-- MOBILE ORDER (1º MENÚ IZQUIERDA, 2º LOGO, 3º ICONOS DERECHA) -->
@@ -50,10 +129,10 @@ const navItems = [
       <div class="hidden xl:flex items-center justify-center flex-1 mx-2 lg:mx-4">
         <ul class="flex items-center flex-wrap justify-center text-[11px] lg:text-[12px] xl:text-[12.5px] font-normal tracking-wider text-white">
           {navItems.map((item, index) => (
-            <li class="flex items-center">
+            <li class="flex items-center group relative nav-mega-trigger" data-mega={item.id}>
               <a 
                 href={item.url} 
-                class="hover:opacity-80 transition-opacity duration-200 py-1 px-1.5 lg:px-2 uppercase whitespace-nowrap"
+                class="hover:opacity-100 opacity-90 transition-all duration-200 py-4 px-2 lg:px-2.5 uppercase whitespace-nowrap relative border-b-2 border-transparent group-hover:border-white group-hover:font-bold"
               >
                 {item.name}
               </a>
@@ -118,13 +197,191 @@ const navItems = [
     </div>
   </nav>
 
+  <!-- ==================== DESKTOP MEGA MENUS ==================== -->
+
+  <!-- 1. ACTIVITIES MEGA MENU -->
+  <div 
+    id="mega-menu-activities" 
+    class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
+  >
+    <div class="w-full grid grid-cols-12 min-h-[420px]">
+      
+      <!-- Left Column: Title & 2-Column Links Grid -->
+      <div class="col-span-6 lg:col-span-7 xl:col-span-6 p-8 sm:p-10 md:p-12 flex flex-col justify-center my-auto">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wider mb-8 border-b border-white/20 pb-3">
+          {activitiesMega.title}
+        </h3>
+        
+        <div class="grid grid-cols-2 gap-x-8 gap-y-4">
+          <ul class="space-y-3.5">
+            {activitiesMega.col1.map((link) => (
+              <li>
+                <a 
+                  href={link.url} 
+                  class="font-heading font-bold text-xs sm:text-sm text-white/90 hover:text-white hover:underline transition-all uppercase tracking-wide block"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+          
+          <ul class="space-y-3.5">
+            {activitiesMega.col2.map((link) => (
+              <li>
+                <a 
+                  href={link.url} 
+                  class="font-heading font-bold text-xs sm:text-sm text-white/90 hover:text-white hover:underline transition-all uppercase tracking-wide block"
+                >
+                  {link.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right Column: Full-Height HD Tarpon Photo -->
+      <div class="col-span-6 lg:col-span-5 xl:col-span-6 relative overflow-hidden bg-slate-900">
+        <img 
+          src={activitiesMega.image} 
+          alt="Tarpon Feeding at Robbie's" 
+          class="w-full h-full object-cover block"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 2. FISHING MEGA MENU -->
+  <div 
+    id="mega-menu-fishing" 
+    class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
+  >
+    <div class="w-full grid grid-cols-12 min-h-[440px]">
+      
+      <!-- Left Column: Divided into ISLAMORADA FISHING & OUR CAPTAINS -->
+      <div class="col-span-8 p-8 sm:p-10 flex items-stretch my-auto">
+        
+        <!-- Section 1: ISLAMORADA FISHING -->
+        <div class="w-1/2 pr-6 border-r border-white/25 flex flex-col justify-start space-y-6">
+          <h3 class="font-heading font-black text-lg sm:text-xl text-white uppercase tracking-wider border-b border-white/20 pb-2">
+            {fishingMega.section1.title}
+          </h3>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-3 text-xs sm:text-[13px]">
+            <ul class="space-y-2.5">
+              {fishingMega.section1.colA.map((link) => (
+                <li>
+                  <a href={link.url} class="font-heading font-bold text-white/90 hover:text-white hover:underline transition-all uppercase block">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <ul class="space-y-2.5">
+              {fishingMega.section1.colB.map((link) => (
+                <li>
+                  <a href={link.url} class="font-heading font-bold text-white/90 hover:text-white hover:underline transition-all uppercase block">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Section 2: OUR CAPTAINS -->
+        <div class="w-1/2 pl-6 flex flex-col justify-start space-y-6">
+          <h3 class="font-heading font-black text-lg sm:text-xl text-white uppercase tracking-wider border-b border-white/20 pb-2">
+            {fishingMega.section2.title}
+          </h3>
+          <div class="grid grid-cols-2 gap-x-4 gap-y-3 text-xs sm:text-[13px]">
+            <ul class="space-y-2.5">
+              {fishingMega.section2.colA.map((link) => (
+                <li>
+                  <a href={link.url} class="font-heading font-bold text-white/90 hover:text-white hover:underline transition-all uppercase block">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <ul class="space-y-2.5">
+              {fishingMega.section2.colB.map((link) => (
+                <li>
+                  <a href={link.url} class="font-heading font-bold text-white/90 hover:text-white hover:underline transition-all uppercase block">
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right Column: Full-Height HD Fishing Photo -->
+      <div class="col-span-4 relative overflow-hidden bg-slate-900">
+        <img 
+          src={fishingMega.image} 
+          alt="Offshore Fishing at Robbie's" 
+          class="w-full h-full object-cover block"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. SHOP MEGA MENU -->
+  <div 
+    id="mega-menu-shop" 
+    class="mega-menu-panel hidden opacity-0 transition-all duration-300 ease-out absolute top-full left-0 w-full bg-[#2B447A] text-white shadow-2xl z-40 border-t border-white/20"
+  >
+    <div class="w-full grid grid-cols-12 min-h-[400px]">
+      
+      <!-- Left Column: Title & Links List -->
+      <div class="col-span-5 p-8 sm:p-10 md:p-12 flex flex-col justify-center my-auto space-y-6">
+        <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-wider border-b border-white/20 pb-3">
+          {shopMega.title}
+        </h3>
+        
+        <ul class="space-y-3.5">
+          {shopMega.items.map((link) => (
+            <li>
+              <a 
+                href={link.url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                class="font-heading font-bold text-sm sm:text-base text-white/90 hover:text-white hover:underline transition-all uppercase tracking-wide block"
+              >
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Right Column: Full-Height HD Shop Photo -->
+      <div class="col-span-7 relative overflow-hidden bg-slate-900">
+        <img 
+          src={shopMega.image} 
+          alt="Shop Merch at Robbie's" 
+          class="w-full h-full object-cover block"
+          loading="lazy"
+        />
+      </div>
+
+    </div>
+  </div>
+
   <!-- Mobile Drawer Overlay -->
   <div 
     id="mobile-menu-drawer"
-    class="fixed inset-y-0 left-0 w-[82vw] max-w-sm bg-[#2B447A] backdrop-blur-xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col p-6 overflow-y-auto border-r border-white/15 shadow-2xl xl:hidden"
+    class="fixed inset-y-0 left-0 w-[85vw] max-w-md bg-[#2B447A] backdrop-blur-xl z-50 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col p-6 overflow-y-auto border-r border-white/15 shadow-2xl xl:hidden"
   >
     <div class="flex items-center justify-between pb-4 border-b border-white/15 mb-4">
-      <span class="text-xs uppercase tracking-widest text-white/70 font-semibold">Robbie's Navigation</span>
+      <span class="text-xs uppercase tracking-widest text-white/70 font-semibold font-heading">Robbie's Navigation</span>
       <button 
         id="close-drawer-btn" 
         class="p-1.5 text-white hover:bg-white/10 rounded-lg"
@@ -134,21 +391,104 @@ const navItems = [
       </button>
     </div>
 
+    <!-- Mobile Navigation Accordion List -->
     <div class="flex flex-col space-y-2 my-auto">
-      {navItems.map((item) => (
-        <a 
-          href={item.url} 
-          class="text-white hover:opacity-75 text-base font-normal tracking-wider py-2.5 border-b border-white/10 uppercase transition-opacity"
+      
+      <!-- ACTIVITIES Accordion -->
+      <div class="border-b border-white/10">
+        <button 
+          type="button" 
+          class="mobile-accordion-btn w-full text-left py-3 text-white text-base font-bold uppercase tracking-wider flex items-center justify-between"
+          data-target="mobile-acc-activities"
         >
-          {item.name}
-        </a>
-      ))}
+          <span>ACTIVITIES</span>
+          <ChevronDown class="w-5 h-5 transition-transform duration-200 acc-chevron" />
+        </button>
+        <div id="mobile-acc-activities" class="hidden pl-4 pb-3 space-y-2 text-xs font-semibold text-white/80">
+          {activitiesMega.col1.concat(activitiesMega.col2).map((sub) => (
+            <a href={sub.url} class="block py-1.5 hover:text-white uppercase transition-colors border-b border-white/5">
+              • {sub.name}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- FISHING Accordion -->
+      <div class="border-b border-white/10">
+        <button 
+          type="button" 
+          class="mobile-accordion-btn w-full text-left py-3 text-white text-base font-bold uppercase tracking-wider flex items-center justify-between"
+          data-target="mobile-acc-fishing"
+        >
+          <span>FISHING</span>
+          <ChevronDown class="w-5 h-5 transition-transform duration-200 acc-chevron" />
+        </button>
+        <div id="mobile-acc-fishing" class="hidden pl-4 pb-3 space-y-3 text-xs font-semibold text-white/80">
+          <div>
+            <span class="block text-white font-black text-xs uppercase mb-1 border-b border-white/20 pb-1">ISLAMORADA FISHING</span>
+            {fishingMega.section1.colA.concat(fishingMega.section1.colB).map((sub) => (
+              <a href={sub.url} class="block py-1 hover:text-white uppercase transition-colors">
+                • {sub.name}
+              </a>
+            ))}
+          </div>
+          <div class="pt-2">
+            <span class="block text-white font-black text-xs uppercase mb-1 border-b border-white/20 pb-1">OUR CAPTAINS</span>
+            {fishingMega.section2.colA.concat(fishingMega.section2.colB).map((sub) => (
+              <a href={sub.url} class="block py-1 hover:text-white uppercase transition-colors">
+                • {sub.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- RESTAURANT Link -->
+      <a 
+        href="https://www.robbies.com/hungry-tarpon-restaurant.htm" 
+        class="text-white hover:opacity-75 text-base font-bold tracking-wider py-3 border-b border-white/10 uppercase transition-opacity"
+      >
+        RESTAURANT
+      </a>
+
+      <!-- SHOP Accordion -->
+      <div class="border-b border-white/10">
+        <button 
+          type="button" 
+          class="mobile-accordion-btn w-full text-left py-3 text-white text-base font-bold uppercase tracking-wider flex items-center justify-between"
+          data-target="mobile-acc-shop"
+        >
+          <span>SHOP</span>
+          <ChevronDown class="w-5 h-5 transition-transform duration-200 acc-chevron" />
+        </button>
+        <div id="mobile-acc-shop" class="hidden pl-4 pb-3 space-y-2 text-xs font-semibold text-white/80">
+          {shopMega.items.map((sub) => (
+            <a href={sub.url} target="_blank" rel="noopener noreferrer" class="block py-1.5 hover:text-white uppercase transition-colors border-b border-white/5">
+              • {sub.name}
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Other Main Links -->
+      <a href="https://www.robbies.com/" class="text-white hover:opacity-75 text-base font-bold tracking-wider py-3 border-b border-white/10 uppercase">
+        OPEN-AIR SHOPPING
+      </a>
+      <a href="https://www.robbies.com/webcam.htm" class="text-white hover:opacity-75 text-base font-bold tracking-wider py-3 border-b border-white/10 uppercase">
+        WEBCAM
+      </a>
+      <a href="https://www.robbies.com/" class="text-white hover:opacity-75 text-base font-bold tracking-wider py-3 border-b border-white/10 uppercase">
+        CONTACT US
+      </a>
+      <a href="https://www.robbies.com/" class="text-white hover:opacity-75 text-base font-bold tracking-wider py-3 border-b border-white/10 uppercase">
+        VISITOR'S CENTER
+      </a>
 
       <div class="pt-6 flex flex-col gap-3">
         <a 
           href="https://shop.robbies.com/" 
           target="_blank"
-          class="w-full py-3 bg-[#2B55FF] hover:bg-[#1D4ED8] text-white font-normal rounded-xl text-center flex items-center justify-center space-x-2 shadow-md transition-colors text-sm"
+          class="w-full py-3 bg-[#2B55FF] hover:bg-[#1D4ED8] text-white font-bold rounded-xl text-center flex items-center justify-center space-x-2 shadow-md transition-colors text-sm uppercase tracking-wider"
         >
           <ShoppingBag class="w-4 h-4" />
           <span>Shop Robbie's Merch</span>
@@ -156,7 +496,7 @@ const navItems = [
 
         <a 
           href="tel:3056648070" 
-          class="w-full py-3 bg-white/15 hover:bg-white/25 text-white font-normal rounded-xl text-center flex items-center justify-center space-x-2 border border-white/20 transition-colors text-sm"
+          class="w-full py-3 bg-white/15 hover:bg-white/25 text-white font-bold rounded-xl text-center flex items-center justify-center space-x-2 border border-white/20 transition-colors text-sm uppercase tracking-wider"
         >
           <Phone class="w-4 h-4 fill-white stroke-none" />
           <span>Call (305) 664-8070</span>
@@ -211,54 +551,130 @@ const navItems = [
   </div>
 </header>
 
-<script>
-  const toggleBtn = document.getElementById('mobile-menu-toggle');
-  const closeBtn = document.getElementById('close-drawer-btn');
-  const drawer = document.getElementById('mobile-menu-drawer');
-  const backdrop = document.getElementById('mobile-drawer-backdrop');
-  const iconOpen = document.getElementById('menu-icon-open');
-  const iconClose = document.getElementById('menu-icon-close');
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', initHeaderScripts);
+  document.addEventListener('astro:page-load', initHeaderScripts);
 
-  function openDrawer() {
-    drawer?.classList.remove('-translate-x-full');
-    backdrop?.classList.remove('hidden');
-    iconOpen?.classList.add('hidden');
-    iconClose?.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  }
+  function initHeaderScripts() {
+    // Desktop Mega Menu Hover Scripts
+    const megaTriggers = document.querySelectorAll('.nav-mega-trigger');
+    const megaPanels = document.querySelectorAll('.mega-menu-panel');
+    let closeTimeout = null;
 
-  function closeDrawer() {
-    drawer?.classList.add('-translate-x-full');
-    backdrop?.classList.add('hidden');
-    iconOpen?.classList.remove('hidden');
-    iconClose?.classList.add('hidden');
-    document.body.style.overflow = 'auto';
-  }
-
-  toggleBtn?.addEventListener('click', () => {
-    const isOpen = !drawer?.classList.contains('-translate-x-full');
-    if (isOpen) {
-      closeDrawer();
-    } else {
-      openDrawer();
+    function hideAllMega() {
+      megaPanels.forEach(panel => {
+        panel.classList.add('opacity-0', 'pointer-events-none');
+        setTimeout(() => {
+          if (panel.classList.contains('opacity-0')) {
+            panel.classList.add('hidden');
+          }
+        }, 200);
+      });
     }
-  });
 
-  closeBtn?.addEventListener('click', closeDrawer);
-  backdrop?.addEventListener('click', closeDrawer);
+    function showMega(megaId) {
+      clearTimeout(closeTimeout);
+      const targetPanel = document.getElementById(`mega-menu-${megaId}`);
+      
+      megaPanels.forEach(panel => {
+        if (panel !== targetPanel) {
+          panel.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+        }
+      });
 
-  // Search Modal
-  const searchTrigger = document.getElementById('search-trigger-btn');
-  const searchModal = document.getElementById('search-modal');
-  const closeSearch = document.getElementById('close-search-btn');
+      if (targetPanel) {
+        targetPanel.classList.remove('hidden', 'pointer-events-none');
+        requestAnimationFrame(() => {
+          targetPanel.classList.remove('opacity-0');
+        });
+      }
+    }
 
-  searchTrigger?.addEventListener('click', () => {
-    searchModal?.classList.remove('hidden');
-    searchModal?.classList.add('flex');
-  });
+    megaTriggers.forEach(trigger => {
+      const megaId = trigger.getAttribute('data-mega');
+      if (!megaId || !['activities', 'fishing', 'shop'].includes(megaId)) return;
 
-  closeSearch?.addEventListener('click', () => {
-    searchModal?.classList.add('hidden');
-    searchModal?.classList.remove('flex');
-  });
+      trigger.addEventListener('mouseenter', () => showMega(megaId));
+      trigger.addEventListener('mouseleave', () => {
+        closeTimeout = setTimeout(hideAllMega, 250);
+      });
+    });
+
+    megaPanels.forEach(panel => {
+      panel.addEventListener('mouseenter', () => clearTimeout(closeTimeout));
+      panel.addEventListener('mouseleave', () => {
+        closeTimeout = setTimeout(hideAllMega, 250);
+      });
+    });
+
+    // Mobile Drawer Toggle
+    const toggleBtn = document.getElementById('mobile-menu-toggle');
+    const closeBtn = document.getElementById('close-drawer-btn');
+    const drawer = document.getElementById('mobile-menu-drawer');
+    const backdrop = document.getElementById('mobile-drawer-backdrop');
+    const iconOpen = document.getElementById('menu-icon-open');
+    const iconClose = document.getElementById('menu-icon-close');
+
+    function openDrawer() {
+      drawer?.classList.remove('-translate-x-full');
+      backdrop?.classList.remove('hidden');
+      iconOpen?.classList.add('hidden');
+      iconClose?.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDrawer() {
+      drawer?.classList.add('-translate-x-full');
+      backdrop?.classList.add('hidden');
+      iconOpen?.classList.remove('hidden');
+      iconClose?.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    }
+
+    toggleBtn?.addEventListener('click', () => {
+      const isOpen = !drawer?.classList.contains('-translate-x-full');
+      if (isOpen) closeDrawer();
+      else openDrawer();
+    });
+
+    closeBtn?.addEventListener('click', closeDrawer);
+    backdrop?.addEventListener('click', closeDrawer);
+
+    // Mobile Accordions
+    document.querySelectorAll('.mobile-accordion-btn').forEach(btn => {
+      btn.onclick = () => {
+        const targetId = btn.getAttribute('data-target');
+        const targetEl = document.getElementById(targetId);
+        const chevron = btn.querySelector('.acc-chevron');
+
+        if (targetEl) {
+          const isHidden = targetEl.classList.contains('hidden');
+          if (isHidden) {
+            targetEl.classList.remove('hidden');
+            chevron?.classList.add('rotate-180');
+          } else {
+            targetEl.classList.add('hidden');
+            chevron?.classList.remove('rotate-180');
+          }
+        }
+      };
+    });
+
+    // Search Modal
+    const searchTrigger = document.getElementById('search-trigger-btn');
+    const searchModal = document.getElementById('search-modal');
+    const closeSearch = document.getElementById('close-search-btn');
+
+    searchTrigger?.addEventListener('click', () => {
+      searchModal?.classList.remove('hidden');
+      searchModal?.classList.add('flex');
+    });
+
+    closeSearch?.addEventListener('click', () => {
+      searchModal?.classList.add('hidden');
+      searchModal?.classList.remove('flex');
+    });
+  }
+
+  initHeaderScripts();
 </script>

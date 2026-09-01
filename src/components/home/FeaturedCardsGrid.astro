@@ -14,8 +14,8 @@ const cards = [
     title: "HUNGRY TARPON RESTAURANT",
     image: "/assets/home/imgi_17_Hungry-tarpon1.webp",
     url: "https://www.robbies.com/hungry-tarpon-restaurant.htm",
-    baseText: "Experience a local’s dining experience on the water at any time of the day. We are open at 6:30AM for the early birds & sunrise chasers, & close down around 9PM. Don’t miss out",
-    extraText: " on seeing the stars from the Hungry Tarpon deck if dining at night!",
+    baseText: "Experience a local’s dining experience on the water at any time of the day. We are open at 6:30AM for the early birds & sunrise chasers, & close down around 9PM. Don",
+    extraText: "’t miss out on seeing the stars from the Hungry Tarpon deck if dining at night!",
     hasToggle: true
   },
   {
@@ -23,8 +23,8 @@ const cards = [
     title: "FEED THE TARPON",
     image: "/assets/home/imgi_18_feed-tarpon.webp",
     url: "https://www.robbies.com/tarpon-feeding.htm",
-    baseText: "Maybe the “Silver Kings” just come here to see the humans, but toss a bait fish among them and the water churns as these monsters and the resident pelicans vie for the snack, causing quite a spectacle. Admission: $2.50 per person.",
-    extraText: "Each bucket of fish is $5.00",
+    baseText: "Admission: $2.50 per person.Each bucket of fish is $5.00. Maybe the “Silver Kings” just come here to see",
+    extraText: " the humans, but toss a bait fish among them and the water churns as these monsters and the resident pelicans vie for the snack, causing quite a spectacle.",
     hasToggle: true
   },
   {
@@ -32,14 +32,14 @@ const cards = [
     title: "ROBBIE’S SHOP ONLINE",
     image: "/assets/home/imgi_19_shop.webp",
     url: "https://shop.robbies.com/",
-    baseText: "Explore the charm of the Florida Keys with Robbie’s of Islamorada’s online clothing collection. Browse our Shop Online section for a unique range of beachwear that captures the essence of island living.",
-    extraText: " From vibrant, comfortable designs to casual, chic apparel, find your perfect Keys-inspired outfit with ease and convenience. Shop now and bring a piece of Islamorada’s charm into your wardrobe!",
+    baseText: "Explore the charm of the Florida Keys with Robbie’s of Islamorada’s online clothing collection. Browse our Shop Online section for a unique range of beachwear that captures the esse",
+    extraText: "nce of island living. From vibrant, comfortable designs to casual, chic apparel, find your perfect Keys-inspired outfit with ease and convenience. Shop now and bring a piece of Islamorada’s charm into your wardrobe!",
     hasToggle: true
   }
 ];
 ---
 
-<section class="w-full bg-[#F8FAFC] py-14 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200 overflow-hidden">
+<section class="w-full bg-[#F8FAFC] py-14 sm:py-16 md:py-20 px-4 sm:px-6 lg:px-8 border-b border-slate-200 overflow-hidden select-none">
   <div class="max-w-[1180px] mx-auto">
     
     <!-- Mobile Swipeable Carousel & Desktop 4-Column Grid Container -->
@@ -61,12 +61,12 @@ const cards = [
 
             <!-- Card Body Text Container -->
             <div class="p-5 sm:p-6">
-              <!-- Title (Centrado) -->
-              <h3 class="font-heading font-black text-sm sm:text-base text-[#2B447A] uppercase tracking-wide mb-3 text-center">
+              <!-- Title (Centrado en Montserrat Black) -->
+              <h3 class="font-heading font-black text-sm sm:text-base text-[#2B447A] uppercase tracking-wide mb-3 text-center leading-snug">
                 {card.title}
               </h3>
 
-              <!-- Description Text (Alineado a la Izquierda, con animación suave) -->
+              <!-- Description Text (Alineado a la Izquierda) -->
               <div class="font-body text-slate-600 text-xs sm:text-[13px] leading-relaxed text-left">
                 {card.hasToggle ? (
                   <p class="inline-card-wrapper" id={`card-wrapper-${card.id}`}>
@@ -74,9 +74,10 @@ const cards = [
                     <span class="extra-text hidden opacity-0 transition-opacity duration-300 ease-in-out">{card.extraText}</span>
                     <button 
                       type="button" 
-                      class="card-toggle-btn text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer inline whitespace-nowrap"
+                      class="card-toggle-btn text-[#2B447A] font-bold underline hover:opacity-80 transition-opacity ml-1 cursor-pointer inline"
                     >
-                      <span class="btn-text">Read More</span>
+                      <span class="btn-text inline">Read More &gt;&gt;</span>
+                      <span class="btn-text-less hidden">Read Less</span>
                     </button>
                   </p>
                 ) : (
@@ -92,7 +93,7 @@ const cards = [
               href={card.url} 
               target="_blank" 
               rel="noopener noreferrer" 
-              class="w-full bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-bold text-xs sm:text-sm py-3 px-6 text-center block transition-colors duration-200 uppercase tracking-wider"
+              class="w-full bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-bold text-xs sm:text-sm py-3.5 px-6 text-center flex items-center justify-center transition-colors duration-200 uppercase tracking-wider"
             >
               Learn More
             </a>
@@ -131,9 +132,10 @@ const cards = [
     document.querySelectorAll('.inline-card-wrapper').forEach((wrapper) => {
       const btn = wrapper.querySelector('.card-toggle-btn');
       const extraText = wrapper.querySelector('.extra-text');
-      const btnText = wrapper.querySelector('.btn-text');
+      const btnMore = wrapper.querySelector('.btn-text');
+      const btnLess = wrapper.querySelector('.btn-text-less');
 
-      if (btn && extraText && btnText) {
+      if (btn && extraText && btnMore && btnLess) {
         let isExpanded = false;
 
         btn.onclick = (e) => {
@@ -146,14 +148,20 @@ const cards = [
               extraText.classList.remove('opacity-0');
               extraText.classList.add('opacity-100');
             });
-            btnText.textContent = 'Read Less';
+            btnMore.classList.add('hidden');
+            btnMore.classList.remove('inline');
+            btnLess.classList.remove('hidden');
+            btnLess.classList.add('inline');
           } else {
             extraText.classList.remove('opacity-100');
             extraText.classList.add('opacity-0');
             setTimeout(() => {
               if (!isExpanded) extraText.classList.add('hidden');
             }, 300);
-            btnText.textContent = 'Read More';
+            btnLess.classList.add('hidden');
+            btnLess.classList.remove('inline');
+            btnMore.classList.remove('hidden');
+            btnMore.classList.add('inline');
           }
         };
       }
