@@ -360,20 +360,22 @@ const contactMega = {
     <div class="w-full grid grid-cols-12 h-[480px]">
       
       <!-- Left Navy Column: Content Area -->
-      <div class="col-span-7 xl:col-span-8 h-full bg-[#2B447A] px-12 xl:px-16 py-12 flex flex-col justify-start">
-        <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-left">
-          {shopMega.title}
-        </h3>
-        
-        <ul class="space-y-4 max-w-xs">
-          {shopMega.items.map((item) => (
-            <li>
-              <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
-                {item.name}
-              </span>
-            </li>
-          ))}
-        </ul>
+      <div class="col-span-7 xl:col-span-8 h-full bg-[#2B447A] px-12 xl:px-16 py-12 flex flex-col justify-center items-center">
+        <div class="w-full max-w-xs">
+          <h3 class="font-heading font-black text-sm text-white uppercase tracking-wider mb-8 text-center">
+            {shopMega.title}
+          </h3>
+          
+          <ul class="space-y-4 text-center">
+            {shopMega.items.map((item) => (
+              <li>
+                <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-center cursor-pointer">
+                  {item.name}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
 
       <!-- Right Column: Full-Height HD Image -->
