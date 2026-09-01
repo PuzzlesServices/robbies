@@ -28,24 +28,24 @@ const logos = [
 ];
 ---
 
-<!-- Section: FEATURED IN Press Bar (Ampliado y con Enlaces Oficiales) -->
-<section class="w-full bg-[#2B447A] text-white py-8 sm:py-10 md:py-12 px-4 sm:px-6 lg:px-8 border-t border-b border-blue-900/40 select-none">
-  <div class="max-w-[1180px] mx-auto flex flex-col items-center justify-center space-y-6">
+<!-- Section: FEATURED IN Press Bar (Compacto en altura, logos grandes con enlaces) -->
+<section class="w-full bg-[#2B447A] text-white py-4 sm:py-5 md:py-6 px-4 sm:px-6 lg:px-8 border-t border-b border-blue-900/40 select-none">
+  <div class="max-w-[1240px] mx-auto flex flex-col items-center justify-center space-y-3 sm:space-y-4">
     
     <!-- Section Title Label -->
     <span class="text-xs sm:text-sm font-heading font-extrabold tracking-widest text-white/90 uppercase">
       FEATURED IN:
     </span>
 
-    <!-- Press Logos Grid / Flex Container (Imágenes más grandes) -->
-    <div class="w-full flex flex-wrap items-center justify-center gap-8 sm:gap-12 md:gap-16 lg:gap-20 xl:gap-24">
+    <!-- Press Logos Grid / Flex Container (Imágenes +20px más grandes) -->
+    <div class="w-full flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14 lg:gap-16 xl:gap-20">
       {logos.map((logo) => (
-        <div class="flex items-center justify-center p-2 hover:scale-105 transition-transform duration-200">
+        <div class="flex items-center justify-center p-1.5 hover:scale-105 transition-transform duration-200">
           <a href={logo.url} target="_blank" rel="noopener noreferrer" title={logo.name} class="block">
             <img 
               src={logo.src} 
               alt={logo.name} 
-              class="h-10 xs:h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 w-auto max-w-[200px] sm:max-w-[260px] object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity drop-shadow-sm"
+              class="h-14 xs:h-16 sm:h-20 md:h-24 lg:h-28 xl:h-32 w-auto max-w-[220px] sm:max-w-[280px] md:max-w-[320px] object-contain brightness-0 invert opacity-95 hover:opacity-100 transition-opacity drop-shadow-sm"
               loading="lazy"
             />
           </a>
