@@ -71,5 +71,11 @@ const {
 	</head>
 	<body class="bg-white text-slate-800 font-body antialiased min-h-screen flex flex-col selection:bg-robbies-ocean selection:text-white">
 		<slot />
+
+    <!-- FLOTANTE MIGRATION PREVIEW -->
+    <a href="/migration-progress/" class="fixed bottom-4 left-4 z-[999] bg-slate-900/95 backdrop-blur text-white text-[10px] font-bold tracking-widest uppercase px-4 py-2 rounded-full shadow-lg border border-slate-700 hover:bg-[#2B55FF] hover:border-[#2B55FF] transition-colors flex items-center gap-2 group">
+      <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+      Preview build <span class="group-hover:translate-x-0.5 transition-transform">· Ver avance &rarr;</span>
+    </a>
 	</body>
 </html>

@@ -1,0 +1,226 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/header/Header.astro';
+import Footer from '../components/common/Footer.astro';
+import { migrationConfig } from '../migration/config';
+import fs from 'fs';
+import path from 'path';
+
+// 3. ARQUITECTURA DE DATOS
+let migrations = { batches: [], upcomingRoutes: [] };
+try {
+  const filePath = path.join(process.cwd(), 'src', 'migration', 'migrations.json');
+  if (fs.existsSync(filePath)) {
+    migrations = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  }
+} catch (e) {}
+
+const { batches, upcomingRoutes } = migrations;
+
+const totalMigrated = batches.reduce((acc: any, b: any) => acc + b.routes.length, 0);
+const totalPages = migrationConfig.totalPages || 100;
+const overallCompletion = Math.round((totalMigrated / totalPages) * 100);
+
+const latestBatch = batches.length > 0 ? batches[0] : null;
+const newThisWeek = latestBatch ? latestBatch.routes.length : 0;
+const upcomingCount = upcomingRoutes.length;
+
+// Serializar flag de seguridad para cliente
+const requirePassword = migrationConfig.requirePassword;
+const accessPassword = migrationConfig.accessPassword;
+---
+
+<Layout title="Migration Progress - Robbie's" noindex={true}>
+  <!-- Bloqueo SEO inyectado vía Layout (noindex) -->
+  <Header />
+
+  <main class="flex-1 bg-slate-50 min-h-screen relative">
+    
+    <!-- AUTHENTICATION OVERLAY -->
+    {requirePassword && (
+      <div id="migration-auth-overlay" class="absolute inset-0 z-50 bg-slate-50 flex items-start pt-24 justify-center min-h-screen">
+        <div class="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-sm border border-slate-200 text-center w-full mx-4">
+          <div class="w-12 h-12 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+            </svg>
+          </div>
+          <h1 class="text-2xl font-bold font-heading mb-2 text-slate-800">Acceso Privado</h1>
+          <p class="text-slate-500 mb-6 text-sm">Por favor ingresa la clave de cliente para visualizar el avance de migración.</p>
+          <form id="migration-auth-form" class="space-y-4">
+            <div>
+              <input type="password" id="migration-password" placeholder="Contraseña de cliente" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-[#2B55FF] focus:ring focus:ring-[#2B55FF]/20 outline-none transition-all text-center tracking-widest" required />
+            </div>
+            <p id="migration-error" class="text-red-500 text-xs hidden font-bold">Contraseña incorrecta</p>
+            <button type="submit" class="w-full bg-[#2B55FF] hover:bg-[#1D4ED8] text-white font-bold py-3 rounded-xl transition-colors uppercase tracking-wider text-sm">
+              Ingresar
+            </button>
+          </form>
+        </div>
+      </div>
+    )}
+
+    <!-- MAIN CONTENT -->
+    <div id="migration-content" class={requirePassword ? "hidden max-w-5xl mx-auto px-6 py-16" : "max-w-5xl mx-auto px-6 py-16"}>
+      <!-- Hero Section -->
+      <div class="mb-16 max-w-3xl">
+        <p class="text-xs font-bold tracking-widest text-[#2B55FF] uppercase mb-4">
+          {migrationConfig.hero.eyebrow} {latestBatch ? `· LATEST PAGES ADDED ${new Date(latestBatch.date).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}).toUpperCase()}` : ''}
+        </p>
+        <h1 class="text-4xl md:text-5xl font-black font-heading text-slate-900 mb-6 tracking-tight">
+          {migrationConfig.hero.title}
+        </h1>
+        <p class="text-lg text-slate-600 leading-relaxed">
+          {migrationConfig.hero.description}
+        </p>
+      </div>
+
+      <!-- Statistics Cards -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center">
+          <span class="text-4xl font-black text-slate-900 mb-1 font-heading">{totalMigrated}</span>
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pages Migrated</span>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center">
+          <span class="text-4xl font-black text-[#2B55FF] mb-1 font-heading">+{newThisWeek}</span>
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">New This Week</span>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center">
+          <span class="text-4xl font-black text-slate-900 mb-1 font-heading">{upcomingCount}</span>
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Linked Pages Next</span>
+        </div>
+        <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm flex flex-col justify-center items-center text-center">
+          <span class="text-4xl font-black text-emerald-500 mb-1 font-heading">{overallCompletion}%</span>
+          <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Overall Completion</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        
+        <!-- Timeline Grouped List -->
+        <div class="lg:col-span-8">
+          <h2 class="text-2xl font-black font-heading text-slate-900 mb-8 border-b border-slate-200 pb-4">Migrated Pages Timeline</h2>
+          
+          <div class="space-y-12">
+            {batches.map((batch: any, index: number) => {
+              const isLatest = index === 0;
+              const dateStr = new Date(batch.date).toLocaleDateString('en-US', {month: 'short', day: 'numeric', year: 'numeric'}).toUpperCase();
+              
+              return (
+                <div class="relative">
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                      <h3 class="text-sm font-bold text-slate-400 tracking-widest">{dateStr}</h3>
+                      {isLatest && <span class="bg-[#2B55FF] text-white text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider">New</span>}
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-400 bg-slate-100 border border-slate-200 px-3 py-1 rounded-full">{batch.routes.length} pages</span>
+                  </div>
+
+                  <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+                    {batch.routes.map((route: any, rIndex: number) => (
+                      <div class={`p-5 flex flex-col md:flex-row md:items-center justify-between gap-4 ${rIndex !== batch.routes.length - 1 ? 'border-b border-slate-100' : ''}`}>
+                        <div>
+                          <p class="font-bold text-slate-900 text-base">{route.title}</p>
+                          <p class="text-[11px] text-slate-400 font-mono mt-1">{route.slug}</p>
+                        </div>
+                        <div class="flex items-center gap-2 w-full md:w-auto">
+                          <a href={route.slug} class="flex-1 md:flex-none text-center bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition-colors">
+                            Open new version
+                          </a>
+                          <a href={`${migrationConfig.oldSiteDomain}${route.slug}`} target="_blank" rel="noopener noreferrer" class="flex-1 md:flex-none text-center bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 text-xs font-bold px-4 py-2.5 rounded-xl transition-colors inline-flex items-center justify-center gap-1">
+                            Compare <span class="hidden xl:inline">with current site</span> &rarr;
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="lg:col-span-4 space-y-8">
+          
+          <!-- What to expect -->
+          <div class="bg-slate-900 rounded-2xl p-6 text-white shadow-lg">
+            <h3 class="font-heading font-black text-lg mb-4 text-white">What to expect in this preview</h3>
+            <ul class="space-y-4 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <div class="mt-0.5 text-emerald-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                </div>
+                <p><strong class="text-white block">Exact Content Migration</strong>All text, images, and SEO metadata perfectly copied over.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <div class="mt-0.5 text-emerald-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                </div>
+                <p><strong class="text-white block">Fully Responsive</strong>Check it on your phone; no horizontal scroll or broken elements.</p>
+              </li>
+              <li class="flex items-start gap-3">
+                <div class="mt-0.5 text-emerald-400">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" /></svg>
+                </div>
+                <p><strong class="text-white block">Zero Third-Party Clutter</strong>Native HTML/CSS without the weight of WordPress plugins.</p>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Coming Next -->
+          {upcomingRoutes.length > 0 && (
+            <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+              <h3 class="font-heading font-black text-lg mb-4 text-slate-900 border-b border-slate-100 pb-3">Coming Next</h3>
+              <div class="flex flex-wrap gap-2">
+                {upcomingRoutes.map((route: any) => (
+                  <span class="inline-block bg-slate-50 border border-slate-200 text-slate-600 text-xs font-semibold px-3 py-1.5 rounded-full">
+                    {route.title}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+          
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script define:vars={{ requirePassword, accessPassword }}>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!requirePassword) return;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const isAuth = sessionStorage.getItem('migration_auth') === 'true' || urlParams.get('key') === accessPassword;
+
+      const overlay = document.getElementById('migration-auth-overlay');
+      const content = document.getElementById('migration-content');
+      const form = document.getElementById('migration-auth-form');
+      const errorMsg = document.getElementById('migration-error');
+
+      if (isAuth) {
+        sessionStorage.setItem('migration_auth', 'true');
+        if(overlay) overlay.style.display = 'none';
+        if(content) content.classList.remove('hidden');
+      } else {
+        if(form) {
+          form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = document.getElementById('migration-password').value;
+            if (input === accessPassword) {
+              sessionStorage.setItem('migration_auth', 'true');
+              overlay.style.display = 'none';
+              content.classList.remove('hidden');
+              errorMsg.classList.add('hidden');
+            } else {
+              errorMsg.classList.remove('hidden');
+            }
+          });
+        }
+      }
+    });
+  </script>
+
+  <Footer />
+</Layout>

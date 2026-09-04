@@ -1,0 +1,35 @@
+{
+  "batches": [
+    {
+      "date": "2026-09-04",
+      "routes": [
+        {
+          "slug": "/",
+          "title": "Home"
+        }
+      ]
+    }
+  ],
+  "upcomingRoutes": [
+    {
+      "title": "About Us",
+      "url": "https://www.robbies.com/about.htm"
+    },
+    {
+      "title": "Islamorada Fishing",
+      "url": "https://www.robbies.com/islamorada-fishing.htm"
+    },
+    {
+      "title": "Hungry Tarpon Restaurant",
+      "url": "https://www.robbies.com/hungry-tarpon-restaurant.htm"
+    },
+    {
+      "title": "Webcam",
+      "url": "https://www.robbies.com/webcam.htm"
+    },
+    {
+      "title": "Contact Us",
+      "url": "https://www.robbies.com/contact-robbies.htm"
+    }
+  ]
+}
