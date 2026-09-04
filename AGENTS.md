@@ -20,3 +20,7 @@ Consult these guides before working on related tasks:
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+
+## Mandatory Migration Dashboard Rule
+
+EVERY task, bugfix, optimization, component creation, or architectural change completed in this codebase MUST be automatically recorded in `src/migration/migrations.json` under the active sprint/day task log. Never complete a feature without registering its completion in the dashboard.
