@@ -12,9 +12,9 @@ interface Props {
 }
 
 const { 
-	title = "Robbie’s of Islamorada | Voted #1 Place To Visit in Florida Keys", 
-	description = "Welcome to Robbie’s Marina, home of the world-famous tarpon feeding! Discover exciting water sports, boat rentals, dining, and shops in Islamorada.",
-	image = "https://robbies.com/assets/home/hero-tarpon.jpg",
+	title = "Robbie's of Islamorada | Voted #1 Place To Visit in Florida Keys", 
+	description = "Welcome to Robbie's Marina, home of the world-famous tarpon feeding! Discover exciting water sports, boat rentals, dining, and shops in Islamorada.",
+	image = "/assets/home/imgi_18_feed-tarpon.webp",
 	canonicalUrl = Astro.url.href,
 	schemaType = "TouristAttraction",
 	// MODO DESARROLLO: noindex activado por defecto para proteger el SEO contra contenido duplicado en Google
@@ -25,10 +25,20 @@ const {
 <!doctype html>
 <html lang="en">
 	<head>
+		<!-- REGLA 1: META CHARSET ES LA PRIMERA LÍNEA OBLIGATORIA DENTRO DE <HEAD> -->
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- REGLA 1: PRECONEXIÓN Y DNS-PREFETCH TEMPRANO PARA TERCEROS Y FUENTES -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+		<link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+		<!-- REGLA 4: PRECARGA OBLIGATORIA DEL ELEMENTO LCP (IMAGEN HERO/POSTER) -->
+		<link rel="preload" as="image" href={image} fetchpriority="high" />
 
 		<!-- Canonical URL -->
 		<link rel="canonical" href={canonicalUrl} />
@@ -61,9 +71,7 @@ const {
 		<meta property="twitter:description" content={description} />
 		<meta property="twitter:image" content={image} />
 
-		<!-- Google Fonts: Montserrat & Open Sans -->
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<!-- Google Fonts: Montserrat & Open Sans con font-display: swap -->
 		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
 		<!-- Structured Data JSON-LD (Schema.org preparado para el lanzamiento) -->

@@ -94,7 +94,8 @@ const slides = [
                     href={slide.buttonUrl} 
                     target="_blank" 
                     rel="noopener noreferrer" 
-                    class="inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-8 sm:px-11 py-3.5 sm:py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border border-white/20"
+                    tabindex={index === 0 ? "0" : "-1"}
+                    class="carousel-cta-btn inline-flex items-center justify-center bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs sm:text-sm uppercase tracking-widest px-8 sm:px-11 py-3.5 sm:py-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-[1.03] active:scale-95 border border-white/20"
                   >
                     {slide.buttonText}
                   </a>
@@ -165,12 +166,15 @@ const slides = [
       const targetIndex = (index + totalSlides) % totalSlides;
       
       slides.forEach((slide, i) => {
+        const btn = slide.querySelector('.carousel-cta-btn');
         if (i === targetIndex) {
           slide.classList.remove('opacity-0', 'z-0', 'scale-95', 'pointer-events-none');
           slide.classList.add('opacity-100', 'z-10', 'scale-100', 'pointer-events-auto');
+          if (btn) btn.setAttribute('tabindex', '0');
         } else {
           slide.classList.remove('opacity-100', 'z-10', 'scale-100', 'pointer-events-auto');
           slide.classList.add('opacity-0', 'z-0', 'scale-95', 'pointer-events-none');
+          if (btn) btn.setAttribute('tabindex', '-1');
         }
       });
 

@@ -23,17 +23,18 @@ const {
 ---
 
 <section class="relative w-full min-h-[480px] h-[72vh] md:h-[78vh] lg:h-[84vh] max-h-[800px] overflow-hidden bg-slate-950 flex items-center">
-  <!-- Background Video (Original) -->
+  <!-- Background Video (REGLA 2: DEFERRAL POSPUESTO PARA RENDIMIENTO 100% PAGESPEED) -->
   <video 
+    id="hero-background-video"
     autoplay 
     loop 
     muted 
     playsinline 
     poster="/assets/home/imgi_18_feed-tarpon.webp"
+    data-video-src={videoSrc}
     class="absolute inset-0 w-full h-full object-cover z-0"
   >
-    <source src={videoSrc} type="video/mp4" />
-    Your browser does not support the video tag.
+    <!-- Source inyectado dinámicamente vía script diferido -->
   </video>
 
   <!-- Hero Content Container (Max-width 1180px) -->
@@ -48,7 +49,10 @@ const {
           <img 
             src={crownSrc} 
             alt="Crown Icon" 
+            width="40"
+            height="40"
             class="h-7 sm:h-9 md:h-10 w-auto object-contain drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]"
+            fetchpriority="high"
           />
         </div>
       )}
@@ -82,10 +86,54 @@ const {
         <img 
           src={badgeSrc} 
           alt="50 Years of Adventure Badge" 
+          width="200"
+          height="200"
           class="w-20 xs:w-24 sm:w-32 md:w-40 lg:w-48 xl:w-52 h-auto object-contain drop-shadow-[0_4px_16px_rgba(0,0,0,0.6)]"
+          fetchpriority="high"
         />
       </div>
     )}
 
   </div>
 </section>
+
+<!-- REGLA 2: SCRIPT DE INYECCIÓN DE VIDEO POSPUESTO PARA OPTIMIZAR LCP Y FCP -->
+<script is:inline>
+  (function() {
+    function initHeroVideo() {
+      const video = document.getElementById("hero-background-video");
+      if (!video || video.querySelector("source")) return;
+      
+      const videoSrc = video.getAttribute("data-video-src");
+      if (!videoSrc) return;
+
+      let loaded = false;
+      const startVideoLoad = () => {
+        if (loaded || video.querySelector("source")) return;
+        loaded = true;
+        
+        window.removeEventListener("scroll", startVideoLoad);
+        window.removeEventListener("touchstart", startVideoLoad);
+        
+        const source = document.createElement("source");
+        source.src = videoSrc;
+        source.type = "video/mp4";
+        video.appendChild(source);
+        video.load();
+        video.play().catch(() => {});
+      };
+
+      window.addEventListener("scroll", startVideoLoad, { passive: true });
+      window.addEventListener("touchstart", startVideoLoad, { passive: true });
+
+      if (document.readyState === "complete") {
+        setTimeout(startVideoLoad, 2500);
+      } else {
+        window.addEventListener("load", () => setTimeout(startVideoLoad, 2500), { once: true });
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", initHeroVideo);
+    document.addEventListener("astro:page-load", initHeroVideo);
+  })();
+</script>
