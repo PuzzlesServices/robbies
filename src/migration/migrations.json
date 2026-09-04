@@ -12,24 +12,424 @@
   ],
   "upcomingRoutes": [
     {
-      "title": "About Us",
-      "url": "https://www.robbies.com/about.htm"
+      "title": "Tarpon",
+      "url": "https://www.robbies.com/tarpon.htm"
     },
     {
-      "title": "Islamorada Fishing",
-      "url": "https://www.robbies.com/islamorada-fishing.htm"
+      "title": "Boat Rentals",
+      "url": "https://www.robbies.com/boat-rentals.htm"
+    },
+    {
+      "title": "Jet Ski Adventures",
+      "url": "https://www.robbies.com/jet-ski-adventures.htm"
+    },
+    {
+      "title": "Events",
+      "url": "https://www.robbies.com/events.htm"
+    },
+    {
+      "title": "Kayak And Paddleboard Rentals Tours",
+      "url": "https://www.robbies.com/kayak-and-paddleboard-rentals-tours.htm"
+    },
+    {
+      "title": "Privacy Policy",
+      "url": "https://www.robbies.com/privacy-policy.htm"
+    },
+    {
+      "title": "Cookie Policy",
+      "url": "https://www.robbies.com/cookie-policy.htm"
+    },
+    {
+      "title": "Test Chat",
+      "url": "https://www.robbies.com/test-chat.htm"
+    },
+    {
+      "title": "Reviews",
+      "url": "https://www.robbies.com/reviews.htm"
+    },
+    {
+      "title": "Links",
+      "url": "https://www.robbies.com/links.htm"
+    },
+    {
+      "title": "Influencers Collaboration",
+      "url": "https://www.robbies.com/influencers-collaboration.htm"
+    },
+    {
+      "title": "Guides",
+      "url": "https://www.robbies.com/guides.htm"
+    },
+    {
+      "title": "Islamorada Night Fishing",
+      "url": "https://www.robbies.com/islamorada-night-fishing.htm"
     },
     {
       "title": "Hungry Tarpon Restaurant",
       "url": "https://www.robbies.com/hungry-tarpon-restaurant.htm"
     },
     {
-      "title": "Webcam",
-      "url": "https://www.robbies.com/webcam.htm"
+      "title": "History Of Robbies",
+      "url": "https://www.robbies.com/history-of-robbies.htm"
+    },
+    {
+      "title": "Four Aces",
+      "url": "https://www.robbies.com/captains-bios/four-aces.htm"
+    },
+    {
+      "title": "Weddings And Events",
+      "url": "https://www.robbies.com/weddings-and-events.htm"
     },
     {
       "title": "Contact Us",
-      "url": "https://www.robbies.com/contact-robbies.htm"
+      "url": "https://www.robbies.com/contact-us.htm"
+    },
+    {
+      "title": "Satisfaction Charters",
+      "url": "https://www.robbies.com/captains-bios/satisfaction-charters.htm"
+    },
+    {
+      "title": "Captain Richard Hastings Iii",
+      "url": "https://www.robbies.com/captains-bios/captain-richard-hastings-iii.htm"
+    },
+    {
+      "title": "Contagious Charters",
+      "url": "https://www.robbies.com/captains-bios/contagious-charters.htm"
+    },
+    {
+      "title": "Islamorada Fly Fishing",
+      "url": "https://www.robbies.com/islamorada-fly-fishing.htm"
+    },
+    {
+      "title": "Family Fishing",
+      "url": "https://www.robbies.com/family-fishing.htm"
+    },
+    {
+      "title": "Backcountry Fishing",
+      "url": "https://www.robbies.com/backcountry-fishing.htm"
+    },
+    {
+      "title": "Shark Tarpon Fishing",
+      "url": "https://www.robbies.com/shark-tarpon-fishing.htm"
+    },
+    {
+      "title": "Reef And Wreck Fishing",
+      "url": "https://www.robbies.com/reef-and-wreck-fishing.htm"
+    },
+    {
+      "title": "Swordfish Fishing",
+      "url": "https://www.robbies.com/swordfish-fishing.htm"
+    },
+    {
+      "title": "Dolphin Fishing",
+      "url": "https://www.robbies.com/dolphin-fishing.htm"
+    },
+    {
+      "title": "Offshore Fishing",
+      "url": "https://www.robbies.com/offshore-fishing.htm"
+    },
+    {
+      "title": "Katsikas Charters",
+      "url": "https://www.robbies.com/captains-bios/katsikas-charters.htm"
+    },
+    {
+      "title": "Islamorada Location Shoots",
+      "url": "https://www.robbies.com/islamorada-location-shoots.htm"
+    },
+    {
+      "title": "Partyboat",
+      "url": "https://www.robbies.com/partyboat.htm"
+    },
+    {
+      "title": "Livecam From Islamorada",
+      "url": "https://www.robbies.com/livecam-from-islamorada.htm"
+    },
+    {
+      "title": "About Us",
+      "url": "https://www.robbies.com/about-us.htm"
+    },
+    {
+      "title": "Open Air Shopping",
+      "url": "https://www.robbies.com/open-air-shopping.htm"
+    },
+    {
+      "title": "Captains Bios",
+      "url": "https://www.robbies.com/captains-bios.htm"
+    },
+    {
+      "title": "Roman Gastesi",
+      "url": "https://www.robbies.com/roman-gastesi.htm"
+    },
+    {
+      "title": "Florida Keys Top 10 Things To Do",
+      "url": "https://www.robbies.com/florida-keys-top-10-things-to-do.htm"
+    },
+    {
+      "title": "Gift Cards",
+      "url": "https://www.robbies.com/gift-cards.htm"
+    },
+    {
+      "title": "Activities",
+      "url": "https://www.robbies.com/activities.htm"
+    },
+    {
+      "title": "Key West",
+      "url": "https://www.robbies.com/key-west.htm"
+    },
+    {
+      "title": "Satisfaction Charters",
+      "url": "https://www.robbies.com/satisfaction-charters.htm"
+    },
+    {
+      "title": "Visitors",
+      "url": "https://www.robbies.com/visitors.htm"
+    },
+    {
+      "title": "Im Bit Charters",
+      "url": "https://www.robbies.com/im-bit-charters.htm"
+    },
+    {
+      "title": "Go Time Charters",
+      "url": "https://www.robbies.com/captains-bios/go-time-charters.htm"
+    },
+    {
+      "title": "Miss Penny Charters",
+      "url": "https://www.robbies.com/captains-bios/miss-penny-charters.htm"
+    },
+    {
+      "title": "Fin Tastic Charters",
+      "url": "https://www.robbies.com/captains-bios/fin-tastic-charters.htm"
+    },
+    {
+      "title": "Dirtyboat Charters",
+      "url": "https://www.robbies.com/captains-bios/dirtyboat-charters.htm"
+    },
+    {
+      "title": "Blue Heaven Charters",
+      "url": "https://www.robbies.com/captains-bios/blue-heaven-charters.htm"
+    },
+    {
+      "title": "Split Charter",
+      "url": "https://www.robbies.com/split-charter.htm"
+    },
+    {
+      "title": "Glass Bottom Boat",
+      "url": "https://www.robbies.com/glass-bottom-boat.htm"
+    },
+    {
+      "title": "Islamorada Eco Tours",
+      "url": "https://www.robbies.com/islamorada-eco-tours.htm"
+    },
+    {
+      "title": "Sunset Cruises",
+      "url": "https://www.robbies.com/sunset-cruises.htm"
+    },
+    {
+      "title": "Snuba The Reef",
+      "url": "https://www.robbies.com/snuba-the-reef.htm"
+    },
+    {
+      "title": "Snorkeling",
+      "url": "https://www.robbies.com/snorkeling.htm"
+    },
+    {
+      "title": "Islamorada Fishing",
+      "url": "https://www.robbies.com/islamorada-fishing.htm"
+    },
+    {
+      "title": "Miss Penny",
+      "url": "https://www.robbies.com/miss-penny.htm"
+    },
+    {
+      "title": "Directions",
+      "url": "https://www.robbies.com/directions.htm"
+    },
+    {
+      "title": "Itinerary",
+      "url": "https://www.robbies.com/itinerary.htm"
+    },
+    {
+      "title": "Watersports Day Itinerary",
+      "url": "https://www.robbies.com/watersports-day-itinerary.htm"
+    },
+    {
+      "title": "Return Refund Policy",
+      "url": "https://www.robbies.com/return-refund-policy.htm"
+    },
+    {
+      "title": "Faqs",
+      "url": "https://www.robbies.com/faqs.htm"
+    },
+    {
+      "title": "Terms Of Service",
+      "url": "https://www.robbies.com/terms-of-service.htm"
+    },
+    {
+      "title": "As Featured In",
+      "url": "https://www.robbies.com/as-featured-in.htm"
+    },
+    {
+      "title": "Evening Activities",
+      "url": "https://www.robbies.com/evening-activities.htm"
+    },
+    {
+      "title": "Morning Activities",
+      "url": "https://www.robbies.com/morning-activities.htm"
+    },
+    {
+      "title": "Robbies Of Islamorada Careers",
+      "url": "https://www.robbies.com/robbies-of-islamorada-careers.htm"
+    },
+    {
+      "title": "Visitor Center",
+      "url": "https://www.robbies.com/visitor-center.htm"
+    },
+    {
+      "title": "Pet Friendly",
+      "url": "https://www.robbies.com/pet-friendly.htm"
+    },
+    {
+      "title": "Islamorada Location Shoot",
+      "url": "https://www.robbies.com/islamorada-location-shoot.htm"
+    },
+    {
+      "title": "Fishing Calendar",
+      "url": "https://www.robbies.com/fishing-calendar.htm"
+    },
+    {
+      "title": "Photos",
+      "url": "https://www.robbies.com/photos.htm"
+    },
+    {
+      "title": "Kayak Paddle Size Guide",
+      "url": "https://www.robbies.com/kayak-paddle-size-guide/"
+    },
+    {
+      "title": "Difference Between A Canoe And A Kayak",
+      "url": "https://www.robbies.com/difference-between-a-canoe-and-a-kayak/"
+    },
+    {
+      "title": "Is Kayaking Good Exercise",
+      "url": "https://www.robbies.com/is-kayaking-good-exercise/"
+    },
+    {
+      "title": "What Is A Sunset Cruise",
+      "url": "https://www.robbies.com/what-is-a-sunset-cruise/"
+    },
+    {
+      "title": "How To Paddle Board",
+      "url": "https://www.robbies.com/how-to-paddle-board/"
+    },
+    {
+      "title": "What Is Boat Rental",
+      "url": "https://www.robbies.com/what-is-boat-rental/"
+    },
+    {
+      "title": "How To Kayak In The Ocean",
+      "url": "https://www.robbies.com/how-to-kayak-in-the-ocean/"
+    },
+    {
+      "title": "What Is Snuba Diving",
+      "url": "https://www.robbies.com/what-is-snuba-diving/"
+    },
+    {
+      "title": "What Is Snorkeling",
+      "url": "https://www.robbies.com/what-is-snorkeling/"
+    },
+    {
+      "title": "July Fishing In Florida Keys",
+      "url": "https://www.robbies.com/july-fishing-in-florida-keys/"
+    },
+    {
+      "title": "Celebrate Independence Day In Islamorada",
+      "url": "https://www.robbies.com/celebrate-independence-day-in-islamorada/"
+    },
+    {
+      "title": "What Is Kayaking",
+      "url": "https://www.robbies.com/what-is-kayaking/"
+    },
+    {
+      "title": "Florida Keys Travel Tips",
+      "url": "https://www.robbies.com/florida-keys-travel-tips/"
+    },
+    {
+      "title": "What Is Fly Fishing",
+      "url": "https://www.robbies.com/what-is-fly-fishing/"
+    },
+    {
+      "title": "Florida Keys Summer Fishing Guide",
+      "url": "https://www.robbies.com/florida-keys-summer-fishing-guide/"
+    },
+    {
+      "title": "Florida Keys In May",
+      "url": "https://www.robbies.com/florida-keys-in-may/"
+    },
+    {
+      "title": "Florida Keys Water Temperature Guide",
+      "url": "https://www.robbies.com/florida-keys-water-temperature-guide/"
+    },
+    {
+      "title": "Florida Keys May Fishing Conditions",
+      "url": "https://www.robbies.com/florida-keys-may-fishing-conditions/"
+    },
+    {
+      "title": "Florida Keys In April",
+      "url": "https://www.robbies.com/florida-keys-in-april/"
+    },
+    {
+      "title": "Best Outdoor Water Activities In The Florida Keys",
+      "url": "https://www.robbies.com/best-outdoor-water-activities-in-the-florida-keys/"
+    },
+    {
+      "title": "Tarpon Season In The Florida Keys",
+      "url": "https://www.robbies.com/tarpon-season-in-the-florida-keys/"
+    },
+    {
+      "title": "Florida Keys Fishing Conditions",
+      "url": "https://www.robbies.com/florida-keys-fishing-conditions/"
+    },
+    {
+      "title": "Snorkeling Vs Snuba",
+      "url": "https://www.robbies.com/snorkeling-vs-snuba/"
+    },
+    {
+      "title": "Best Fish To Catch In The Florida Keys On Winter",
+      "url": "https://www.robbies.com/best-fish-to-catch-in-the-florida-keys-on-winter/"
+    },
+    {
+      "title": "Is Feeding Tarpon Safe",
+      "url": "https://www.robbies.com/is-feeding-tarpon-safe/"
+    },
+    {
+      "title": "Reef And Wreck Fishing In The Florida Keys Winter",
+      "url": "https://www.robbies.com/reef-and-wreck-fishing-in-the-florida-keys-winter/"
+    },
+    {
+      "title": "Winter Fishing In Islamorada",
+      "url": "https://www.robbies.com/winter-fishing-in-islamorada/"
+    },
+    {
+      "title": "Top 10 Places To Eat In Islamorada",
+      "url": "https://www.robbies.com/top-10-places-to-eat-in-islamorada/"
+    },
+    {
+      "title": "10 Budget Friendly Things To Do In Islamorada",
+      "url": "https://www.robbies.com/10-budget-friendly-things-to-do-in-islamorada/"
+    },
+    {
+      "title": "Top 10 Places To Snorkel In Islamorada",
+      "url": "https://www.robbies.com/top-10-places-to-snorkel-in-islamorada/"
+    },
+    {
+      "title": "Top 10 Places To Fish In Islamorada",
+      "url": "https://www.robbies.com/top-10-places-to-fish-in-islamorada/"
+    },
+    {
+      "title": "Top 10 Places To Visit In Islamorada",
+      "url": "https://www.robbies.com/top-10-places-to-visit-in-islamorada/"
+    },
+    {
+      "title": "Locations.kml",
+      "url": "https://www.robbies.com/locations.kml"
     }
   ]
 }

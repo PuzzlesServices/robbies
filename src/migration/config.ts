@@ -1,7 +1,7 @@
 export const migrationConfig = {
   siteName: "Robbie's of Islamorada",
   oldSiteDomain: "https://www.robbies.com", // Based on current header links
-  totalPages: 34,
+  totalPages: 106,
   requirePassword: true, 
   accessPassword: "robbies-preview",
   noindex: true,
