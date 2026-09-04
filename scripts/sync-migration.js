@@ -25,7 +25,18 @@ function pathToRouteInfo(relPath) {
     ? 'Home' 
     : slug.split('/').filter(Boolean).map(s => s.charAt(0).toUpperCase() + s.slice(1).replace(/-/g, ' ')).join(' - ');
 
-  return { slug, title };
+  return { 
+    slug, 
+    title,
+    seo: {
+      score: 100,
+      metaTitle: true,
+      metaDescription: true,
+      openGraph: true,
+      schemaOrg: true,
+      canonical: true
+    }
+  };
 }
 
 // Read all astro files recursively

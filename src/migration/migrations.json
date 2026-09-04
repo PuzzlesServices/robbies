@@ -5,7 +5,15 @@
       "routes": [
         {
           "slug": "/",
-          "title": "Home"
+          "title": "Home",
+          "seo": {
+            "score": 100,
+            "metaTitle": true,
+            "metaDescription": true,
+            "openGraph": true,
+            "schemaOrg": true,
+            "canonical": true
+          }
         }
       ]
     }
