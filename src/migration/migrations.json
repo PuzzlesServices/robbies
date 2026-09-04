@@ -464,6 +464,14 @@
             {
               "status": "completed",
               "text": "SEO Metadata & Schema.org Extraction for Migrated Pages"
+            },
+            {
+              "status": "completed",
+              "text": "PageSpeed 99-100% Architecture & Deferred Video/Map Loading"
+            },
+            {
+              "status": "completed",
+              "text": "Global <head> Preconnect, LCP Preload & Carousel Tabindex Accessibility"
             }
           ]
         },
