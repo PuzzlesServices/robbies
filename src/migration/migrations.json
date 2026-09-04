@@ -431,5 +431,54 @@
       "title": "Locations.kml",
       "url": "https://www.robbies.com/locations.kml"
     }
+  ],
+  "weeklyLogs": [
+    {
+      "weekLabel": "Week 1 · Sep 01 - Sep 07, 2026",
+      "days": [
+        {
+          "date": "2026-09-04",
+          "dayName": "Friday",
+          "title": "Shopify Integration & Migration System",
+          "tasks": [
+            {
+              "status": "in_progress",
+              "text": "Shopify Headless Storefront API & Cart Setup"
+            },
+            {
+              "status": "completed",
+              "text": "Migration Progress Board & Password Access"
+            },
+            {
+              "status": "completed",
+              "text": "Automated Sitemap Sync & Progressive Routing"
+            }
+          ]
+        },
+        {
+          "date": "2026-09-01",
+          "dayName": "Tuesday",
+          "title": "Header Architecture & Mobile Drawer",
+          "tasks": [
+            {
+              "status": "completed",
+              "text": "Desktop 12-Column Mega Menus Architecture"
+            },
+            {
+              "status": "completed",
+              "text": "Centered Shop & Visitor's Center Mega Menus"
+            },
+            {
+              "status": "completed",
+              "text": "Mobile Drawer Accordion Dropdowns"
+            },
+            {
+              "status": "completed",
+              "text": "Press Logos & Hero Badge Adjustments"
+            }
+          ]
+        }
+      ]
+    }
   ]
 }
