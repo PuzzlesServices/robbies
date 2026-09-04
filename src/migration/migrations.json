@@ -452,6 +452,10 @@
             {
               "status": "completed",
               "text": "Automated Sitemap Sync & Progressive Routing"
+            },
+            {
+              "status": "completed",
+              "text": "SEO Metadata & Schema.org Extraction for Migrated Pages"
             }
           ]
         },
