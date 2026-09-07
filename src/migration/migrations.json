@@ -524,7 +524,27 @@
             },
             {
               "status": "completed",
-              "text": "GraphQL Variant Image & Option Mapping Enrichment in shopify.ts"
+              "text": "Fixed Static SSG Paginator & Category Filter state bugs using Client-Side JS Dataset Hydration"
+            },
+            {
+              "status": "completed",
+              "text": "Removed Product Card borders for clean borderless minimalist store UI"
+            },
+            {
+              "status": "completed",
+              "text": "Added professional hover Left/Right Carousel Arrows to Product Cards"
+            },
+            {
+              "status": "completed",
+              "text": "Added Mobile Touch/Finger Swipe Gesture handlers on product images for image carousel"
+            },
+            {
+              "status": "completed",
+              "text": "Refactored Swatches and Size Pills to compact circular shapes with clear attribute labels"
+            },
+            {
+              "status": "completed",
+              "text": "Removed redundant Dropdown selector & implemented Mobile Accordion Filter Drawer"
             }
           ]
         },

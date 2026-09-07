@@ -3,35 +3,21 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/header/Header.astro';
 import Footer from '../../components/common/Footer.astro';
 import CartDrawer from '../../components/shop/CartDrawer.astro';
-import { getProducts, getCollections, getProductsByCollection } from '../../lib/shopify';
+import { getProducts } from '../../lib/shopify';
 import { ShoppingBag, Tag, ChevronLeft, ChevronRight, Filter, ShieldCheck, ChevronDown } from '@lucide/astro';
 
-const url = new URL(Astro.request.url);
-const currentCategory = url.searchParams.get('category') || '';
-const currentPage = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10));
-const ITEMS_PER_PAGE = 9; // 9 items per page (3x3 grid)
-
 let allProducts: any[] = [];
-let collections: any[] = [];
 let errorMsg = '';
 
 try {
-  collections = await getCollections(50);
-  
-  if (currentCategory) {
-    allProducts = await getProductsByCollection(currentCategory, 250);
-  } else {
-    allProducts = await getProducts(250);
-  }
+  // Fetch all in-stock products
+  allProducts = await getProducts(250);
 } catch (e) {
   console.error('Error loading shop data:', e);
   errorMsg = 'Could not load store products from Shopify.';
 }
 
-// Ensure strictly in-stock products
-allProducts = allProducts.filter(p => p && p.inStock);
-
-// Category Hierarchy
+// Category Hierarchy Definition
 const categoryStructure = [
   {
     title: 'MEN',
@@ -71,64 +57,21 @@ const categoryStructure = [
   { title: 'HATS', handle: 'hats-headwear' },
   { title: 'SOUVENIRS', handle: 'gifts-souvenirs' }
 ];
-
-// Calculate Pagination (9 items per page)
-const totalProducts = allProducts.length;
-const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE) || 1;
-const validPage = Math.min(currentPage, totalPages);
-const startIndex = (validPage - 1) * ITEMS_PER_PAGE;
-const paginatedProducts = allProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-
-// Truncated Pagination Generator Range (e.g. 1 2 3 ... 10)
-function getPaginationRange(current: number, total: number) {
-  const delta = 1;
-  const range: number[] = [];
-  const rangeWithDots: (number | string)[] = [];
-  let l: number | undefined;
-
-  for (let i = 1; i <= total; i++) {
-    if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
-      range.push(i);
-    }
-  }
-
-  for (const i of range) {
-    if (l !== undefined) {
-      if (i - l === 2) {
-        rangeWithDots.push(l + 1);
-      } else if (i - l !== 1) {
-        rangeWithDots.push('...');
-      }
-    }
-    rangeWithDots.push(i);
-    l = i;
-  }
-
-  return rangeWithDots;
-}
-
-const paginationRange = getPaginationRange(validPage, totalPages);
-
-// Active category title finder
-let activeCategoryTitle = 'All Products';
-categoryStructure.forEach(cat => {
-  if (cat.handle === currentCategory) activeCategoryTitle = cat.title;
-  cat.subcategories?.forEach(sub => {
-    if (sub.handle === currentCategory) activeCategoryTitle = `${cat.title} - ${sub.title}`;
-  });
-});
 ---
 
 <Layout 
-  title={`${activeCategoryTitle} | Robbie's Shop`}
+  title="Official Shop | Robbie's of Islamorada"
   description="Shop official Robbie's of Islamorada merchandise, t-shirts, hats, souvenirs, and performance gear."
   image="/assets/home/imgi_19_shop.webp"
 >
   <Header />
 
+  <!-- Full Store Dataset for Client-Side Dynamic Hydration -->
+  <script id="shop-dataset" type="application/json" set:html={JSON.stringify({ allProducts, categoryStructure })} />
+
   <main class="flex-1 bg-white min-h-screen border-t border-slate-100">
     
-    <!-- Hero Banner (Clean Shop Header) -->
+    <!-- Hero Banner -->
     <section class="w-full bg-[#2B447A] text-white py-10 px-6 relative overflow-hidden select-none">
       <div class="max-w-[1240px] mx-auto text-center relative z-10">
         <span class="inline-flex items-center gap-1.5 bg-white/10 text-white/90 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-widest mb-3 border border-white/20">
@@ -146,104 +89,42 @@ categoryStructure.forEach(cat => {
     <!-- Main Storefront Section -->
     <section class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 py-10">
       
+      <!-- Mobile Categories Toggle Button -->
+      <div class="lg:hidden mb-6">
+        <button 
+          id="mobile-cat-toggle-btn"
+          type="button" 
+          class="w-full flex items-center justify-between bg-slate-100 hover:bg-slate-200 text-slate-900 font-heading font-black text-xs uppercase tracking-wider px-4 py-3.5 rounded-xl transition-colors cursor-pointer"
+        >
+          <span class="flex items-center gap-2">
+            <Filter class="w-4 h-4 text-[#2B447A]" /> 
+            <span id="mobile-cat-current-label">All Categories</span>
+          </span>
+          <ChevronDown id="mobile-cat-arrow" class="w-4 h-4 text-slate-500 transition-transform duration-300" />
+        </button>
+
+        <div id="mobile-cat-drawer" class="hidden mt-2 p-4 bg-white border border-slate-200 rounded-2xl space-y-3 shadow-md">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
-        <!-- LEFT SIDEBAR: CATEGORIES ACCORDION & DROPDOWN LIST -->
-        <aside class="lg:col-span-3 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-6">
+        <!-- LEFT SIDEBAR: DESKTOP CATEGORIES ACCORDION LIST -->
+        <aside class="hidden lg:block lg:col-span-3 bg-white rounded-2xl p-5 border border-slate-200/80 shadow-xs space-y-6">
           
-          <!-- Category Header Bar -->
           <div class="flex items-center justify-between border-b border-slate-100 pb-3">
             <h3 class="font-heading font-black text-sm uppercase text-slate-900 tracking-wider flex items-center gap-2">
-              <Filter class="w-4 h-4 text-[#2B447A]" /> Categories Filter
+              <Filter class="w-4 h-4 text-[#2B447A]" /> Categories
             </h3>
-            {currentCategory && (
-              <a href="/shop" class="text-[11px] font-bold text-[#2B55FF] hover:underline">
-                Clear Filter
-              </a>
-            )}
-          </div>
-
-          <!-- Dropdown Category Filter (Quick Select for Mobile & Desktop) -->
-          <div class="block">
-            <label for="category-select" class="block text-[11px] font-bold uppercase text-slate-400 tracking-wider mb-2">
-              Select Category Dropdown:
-            </label>
-            <div class="relative">
-              <select 
-                id="category-select" 
-                class="w-full bg-slate-50 border border-slate-300 text-slate-800 text-xs font-bold font-heading rounded-xl p-3 pr-8 uppercase appearance-none cursor-pointer focus:ring-2 focus:ring-[#2B447A] focus:outline-none transition-all"
-              >
-                <option value="" selected={!currentCategory}>-- All Products --</option>
-                {categoryStructure.map(cat => (
-                  <optgroup label={cat.title}>
-                    <option value={cat.handle} selected={currentCategory === cat.handle}>
-                      All {cat.title}
-                    </option>
-                    {cat.subcategories?.map(sub => (
-                      <option value={sub.handle} selected={currentCategory === sub.handle}>
-                        -- {sub.title}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-              </select>
-              <ChevronDown class="w-4 h-4 text-slate-500 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
-            </div>
+            <button id="desktop-clear-filter-btn" type="button" class="hidden text-[11px] font-bold text-[#2B55FF] hover:underline cursor-pointer">
+              Clear Filter
+            </button>
           </div>
 
           <!-- Vertical Category Accordion List -->
-          <div class="space-y-1 divide-y divide-slate-100 text-xs font-heading select-none pt-2">
-            <a 
-              href="/shop" 
-              class={`block py-2.5 px-2 font-bold uppercase tracking-wider transition-colors rounded-lg ${!currentCategory ? 'text-[#2B447A] font-extrabold bg-blue-50/70' : 'text-slate-700 hover:text-slate-900'}`}
-            >
-              ALL PRODUCTS
-            </a>
-
-            {categoryStructure.map((cat, catIndex) => {
-              const hasSubs = cat.subcategories && cat.subcategories.length > 0;
-              const isCatActive = currentCategory === cat.handle || cat.subcategories?.some(s => s.handle === currentCategory);
-
-              return (
-                <div class="pt-2 pb-1">
-                  {hasSubs ? (
-                    <div>
-                      <button 
-                        type="button" 
-                        class="w-full flex items-center justify-between py-2 px-2 font-black text-slate-900 uppercase tracking-wider hover:text-[#2B447A] transition-colors cursor-pointer text-left cat-toggle-btn"
-                        data-target={`cat-sub-${catIndex}`}
-                      >
-                        <span class={isCatActive ? 'text-[#2B447A]' : ''}>{cat.title}</span>
-                        <span class="text-slate-400 text-sm font-mono font-bold cat-icon">
-                          {isCatActive ? '-' : '+'}
-                        </span>
-                      </button>
-
-                      <div id={`cat-sub-${catIndex}`} class={`pl-3 space-y-1 py-1.5 ${isCatActive ? '' : 'hidden'}`}>
-                        {cat.subcategories.map(sub => {
-                          const isSubActive = currentCategory === sub.handle;
-                          return (
-                            <a 
-                              href={`/shop?category=${sub.handle}`}
-                              class={`block text-[11px] uppercase tracking-wide transition-colors py-1.5 px-2 rounded-md ${isSubActive ? 'text-[#2B447A] font-black bg-blue-50' : 'text-slate-600 hover:text-slate-900 font-semibold'}`}
-                            >
-                              {sub.title}
-                            </a>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  ) : (
-                    <a 
-                      href={`/shop?category=${cat.handle}`}
-                      class={`block py-2.5 px-2 font-black uppercase tracking-wider transition-colors hover:text-[#2B447A] ${currentCategory === cat.handle ? 'text-[#2B447A] bg-blue-50/70 rounded-lg' : 'text-slate-900'}`}
-                    >
-                      {cat.title}
-                    </a>
-                  )}
-                </div>
-              );
-            })}
+          <div id="desktop-category-accordion" class="space-y-1 divide-y divide-slate-100 text-xs font-heading select-none pt-1">
+            <!-- Rendered by JS for exact active state syncing -->
           </div>
 
           <!-- Trust Badge -->
@@ -256,215 +137,52 @@ categoryStructure.forEach(cat => {
 
         </aside>
 
-        <!-- RIGHT COLUMN: PRODUCTS GRID (3x3 Grid = 9 items) + COMPACT PAGINATOR -->
+        <!-- RIGHT COLUMN: PRODUCTS GRID (3 Columns = 9 items, Borderless Cards) + PAGINATOR -->
         <div class="lg:col-span-9 space-y-6">
           
-          <!-- Category Header Bar (Aligned perfectly with Sidebar Header) -->
+          <!-- Category Title Header Bar -->
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-3 border-b border-slate-100">
             <div>
-              <h2 class="font-heading font-black text-xl md:text-2xl text-slate-900 uppercase">
-                {activeCategoryTitle}
+              <h2 id="active-category-header-title" class="font-heading font-black text-xl md:text-2xl text-slate-900 uppercase">
+                All Products
               </h2>
-              <p class="text-xs text-slate-500 mt-0.5">
-                Showing {totalProducts === 0 ? 0 : startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, totalProducts)} of {totalProducts} in-stock items
+              <p id="active-category-product-count" class="text-xs text-slate-500 mt-0.5">
+                Loading products...
               </p>
             </div>
           </div>
 
-          <!-- Products Grid (3 Columns, Clean Modern Shop Layout) -->
+          <!-- Products Grid Container -->
           {errorMsg ? (
             <div class="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-md mx-auto my-12">
               <p class="text-red-600 font-bold text-sm mb-2">{errorMsg}</p>
             </div>
-          ) : paginatedProducts.length === 0 ? (
-            <div class="text-center py-20 bg-slate-50 rounded-2xl border border-slate-200 max-w-lg mx-auto">
-              <ShoppingBag class="w-12 h-12 text-slate-300 mx-auto mb-3" />
-              <h3 class="font-heading font-black text-slate-800 text-lg">No in-stock products in this category</h3>
-              <p class="text-slate-500 text-xs mt-1 mb-6">Select another category to view available items.</p>
-              <a href="/shop" class="inline-block bg-[#2B447A] text-white font-heading font-bold text-xs uppercase px-6 py-3 rounded-full">
-                View All Products
-              </a>
-            </div>
           ) : (
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-              {paginatedProducts.map((product) => {
-                const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
-                const imageUrl = product.featuredImageUrl || '/assets/home/imgi_19_shop.webp';
-                const firstVariant = product.variantsList[0];
-                const imagesList = product.imagesList || [];
-
-                return (
-                  <div 
-                    class="product-card flex flex-col bg-white border border-slate-200/80 rounded-2xl p-4 group text-left select-none shadow-2xs hover:shadow-md transition-shadow"
-                    data-product-id={product.id}
-                    data-variants={JSON.stringify(product.variantsList)}
-                  >
-                    
-                    <!-- Image Container with Hover Zoom & Image Carousel Dots -->
-                    <div class="relative w-full aspect-square bg-slate-50 rounded-xl overflow-hidden mb-3 border border-slate-100 group">
-                      <a href={`/shop/${product.handle}`} class="block w-full h-full">
-                        <img 
-                          src={imageUrl} 
-                          alt={product.title}
-                          class="card-main-image w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          loading="lazy"
-                        />
-                      </a>
-
-                      <!-- Carousel Dots Indicator (If multiple images) -->
-                      {imagesList.length > 1 && (
-                        <div class="absolute bottom-2.5 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-auto">
-                          {imagesList.slice(0, 5).map((img: any, idx: number) => (
-                            <button 
-                              type="button" 
-                              class={`carousel-dot w-2 h-2 rounded-full transition-all cursor-pointer ${idx === 0 ? 'bg-[#2B447A] w-4' : 'bg-slate-300 hover:bg-slate-500'}`}
-                              data-img-src={img.url}
-                              data-idx={idx}
-                              title={`View Image ${idx + 1}`}
-                            ></button>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-
-                    <!-- Product Title -->
-                    <a href={`/shop/${product.handle}`} class="block mb-1">
-                      <h3 class="font-heading font-bold text-sm text-[#2B447A] group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
-                        {product.title}
-                      </h3>
-                    </a>
-
-                    <!-- Price ($XX.YY USD) -->
-                    <div class="mb-3 font-heading font-black text-lg text-slate-900 card-price-display">
-                      ${minPrice} <span class="text-xs font-bold text-slate-400">USD</span>
-                    </div>
-
-                    <!-- Color Swatches & Size Pills (Interactive Selection) -->
-                    <div class="space-y-2 mb-4">
-                      
-                      <!-- Color Swatches -->
-                      {product.colors && product.colors.length > 0 && (
-                        <div class="flex items-center flex-wrap gap-1.5">
-                          <span class="text-[10px] font-extrabold uppercase text-slate-400 mr-0.5">Color:</span>
-                          {product.colors.map((color: any, idx: number) => (
-                            <button 
-                              type="button"
-                              class={`swatch-btn w-5 h-5 rounded-full border border-slate-300 transition-all cursor-pointer ${idx === 0 ? 'ring-2 ring-[#2B447A] ring-offset-1 scale-105' : 'opacity-80 hover:opacity-100 hover:scale-105'}`}
-                              style={`background-color: ${color.hex}`}
-                              data-color={color.name}
-                              data-image={color.imageUrl}
-                              title={color.name}
-                            ></button>
-                          ))}
-                        </div>
-                      )}
-
-                      <!-- Size Pills -->
-                      {product.sizes && product.sizes.length > 0 && (
-                        <div class="flex items-center flex-wrap gap-1">
-                          <span class="text-[10px] font-extrabold uppercase text-slate-400 mr-0.5">Size:</span>
-                          {product.sizes.map((size: string, idx: number) => (
-                            <button 
-                              type="button"
-                              class={`size-btn px-2 py-0.5 rounded-md border text-[10px] font-black uppercase transition-all cursor-pointer ${idx === 0 ? 'bg-[#2B447A] text-white border-[#2B447A]' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'}`}
-                              data-size={size}
-                            >
-                              {size}
-                            </button>
-                          ))}
-                        </div>
-                      )}
-
-                    </div>
-
-                    <!-- ADD TO CART Pill Button -->
-                    <div class="mt-auto pt-2">
-                      {firstVariant && (
-                        <button 
-                          type="button" 
-                          class="w-full bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs uppercase tracking-wider py-3 px-4 rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer add-to-cart-quick-btn"
-                          data-variant-id={firstVariant.id}
-                          data-product-id={product.id}
-                          data-title={product.title}
-                          data-price={firstVariant.price || minPrice}
-                          data-image={imageUrl}
-                          data-handle={product.handle}
-                        >
-                          ADD TO CART
-                        </button>
-                      )}
-                    </div>
-
-                  </div>
-                );
-              })}
+            <div id="products-grid-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 min-h-[400px]">
+              <!-- Rendered dynamically by Client JS -->
             </div>
           )}
 
-          <!-- COMPACT PAGINATOR (9 Items per page - Never Overflows) -->
-          {totalPages > 1 && (
-            <div class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-100">
-              <p class="text-xs font-semibold text-slate-500 font-heading">
-                Page <strong class="text-slate-900">{validPage}</strong> of <strong class="text-slate-900">{totalPages}</strong>
-              </p>
+          <!-- Empty State (Hidden by default) -->
+          <div id="empty-state-container" class="hidden text-center py-20 bg-slate-50 rounded-2xl border border-slate-200 max-w-lg mx-auto">
+            <ShoppingBag class="w-12 h-12 text-slate-300 mx-auto mb-3" />
+            <h3 class="font-heading font-black text-slate-800 text-lg">No in-stock products in this category</h3>
+            <p class="text-slate-500 text-xs mt-1 mb-6">Select another category to view available items.</p>
+            <button id="empty-reset-btn" type="button" class="inline-block bg-[#2B447A] text-white font-heading font-bold text-xs uppercase px-6 py-3 rounded-full cursor-pointer">
+              View All Products
+            </button>
+          </div>
 
-              <div class="flex items-center gap-1.5 font-heading">
-                
-                <!-- Previous Button -->
-                {validPage > 1 ? (
-                  <a 
-                    href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${validPage - 1}`}
-                    class="px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-full font-black text-xs uppercase transition-colors inline-flex items-center gap-1 shadow-2xs"
-                  >
-                    <ChevronLeft class="w-3.5 h-3.5" /> Prev
-                  </a>
-                ) : (
-                  <span class="px-3.5 py-2 bg-slate-50 text-slate-300 border border-slate-200/60 rounded-full font-black text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
-                    <ChevronLeft class="w-3.5 h-3.5" /> Prev
-                  </span>
-                )}
+          <!-- COMPACT PAGINATOR (9 Items per page) -->
+          <div id="pagination-wrapper" class="hidden mt-12 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p id="pagination-info-text" class="text-xs font-semibold text-slate-500 font-heading">
+              Page <strong class="text-slate-900">1</strong> of <strong class="text-slate-900">1</strong>
+            </p>
 
-                <!-- Truncated Page Numbers -->
-                <div class="flex items-center gap-1">
-                  {paginationRange.map((pageItem) => {
-                    if (pageItem === '...') {
-                      return <span class="px-2 text-slate-400 font-bold text-xs">...</span>;
-                    }
-
-                    const pageNum = pageItem as number;
-                    const isCurrent = pageNum === validPage;
-                    return (
-                      <a 
-                        href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${pageNum}`}
-                        class={`w-8 h-8 rounded-full flex items-center justify-center font-black text-xs transition-all ${
-                          isCurrent 
-                            ? 'bg-[#2B447A] text-white shadow-md' 
-                            : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
-                        }`}
-                      >
-                        {pageNum}
-                      </a>
-                    );
-                  })}
-                </div>
-
-                <!-- Next Button -->
-                {validPage < totalPages ? (
-                  <a 
-                    href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${validPage + 1}`}
-                    class="px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-full font-black text-xs uppercase transition-colors inline-flex items-center gap-1 shadow-2xs"
-                  >
-                    Next <ChevronRight class="w-3.5 h-3.5" />
-                  </a>
-                ) : (
-                  <span class="px-3.5 py-2 bg-slate-50 text-slate-300 border border-slate-200/60 rounded-full font-black text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
-                    Next <ChevronRight class="w-3.5 h-3.5" />
-                  </span>
-                )}
-
-              </div>
+            <div id="pagination-controls-container" class="flex items-center gap-1.5 font-heading">
+              <!-- Rendered dynamically by Client JS -->
             </div>
-          )}
+          </div>
 
         </div>
 
@@ -478,177 +196,763 @@ categoryStructure.forEach(cat => {
 </Layout>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', initShopPage);
-  document.addEventListener('astro:page-load', initShopPage);
+  (function() {
+    let dataset = { allProducts: [], categoryStructure: [] };
+    const ITEMS_PER_PAGE = 9;
 
-  function initShopPage() {
-    // 1. Dropdown Category Selector Handler
-    const categorySelect = document.getElementById('category-select');
-    if (categorySelect) {
-      categorySelect.onchange = (e) => {
-        const catVal = e.target.value;
-        if (catVal) {
-          window.location.href = `/shop?category=${catVal}`;
-        } else {
-          window.location.href = '/shop';
+    let state = {
+      category: '',
+      page: 1
+    };
+
+    function parseUrlState() {
+      const urlParams = new URLSearchParams(window.location.search);
+      state.category = urlParams.get('category') || '';
+      state.page = Math.max(1, parseInt(urlParams.get('page') || '1', 10));
+    }
+
+    function updateUrlState(newCategory, newPage, pushHistory = true) {
+      state.category = newCategory !== undefined ? newCategory : state.category;
+      state.page = newPage !== undefined ? newPage : state.page;
+
+      const params = new URLSearchParams();
+      if (state.category) params.set('category', state.category);
+      if (state.page > 1) params.set('page', state.page.toString());
+
+      const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
+      if (pushHistory) {
+        window.history.pushState(null, '', newRelativePathQuery);
+      }
+
+      renderCatalog();
+    }
+
+    function getFilteredProducts() {
+      if (!state.category) return dataset.allProducts;
+      
+      const catHandle = state.category.toLowerCase();
+      
+      return dataset.allProducts.filter(p => {
+        // Direct collection handle match
+        if (p.collectionHandles && p.collectionHandles.includes(catHandle)) return true;
+        // Tags match
+        if (p.tags && p.tags.some(t => t.toLowerCase().replace(/\s+/g, '-') === catHandle || t.toLowerCase() === catHandle)) return true;
+        // Handle search fallback
+        if (p.handle && p.handle.includes(catHandle)) return true;
+        // Product type fallback
+        if (p.productType && p.productType.toLowerCase().replace(/\s+/g, '-').includes(catHandle)) return true;
+        
+        return false;
+      });
+    }
+
+    function getActiveTitle() {
+      if (!state.category) return 'All Products';
+      let title = state.category.toUpperCase().replace(/-/g, ' ');
+
+      dataset.categoryStructure.forEach(cat => {
+        if (cat.handle === state.category) title = cat.title;
+        cat.subcategories?.forEach(sub => {
+          if (sub.handle === state.category) title = `${cat.title} - ${sub.title}`;
+        });
+      });
+
+      return title;
+    }
+
+    // Dynamic Paginator Range Generator (1 2 3 ... 28)
+    function getPaginationRange(current, total) {
+      const delta = 1;
+      const range = [];
+      const rangeWithDots = [];
+      let l;
+
+      for (let i = 1; i <= total; i++) {
+        if (i === 1 || i === total || (i >= current - delta && i <= current + delta)) {
+          range.push(i);
         }
+      }
+
+      for (const i of range) {
+        if (l !== undefined) {
+          if (i - l === 2) {
+            rangeWithDots.push(l + 1);
+          } else if (i - l !== 1) {
+            rangeWithDots.push('...');
+          }
+        }
+        rangeWithDots.push(i);
+        l = i;
+      }
+
+      return rangeWithDots;
+    }
+
+    function renderCategorySidebar() {
+      const desktopAcc = document.getElementById('desktop-category-accordion');
+      const desktopClearBtn = document.getElementById('desktop-clear-filter-btn');
+      const mobileDrawer = document.getElementById('mobile-cat-drawer');
+      const mobileCurrentLabel = document.getElementById('mobile-cat-current-label');
+
+      if (desktopClearBtn) {
+        if (state.category) {
+          desktopClearBtn.classList.remove('hidden');
+          desktopClearBtn.onclick = () => updateUrlState('', 1);
+        } else {
+          desktopClearBtn.classList.add('hidden');
+        }
+      }
+
+      if (mobileCurrentLabel) {
+        mobileCurrentLabel.textContent = getActiveTitle();
+      }
+
+      if (desktopAcc) {
+        let html = `
+          <a 
+            href="/shop" 
+            data-cat=""
+            class="cat-link block py-2.5 px-2 font-bold uppercase tracking-wider transition-colors rounded-lg ${!state.category ? 'text-[#2B447A] font-extrabold bg-blue-50/70' : 'text-slate-700 hover:text-slate-900'}"
+          >
+            ALL PRODUCTS
+          </a>
+        `;
+
+        dataset.categoryStructure.forEach((cat, catIndex) => {
+          const hasSubs = cat.subcategories && cat.subcategories.length > 0;
+          const isCatActive = state.category === cat.handle || cat.subcategories?.some(s => s.handle === state.category);
+
+          html += `
+            <div class="pt-2 pb-1">
+              ${hasSubs ? `
+                <div>
+                  <button 
+                    type="button" 
+                    class="w-full flex items-center justify-between py-2 px-2 font-black text-slate-900 uppercase tracking-wider hover:text-[#2B447A] transition-colors cursor-pointer text-left cat-toggle-btn"
+                    data-target="desktop-cat-sub-${catIndex}"
+                  >
+                    <span class="${isCatActive ? 'text-[#2B447A]' : ''}">${cat.title}</span>
+                    <span class="text-slate-400 text-sm font-mono font-bold cat-icon">${isCatActive ? '-' : '+'}</span>
+                  </button>
+
+                  <div id="desktop-cat-sub-${catIndex}" class="pl-3 space-y-1 py-1.5 ${isCatActive ? '' : 'hidden'}">
+                    ${cat.subcategories.map(sub => {
+                      const isSubActive = state.category === sub.handle;
+                      return `
+                        <a 
+                          href="/shop?category=${sub.handle}"
+                          data-cat="${sub.handle}"
+                          class="cat-link block text-[11px] uppercase tracking-wide transition-colors py-1.5 px-2 rounded-md ${isSubActive ? 'text-[#2B447A] font-black bg-blue-50' : 'text-slate-600 hover:text-slate-900 font-semibold'}"
+                        >
+                          ${sub.title}
+                        </a>
+                      `;
+                    }).join('')}
+                  </div>
+                </div>
+              ` : `
+                <a 
+                  href="/shop?category=${cat.handle}"
+                  data-cat="${cat.handle}"
+                  class="cat-link block py-2.5 px-2 font-black uppercase tracking-wider transition-colors hover:text-[#2B447A] ${state.category === cat.handle ? 'text-[#2B447A] bg-blue-50/70 rounded-lg' : 'text-slate-900'}"
+                >
+                  ${cat.title}
+                </a>
+              `}
+            </div>
+          `;
+        });
+
+        desktopAcc.innerHTML = html;
+
+        // Attach click listeners to cat-links to prevent full reload
+        desktopAcc.querySelectorAll('.cat-link').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const catVal = link.getAttribute('data-cat') || '';
+            updateUrlState(catVal, 1);
+          });
+        });
+
+        // Toggle buttons for subs
+        desktopAcc.querySelectorAll('.cat-toggle-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const targetId = btn.getAttribute('data-target');
+            const targetEl = document.getElementById(targetId);
+            const icon = btn.querySelector('.cat-icon');
+            if (targetEl) {
+              const isHidden = targetEl.classList.contains('hidden');
+              targetEl.classList.toggle('hidden');
+              if (icon) icon.textContent = isHidden ? '-' : '+';
+            }
+          });
+        });
+      }
+
+      // Populate Mobile Drawer
+      if (mobileDrawer) {
+        let mobileHtml = `
+          <a 
+            href="/shop" 
+            data-cat=""
+            class="cat-link block py-2 px-3 text-xs font-black uppercase tracking-wider rounded-lg ${!state.category ? 'bg-[#2B447A] text-white' : 'bg-slate-50 text-slate-800'}"
+          >
+            ALL PRODUCTS
+          </a>
+        `;
+
+        dataset.categoryStructure.forEach(cat => {
+          mobileHtml += `
+            <div class="space-y-1">
+              <div class="text-[11px] font-black text-slate-400 uppercase tracking-widest pt-2 px-1">${cat.title}</div>
+              ${cat.subcategories ? cat.subcategories.map(sub => `
+                <a 
+                  href="/shop?category=${sub.handle}"
+                  data-cat="${sub.handle}"
+                  class="cat-link block py-2 px-3 text-xs font-bold uppercase tracking-wider rounded-lg ${state.category === sub.handle ? 'bg-[#2B447A] text-white' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}"
+                >
+                  ${sub.title}
+                </a>
+              `).join('') : `
+                <a 
+                  href="/shop?category=${cat.handle}"
+                  data-cat="${cat.handle}"
+                  class="cat-link block py-2 px-3 text-xs font-bold uppercase tracking-wider rounded-lg ${state.category === cat.handle ? 'bg-[#2B447A] text-white' : 'bg-slate-50 text-slate-700 hover:bg-slate-100'}"
+                >
+                  ${cat.title}
+                </a>
+              `}
+            </div>
+          `;
+        });
+
+        mobileDrawer.innerHTML = mobileHtml;
+
+        mobileDrawer.querySelectorAll('.cat-link').forEach(link => {
+          link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const catVal = link.getAttribute('data-cat') || '';
+            mobileDrawer.classList.add('hidden');
+            const arrow = document.getElementById('mobile-cat-arrow');
+            if (arrow) arrow.style.transform = 'rotate(0deg)';
+            updateUrlState(catVal, 1);
+          });
+        });
+      }
+    }
+
+    function renderCatalog() {
+      const filteredProducts = getFilteredProducts();
+      const totalProducts = filteredProducts.length;
+      const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE) || 1;
+
+      if (state.page > totalPages) state.page = totalPages;
+
+      const startIndex = (state.page - 1) * ITEMS_PER_PAGE;
+      const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+      // 1. Update Title Header
+      const headerTitle = document.getElementById('active-category-header-title');
+      const headerCount = document.getElementById('active-category-product-count');
+      if (headerTitle) headerTitle.textContent = getActiveTitle();
+      if (headerCount) {
+        headerCount.textContent = `Showing ${totalProducts === 0 ? 0 : startIndex + 1}-${Math.min(startIndex + ITEMS_PER_PAGE, totalProducts)} of ${totalProducts} in-stock items`;
+      }
+
+      // 2. Render Sidebar
+      renderCategorySidebar();
+
+      // 3. Render Product Cards Grid
+      const gridContainer = document.getElementById('products-grid-container');
+      const emptyState = document.getElementById('empty-state-container');
+
+      if (totalProducts === 0) {
+        if (gridContainer) gridContainer.classList.add('hidden');
+        if (emptyState) emptyState.classList.remove('hidden');
+      } else {
+        if (emptyState) emptyState.classList.add('hidden');
+        if (gridContainer) {
+          gridContainer.classList.remove('hidden');
+
+          gridContainer.innerHTML = paginatedProducts.map(product => {
+            const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
+            const imageUrl = product.featuredImageUrl || '/assets/home/imgi_19_shop.webp';
+            const firstVariant = product.variantsList?.[0];
+            const imagesList = product.imagesList || [];
+
+            const initialColor = product.colors?.[0]?.name || '';
+            const initialSize = product.sizes?.[0] || '';
+
+            return `
+              <div 
+                class="product-card flex flex-col bg-white p-3 group text-left select-none rounded-2xl hover:shadow-md transition-shadow"
+                data-product-id="${product.id}"
+                data-variants='${JSON.stringify(product.variantsList || []).replace(/'/g, "&apos;")}'
+                data-images='${JSON.stringify(imagesList).replace(/'/g, "&apos;")}'
+              >
+                <!-- Image Container with Hover Arrows & Mobile Touch Swipe -->
+                <div class="relative w-full aspect-square bg-slate-50 rounded-2xl overflow-hidden mb-3 group/img touch-pan-y">
+                  <a href="/shop/${product.handle}" class="block w-full h-full">
+                    <img 
+                      src="${imageUrl}" 
+                      alt="${product.title}"
+                      class="card-main-image w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                      data-current-idx="0"
+                    />
+                  </a>
+
+                  <!-- Professional Left / Right Arrows -->
+                  ${imagesList.length > 1 ? `
+                    <button 
+                      type="button" 
+                      class="carousel-arrow carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 shadow-md text-slate-800 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-white hover:scale-110 active:scale-95 cursor-pointer z-10 font-bold text-sm select-none"
+                      title="Previous Image"
+                    >
+                      &#10094;
+                    </button>
+                    <button 
+                      type="button" 
+                      class="carousel-arrow carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 shadow-md text-slate-800 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-white hover:scale-110 active:scale-95 cursor-pointer z-10 font-bold text-sm select-none"
+                      title="Next Image"
+                    >
+                      &#10095;
+                    </button>
+                  ` : ''}
+
+                  <!-- Dots Indicator -->
+                  ${imagesList.length > 1 ? `
+                    <div class="carousel-dots-container absolute bottom-2.5 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-auto">
+                      ${imagesList.slice(0, 5).map((img, idx) => `
+                        <button 
+                          type="button" 
+                          class="carousel-dot w-2 h-2 rounded-full transition-all cursor-pointer ${idx === 0 ? 'bg-[#2B447A] w-4' : 'bg-slate-300 hover:bg-slate-500'}"
+                          data-img-src="${img.url}"
+                          data-idx="${idx}"
+                        ></button>
+                      `).join('')}
+                    </div>
+                  ` : ''}
+                </div>
+
+                <!-- Product Title -->
+                <a href="/shop/${product.handle}" class="block mb-1">
+                  <h3 class="font-heading font-bold text-sm text-[#2B447A] group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                    ${product.title}
+                  </h3>
+                </a>
+
+                <!-- Price -->
+                <div class="mb-3 font-heading font-black text-lg text-slate-900 card-price-display">
+                  $${minPrice} <span class="text-xs font-bold text-slate-400">USD</span>
+                </div>
+
+                <!-- Attributes Section (Compact & Circular) -->
+                <div class="space-y-2.5 mb-4 text-left">
+                  
+                  <!-- Color Attribute -->
+                  ${product.colors && product.colors.length > 0 ? `
+                    <div class="space-y-1">
+                      <div class="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">
+                        COLOR: <span class="color-selected-label text-slate-700 font-bold">${initialColor}</span>
+                      </div>
+                      <div class="flex items-center flex-wrap gap-1.5">
+                        ${product.colors.map((color, idx) => `
+                          <button 
+                            type="button"
+                            class="swatch-btn w-4.5 h-4.5 rounded-full border border-slate-300 transition-all cursor-pointer ${idx === 0 ? 'ring-2 ring-[#2B447A] ring-offset-1 scale-110' : 'opacity-70 hover:opacity-100 hover:scale-110'}"
+                            style="background-color: ${color.hex}"
+                            data-color="${color.name}"
+                            data-image="${color.imageUrl || ''}"
+                            title="${color.name}"
+                          ></button>
+                        `).join('')}
+                      </div>
+                    </div>
+                  ` : ''}
+
+                  <!-- Size Attribute -->
+                  ${product.sizes && product.sizes.length > 0 ? `
+                    <div class="space-y-1">
+                      <div class="text-[10px] font-extrabold uppercase text-slate-400 tracking-wider">
+                        SIZE: <span class="size-selected-label text-slate-700 font-bold">${initialSize}</span>
+                      </div>
+                      <div class="flex items-center flex-wrap gap-1">
+                        ${product.sizes.map((size, idx) => `
+                          <button 
+                            type="button"
+                            class="size-btn px-2 py-0.5 rounded-md border text-[10px] font-black uppercase transition-all cursor-pointer ${idx === 0 ? 'bg-[#2B447A] text-white border-[#2B447A]' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'}"
+                            data-size="${size}"
+                          >
+                            ${size}
+                          </button>
+                        `).join('')}
+                      </div>
+                    </div>
+                  ` : ''}
+
+                </div>
+
+                <!-- ADD TO CART Button -->
+                <div class="mt-auto pt-1">
+                  <button 
+                    type="button" 
+                    class="add-to-cart-quick-btn w-full bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs uppercase tracking-wider py-3 px-4 rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer"
+                    data-variant-id="${firstVariant?.id || ''}"
+                    data-product-id="${product.id}"
+                    data-title="${product.title}"
+                    data-price="${firstVariant?.price || minPrice}"
+                    data-image="${imageUrl}"
+                    data-handle="${product.handle}"
+                  >
+                    ADD TO CART
+                  </button>
+                </div>
+
+              </div>
+            `;
+          }).join('');
+
+          // Initialize Card Handlers (Swatches, Arrows, Dots, Mobile Touch Swipe)
+          bindProductCardEvents();
+        }
+      }
+
+      // 4. Render Paginator
+      renderPagination(totalPages);
+    }
+
+    function bindProductCardEvents() {
+      document.querySelectorAll('.product-card').forEach(card => {
+        let variants = [];
+        let images = [];
+        try {
+          variants = JSON.parse(card.getAttribute('data-variants') || '[]');
+          images = JSON.parse(card.getAttribute('data-images') || '[]');
+        } catch(e) {}
+
+        const mainImg = card.querySelector('.card-main-image');
+        const priceDisplay = card.querySelector('.card-price-display');
+        const addToCartBtn = card.querySelector('.add-to-cart-quick-btn');
+
+        const colorLabel = card.querySelector('.color-selected-label');
+        const sizeLabel = card.querySelector('.size-selected-label');
+
+        const swatchBtns = card.querySelectorAll('.swatch-btn');
+        const sizeBtns = card.querySelectorAll('.size-btn');
+        
+        const prevArrow = card.querySelector('.carousel-prev');
+        const nextArrow = card.querySelector('.carousel-next');
+        const dots = card.querySelectorAll('.carousel-dot');
+
+        let selectedColor = swatchBtns.length > 0 ? swatchBtns[0].getAttribute('data-color') : '';
+        let selectedSize = sizeBtns.length > 0 ? sizeBtns[0].getAttribute('data-size') : '';
+        let currentImgIdx = 0;
+
+        function setImageIndex(idx) {
+          if (!images || images.length === 0) return;
+          if (idx < 0) idx = images.length - 1;
+          if (idx >= images.length) idx = 0;
+          currentImgIdx = idx;
+
+          if (mainImg) {
+            mainImg.src = images[currentImgIdx].url;
+            mainImg.setAttribute('data-current-idx', currentImgIdx.toString());
+          }
+
+          dots.forEach((dot, dIdx) => {
+            if (dIdx === currentImgIdx) {
+              dot.classList.remove('bg-slate-300');
+              dot.classList.add('bg-[#2B447A]', 'w-4');
+            } else {
+              dot.classList.remove('bg-[#2B447A]', 'w-4');
+              dot.classList.add('bg-slate-300');
+            }
+          });
+        }
+
+        // Swatches Click
+        swatchBtns.forEach(btn => {
+          btn.onclick = () => {
+            swatchBtns.forEach(b => {
+              b.classList.remove('ring-2', 'ring-[#2B447A]', 'ring-offset-1', 'scale-110');
+              b.classList.add('opacity-70');
+            });
+            btn.classList.remove('opacity-70');
+            btn.classList.add('ring-2', 'ring-[#2B447A]', 'ring-offset-1', 'scale-110');
+
+            selectedColor = btn.getAttribute('data-color') || '';
+            if (colorLabel) colorLabel.textContent = selectedColor;
+
+            const swatchImg = btn.getAttribute('data-image');
+            if (mainImg && swatchImg) mainImg.src = swatchImg;
+
+            updateCardVariant();
+          };
+        });
+
+        // Size Click
+        sizeBtns.forEach(btn => {
+          btn.onclick = () => {
+            sizeBtns.forEach(b => {
+              b.classList.remove('bg-[#2B447A]', 'text-white', 'border-[#2B447A]');
+              b.classList.add('bg-slate-50', 'text-slate-600', 'border-slate-200');
+            });
+            btn.classList.remove('bg-slate-50', 'text-slate-600', 'border-slate-200');
+            btn.classList.add('bg-[#2B447A]', 'text-white', 'border-[#2B447A]');
+
+            selectedSize = btn.getAttribute('data-size') || '';
+            if (sizeLabel) sizeLabel.textContent = selectedSize;
+
+            updateCardVariant();
+          };
+        });
+
+        function updateCardVariant() {
+          if (!variants || variants.length === 0) return;
+
+          let matchedVar = variants.find(v => {
+            const matchColor = !selectedColor || (v.optionsObj && v.optionsObj.color === selectedColor);
+            const matchSize = !selectedSize || (v.optionsObj && v.optionsObj.size === selectedSize);
+            return matchColor && matchSize;
+          });
+
+          if (!matchedVar && selectedColor) {
+            matchedVar = variants.find(v => v.optionsObj && v.optionsObj.color === selectedColor);
+          }
+          if (!matchedVar) matchedVar = variants[0];
+
+          if (matchedVar) {
+            if (addToCartBtn) {
+              addToCartBtn.setAttribute('data-variant-id', matchedVar.id);
+              if (matchedVar.price) addToCartBtn.setAttribute('data-price', matchedVar.price);
+              if (matchedVar.imageUrl) addToCartBtn.setAttribute('data-image', matchedVar.imageUrl);
+            }
+            if (priceDisplay && matchedVar.price) {
+              priceDisplay.innerHTML = `$${parseFloat(matchedVar.price).toFixed(2)} <span class="text-xs font-bold text-slate-400">USD</span>`;
+            }
+          }
+        }
+
+        // Carousel Arrows
+        if (prevArrow) {
+          prevArrow.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setImageIndex(currentImgIdx - 1);
+          };
+        }
+        if (nextArrow) {
+          nextArrow.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            setImageIndex(currentImgIdx + 1);
+          };
+        }
+
+        // Carousel Dots
+        dots.forEach(dot => {
+          dot.onclick = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const idx = parseInt(dot.getAttribute('data-idx') || '0', 10);
+            setImageIndex(idx);
+          };
+        });
+
+        // Mobile Touch Swipe Support
+        const imgContainer = card.querySelector('.group\\/img');
+        if (imgContainer) {
+          let touchStartX = 0;
+          let touchEndX = 0;
+
+          imgContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+          }, { passive: true });
+
+          imgContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+          }, { passive: true });
+
+          function handleSwipe() {
+            const diff = touchStartX - touchEndX;
+            if (Math.abs(diff) > 30) {
+              if (diff > 0) {
+                // Swiped Left -> Next Image
+                setImageIndex(currentImgIdx + 1);
+              } else {
+                // Swiped Right -> Prev Image
+                setImageIndex(currentImgIdx - 1);
+              }
+            }
+          }
+        }
+
+        // Quick Add to Cart
+        if (addToCartBtn) {
+          addToCartBtn.onclick = () => {
+            const variantId = addToCartBtn.getAttribute('data-variant-id');
+            const productId = addToCartBtn.getAttribute('data-product-id');
+            const title = addToCartBtn.getAttribute('data-title');
+            const price = addToCartBtn.getAttribute('data-price');
+            const image = addToCartBtn.getAttribute('data-image');
+            const handle = addToCartBtn.getAttribute('data-handle');
+
+            if (window.addShopifyItemToCart) {
+              window.addShopifyItemToCart({
+                variantId,
+                productId,
+                title,
+                price,
+                image,
+                handle,
+                quantity: 1
+              });
+            }
+          };
+        }
+
+      });
+    }
+
+    function renderPagination(totalPages) {
+      const wrapper = document.getElementById('pagination-wrapper');
+      const infoText = document.getElementById('pagination-info-text');
+      const container = document.getElementById('pagination-controls-container');
+
+      if (!wrapper || !container || totalPages <= 1) {
+        if (wrapper) wrapper.classList.add('hidden');
+        return;
+      }
+
+      wrapper.classList.remove('hidden');
+
+      if (infoText) {
+        infoText.innerHTML = `Page <strong class="text-slate-900">${state.page}</strong> of <strong class="text-slate-900">${totalPages}</strong>`;
+      }
+
+      const range = getPaginationRange(state.page, totalPages);
+
+      let html = '';
+
+      // Prev Button
+      if (state.page > 1) {
+        html += `
+          <button 
+            type="button" 
+            data-page="${state.page - 1}"
+            class="page-btn px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-full font-black text-xs uppercase transition-colors inline-flex items-center gap-1 shadow-2xs cursor-pointer"
+          >
+            &#10094; Prev
+          </button>
+        `;
+      } else {
+        html += `
+          <span class="px-3.5 py-2 bg-slate-50 text-slate-300 border border-slate-200/60 rounded-full font-black text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
+            &#10094; Prev
+          </span>
+        `;
+      }
+
+      // Page numbers
+      range.forEach(item => {
+        if (item === '...') {
+          html += `<span class="px-2 text-slate-400 font-bold text-xs">...</span>`;
+        } else {
+          const isCurrent = item === state.page;
+          html += `
+            <button 
+              type="button" 
+              data-page="${item}"
+              class="page-btn w-8 h-8 rounded-full flex items-center justify-center font-black text-xs transition-all cursor-pointer ${
+                isCurrent 
+                  ? 'bg-[#2B447A] text-white shadow-md' 
+                  : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
+              }"
+            >
+              ${item}
+            </button>
+          `;
+        }
+      });
+
+      // Next Button
+      if (state.page < totalPages) {
+        html += `
+          <button 
+            type="button" 
+            data-page="${state.page + 1}"
+            class="page-btn px-3.5 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-full font-black text-xs uppercase transition-colors inline-flex items-center gap-1 shadow-2xs cursor-pointer"
+          >
+            Next &#10095;
+          </button>
+        `;
+      } else {
+        html += `
+          <span class="px-3.5 py-2 bg-slate-50 text-slate-300 border border-slate-200/60 rounded-full font-black text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
+            Next &#10095;
+          </span>
+        `;
+      }
+
+      container.innerHTML = html;
+
+      // Attach Pagination Clicks
+      container.querySelectorAll('.page-btn').forEach(btn => {
+        btn.onclick = () => {
+          const targetPage = parseInt(btn.getAttribute('data-page') || '1', 10);
+          updateUrlState(undefined, targetPage);
+          window.scrollTo({ top: 350, behavior: 'smooth' });
+        };
+      });
+    }
+
+    function initPage() {
+      const scriptEl = document.getElementById('shop-dataset');
+      if (scriptEl) {
+        try {
+          dataset = JSON.parse(scriptEl.textContent || '{}');
+        } catch (e) {
+          console.error('Failed to parse shop dataset:', e);
+        }
+      }
+
+      parseUrlState();
+      renderCatalog();
+
+      // Mobile Drawer Toggle
+      const mobileToggleBtn = document.getElementById('mobile-cat-toggle-btn');
+      const mobileDrawer = document.getElementById('mobile-cat-drawer');
+      const mobileArrow = document.getElementById('mobile-cat-arrow');
+
+      if (mobileToggleBtn && mobileDrawer) {
+        mobileToggleBtn.onclick = () => {
+          const isHidden = mobileDrawer.classList.contains('hidden');
+          if (isHidden) {
+            mobileDrawer.classList.remove('hidden');
+            if (mobileArrow) mobileArrow.style.transform = 'rotate(180deg)';
+          } else {
+            mobileDrawer.classList.add('hidden');
+            if (mobileArrow) mobileArrow.style.transform = 'rotate(0deg)';
+          }
+        };
+      }
+
+      // Empty state reset button
+      const emptyResetBtn = document.getElementById('empty-reset-btn');
+      if (emptyResetBtn) {
+        emptyResetBtn.onclick = () => updateUrlState('', 1);
+      }
+
+      // Listen to popstate (browser back/forward)
+      window.onpopstate = () => {
+        parseUrlState();
+        renderCatalog();
       };
     }
 
-    // 2. Accordion Toggles for Left Sidebar
-    document.querySelectorAll('.cat-toggle-btn').forEach(btn => {
-      btn.onclick = () => {
-        const targetId = btn.getAttribute('data-target');
-        const targetEl = document.getElementById(targetId);
-        const icon = btn.querySelector('.cat-icon');
-
-        if (targetEl) {
-          const isHidden = targetEl.classList.contains('hidden');
-          if (isHidden) {
-            targetEl.classList.remove('hidden');
-            if (icon) icon.textContent = '-';
-          } else {
-            targetEl.classList.add('hidden');
-            if (icon) icon.textContent = '+';
-          }
-        }
-      };
-    });
-
-    // 3. Product Card Swatches, Sizes & Carousel Dots Interactive Controller
-    document.querySelectorAll('.product-card').forEach(card => {
-      const variantsDataRaw = card.getAttribute('data-variants');
-      let variants = [];
-      try {
-        variants = JSON.parse(variantsDataRaw || '[]');
-      } catch (e) {
-        variants = [];
-      }
-
-      const mainImg = card.querySelector('.card-main-image');
-      const priceDisplay = card.querySelector('.card-price-display');
-      const addToCartBtn = card.querySelector('.add-to-cart-quick-btn');
-      
-      const swatchBtns = card.querySelectorAll('.swatch-btn');
-      const sizeBtns = card.querySelectorAll('.size-btn');
-      const carouselDots = card.querySelectorAll('.carousel-dot');
-
-      let selectedColor = swatchBtns.length > 0 ? swatchBtns[0].getAttribute('data-color') : '';
-      let selectedSize = sizeBtns.length > 0 ? sizeBtns[0].getAttribute('data-size') : '';
-
-      // Function to match variant based on selectedColor and selectedSize
-      function updateCardVariant() {
-        if (!variants || variants.length === 0) return;
-
-        let matchedVar = variants.find(v => {
-          const matchColor = !selectedColor || (v.optionsObj && v.optionsObj.color === selectedColor);
-          const matchSize = !selectedSize || (v.optionsObj && v.optionsObj.size === selectedSize);
-          return matchColor && matchSize;
-        });
-
-        // Fallback to color match or first variant
-        if (!matchedVar && selectedColor) {
-          matchedVar = variants.find(v => v.optionsObj && v.optionsObj.color === selectedColor);
-        }
-        if (!matchedVar) {
-          matchedVar = variants[0];
-        }
-
-        if (matchedVar) {
-          // Update Add To Cart Button Attributes
-          if (addToCartBtn) {
-            addToCartBtn.setAttribute('data-variant-id', matchedVar.id);
-            if (matchedVar.price) addToCartBtn.setAttribute('data-price', matchedVar.price);
-            if (matchedVar.imageUrl) addToCartBtn.setAttribute('data-image', matchedVar.imageUrl);
-          }
-
-          // Update Price Display
-          if (priceDisplay && matchedVar.price) {
-            priceDisplay.innerHTML = `$${parseFloat(matchedVar.price).toFixed(2)} <span class="text-xs font-bold text-slate-400">USD</span>`;
-          }
-
-          // Update Image if variant has explicit image
-          if (mainImg && matchedVar.imageUrl) {
-            mainImg.src = matchedVar.imageUrl;
-          }
-        }
-      }
-
-      // Swatch Clicks
-      swatchBtns.forEach(btn => {
-        btn.onclick = () => {
-          swatchBtns.forEach(b => {
-            b.classList.remove('ring-2', 'ring-[#2B447A]', 'ring-offset-1', 'scale-105');
-            b.classList.add('opacity-80');
-          });
-          btn.classList.remove('opacity-80');
-          btn.classList.add('ring-2', 'ring-[#2B447A]', 'ring-offset-1', 'scale-105');
-
-          selectedColor = btn.getAttribute('data-color') || '';
-          const swatchImg = btn.getAttribute('data-image');
-          if (mainImg && swatchImg) mainImg.src = swatchImg;
-
-          updateCardVariant();
-        };
-      });
-
-      // Size Clicks
-      sizeBtns.forEach(btn => {
-        btn.onclick = () => {
-          sizeBtns.forEach(b => {
-            b.classList.remove('bg-[#2B447A]', 'text-white', 'border-[#2B447A]');
-            b.classList.add('bg-slate-50', 'text-slate-600', 'border-slate-200');
-          });
-          btn.classList.remove('bg-slate-50', 'text-slate-600', 'border-slate-200');
-          btn.classList.add('bg-[#2B447A]', 'text-white', 'border-[#2B447A]');
-
-          selectedSize = btn.getAttribute('data-size') || '';
-          updateCardVariant();
-        };
-      });
-
-      // Carousel Dot Clicks
-      carouselDots.forEach(dot => {
-        dot.onclick = () => {
-          const newSrc = dot.getAttribute('data-img-src');
-          if (mainImg && newSrc) {
-            mainImg.src = newSrc;
-          }
-          carouselDots.forEach(d => {
-            d.classList.remove('bg-[#2B447A]', 'w-4');
-            d.classList.add('bg-slate-300');
-          });
-          dot.classList.remove('bg-slate-300');
-          dot.classList.add('bg-[#2B447A]', 'w-4');
-        };
-      });
-
-      // Initialize default active variant on load
-      updateCardVariant();
-    });
-
-    // 4. Quick Add to Cart Button Handlers
-    document.querySelectorAll('.add-to-cart-quick-btn').forEach(btn => {
-      btn.onclick = () => {
-        const variantId = btn.getAttribute('data-variant-id');
-        const productId = btn.getAttribute('data-product-id');
-        const title = btn.getAttribute('data-title');
-        const price = btn.getAttribute('data-price');
-        const image = btn.getAttribute('data-image');
-        const handle = btn.getAttribute('data-handle');
-
-        if (window.addShopifyItemToCart) {
-          window.addShopifyItemToCart({
-            variantId,
-            productId,
-            title,
-            price,
-            image,
-            handle,
-            quantity: 1
-          });
-        }
-      };
-    });
-  }
+    document.addEventListener('DOMContentLoaded', initPage);
+    document.addEventListener('astro:page-load', initPage);
+  })();
 </script>

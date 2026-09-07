@@ -50,6 +50,9 @@ export function formatProduct(node: any) {
   const inStockVariants = rawVariants.filter((v: any) => v.availableForSale !== false);
   const activeVariants = inStockVariants.length > 0 ? inStockVariants : rawVariants;
 
+  const collectionHandles = node.collections?.edges?.map((e: any) => e.node.handle) || [];
+  const tags = node.tags || [];
+
   // Extract Sizes and Colors options
   const sizesSet = new Set<string>();
   const colorsSet = new Set<string>();
@@ -123,6 +126,8 @@ export function formatProduct(node: any) {
 
   return {
     ...node,
+    collectionHandles,
+    tags,
     featuredImageUrl: featuredImageUrl || '',
     hasRealImage: !!featuredImageUrl,
     imagesList: images.length > 0 ? images : (featuredImageUrl ? [{ url: featuredImageUrl, altText: node.title }] : []),
@@ -148,6 +153,15 @@ export async function getProducts(first = 250) {
             descriptionHtml
             vendor
             productType
+            tags
+            collections(first: 10) {
+              edges {
+                node {
+                  handle
+                  title
+                }
+              }
+            }
             featuredImage {
               url
               altText
