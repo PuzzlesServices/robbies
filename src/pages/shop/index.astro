@@ -490,7 +490,7 @@ const categoryStructure = [
                       <img 
                         src="${img.url}" 
                         alt="${product.title}"
-                        class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-150 ease-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}"
+                        class="carousel-img absolute inset-0 w-full h-full object-contain p-2 transition-opacity duration-150 ease-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}"
                         data-idx="${idx}"
                         loading="${idx === 0 ? 'lazy' : 'eager'}"
                       />

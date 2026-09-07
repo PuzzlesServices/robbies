@@ -552,7 +552,11 @@
             },
             {
               "status": "completed",
-              "text": "Enhanced product detail pages (/shop/[handle]) with high-conversion UX, stock badges, and direct checkout"
+              "text": "Redesigned Product Detail Pages (/shop/[handle]) with high-conversion sticky buy bar, trust badges, uncropped images, and related products"
+            },
+            {
+              "status": "completed",
+              "text": "Fixed product image cropping across shop grid and detail pages using object-contain fitting"
             }
           ]
         },
