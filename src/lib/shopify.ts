@@ -221,10 +221,9 @@ export async function getProducts(first = 250) {
 
   const data = await shopifyFetch({ query, variables: { first } });
   const rawProducts = data?.products?.edges.map((edge: any) => edge.node) || [];
-  const formatted = rawProducts.map(formatProduct).filter((p: any) => p && p.inStock);
+  const formatted = rawProducts.map(formatProduct).filter((p: any) => p && p.inStock && p.hasRealImage);
 
-  // Sort so products with real images appear first
-  return formatted.sort((a: any, b: any) => (b.hasRealImage ? 1 : 0) - (a.hasRealImage ? 1 : 0));
+  return formatted;
 }
 
 // 2. Fetch Collections / Categories
@@ -252,7 +251,7 @@ export async function getCollections(first = 50) {
   return data?.collections?.edges.map((edge: any) => edge.node) || [];
 }
 
-// 3. Fetch Products By Collection Handle (In-Stock Only)
+// 3. Fetch Products By Collection Handle (In-Stock Only with Real Images)
 export async function getProductsByCollection(collectionHandle: string, first = 250) {
   const query = `
     query getProductsByCollection($handle: String!, $first: Int!) {
@@ -332,9 +331,9 @@ export async function getProductsByCollection(collectionHandle: string, first = 
 
   const data = await shopifyFetch({ query, variables: { handle: collectionHandle, first } });
   const rawProducts = data?.collection?.products?.edges.map((edge: any) => edge.node) || [];
-  const formatted = rawProducts.map(formatProduct).filter((p: any) => p && p.inStock);
+  const formatted = rawProducts.map(formatProduct).filter((p: any) => p && p.inStock && p.hasRealImage);
 
-  return formatted.sort((a: any, b: any) => (b.hasRealImage ? 1 : 0) - (a.hasRealImage ? 1 : 0));
+  return formatted;
 }
 
 // 4. Fetch Single Product By Handle

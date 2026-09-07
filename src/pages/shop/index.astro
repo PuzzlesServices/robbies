@@ -10,8 +10,9 @@ let allProducts: any[] = [];
 let errorMsg = '';
 
 try {
-  // Fetch all in-stock products
+  // Fetch all in-stock products with real images
   allProducts = await getProducts(250);
+  allProducts = allProducts.filter(p => p && p.inStock && p.hasRealImage);
 } catch (e) {
   console.error('Error loading shop data:', e);
   errorMsg = 'Could not load store products from Shopify.';
@@ -233,15 +234,10 @@ const categoryStructure = [
       const catHandle = state.category.toLowerCase();
       
       return dataset.allProducts.filter(p => {
-        // Direct collection handle match
         if (p.collectionHandles && p.collectionHandles.includes(catHandle)) return true;
-        // Tags match
         if (p.tags && p.tags.some(t => t.toLowerCase().replace(/\s+/g, '-') === catHandle || t.toLowerCase() === catHandle)) return true;
-        // Handle search fallback
         if (p.handle && p.handle.includes(catHandle)) return true;
-        // Product type fallback
         if (p.productType && p.productType.toLowerCase().replace(/\s+/g, '-').includes(catHandle)) return true;
-        
         return false;
       });
     }
@@ -260,7 +256,6 @@ const categoryStructure = [
       return title;
     }
 
-    // Dynamic Paginator Range Generator (1 2 3 ... 28)
     function getPaginationRange(current, total) {
       const delta = 1;
       const range = [];
@@ -365,7 +360,6 @@ const categoryStructure = [
 
         desktopAcc.innerHTML = html;
 
-        // Attach click listeners to cat-links to prevent full reload
         desktopAcc.querySelectorAll('.cat-link').forEach(link => {
           link.addEventListener('click', (e) => {
             e.preventDefault();
@@ -374,7 +368,6 @@ const categoryStructure = [
           });
         });
 
-        // Toggle buttons for subs
         desktopAcc.querySelectorAll('.cat-toggle-btn').forEach(btn => {
           btn.addEventListener('click', () => {
             const targetId = btn.getAttribute('data-target');
@@ -389,7 +382,6 @@ const categoryStructure = [
         });
       }
 
-      // Populate Mobile Drawer
       if (mobileDrawer) {
         let mobileHtml = `
           <a 
@@ -476,9 +468,10 @@ const categoryStructure = [
 
           gridContainer.innerHTML = paginatedProducts.map(product => {
             const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
-            const imageUrl = product.featuredImageUrl || '/assets/home/imgi_19_shop.webp';
             const firstVariant = product.variantsList?.[0];
-            const imagesList = product.imagesList || [];
+            const imagesList = product.imagesList && product.imagesList.length > 0 
+              ? product.imagesList 
+              : [{ url: product.featuredImageUrl, altText: product.title }];
 
             const initialColor = product.colors?.[0]?.name || '';
             const initialSize = product.sizes?.[0] || '';
@@ -490,30 +483,32 @@ const categoryStructure = [
                 data-variants='${JSON.stringify(product.variantsList || []).replace(/'/g, "&apos;")}'
                 data-images='${JSON.stringify(imagesList).replace(/'/g, "&apos;")}'
               >
-                <!-- Image Container with Hover Arrows & Mobile Touch Swipe -->
+                <!-- Image Container with Instant 0ms Fade Stack & Mobile Touch Swipe -->
                 <div class="relative w-full aspect-square bg-slate-50 rounded-2xl overflow-hidden mb-3 group/img touch-pan-y">
-                  <a href="/shop/${product.handle}" class="block w-full h-full">
-                    <img 
-                      src="${imageUrl}" 
-                      alt="${product.title}"
-                      class="card-main-image w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                      data-current-idx="0"
-                    />
+                  <a href="/shop/${product.handle}" class="block w-full h-full relative">
+                    ${imagesList.map((img, idx) => `
+                      <img 
+                        src="${img.url}" 
+                        alt="${product.title}"
+                        class="carousel-img absolute inset-0 w-full h-full object-cover transition-opacity duration-150 ease-out ${idx === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0'}"
+                        data-idx="${idx}"
+                        loading="${idx === 0 ? 'lazy' : 'eager'}"
+                      />
+                    `).join('')}
                   </a>
 
                   <!-- Professional Left / Right Arrows -->
                   ${imagesList.length > 1 ? `
                     <button 
                       type="button" 
-                      class="carousel-arrow carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 shadow-md text-slate-800 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-white hover:scale-110 active:scale-95 cursor-pointer z-10 font-bold text-sm select-none"
+                      class="carousel-arrow carousel-prev absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 shadow-md text-slate-800 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-white hover:scale-110 active:scale-95 cursor-pointer z-20 font-bold text-sm select-none"
                       title="Previous Image"
                     >
                       &#10094;
                     </button>
                     <button 
                       type="button" 
-                      class="carousel-arrow carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 shadow-md text-slate-800 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-white hover:scale-110 active:scale-95 cursor-pointer z-10 font-bold text-sm select-none"
+                      class="carousel-arrow carousel-next absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/95 shadow-md text-slate-800 flex items-center justify-center opacity-0 group-hover/img:opacity-100 transition-opacity hover:bg-white hover:scale-110 active:scale-95 cursor-pointer z-20 font-bold text-sm select-none"
                       title="Next Image"
                     >
                       &#10095;
@@ -522,7 +517,7 @@ const categoryStructure = [
 
                   <!-- Dots Indicator -->
                   ${imagesList.length > 1 ? `
-                    <div class="carousel-dots-container absolute bottom-2.5 left-0 right-0 flex justify-center gap-1.5 z-10 pointer-events-auto">
+                    <div class="carousel-dots-container absolute bottom-2.5 left-0 right-0 flex justify-center gap-1.5 z-20 pointer-events-auto">
                       ${imagesList.slice(0, 5).map((img, idx) => `
                         <button 
                           type="button" 
@@ -602,7 +597,7 @@ const categoryStructure = [
                     data-product-id="${product.id}"
                     data-title="${product.title}"
                     data-price="${firstVariant?.price || minPrice}"
-                    data-image="${imageUrl}"
+                    data-image="${product.featuredImageUrl}"
                     data-handle="${product.handle}"
                   >
                     ADD TO CART
@@ -613,7 +608,6 @@ const categoryStructure = [
             `;
           }).join('');
 
-          // Initialize Card Handlers (Swatches, Arrows, Dots, Mobile Touch Swipe)
           bindProductCardEvents();
         }
       }
@@ -631,7 +625,7 @@ const categoryStructure = [
           images = JSON.parse(card.getAttribute('data-images') || '[]');
         } catch(e) {}
 
-        const mainImg = card.querySelector('.card-main-image');
+        const carouselImgs = card.querySelectorAll('.carousel-img');
         const priceDisplay = card.querySelector('.card-price-display');
         const addToCartBtn = card.querySelector('.add-to-cart-quick-btn');
 
@@ -649,16 +643,22 @@ const categoryStructure = [
         let selectedSize = sizeBtns.length > 0 ? sizeBtns[0].getAttribute('data-size') : '';
         let currentImgIdx = 0;
 
+        // Instant 0ms Image Index Switcher (Opacity Fade)
         function setImageIndex(idx) {
           if (!images || images.length === 0) return;
           if (idx < 0) idx = images.length - 1;
           if (idx >= images.length) idx = 0;
           currentImgIdx = idx;
 
-          if (mainImg) {
-            mainImg.src = images[currentImgIdx].url;
-            mainImg.setAttribute('data-current-idx', currentImgIdx.toString());
-          }
+          carouselImgs.forEach((img, i) => {
+            if (i === currentImgIdx) {
+              img.classList.remove('opacity-0', 'z-0');
+              img.classList.add('opacity-100', 'z-10');
+            } else {
+              img.classList.remove('opacity-100', 'z-10');
+              img.classList.add('opacity-0', 'z-0');
+            }
+          });
 
           dots.forEach((dot, dIdx) => {
             if (dIdx === currentImgIdx) {
@@ -685,7 +685,10 @@ const categoryStructure = [
             if (colorLabel) colorLabel.textContent = selectedColor;
 
             const swatchImg = btn.getAttribute('data-image');
-            if (mainImg && swatchImg) mainImg.src = swatchImg;
+            if (swatchImg && images.length > 0) {
+              const matchedImgIdx = images.findIndex(img => img.url === swatchImg);
+              if (matchedImgIdx >= 0) setImageIndex(matchedImgIdx);
+            }
 
             updateCardVariant();
           };
@@ -734,7 +737,7 @@ const categoryStructure = [
           }
         }
 
-        // Carousel Arrows
+        // Carousel Arrows (Instant transition)
         if (prevArrow) {
           prevArrow.onclick = (e) => {
             e.preventDefault();
@@ -772,21 +775,15 @@ const categoryStructure = [
 
           imgContainer.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-          }, { passive: true });
-
-          function handleSwipe() {
             const diff = touchStartX - touchEndX;
-            if (Math.abs(diff) > 30) {
+            if (Math.abs(diff) > 25) {
               if (diff > 0) {
-                // Swiped Left -> Next Image
                 setImageIndex(currentImgIdx + 1);
               } else {
-                // Swiped Right -> Prev Image
                 setImageIndex(currentImgIdx - 1);
               }
             }
-          }
+          }, { passive: true });
         }
 
         // Quick Add to Cart
@@ -836,7 +833,6 @@ const categoryStructure = [
 
       let html = '';
 
-      // Prev Button
       if (state.page > 1) {
         html += `
           <button 
@@ -855,7 +851,6 @@ const categoryStructure = [
         `;
       }
 
-      // Page numbers
       range.forEach(item => {
         if (item === '...') {
           html += `<span class="px-2 text-slate-400 font-bold text-xs">...</span>`;
@@ -877,7 +872,6 @@ const categoryStructure = [
         }
       });
 
-      // Next Button
       if (state.page < totalPages) {
         html += `
           <button 
@@ -898,7 +892,6 @@ const categoryStructure = [
 
       container.innerHTML = html;
 
-      // Attach Pagination Clicks
       container.querySelectorAll('.page-btn').forEach(btn => {
         btn.onclick = () => {
           const targetPage = parseInt(btn.getAttribute('data-page') || '1', 10);
@@ -921,7 +914,6 @@ const categoryStructure = [
       parseUrlState();
       renderCatalog();
 
-      // Mobile Drawer Toggle
       const mobileToggleBtn = document.getElementById('mobile-cat-toggle-btn');
       const mobileDrawer = document.getElementById('mobile-cat-drawer');
       const mobileArrow = document.getElementById('mobile-cat-arrow');
@@ -939,13 +931,11 @@ const categoryStructure = [
         };
       }
 
-      // Empty state reset button
       const emptyResetBtn = document.getElementById('empty-reset-btn');
       if (emptyResetBtn) {
         emptyResetBtn.onclick = () => updateUrlState('', 1);
       }
 
-      // Listen to popstate (browser back/forward)
       window.onpopstate = () => {
         parseUrlState();
         renderCatalog();
