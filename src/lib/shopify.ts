@@ -34,7 +34,7 @@ export async function shopifyFetch<T = any>({
   }
 }
 
-// Helper to normalize product images safely
+// Helper to normalize product images, options (Sizes, Colors), and variants safely
 export function formatProduct(node: any) {
   if (!node) return null;
   
@@ -46,23 +46,78 @@ export function formatProduct(node: any) {
     featuredImageUrl = images[0].url;
   }
 
+  const variants = node.variants?.edges?.map((e: any) => e.node) || [];
+  const inStockVariants = variants.filter((v: any) => v.availableForSale !== false);
+  const activeVariants = inStockVariants.length > 0 ? inStockVariants : variants;
+
+  // Extract Sizes and Colors options
+  const sizesSet = new Set<string>();
+  const colorsSet = new Set<string>();
+
+  node.options?.forEach((opt: any) => {
+    const nameUpper = opt.name?.toUpperCase() || '';
+    if (nameUpper.includes('SIZE') || nameUpper.includes('TALLA')) {
+      opt.values?.forEach((val: string) => sizesSet.add(val));
+    }
+    if (nameUpper.includes('COLOR') || nameUpper.includes('COLOUR')) {
+      opt.values?.forEach((val: string) => colorsSet.add(val));
+    }
+  });
+
+  // Color mapping helper
+  const colorMap: Record<string, string> = {
+    'black': '#18181b',
+    'white': '#ffffff',
+    'navy': '#1e3a8a',
+    'blue': '#2563eb',
+    'sky': '#38bdf8',
+    'cyan': '#06b6d4',
+    'green': '#15803d',
+    'camo': '#4d5d36',
+    'grey': '#6b7280',
+    'gray': '#6b7280',
+    'red': '#dc2626',
+    'pink': '#ec4899',
+    'purple': '#7e22ce',
+    'yellow': '#eab308',
+    'orange': '#ea580c'
+  };
+
+  const colors = Array.from(colorsSet).map(c => {
+    const lower = c.toLowerCase();
+    let hex = '#2B447A';
+    for (const [key, colorHex] of Object.entries(colorMap)) {
+      if (lower.includes(key)) {
+        hex = colorHex;
+        break;
+      }
+    }
+    return { name: c, hex };
+  });
+
   return {
     ...node,
-    featuredImageUrl: featuredImageUrl || '/assets/home/imgi_19_shop.webp',
-    imagesList: images.length > 0 ? images : [{ url: featuredImageUrl || '/assets/home/imgi_19_shop.webp', altText: node.title }]
+    featuredImageUrl: featuredImageUrl || '',
+    hasRealImage: !!featuredImageUrl,
+    imagesList: images.length > 0 ? images : (featuredImageUrl ? [{ url: featuredImageUrl, altText: node.title }] : []),
+    variantsList: activeVariants,
+    sizes: Array.from(sizesSet),
+    colors,
+    inStock: node.availableForSale !== false && activeVariants.length > 0
   };
 }
 
-// 1. Fetch Products List
-export async function getProducts(first = 100, queryStr = '') {
+// 1. Fetch Products List (Only In-Stock Products)
+export async function getProducts(first = 250) {
   const query = `
-    query getProducts($first: Int!, $queryStr: String) {
-      products(first: $first, query: $queryStr) {
+    query getProducts($first: Int!) {
+      products(first: $first, query: "available_for_sale:true") {
         edges {
           node {
             id
             title
             handle
+            availableForSale
             description
             descriptionHtml
             vendor
@@ -83,6 +138,10 @@ export async function getProducts(first = 100, queryStr = '') {
                 }
               }
             }
+            options {
+              name
+              values
+            }
             priceRange {
               minVariantPrice {
                 amount
@@ -93,7 +152,7 @@ export async function getProducts(first = 100, queryStr = '') {
                 currencyCode
               }
             }
-            variants(first: 10) {
+            variants(first: 25) {
               edges {
                 node {
                   id
@@ -102,6 +161,10 @@ export async function getProducts(first = 100, queryStr = '') {
                   price {
                     amount
                     currencyCode
+                  }
+                  selectedOptions {
+                    name
+                    value
                   }
                 }
               }
@@ -112,13 +175,16 @@ export async function getProducts(first = 100, queryStr = '') {
     }
   `;
 
-  const data = await shopifyFetch({ query, variables: { first, queryStr } });
+  const data = await shopifyFetch({ query, variables: { first } });
   const rawProducts = data?.products?.edges.map((edge: any) => edge.node) || [];
-  return rawProducts.map(formatProduct);
+  const formatted = rawProducts.map(formatProduct).filter((p: any) => p && p.inStock);
+
+  // Sort so products with real images appear first
+  return formatted.sort((a: any, b: any) => (b.hasRealImage ? 1 : 0) - (a.hasRealImage ? 1 : 0));
 }
 
 // 2. Fetch Collections / Categories
-export async function getCollections(first = 20) {
+export async function getCollections(first = 50) {
   const query = `
     query getCollections($first: Int!) {
       collections(first: $first) {
@@ -142,8 +208,8 @@ export async function getCollections(first = 20) {
   return data?.collections?.edges.map((edge: any) => edge.node) || [];
 }
 
-// 3. Fetch Products By Collection Handle
-export async function getProductsByCollection(collectionHandle: string, first = 100) {
+// 3. Fetch Products By Collection Handle (In-Stock Only)
+export async function getProductsByCollection(collectionHandle: string, first = 250) {
   const query = `
     query getProductsByCollection($handle: String!, $first: Int!) {
       collection(handle: $handle) {
@@ -151,12 +217,13 @@ export async function getProductsByCollection(collectionHandle: string, first = 
         title
         handle
         description
-        products(first: $first) {
+        products(first: $first, filters: [{ available: true }]) {
           edges {
             node {
               id
               title
               handle
+              availableForSale
               description
               descriptionHtml
               vendor
@@ -177,6 +244,10 @@ export async function getProductsByCollection(collectionHandle: string, first = 
                   }
                 }
               }
+              options {
+                name
+                values
+              }
               priceRange {
                 minVariantPrice {
                   amount
@@ -187,7 +258,7 @@ export async function getProductsByCollection(collectionHandle: string, first = 
                   currencyCode
                 }
               }
-              variants(first: 10) {
+              variants(first: 25) {
                 edges {
                   node {
                     id
@@ -196,6 +267,10 @@ export async function getProductsByCollection(collectionHandle: string, first = 
                     price {
                       amount
                       currencyCode
+                    }
+                    selectedOptions {
+                      name
+                      value
                     }
                   }
                 }
@@ -209,7 +284,9 @@ export async function getProductsByCollection(collectionHandle: string, first = 
 
   const data = await shopifyFetch({ query, variables: { handle: collectionHandle, first } });
   const rawProducts = data?.collection?.products?.edges.map((edge: any) => edge.node) || [];
-  return rawProducts.map(formatProduct);
+  const formatted = rawProducts.map(formatProduct).filter((p: any) => p && p.inStock);
+
+  return formatted.sort((a: any, b: any) => (b.hasRealImage ? 1 : 0) - (a.hasRealImage ? 1 : 0));
 }
 
 // 4. Fetch Single Product By Handle
@@ -220,6 +297,7 @@ export async function getProductByHandle(handle: string) {
         id
         title
         handle
+        availableForSale
         description
         descriptionHtml
         vendor
@@ -251,7 +329,7 @@ export async function getProductByHandle(handle: string) {
             currencyCode
           }
         }
-        variants(first: 20) {
+        variants(first: 25) {
           edges {
             node {
               id

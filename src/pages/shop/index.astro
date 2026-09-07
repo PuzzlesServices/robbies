@@ -4,11 +4,11 @@ import Header from '../../components/header/Header.astro';
 import Footer from '../../components/common/Footer.astro';
 import CartDrawer from '../../components/shop/CartDrawer.astro';
 import { getProducts, getCollections, getProductsByCollection } from '../../lib/shopify';
-import { ShoppingBag, ArrowRight, ShieldCheck, Tag, Filter, ChevronLeft, ChevronRight, Layers } from '@lucide/astro';
+import { ShoppingBag, Tag, ChevronLeft, ChevronRight, Plus, Minus, Filter, ShieldCheck } from '@lucide/astro';
 
 const url = new URL(Astro.request.url);
 const currentCategory = url.searchParams.get('category') || '';
-const currentPage = parseInt(url.searchParams.get('page') || '1', 10);
+const currentPage = Math.max(1, parseInt(url.searchParams.get('page') || '1', 10));
 const ITEMS_PER_PAGE = 12;
 
 let allProducts: any[] = [];
@@ -16,289 +16,358 @@ let collections: any[] = [];
 let errorMsg = '';
 
 try {
-  // Fetch collections for category filter
-  collections = await getCollections(25);
-  // Filter out internal/system collections
-  collections = collections.filter(c => c.handle !== 'frontpage' && c.handle !== 'digital-goods-vat-tax');
-
-  // Fetch products (by collection if selected, else all)
+  collections = await getCollections(50);
+  
   if (currentCategory) {
-    allProducts = await getProductsByCollection(currentCategory, 100);
+    allProducts = await getProductsByCollection(currentCategory, 250);
   } else {
-    allProducts = await getProducts(100);
+    allProducts = await getProducts(250);
   }
 } catch (e) {
-  console.error('Error loading Shopify shop data:', e);
-  errorMsg = 'Could not load products from Shopify API.';
+  console.error('Error loading shop data:', e);
+  errorMsg = 'Could not load store products from Shopify.';
 }
+
+// Category Accordion Hierarchy (Matching User's Reference Image 2)
+const categoryStructure = [
+  {
+    title: 'MEN',
+    handle: 'men',
+    subcategories: [
+      { title: "All Men's", handle: 'men' },
+      { title: "Short-Sleeve Tees", handle: 'short-sleeve-tees-men' },
+      { title: "Performance Shirts", handle: 'long-sleeve-performance-shirts-men' },
+      { title: "Long-Sleeve Tees", handle: 'long-sleeve-tees-men' },
+      { title: "Tank Tops & Sleeveless", handle: 'tank-tops-sleeveless-men' },
+      { title: "Sweatshirts & Hoodies", handle: 'sweatshirts-hoodies' }
+    ]
+  },
+  {
+    title: 'WOMEN',
+    handle: 'women',
+    subcategories: [
+      { title: "All Women's", handle: 'women' },
+      { title: "Tank Tops", handle: 'tank-tops-women' },
+      { title: "Short-Sleeve Tees", handle: 'short-sleeve-tees-women' },
+      { title: "Performance Tees", handle: 'womens-long-sleeve-performance-tees' },
+      { title: "Long-Sleeve Tees", handle: 'womens-long-sleeve-tees' },
+      { title: "Sweatshirts & Hoodies", handle: 'sweatshirts-hoodies-women' }
+    ]
+  },
+  {
+    title: 'KIDS',
+    handle: 'youth-kids',
+    subcategories: [
+      { title: "All Kids", handle: 'youth-kids' },
+      { title: "Short-Sleeve Tees", handle: 'short-sleeve-tees-youth-kids' },
+      { title: "Performance Shirts", handle: 'youth-kids-long-sleeve-performance-shirts' },
+      { title: "Long-Sleeve Tees", handle: 'youth-kids-long-sleeve-tees' }
+    ]
+  },
+  { title: 'TODDLERS', handle: 'toddlers' },
+  { title: 'HATS', handle: 'hats-headwear' },
+  { title: 'SOUVENIRS', handle: 'gifts-souvenirs' }
+];
 
 // Calculate Pagination (12 items per page)
 const totalProducts = allProducts.length;
 const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE) || 1;
-const validPage = Math.max(1, Math.min(currentPage, totalPages));
+const validPage = Math.min(currentPage, totalPages);
 const startIndex = (validPage - 1) * ITEMS_PER_PAGE;
 const paginatedProducts = allProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
 
-// Find current active collection title
-const activeCollectionObj = collections.find(c => c.handle === currentCategory);
-const activeCategoryName = activeCollectionObj ? activeCollectionObj.title : 'All Products';
+// Active category title finder
+let activeCategoryTitle = 'All Products';
+categoryStructure.forEach(cat => {
+  if (cat.handle === currentCategory) activeCategoryTitle = cat.title;
+  cat.subcategories?.forEach(sub => {
+    if (sub.handle === currentCategory) activeCategoryTitle = `${cat.title} - ${sub.title}`;
+  });
+});
 ---
 
 <Layout 
-  title={`${activeCategoryName} | Robbie's Shop`}
-  description="Browse official Robbie's of Islamorada merchandise, t-shirts, hats, art, and souvenirs directly on our website."
+  title={`${activeCategoryTitle} | Robbie's Shop`}
+  description="Shop official Robbie's of Islamorada merchandise, t-shirts, hats, souvenirs, and performance gear."
   image="/assets/home/imgi_19_shop.webp"
 >
   <Header />
 
-  <main class="flex-1 bg-slate-50 min-h-screen">
+  <main class="flex-1 bg-white min-h-screen border-t border-slate-100">
     
-    <!-- Hero Banner for Shop -->
-    <section class="w-full bg-[#2B447A] text-white py-14 px-6 relative overflow-hidden">
-      <div class="max-w-[1180px] mx-auto text-center relative z-10">
-        <span class="inline-flex items-center gap-1.5 bg-white/10 text-white/90 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3 border border-white/20">
-          <Tag class="w-3.5 h-3.5" /> Official Robbie's Merch
+    <!-- Hero Banner (Clean Shop Header) -->
+    <section class="w-full bg-[#2B447A] text-white py-12 px-6 relative overflow-hidden select-none">
+      <div class="max-w-[1240px] mx-auto text-center relative z-10">
+        <span class="inline-flex items-center gap-1.5 bg-white/10 text-white/90 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-widest mb-3 border border-white/20">
+          <Tag class="w-3.5 h-3.5" /> Official Robbie's Store
         </span>
-        <h1 class="font-heading font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight mb-3">
-          Robbie's Online Store
+        <h1 class="font-heading font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight mb-2">
+          ROBBIE'S OFFICIAL MERCHANDISE
         </h1>
-        <p class="font-heading font-normal text-sm sm:text-base text-white/90 max-w-2xl mx-auto leading-relaxed">
-          Bring the Florida Keys experience home! Browse our official t-shirts, souvenirs, local artwork, and accessories.
+        <p class="font-heading font-normal text-sm sm:text-base text-white/90 max-w-xl mx-auto">
+          Explore our collection of authentic t-shirts, performance wear, hats, plush tarpons, and Key West gifts.
         </p>
       </div>
-
-      <!-- Decorative background blur -->
-      <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
     </section>
 
-    <!-- Main Content Area: Categories & Products -->
-    <section class="max-w-[1180px] mx-auto px-6 py-12">
+    <!-- Main Storefront Grid: 2 Columns (Left Categories Dropdown + Right Products Grid) -->
+    <section class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-8 py-12">
       
-      <!-- Category Filter Tabs Bar (Categorías) -->
-      <div class="mb-10">
-        <div class="flex items-center gap-2 mb-3">
-          <Filter class="w-4 h-4 text-[#2B447A]" />
-          <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-slate-700">Filter by Category:</h3>
-        </div>
-
-        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin">
-          <a 
-            href="/shop" 
-            class={`px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all ${
-              !currentCategory 
-                ? 'bg-[#2B447A] text-white shadow-sm' 
-                : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
-            }`}
-          >
-            All Products ({allProducts.length && !currentCategory ? allProducts.length : 'All'})
-          </a>
-
-          {collections.map((col) => {
-            const isActive = currentCategory === col.handle;
-            return (
-              <a 
-                href={`/shop?category=${col.handle}`} 
-                class={`px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all ${
-                  isActive 
-                    ? 'bg-[#2B447A] text-white shadow-sm' 
-                    : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
-                }`}
-              >
-                {col.title}
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+        
+        <!-- LEFT SIDEBAR: CATEGORIES ACCORDION LIST (Matching Image 2) -->
+        <aside class="lg:col-span-3 bg-white rounded-2xl p-4 sm:p-6 border border-slate-200/80 shadow-xs space-y-6">
+          
+          <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+            <h3 class="font-heading font-black text-base uppercase text-slate-900 tracking-wider flex items-center gap-2">
+              <Filter class="w-4 h-4 text-[#2B447A]" /> Categories
+            </h3>
+            {currentCategory && (
+              <a href="/shop" class="text-[11px] font-bold text-[#2B55FF] hover:underline">
+                Clear Filter
               </a>
-            );
-          })}
-        </div>
-      </div>
+            )}
+          </div>
 
-      <!-- Section Title & Active Filters Count -->
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-200">
-        <div>
-          <h2 class="font-heading font-black text-2xl text-slate-900 uppercase">
-            {activeCategoryName}
-          </h2>
-          <p class="text-xs text-slate-500 mt-0.5">
-            Showing {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, totalProducts)} of {totalProducts} products
-          </p>
-        </div>
+          <!-- Vertical Category Accordion List -->
+          <div class="space-y-1 divide-y divide-slate-100 text-sm font-heading select-none">
+            <a 
+              href="/shop" 
+              class={`block py-3 px-2 font-bold uppercase tracking-wider transition-colors rounded-lg ${!currentCategory ? 'text-[#2B447A] font-extrabold bg-blue-50/60' : 'text-slate-700 hover:text-slate-900'}`}
+            >
+              ALL PRODUCTS
+            </a>
 
-        {currentCategory && (
-          <a href="/shop" class="text-xs text-[#2B55FF] font-bold hover:underline flex items-center gap-1">
-            ✕ Clear Category Filter
-          </a>
-        )}
-      </div>
+            {categoryStructure.map((cat, catIndex) => {
+              const hasSubs = cat.subcategories && cat.subcategories.length > 0;
+              const isCatActive = currentCategory === cat.handle || cat.subcategories?.some(s => s.handle === currentCategory);
 
-      <!-- Products Grid -->
-      {errorMsg ? (
-        <div class="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-md mx-auto my-12">
-          <p class="text-red-600 font-bold text-sm mb-2">{errorMsg}</p>
-          <p class="text-slate-500 text-xs">Please try refreshing the page or check back later.</p>
-        </div>
-      ) : paginatedProducts.length === 0 ? (
-        <div class="text-center py-20 bg-white rounded-2xl border border-slate-200 shadow-xs max-w-lg mx-auto">
-          <ShoppingBag class="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <h3 class="font-heading font-black text-slate-800 text-lg">No products found in this category</h3>
-          <p class="text-slate-500 text-xs mt-1 mb-6">Try selecting another category or view all products.</p>
-          <a href="/shop" class="inline-block bg-[#2B447A] text-white font-heading font-bold text-xs uppercase px-6 py-3 rounded-xl">
-            View All Products
-          </a>
-        </div>
-      ) : (
-        <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {paginatedProducts.map((product) => {
-            const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
-            const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
-            const firstVariant = product.variants?.edges[0]?.node;
-            const imageUrl = product.featuredImageUrl;
-
-            return (
-              <div class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col group">
-                <!-- Product Image Container -->
-                <a href={`/shop/${product.handle}`} class="relative block w-full aspect-square bg-slate-100 overflow-hidden">
-                  <img 
-                    src={imageUrl} 
-                    alt={product.featuredImage?.altText || product.title}
-                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-xs text-slate-900 text-xs font-black px-2.5 py-1 rounded-full shadow-md font-heading">
-                    ${minPrice} {currency}
-                  </div>
-                </a>
-
-                <!-- Product Content -->
-                <div class="p-5 flex flex-col flex-1">
-                  <a href={`/shop/${product.handle}`} class="block mb-2">
-                    <h3 class="font-heading font-black text-sm text-slate-900 group-hover:text-[#2B55FF] transition-colors line-clamp-2 uppercase">
-                      {product.title}
-                    </h3>
-                  </a>
-
-                  {product.description && (
-                    <p class="text-xs text-slate-500 line-clamp-2 mb-4 font-sans leading-relaxed">
-                      {product.description}
-                    </p>
-                  )}
-
-                  <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
-                    <a 
-                      href={`/shop/${product.handle}`} 
-                      class="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-heading font-bold text-xs uppercase tracking-wider py-2.5 px-3 rounded-xl text-center transition-colors"
-                    >
-                      View Product
-                    </a>
-                    {firstVariant && (
+              return (
+                <div class="pt-2 pb-1">
+                  {hasSubs ? (
+                    <div>
                       <button 
                         type="button" 
-                        class="bg-[#2B55FF] hover:bg-[#1D4ED8] text-white p-2.5 rounded-xl transition-colors shadow-sm cursor-pointer add-to-cart-quick-btn"
-                        data-variant-id={firstVariant.id}
-                        data-product-id={product.id}
-                        data-title={product.title}
-                        data-price={firstVariant.price?.amount || minPrice}
-                        data-image={imageUrl}
-                        data-handle={product.handle}
-                        title="Add to Cart"
+                        class="w-full flex items-center justify-between py-2.5 px-2 font-black text-slate-900 uppercase tracking-wider hover:text-[#2B447A] transition-colors cursor-pointer text-left cat-toggle-btn"
+                        data-target={`cat-sub-${catIndex}`}
                       >
-                        <ShoppingBag class="w-4 h-4" />
+                        <span class={isCatActive ? 'text-[#2B447A]' : ''}>{cat.title}</span>
+                        <span class="text-slate-400 text-base font-normal font-mono font-bold cat-icon">
+                          {isCatActive ? '-' : '+'}
+                        </span>
                       </button>
-                    )}
-                  </div>
+
+                      <div id={`cat-sub-${catIndex}`} class={`pl-4 space-y-2 py-2 ${isCatActive ? '' : 'hidden'}`}>
+                        {cat.subcategories.map(sub => {
+                          const isSubActive = currentCategory === sub.handle;
+                          return (
+                            <a 
+                              href={`/shop?category=${sub.handle}`}
+                              class={`block text-xs uppercase tracking-wide transition-colors py-1.5 px-2 rounded-md ${isSubActive ? 'text-[#2B447A] font-black bg-blue-50' : 'text-slate-600 hover:text-slate-900 font-semibold'}`}
+                            >
+                              {sub.title}
+                            </a>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    <a 
+                      href={`/shop?category=${cat.handle}`}
+                      class={`block py-3 px-2 font-black uppercase tracking-wider transition-colors hover:text-[#2B447A] ${currentCategory === cat.handle ? 'text-[#2B447A] bg-blue-50/60 rounded-lg' : 'text-slate-900'}`}
+                    >
+                      {cat.title}
+                    </a>
+                  )}
                 </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              );
+            })}
+          </div>
 
-      <!-- PAGINADOR (12 Productos por página) -->
-      {totalPages > 1 && (
-        <div class="mt-14 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200">
-          <p class="text-xs font-semibold text-slate-500">
-            Page <strong class="text-slate-900">{validPage}</strong> of <strong class="text-slate-900">{totalPages}</strong>
-          </p>
+          <!-- Trust Badge sidebar -->
+          <div class="pt-4 border-t border-slate-100 text-center">
+            <div class="inline-flex items-center gap-1.5 text-xs text-slate-500 font-medium">
+              <ShieldCheck class="w-4 h-4 text-emerald-500" />
+              <span>In-Stock Official Apparel</span>
+            </div>
+          </div>
 
-          <div class="flex items-center gap-2">
-            <!-- Previous Button -->
-            {validPage > 1 ? (
-              <a 
-                href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${validPage - 1}`}
-                class="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl font-heading font-bold text-xs uppercase transition-colors inline-flex items-center gap-1"
-              >
-                <ChevronLeft class="w-4 h-4" /> Previous
+        </aside>
+
+        <!-- RIGHT COLUMN: PRODUCTS GRID + PAGINATOR (Matching Image 1) -->
+        <div class="lg:col-span-9 space-y-8">
+          
+          <!-- Category Header Bar -->
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+            <div>
+              <h2 class="font-heading font-black text-xl md:text-2xl text-slate-900 uppercase">
+                {activeCategoryTitle}
+              </h2>
+              <p class="text-xs text-slate-500 mt-0.5">
+                Showing {totalProducts === 0 ? 0 : startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, totalProducts)} of {totalProducts} in-stock items
+              </p>
+            </div>
+          </div>
+
+          <!-- Products Grid (No Borders, Clean White Layout matching Image 1) -->
+          {errorMsg ? (
+            <div class="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-md mx-auto my-12">
+              <p class="text-red-600 font-bold text-sm mb-2">{errorMsg}</p>
+            </div>
+          ) : paginatedProducts.length === 0 ? (
+            <div class="text-center py-20 bg-slate-50 rounded-2xl border border-slate-200 max-w-lg mx-auto">
+              <ShoppingBag class="w-12 h-12 text-slate-300 mx-auto mb-3" />
+              <h3 class="font-heading font-black text-slate-800 text-lg">No in-stock products in this category</h3>
+              <p class="text-slate-500 text-xs mt-1 mb-6">Select another category to view available items.</p>
+              <a href="/shop" class="inline-block bg-[#2B447A] text-white font-heading font-bold text-xs uppercase px-6 py-3 rounded-full">
+                View All Products
               </a>
-            ) : (
-              <span class="px-4 py-2 bg-slate-100 text-slate-400 border border-slate-200 rounded-xl font-heading font-bold text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
-                <ChevronLeft class="w-4 h-4" /> Previous
-              </span>
-            )}
+            </div>
+          ) : (
+            <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10">
+              {paginatedProducts.map((product) => {
+                const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
+                const imageUrl = product.featuredImageUrl || '/assets/home/imgi_19_shop.webp';
+                const firstVariant = product.variantsList[0];
 
-            <!-- Page Number Buttons -->
-            <div class="hidden sm:flex items-center gap-1">
-              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
-                const isCurrent = pageNum === validPage;
                 return (
-                  <a 
-                    href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${pageNum}`}
-                    class={`w-9 h-9 rounded-xl flex items-center justify-center font-heading font-bold text-xs transition-colors ${
-                      isCurrent 
-                        ? 'bg-[#2B447A] text-white shadow-sm' 
-                        : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
-                    }`}
-                  >
-                    {pageNum}
-                  </a>
+                  <div class="flex flex-col bg-white group text-left select-none">
+                    
+                    <!-- Image Container (Clean White Background, Hover Zoom) -->
+                    <a href={`/shop/${product.handle}`} class="block relative w-full aspect-square bg-slate-50 rounded-2xl overflow-hidden mb-4 border border-slate-100">
+                      <img 
+                        src={imageUrl} 
+                        alt={product.title}
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                    </a>
+
+                    <!-- Product Title -->
+                    <a href={`/shop/${product.handle}`} class="block mb-1.5">
+                      <h3 class="font-heading font-bold text-sm text-[#2B447A] group-hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                        {product.title}
+                      </h3>
+                    </a>
+
+                    <!-- Price ($XX.YY USD) -->
+                    <div class="mb-3 font-heading font-black text-lg text-slate-900">
+                      ${minPrice}
+                    </div>
+
+                    <!-- Color Swatches & Size Pills (Matching Image 1) -->
+                    <div class="space-y-2 mb-4">
+                      <!-- Colors -->
+                      {product.colors && product.colors.length > 0 && (
+                        <div class="flex items-center gap-1.5">
+                          {product.colors.slice(0, 5).map((color: any) => (
+                            <span 
+                              class="w-4 h-4 rounded-full border border-slate-300 shadow-2xs inline-block"
+                              style={`background-color: ${color.hex}`}
+                              title={color.name}
+                            ></span>
+                          ))}
+                        </div>
+                      )}
+
+                      <!-- Sizes Pills -->
+                      {product.sizes && product.sizes.length > 0 && (
+                        <div class="flex flex-wrap items-center gap-1">
+                          {product.sizes.slice(0, 5).map((size: string) => (
+                            <span class="w-6 h-6 rounded-full border border-slate-300 text-[10px] font-bold text-slate-600 flex items-center justify-center bg-white uppercase">
+                              {size}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <!-- ADD TO CART Button (Solid Blue Pill Button matching Image 1) -->
+                    <div class="mt-auto pt-1">
+                      {firstVariant && (
+                        <button 
+                          type="button" 
+                          class="w-full bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-extrabold text-xs uppercase tracking-wider py-3 px-4 rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer add-to-cart-quick-btn"
+                          data-variant-id={firstVariant.id}
+                          data-product-id={product.id}
+                          data-title={product.title}
+                          data-price={firstVariant.price?.amount || minPrice}
+                          data-image={imageUrl}
+                          data-handle={product.handle}
+                        >
+                          ADD TO CART
+                        </button>
+                      )}
+                    </div>
+
+                  </div>
                 );
               })}
             </div>
+          )}
 
-            <!-- Next Button -->
-            {validPage < totalPages ? (
-              <a 
-                href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${validPage + 1}`}
-                class="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl font-heading font-bold text-xs uppercase transition-colors inline-flex items-center gap-1"
-              >
-                Next <ChevronRight class="w-4 h-4" />
-              </a>
-            ) : (
-              <span class="px-4 py-2 bg-slate-100 text-slate-400 border border-slate-200 rounded-xl font-heading font-bold text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
-                Next <ChevronRight class="w-4 h-4" />
-              </span>
-            )}
-          </div>
+          <!-- PAGINADOR INTERACTIVO (12 Productos por página) -->
+          {totalPages > 1 && (
+            <div class="mt-14 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-100">
+              <p class="text-xs font-semibold text-slate-500 font-heading">
+                Page <strong class="text-slate-900">{validPage}</strong> of <strong class="text-slate-900">{totalPages}</strong>
+              </p>
+
+              <div class="flex items-center gap-2 font-heading">
+                <!-- Previous Button -->
+                {validPage > 1 ? (
+                  <a 
+                    href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${validPage - 1}`}
+                    class="px-4 py-2.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-full font-extrabold text-xs uppercase transition-colors inline-flex items-center gap-1 shadow-2xs"
+                  >
+                    <ChevronLeft class="w-4 h-4" /> Previous
+                  </a>
+                ) : (
+                  <span class="px-4 py-2.5 bg-slate-50 text-slate-300 border border-slate-200/60 rounded-full font-extrabold text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
+                    <ChevronLeft class="w-4 h-4" /> Previous
+                  </span>
+                )}
+
+                <!-- Page Number Buttons -->
+                <div class="hidden sm:flex items-center gap-1.5">
+                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
+                    const isCurrent = pageNum === validPage;
+                    return (
+                      <a 
+                        href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${pageNum}`}
+                        class={`w-9 h-9 rounded-full flex items-center justify-center font-black text-xs transition-all ${
+                          isCurrent 
+                            ? 'bg-[#2B447A] text-white shadow-md' 
+                            : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
+                        }`}
+                      >
+                        {pageNum}
+                      </a>
+                    );
+                  })}
+                </div>
+
+                <!-- Next Button -->
+                {validPage < totalPages ? (
+                  <a 
+                    href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${validPage + 1}`}
+                    class="px-4 py-2.5 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-full font-extrabold text-xs uppercase transition-colors inline-flex items-center gap-1 shadow-2xs"
+                  >
+                    Next <ChevronRight class="w-4 h-4" />
+                  </a>
+                ) : (
+                  <span class="px-4 py-2.5 bg-slate-50 text-slate-300 border border-slate-200/60 rounded-full font-extrabold text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
+                    Next <ChevronRight class="w-4 h-4" />
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+
         </div>
-      )}
 
-    </section>
-
-    <!-- Trust Badges Bar (Limpio de texto 'Headless') -->
-    <section class="w-full bg-white border-t border-slate-200 py-12 px-6">
-      <div class="max-w-[1180px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-        <div class="flex flex-col items-center">
-          <div class="w-12 h-12 bg-blue-50 text-[#2B447A] rounded-2xl flex items-center justify-center mb-3">
-            <ShieldCheck class="w-6 h-6" />
-          </div>
-          <h4 class="font-heading font-bold text-sm text-slate-900 uppercase">Secure Shopify Checkout</h4>
-          <p class="text-xs text-slate-500 mt-1 max-w-xs">All purchases are processed securely with SSL encryption by Shopify.</p>
-        </div>
-
-        <div class="flex flex-col items-center">
-          <div class="w-12 h-12 bg-blue-50 text-[#2B447A] rounded-2xl flex items-center justify-center mb-3">
-            <Tag class="w-6 h-6" />
-          </div>
-          <h4 class="font-heading font-bold text-sm text-slate-900 uppercase">Authentic Merchandise</h4>
-          <p class="text-xs text-slate-500 mt-1 max-w-xs">Directly from Robbie's of Islamorada Marina in the Florida Keys.</p>
-        </div>
-
-        <div class="flex flex-col items-center">
-          <div class="w-12 h-12 bg-blue-50 text-[#2B447A] rounded-2xl flex items-center justify-center mb-3">
-            <ShoppingBag class="w-6 h-6" />
-          </div>
-          <h4 class="font-heading font-bold text-sm text-slate-900 uppercase">Lightning Fast Storefront</h4>
-          <p class="text-xs text-slate-500 mt-1 max-w-xs">Browse our official catalog instantly with modern web performance.</p>
-        </div>
       </div>
+
     </section>
   </main>
 
@@ -307,10 +376,31 @@ const activeCategoryName = activeCollectionObj ? activeCollectionObj.title : 'Al
 </Layout>
 
 <script is:inline>
-  document.addEventListener('DOMContentLoaded', initQuickAdd);
-  document.addEventListener('astro:page-load', initQuickAdd);
+  document.addEventListener('DOMContentLoaded', initShopPage);
+  document.addEventListener('astro:page-load', initShopPage);
 
-  function initQuickAdd() {
+  function initShopPage() {
+    // Accordion Toggles for Left Sidebar
+    document.querySelectorAll('.cat-toggle-btn').forEach(btn => {
+      btn.onclick = () => {
+        const targetId = btn.getAttribute('data-target');
+        const targetEl = document.getElementById(targetId);
+        const icon = btn.querySelector('.cat-icon');
+
+        if (targetEl) {
+          const isHidden = targetEl.classList.contains('hidden');
+          if (isHidden) {
+            targetEl.classList.remove('hidden');
+            if (icon) icon.textContent = '-';
+          } else {
+            targetEl.classList.add('hidden');
+            if (icon) icon.textContent = '+';
+          }
+        }
+      };
+    });
+
+    // Quick Add to Cart Button Handlers
     document.querySelectorAll('.add-to-cart-quick-btn').forEach(btn => {
       btn.onclick = () => {
         const variantId = btn.getAttribute('data-variant-id');

@@ -489,6 +489,22 @@
             {
               "status": "completed",
               "text": "Cleaned all technical Headless copy from store UI"
+            },
+            {
+              "status": "completed",
+              "text": "Filtered out-of-stock items (Available in-stock products only)"
+            },
+            {
+              "status": "completed",
+              "text": "Redesigned Product Cards with Color Swatches, Size Pills & ADD TO CART Pill Button (Matching Image 1)"
+            },
+            {
+              "status": "completed",
+              "text": "Left Sidebar Category Accordion (MEN, WOMEN, KIDS, TODDLERS, HATS, SOUVENIRS - Matching Image 2)"
+            },
+            {
+              "status": "completed",
+              "text": "Fixed 12-Item Interactive Paginator with Previous/Next & Page Numbers"
             }
           ]
         },
