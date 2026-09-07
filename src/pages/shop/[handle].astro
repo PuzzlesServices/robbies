@@ -294,7 +294,10 @@ const firstVariant = variants[0];
       if (buyNowBtn) {
         buyNowBtn.onclick = async () => {
           const variantId = addToCartBtn?.getAttribute('data-selected-variant-id');
-          if (!variantId) return;
+          if (!variantId || variantId === 'undefined') {
+            alert('Please select a valid option/variant.');
+            return;
+          }
 
           buyNowBtn.disabled = true;
           buyNowBtn.innerHTML = '<span>Creating Checkout...</span>';
@@ -305,6 +308,10 @@ const firstVariant = variants[0];
                 cartCreate(input: $input) {
                   cart {
                     checkoutUrl
+                  }
+                  userErrors {
+                    field
+                    message
                   }
                 }
               }
@@ -320,6 +327,22 @@ const firstVariant = variants[0];
             });
 
             const json = await res.json();
+
+            if (json.errors && json.errors.length > 0) {
+              alert(`Shopify Error: ${json.errors[0].message}`);
+              buyNowBtn.disabled = false;
+              buyNowBtn.innerHTML = '<span>Buy Now</span>';
+              return;
+            }
+
+            const userErrors = json.data?.cartCreate?.userErrors;
+            if (userErrors && userErrors.length > 0) {
+              alert(`Shopify Error: ${userErrors[0].message}`);
+              buyNowBtn.disabled = false;
+              buyNowBtn.innerHTML = '<span>Buy Now</span>';
+              return;
+            }
+
             const checkoutUrl = json.data?.cartCreate?.cart?.checkoutUrl;
 
             if (checkoutUrl) {

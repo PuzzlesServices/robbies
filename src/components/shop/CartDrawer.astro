@@ -226,7 +226,17 @@ import { ShoppingBag, X, Trash2, ArrowRight, ShieldCheck } from '@lucide/astro';
       if (checkoutBtn) {
         checkoutBtn.onclick = async () => {
           const cart = getLocalCart();
-          if (cart.length === 0) return;
+          if (cart.length === 0) {
+            alert('Your cart is empty.');
+            return;
+          }
+
+          // Validate variant IDs
+          const invalidItem = cart.find(i => !i.variantId || i.variantId === 'undefined');
+          if (invalidItem) {
+            alert(`Error: Product "${invalidItem.title}" has no valid variant selected. Please remove it and add it again.`);
+            return;
+          }
 
           checkoutBtn.disabled = true;
           checkoutBtn.innerHTML = '<span>Creating Checkout...</span>';
@@ -234,7 +244,7 @@ import { ShoppingBag, X, Trash2, ArrowRight, ShieldCheck } from '@lucide/astro';
           try {
             const lineItems = cart.map(i => ({
               merchandiseId: i.variantId,
-              quantity: i.quantity
+              quantity: parseInt(i.quantity) || 1
             }));
 
             // Call Storefront GraphQL API to create Cart
@@ -243,6 +253,10 @@ import { ShoppingBag, X, Trash2, ArrowRight, ShieldCheck } from '@lucide/astro';
                 cartCreate(input: $input) {
                   cart {
                     checkoutUrl
+                  }
+                  userErrors {
+                    field
+                    message
                   }
                 }
               }
@@ -258,18 +272,38 @@ import { ShoppingBag, X, Trash2, ArrowRight, ShieldCheck } from '@lucide/astro';
             });
 
             const json = await res.json();
+            
+            if (json.errors && json.errors.length > 0) {
+              console.error('Shopify GraphQL Errors:', json.errors);
+              alert(`Shopify Error: ${json.errors[0].message}`);
+              checkoutBtn.disabled = false;
+              checkoutBtn.innerHTML = '<span>Proceed to Checkout</span>';
+              return;
+            }
+
+            const userErrors = json.data?.cartCreate?.userErrors;
+            if (userErrors && userErrors.length > 0) {
+              console.error('Shopify Cart User Errors:', userErrors);
+              alert(`Shopify Error: ${userErrors[0].message}`);
+              checkoutBtn.disabled = false;
+              checkoutBtn.innerHTML = '<span>Proceed to Checkout</span>';
+              return;
+            }
+
             const checkoutUrl = json.data?.cartCreate?.cart?.checkoutUrl;
 
             if (checkoutUrl) {
+              // Clear local cart upon successful redirection
+              localStorage.removeItem('robbies_cart');
               window.location.href = checkoutUrl;
             } else {
-              alert('Error creating checkout URL. Please try again.');
+              alert('Error creating checkout URL from Shopify. Please try again.');
               checkoutBtn.disabled = false;
               checkoutBtn.innerHTML = '<span>Proceed to Checkout</span>';
             }
           } catch(err) {
-            console.error('Checkout error:', err);
-            alert('Could not connect to Shopify Checkout.');
+            console.error('Checkout exception:', err);
+            alert('Could not connect to Shopify Checkout. Please check your internet connection.');
             checkoutBtn.disabled = false;
             checkoutBtn.innerHTML = '<span>Proceed to Checkout</span>';
           }
