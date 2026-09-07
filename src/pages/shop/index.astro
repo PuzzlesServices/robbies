@@ -151,6 +151,26 @@ const categoryStructure = [
                 Loading products...
               </p>
             </div>
+
+            <!-- General Sort By Filter Dropdown -->
+            <div class="flex items-center gap-2 select-none">
+              <label for="catalog-sort-select" class="text-xs font-black font-heading uppercase text-slate-500 shrink-0">
+                Sort By:
+              </label>
+              <div class="relative">
+                <select 
+                  id="catalog-sort-select" 
+                  class="bg-slate-50 hover:bg-slate-100 border border-slate-200 text-slate-800 text-xs font-black font-heading rounded-xl px-3.5 py-2 pr-8 uppercase appearance-none cursor-pointer focus:ring-2 focus:ring-[#2B447A] focus:outline-none transition-all shadow-2xs"
+                >
+                  <option value="featured">Featured</option>
+                  <option value="newest">Most Recent</option>
+                  <option value="price-low">Price: Low to High</option>
+                  <option value="price-high">Price: High to Low</option>
+                  <option value="name-asc">Alphabetical: A-Z</option>
+                </select>
+                <ChevronDown class="w-3.5 h-3.5 text-slate-500 absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none" />
+              </div>
+            </div>
           </div>
 
           <!-- Products Grid Container -->
@@ -203,21 +223,25 @@ const categoryStructure = [
 
     let state = {
       category: '',
-      page: 1
+      page: 1,
+      sort: 'featured'
     };
 
     function parseUrlState() {
       const urlParams = new URLSearchParams(window.location.search);
       state.category = urlParams.get('category') || '';
       state.page = Math.max(1, parseInt(urlParams.get('page') || '1', 10));
+      state.sort = urlParams.get('sort') || 'featured';
     }
 
-    function updateUrlState(newCategory, newPage, pushHistory = true) {
+    function updateUrlState(newCategory, newPage, newSort, pushHistory = true) {
       state.category = newCategory !== undefined ? newCategory : state.category;
       state.page = newPage !== undefined ? newPage : state.page;
+      state.sort = newSort !== undefined ? newSort : state.sort;
 
       const params = new URLSearchParams();
       if (state.category) params.set('category', state.category);
+      if (state.sort && state.sort !== 'featured') params.set('sort', state.sort);
       if (state.page > 1) params.set('page', state.page.toString());
 
       const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
@@ -228,18 +252,39 @@ const categoryStructure = [
       renderCatalog();
     }
 
-    function getFilteredProducts() {
-      if (!state.category) return dataset.allProducts;
-      
-      const catHandle = state.category.toLowerCase();
-      
-      return dataset.allProducts.filter(p => {
-        if (p.collectionHandles && p.collectionHandles.includes(catHandle)) return true;
-        if (p.tags && p.tags.some(t => t.toLowerCase().replace(/\s+/g, '-') === catHandle || t.toLowerCase() === catHandle)) return true;
-        if (p.handle && p.handle.includes(catHandle)) return true;
-        if (p.productType && p.productType.toLowerCase().replace(/\s+/g, '-').includes(catHandle)) return true;
-        return false;
-      });
+    function getFilteredAndSortedProducts() {
+      let products = dataset.allProducts || [];
+
+      if (state.category) {
+        const catHandle = state.category.toLowerCase();
+        products = products.filter(p => {
+          if (p.collectionHandles && p.collectionHandles.includes(catHandle)) return true;
+          if (p.tags && p.tags.some(t => t.toLowerCase().replace(/\s+/g, '-') === catHandle || t.toLowerCase() === catHandle)) return true;
+          if (p.handle && p.handle.includes(catHandle)) return true;
+          if (p.productType && p.productType.toLowerCase().replace(/\s+/g, '-').includes(catHandle)) return true;
+          return false;
+        });
+      }
+
+      if (state.sort === 'newest') {
+        products = [...products].reverse();
+      } else if (state.sort === 'price-low') {
+        products = [...products].sort((a, b) => {
+          const priceA = parseFloat(a.priceRange?.minVariantPrice?.amount || '0');
+          const priceB = parseFloat(b.priceRange?.minVariantPrice?.amount || '0');
+          return priceA - priceB;
+        });
+      } else if (state.sort === 'price-high') {
+        products = [...products].sort((a, b) => {
+          const priceA = parseFloat(a.priceRange?.minVariantPrice?.amount || '0');
+          const priceB = parseFloat(b.priceRange?.minVariantPrice?.amount || '0');
+          return priceB - priceA;
+        });
+      } else if (state.sort === 'name-asc') {
+        products = [...products].sort((a, b) => a.title.localeCompare(b.title));
+      }
+
+      return products;
     }
 
     function getActiveTitle() {
@@ -434,7 +479,7 @@ const categoryStructure = [
     }
 
     function renderCatalog() {
-      const filteredProducts = getFilteredProducts();
+      const filteredProducts = getFilteredAndSortedProducts();
       const totalProducts = filteredProducts.length;
       const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE) || 1;
 
@@ -442,6 +487,11 @@ const categoryStructure = [
 
       const startIndex = (state.page - 1) * ITEMS_PER_PAGE;
       const paginatedProducts = filteredProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+      const sortSelect = document.getElementById('catalog-sort-select');
+      if (sortSelect) {
+        sortSelect.value = state.sort;
+      }
 
       // 1. Update Title Header
       const headerTitle = document.getElementById('active-category-header-title');
@@ -946,6 +996,13 @@ const categoryStructure = [
       const emptyResetBtn = document.getElementById('empty-reset-btn');
       if (emptyResetBtn) {
         emptyResetBtn.onclick = () => updateUrlState('', 1);
+      }
+
+      const sortSelect = document.getElementById('catalog-sort-select');
+      if (sortSelect) {
+        sortSelect.onchange = (e) => {
+          updateUrlState(undefined, 1, e.target.value);
+        };
       }
 
       window.onpopstate = () => {

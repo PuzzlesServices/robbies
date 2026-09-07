@@ -557,6 +557,10 @@
             {
               "status": "completed",
               "text": "Fixed product image cropping across shop grid and detail pages using object-contain fitting"
+            },
+            {
+              "status": "completed",
+              "text": "Added 'Sort By' dropdown filter (Featured, Most Recent, Price Low-High, Price High-Low, Alphabetical A-Z) aligned next to main catalog category header"
             }
           ]
         },
