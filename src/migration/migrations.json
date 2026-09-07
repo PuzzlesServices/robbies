@@ -565,6 +565,10 @@
             {
               "status": "completed",
               "text": "Enhanced product detail page (/shop/[handle]): removed redundant badges, adjusted title font size, added touch finger swipe & arrows for mobile gallery, and added interactive 'Write a Review' form"
+            },
+            {
+              "status": "completed",
+              "text": "Replaced Google search in Header with internal product search: instant live autocomplete results with thumbnails & direct filtering in /shop catalog"
             }
           ]
         },

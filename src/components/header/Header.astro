@@ -656,8 +656,7 @@ const visitorMega = {
 
       <div class="pt-8 pb-4 flex flex-col gap-4">
         <a 
-          href="https://shop.robbies.com/" 
-          target="_blank"
+          href="/shop" 
           class="w-full py-3.5 bg-[#2B55FF] hover:bg-[#1D4ED8] text-white font-bold rounded-xl text-center flex items-center justify-center space-x-2 shadow-lg transition-colors text-sm uppercase tracking-wider"
         >
           <ShoppingBag class="w-5 h-5" />
@@ -666,9 +665,9 @@ const visitorMega = {
 
         <a 
           href="tel:3056648070" 
-          class="w-full py-3.5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-xl text-center flex items-center justify-center space-x-2 border border-white/20 transition-colors text-sm uppercase tracking-wider"
+          class="w-full bg-white/10 hover:bg-white/20 text-white font-bold py-3.5 px-4 rounded-xl flex items-center justify-center space-x-2 text-sm uppercase tracking-wider border border-white/20 transition-colors"
         >
-          <Phone class="w-5 h-5 fill-white stroke-none" />
+          <Phone class="w-4 h-4 fill-white stroke-none" />
           <span>Call (305) 664-8070</span>
         </a>
       </div>
@@ -681,54 +680,69 @@ const visitorMega = {
     class="fixed inset-0 bg-slate-950/70 backdrop-blur-sm z-40 hidden transition-opacity"
   ></div>
 
-  <!-- Search Modal Overlay -->
+  <!-- Search Modal Overlay (Product Storefront Search) -->
   <div 
     id="search-modal"
     class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4"
   >
-    <div class="bg-[#2B447A] border border-white/20 rounded-2xl p-6 w-full max-w-lg shadow-2xl relative">
+    <div class="bg-[#2B447A] border border-white/20 rounded-3xl p-6 sm:p-8 w-full max-w-xl shadow-2xl relative text-left">
       <button 
         id="close-search-btn"
-        class="absolute top-4 right-4 text-slate-300 hover:text-white p-1"
+        class="absolute top-5 right-5 text-slate-300 hover:text-white p-1.5 rounded-full hover:bg-white/10 transition-colors cursor-pointer"
         aria-label="Close search"
       >
         <X class="w-6 h-6" />
       </button>
 
-      <h3 class="text-white text-lg font-bold mb-4 font-heading">Search Robbie's of Islamorada</h3>
-      <form action="https://www.google.com/search" method="get" target="_blank" class="flex gap-2">
-        <input 
-          type="hidden" 
-          name="q" 
-          value="site:robbies.com" 
-        />
-        <input 
-          type="text" 
-          name="q"
-          placeholder="What are you looking for?"
-          class="flex-1 bg-white/10 text-white placeholder-slate-300 px-4 py-3 rounded-xl border border-white/20 focus:outline-none focus:border-[#2B55FF] text-sm"
-          required
-        />
+      <div class="flex items-center gap-2 mb-1">
+        <ShoppingBag class="w-4 h-4 text-blue-300" />
+        <span class="text-[11px] font-black uppercase text-blue-300 tracking-wider">Product Catalog Search</span>
+      </div>
+      <h3 class="text-white text-xl sm:text-2xl font-black mb-4 font-heading uppercase">Search Robbie's Products</h3>
+      
+      <form action="/shop" method="get" class="flex gap-2 relative">
+        <div class="relative flex-1">
+          <input 
+            type="text" 
+            id="header-search-input"
+            name="q"
+            placeholder="Type a product name (e.g. Tarpon, Hat, Shirt)..."
+            class="w-full bg-white/15 text-white placeholder-slate-300 pl-4 pr-10 py-3.5 rounded-2xl border border-white/20 focus:outline-none focus:border-white focus:bg-white/25 text-sm font-medium transition-all"
+            required
+            autocomplete="off"
+          />
+          <button 
+            type="button" 
+            id="clear-header-search-btn"
+            class="hidden absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white p-1 text-xs font-bold cursor-pointer"
+          >
+            ✕
+          </button>
+        </div>
+
         <button 
           type="submit"
-          class="bg-[#2B55FF] hover:bg-[#1D4ED8] text-white font-normal px-6 py-3 rounded-xl transition-colors flex items-center space-x-2 text-sm font-bold"
+          class="bg-[#2B55FF] hover:bg-blue-600 text-white font-heading font-black px-6 py-3.5 rounded-2xl transition-all flex items-center space-x-2 text-xs sm:text-sm uppercase tracking-wider shadow-md hover:shadow-lg cursor-pointer shrink-0"
         >
-          <Search class="w-5 h-5" />
+          <Search class="w-4 h-4 stroke-[2.5]" />
           <span>Search</span>
         </button>
       </form>
+
+      <!-- Live Search Instant Results Container -->
+      <div id="header-search-results" class="hidden mt-4 space-y-2 max-h-80 overflow-y-auto pr-1 scrollbar-thin">
+        <!-- Live items rendered dynamically -->
+      </div>
     </div>
   </div>
 </header>
 
 <script is:inline>
-  // Utilizar IIFE y data attributes para evitar registrar los eventos dos veces (el bug del toggle)
   (function() {
     function initHeaderScripts() {
       if (document.body.dataset.headerScriptsActive === 'true') return;
       document.body.dataset.headerScriptsActive = 'true';
 
-      // Desktop Mega Menu Hover Scripts
       const megaTriggers = document.querySelectorAll('.nav-mega-trigger');
       const megaPanels = document.querySelectorAll('.mega-menu-panel');
       let closeTimeout = null;
@@ -740,125 +754,210 @@ const visitorMega = {
             if (panel.classList.contains('opacity-0')) {
               panel.classList.add('hidden');
             }
-          }, 200);
+          }, 300);
         });
-      }
-
-      function showMega(megaId) {
-        clearTimeout(closeTimeout);
-        const targetPanel = document.getElementById(`mega-menu-${megaId}`);
-        
-        megaPanels.forEach(panel => {
-          if (panel !== targetPanel) {
-            panel.classList.add('hidden', 'opacity-0', 'pointer-events-none');
-          }
-        });
-
-        if (targetPanel) {
-          targetPanel.classList.remove('hidden', 'pointer-events-none');
-          requestAnimationFrame(() => {
-            targetPanel.classList.remove('opacity-0');
-          });
-        }
       }
 
       megaTriggers.forEach(trigger => {
-        const megaId = trigger.getAttribute('data-mega');
-        if (!megaId || !['activities', 'fishing', 'shop', 'contact', 'visitor'].includes(megaId)) return;
+        trigger.addEventListener('mouseenter', () => {
+          if (closeTimeout) clearTimeout(closeTimeout);
+          const megaId = trigger.getAttribute('data-mega');
+          const panel = document.getElementById(`mega-menu-${megaId}`);
 
-        trigger.addEventListener('mouseenter', () => showMega(megaId));
+          megaPanels.forEach(p => {
+            if (p !== panel) {
+              p.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+            }
+          });
+
+          if (panel) {
+            panel.classList.remove('hidden');
+            setTimeout(() => {
+              panel.classList.remove('opacity-0', 'pointer-events-none');
+            }, 10);
+          }
+        });
+
         trigger.addEventListener('mouseleave', () => {
-          closeTimeout = setTimeout(hideAllMega, 250);
+          closeTimeout = setTimeout(() => {
+            hideAllMega();
+          }, 200);
         });
       });
 
       megaPanels.forEach(panel => {
-        panel.addEventListener('mouseenter', () => clearTimeout(closeTimeout));
+        panel.addEventListener('mouseenter', () => {
+          if (closeTimeout) clearTimeout(closeTimeout);
+        });
+
         panel.addEventListener('mouseleave', () => {
-          closeTimeout = setTimeout(hideAllMega, 250);
+          closeTimeout = setTimeout(() => {
+            hideAllMega();
+          }, 200);
         });
       });
 
-      // Mobile Drawer Toggle (Usando .onclick para evitar listeners dobles)
       const toggleBtn = document.getElementById('mobile-menu-toggle');
       const closeBtn = document.getElementById('close-drawer-btn');
       const drawer = document.getElementById('mobile-menu-drawer');
       const backdrop = document.getElementById('mobile-drawer-backdrop');
-      const iconOpen = document.getElementById('menu-icon-open');
-      const iconClose = document.getElementById('menu-icon-close');
 
       function openDrawer() {
         if(drawer) drawer.classList.remove('-translate-x-full');
         if(backdrop) backdrop.classList.remove('hidden');
-        if(iconOpen) iconOpen.classList.add('hidden');
-        if(iconClose) iconClose.classList.remove('hidden');
         document.body.style.overflow = 'hidden';
       }
 
       function closeDrawer() {
         if(drawer) drawer.classList.add('-translate-x-full');
         if(backdrop) backdrop.classList.add('hidden');
-        if(iconOpen) iconOpen.classList.remove('hidden');
-        if(iconClose) iconClose.classList.add('hidden');
         document.body.style.overflow = '';
       }
 
-      if (toggleBtn) {
-        toggleBtn.onclick = () => {
-          const isOpen = !drawer?.classList.contains('-translate-x-full');
-          if (isOpen) closeDrawer();
-          else openDrawer();
-        };
-      }
-
+      if (toggleBtn) toggleBtn.onclick = openDrawer;
       if (closeBtn) closeBtn.onclick = closeDrawer;
       if (backdrop) backdrop.onclick = closeDrawer;
 
-      // Mobile Accordions (Usando .onclick)
       document.querySelectorAll('.mobile-accordion-btn').forEach(btn => {
         btn.onclick = () => {
           const targetId = btn.getAttribute('data-target');
           const targetEl = document.getElementById(targetId);
           const chevron = btn.querySelector('.acc-chevron');
-
           if (targetEl) {
-            const isHidden = targetEl.classList.contains('hidden');
-            if (isHidden) {
-              targetEl.classList.remove('hidden');
-              chevron?.classList.add('rotate-180');
-            } else {
-              targetEl.classList.add('hidden');
-              chevron?.classList.remove('rotate-180');
-            }
+            targetEl.classList.toggle('hidden');
+            chevron?.classList.toggle('rotate-180');
           }
         };
       });
 
-      // Search Modal (Usando .onclick)
       const searchTrigger = document.getElementById('search-trigger-btn');
+      const mobileSearchTriggers = document.querySelectorAll('.mobile-search-trigger-btn');
       const searchModal = document.getElementById('search-modal');
       const closeSearch = document.getElementById('close-search-btn');
+      const searchInput = document.getElementById('header-search-input');
+      const searchResults = document.getElementById('header-search-results');
+      const clearSearchBtn = document.getElementById('clear-header-search-btn');
 
-      if (searchTrigger) {
-        searchTrigger.onclick = () => {
-          if(searchModal) {
-            searchModal.classList.remove('hidden');
-            searchModal.classList.add('flex');
+      function openSearchModal() {
+        if (searchModal) {
+          searchModal.classList.remove('hidden');
+          searchModal.classList.add('flex');
+          if (searchInput) {
+            setTimeout(() => searchInput.focus(), 100);
           }
+        }
+      }
+
+      function closeSearchModal() {
+        if (searchModal) {
+          searchModal.classList.add('hidden');
+          searchModal.classList.remove('flex');
+        }
+      }
+
+      if (searchTrigger) searchTrigger.onclick = openSearchModal;
+      mobileSearchTriggers.forEach(btn => btn.onclick = openSearchModal);
+      if (closeSearch) closeSearch.onclick = closeSearchModal;
+
+      let debounceTimer = null;
+
+      if (searchInput && searchResults) {
+        searchInput.oninput = (e) => {
+          const query = e.target.value.trim();
+          if (clearSearchBtn) {
+            if (query.length > 0) clearSearchBtn.classList.remove('hidden');
+            else clearSearchBtn.classList.add('hidden');
+          }
+
+          if (query.length < 2) {
+            searchResults.innerHTML = '';
+            searchResults.classList.add('hidden');
+            return;
+          }
+
+          clearTimeout(debounceTimer);
+          debounceTimer = setTimeout(async () => {
+            try {
+              const res = await fetch('https://shop.robbies.com/api/2024-07/graphql.json', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                  'X-Shopify-Storefront-Access-Token': '0d87a6f954a1e1d67f633ecce7ddfd2b'
+                },
+                body: JSON.stringify({
+                  query: `
+                    query searchProducts($query: String!) {
+                      products(first: 6, query: $query) {
+                        edges {
+                          node {
+                            id
+                            title
+                            handle
+                            featuredImage { url altText }
+                            priceRange { minVariantPrice { amount currencyCode } }
+                          }
+                        }
+                      }
+                    }
+                  `,
+                  variables: { query }
+                })
+              });
+
+              const json = await res.json();
+              const products = json.data?.products?.edges?.map(e => e.node) || [];
+
+              if (products.length === 0) {
+                searchResults.innerHTML = `
+                  <div class="p-4 bg-white/10 rounded-2xl text-center text-xs text-slate-300 font-bold">
+                    No products found for "${query}"
+                  </div>
+                `;
+              } else {
+                searchResults.innerHTML = products.map(p => {
+                  const imgUrl = p.featuredImage?.url || '/assets/home/imgi_19_shop.webp';
+                  const price = parseFloat(p.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
+                  return `
+                    <a 
+                      href="/shop/${p.handle}" 
+                      class="flex items-center gap-3 p-2.5 bg-white/10 hover:bg-white/20 rounded-2xl transition-all group text-left"
+                    >
+                      <img src="${imgUrl}" alt="${p.title}" class="w-10 h-10 object-contain bg-white rounded-xl p-1 shrink-0" />
+                      <div class="flex-1 min-w-0">
+                        <h4 class="text-xs font-bold text-white group-hover:text-blue-300 truncate">${p.title}</h4>
+                        <span class="text-[11px] font-black text-blue-200">$${price} USD</span>
+                      </div>
+                      <span class="text-xs text-slate-300 font-bold group-hover:translate-x-1 transition-transform">→</span>
+                    </a>
+                  `;
+                }).join('') + `
+                  <a href="/shop?q=${encodeURIComponent(query)}" class="block text-center text-xs font-extrabold text-blue-200 hover:text-white pt-2 underline">
+                    View all results in Shop Catalog →
+                  </a>
+                `;
+              }
+
+              searchResults.classList.remove('hidden');
+            } catch (err) {
+              console.error('Search error:', err);
+            }
+          }, 200);
         };
       }
 
-      if (closeSearch) {
-        closeSearch.onclick = () => {
-          if(searchModal) {
-            searchModal.classList.add('hidden');
-            searchModal.classList.remove('flex');
+      if (clearSearchBtn && searchInput) {
+        clearSearchBtn.onclick = () => {
+          searchInput.value = '';
+          clearSearchBtn.classList.add('hidden');
+          if (searchResults) {
+            searchResults.innerHTML = '';
+            searchResults.classList.add('hidden');
           }
+          searchInput.focus();
         };
       }
     }
 
-    // Asegurar limpieza de flags de inicialización al cambiar de página con Astro ViewTransitions
     document.addEventListener('astro:before-swap', () => {
       document.body.dataset.headerScriptsActive = 'false';
     });

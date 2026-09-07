@@ -224,7 +224,8 @@ const categoryStructure = [
     let state = {
       category: '',
       page: 1,
-      sort: 'featured'
+      sort: 'featured',
+      search: ''
     };
 
     function parseUrlState() {
@@ -232,16 +233,19 @@ const categoryStructure = [
       state.category = urlParams.get('category') || '';
       state.page = Math.max(1, parseInt(urlParams.get('page') || '1', 10));
       state.sort = urlParams.get('sort') || 'featured';
+      state.search = (urlParams.get('q') || urlParams.get('search') || '').trim();
     }
 
-    function updateUrlState(newCategory, newPage, newSort, pushHistory = true) {
+    function updateUrlState(newCategory, newPage, newSort, newSearch, pushHistory = true) {
       state.category = newCategory !== undefined ? newCategory : state.category;
       state.page = newPage !== undefined ? newPage : state.page;
       state.sort = newSort !== undefined ? newSort : state.sort;
+      state.search = newSearch !== undefined ? newSearch : state.search;
 
       const params = new URLSearchParams();
       if (state.category) params.set('category', state.category);
       if (state.sort && state.sort !== 'featured') params.set('sort', state.sort);
+      if (state.search) params.set('q', state.search);
       if (state.page > 1) params.set('page', state.page.toString());
 
       const newRelativePathQuery = window.location.pathname + (params.toString() ? '?' + params.toString() : '');
@@ -254,6 +258,18 @@ const categoryStructure = [
 
     function getFilteredAndSortedProducts() {
       let products = dataset.allProducts || [];
+
+      if (state.search) {
+        const qLower = state.search.toLowerCase();
+        products = products.filter(p => {
+          if (p.title && p.title.toLowerCase().includes(qLower)) return true;
+          if (p.description && p.description.toLowerCase().includes(qLower)) return true;
+          if (p.productType && p.productType.toLowerCase().includes(qLower)) return true;
+          if (p.tags && p.tags.some(t => t.toLowerCase().includes(qLower))) return true;
+          if (p.handle && p.handle.toLowerCase().includes(qLower)) return true;
+          return false;
+        });
+      }
 
       if (state.category) {
         const catHandle = state.category.toLowerCase();
@@ -288,7 +304,8 @@ const categoryStructure = [
     }
 
     function getActiveTitle() {
-      if (!state.category) return 'All Products';
+      if (state.search) return `SEARCH RESULTS: "${state.search.toUpperCase()}"`;
+      if (!state.category) return 'ALL PRODUCTS';
       let title = state.category.toUpperCase().replace(/-/g, ' ');
 
       dataset.categoryStructure.forEach(cat => {
