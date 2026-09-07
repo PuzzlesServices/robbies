@@ -155,6 +155,8 @@ const showComingNext = migrationConfig.showComingNext;
                               ? 'bg-slate-50 border-slate-200 text-slate-700' 
                               : task.status === 'in_progress'
                               ? 'bg-blue-50/60 border-blue-200 text-blue-900 shadow-xs'
+                              : task.status === 'pending'
+                              ? 'bg-amber-50/70 border-amber-200/80 text-amber-900 shadow-xs'
                               : 'bg-slate-50/50 border-slate-100 text-slate-500'
                           }`}>
                             <div class="mt-0.5 shrink-0">
@@ -168,6 +170,11 @@ const showComingNext = migrationConfig.showComingNext;
                                   <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
                                 </div>
                               )}
+                              {task.status === 'pending' && (
+                                <div class="w-5 h-5 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-[10px]">
+                                  ⏸
+                                </div>
+                              )}
                               {task.status === 'planned' && (
                                 <div class="w-5 h-5 rounded-full bg-slate-200 text-slate-400 flex items-center justify-center">
                                   <div class="w-2 h-2 rounded-full bg-slate-400"></div>
@@ -176,9 +183,10 @@ const showComingNext = migrationConfig.showComingNext;
                             </div>
                             <div class="flex-1">
                               <span class="font-medium leading-snug block">{task.text}</span>
-                              <span class="text-[10px] uppercase font-bold tracking-wider mt-1 block opacity-75">
+                              <span class="text-[10px] uppercase font-bold tracking-wider mt-1 block opacity-90">
                                 {task.status === 'completed' && <span class="text-emerald-600">Completed</span>}
                                 {task.status === 'in_progress' && <span class="text-[#2B55FF]">In Progress</span>}
+                                {task.status === 'pending' && <span class="text-amber-700 font-extrabold bg-amber-100 px-2 py-0.5 rounded-md inline-block">On Hold / Pending</span>}
                                 {task.status === 'planned' && <span class="text-slate-400">Planned</span>}
                               </span>
                             </div>
