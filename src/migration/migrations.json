@@ -571,6 +571,10 @@
               "text": "Replaced Google search in Header with internal product search: instant live autocomplete results with thumbnails & direct filtering in /shop catalog"
             },
             {
+              "status": "completed",
+              "text": "Removed all external robbies.com / shop.robbies.com links across Header, TopBanner, Footer, and progressive-routing.ts, converting shop categories to internal relative routes (/shop?category=...)"
+            },
+            {
               "status": "pending",
               "text": "Judge.me Reviews Widget Styling & Pixel-Perfect Layout Alignment (Pending)"
             },

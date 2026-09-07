@@ -1,45 +1,46 @@
 ---
 import { MapPin, Clock, Mail, Phone, Globe } from '@lucide/astro';
+import { getProgressiveUrl } from '../../migration/progressive-routing';
 
 const activitiesList = [
-  { name: "Tarpon Feeding", url: "https://www.robbies.com/tarpon-feeding.htm" },
-  { name: "Jet-ski Adventures", url: "https://www.robbies.com/jet-ski.htm" },
-  { name: "Snorkeling", url: "https://www.robbies.com/snorkeling.htm" },
-  { name: "Snuba Diving", url: "https://www.robbies.com/snuba.htm" },
-  { name: "Kayak and Paddle Board Rentals/Tours", url: "https://www.robbies.com/kayak.htm" },
-  { name: "Sunset Cruises", url: "https://www.robbies.com/sunset-cruises.htm" },
-  { name: "Eco-Tours", url: "https://www.robbies.com/eco-tours.htm" },
-  { name: "Boat Rentals", url: "https://www.robbies.com/boat-rentals.htm" },
-  { name: "Glass Bottom Boat Tours", url: "https://www.robbies.com/glass-bottom.htm" },
-  { name: "Islamorada Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" }
+  { name: "Tarpon Feeding", url: "/" },
+  { name: "Jet-ski Adventures", url: "/" },
+  { name: "Snorkeling", url: "/" },
+  { name: "Snuba Diving", url: "/" },
+  { name: "Kayak and Paddle Board Rentals/Tours", url: "/" },
+  { name: "Sunset Cruises", url: "/" },
+  { name: "Eco-Tours", url: "/" },
+  { name: "Boat Rentals", url: "/" },
+  { name: "Glass Bottom Boat Tours", url: "/" },
+  { name: "Islamorada Fishing", url: "/" }
 ];
 
 const fishingList = [
-  { name: "Party Boat Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" },
-  { name: "Charter Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" },
-  { name: "Backcountry Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" }
+  { name: "Party Boat Fishing", url: "/" },
+  { name: "Charter Fishing", url: "/" },
+  { name: "Backcountry Fishing", url: "/" }
 ];
 
 const islamoradaFishingList = [
-  { name: "Deep Sea Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" },
-  { name: "Reef & Wreck Fishing", url: "https://www.robbies.com/islamorada-fishing.htm" }
+  { name: "Deep Sea Fishing", url: "/" },
+  { name: "Reef & Wreck Fishing", url: "/" }
 ];
 
 const captainsList = [
-  { name: "Captain Michael", url: "https://www.robbies.com/islamorada-fishing.htm" },
-  { name: "Captain Sam", url: "https://www.robbies.com/islamorada-fishing.htm" }
+  { name: "Captain Michael", url: "/" },
+  { name: "Captain Sam", url: "/" }
 ];
 
 const exploreMoreList = [
-  { name: "Webcam", url: "https://www.robbies.com/webcam.htm" },
-  { name: "Contact Us", url: "https://www.robbies.com/" },
-  { name: "Our History", url: "https://www.robbies.com/" },
-  { name: "Featured In", url: "https://www.robbies.com/" },
-  { name: "Directions", url: "https://www.robbies.com/" },
-  { name: "Careers", url: "https://www.robbies.com/" },
-  { name: "Islamorada Location Shoots", url: "https://www.robbies.com/" },
-  { name: "Weddings And Events", url: "https://www.robbies.com/" },
-  { name: "Influencers Collaboration", url: "https://www.robbies.com/" }
+  { name: "Webcam", url: "/" },
+  { name: "Contact Us", url: "/" },
+  { name: "Our History", url: "/" },
+  { name: "Featured In", url: "/" },
+  { name: "Directions", url: "/" },
+  { name: "Careers", url: "/" },
+  { name: "Islamorada Location Shoots", url: "/" },
+  { name: "Weddings And Events", url: "/" },
+  { name: "Influencers Collaboration", url: "/" }
 ];
 ---
 
@@ -75,9 +76,7 @@ const exploreMoreList = [
           <!-- Box 1: SHOP ONLINE -->
           <div class="bg-[#243A66] rounded-xl p-3.5 border border-white/10 hover:border-white/20 transition-all shadow-sm">
             <a 
-              href="https://shop.robbies.com/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
+              href="/shop" 
               class="font-heading font-black text-xs sm:text-[13px] uppercase tracking-wider text-white hover:text-blue-300 block"
             >
               SHOP ONLINE
@@ -97,7 +96,7 @@ const exploreMoreList = [
             <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {activitiesList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
+                  <a href={getProgressiveUrl(item.url)} class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>
@@ -116,7 +115,7 @@ const exploreMoreList = [
             <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {fishingList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
+                  <a href={getProgressiveUrl(item.url)} class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>
@@ -135,7 +134,7 @@ const exploreMoreList = [
             <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {islamoradaFishingList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
+                  <a href={getProgressiveUrl(item.url)} class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>
@@ -154,7 +153,7 @@ const exploreMoreList = [
             <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {captainsList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
+                  <a href={getProgressiveUrl(item.url)} class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>
@@ -173,7 +172,7 @@ const exploreMoreList = [
             <ul class="accordion-content hidden pt-3 space-y-1.5 text-xs text-white/85 font-sans">
               {exploreMoreList.map((item) => (
                 <li>
-                  <a href={item.url} target="_blank" class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
+                  <a href={getProgressiveUrl(item.url)} class="hover:underline hover:text-white transition-colors block py-0.5">{item.name}</a>
                 </li>
               ))}
             </ul>

@@ -23,29 +23,38 @@ function getLedgerSlugs() {
   return set;
 }
 
-export function getProgressiveUrl(relativeUrl: string) {
-  // If no URL or hash link, return as is
-  if (!relativeUrl || relativeUrl.startsWith('#') || relativeUrl.startsWith('http')) {
-    return relativeUrl;
+export function getProgressiveUrl(url: string) {
+  if (!url) return '/';
+  if (url.startsWith('#')) return url;
+
+  // Handle Shopify collection links
+  if (url.includes('/collections/')) {
+    const parts = url.split('/collections/');
+    const collectionName = parts[1]?.split('?')[0]?.split('#')[0]?.replace(/\/$/, '');
+    if (collectionName) {
+      return `/shop?category=${encodeURIComponent(collectionName.toLowerCase())}`;
+    }
+    return '/shop';
   }
 
-  const slugs = getLedgerSlugs();
-  const base = relativeUrl.replace(migrationConfig.oldSiteDomain, '').split('#')[0].split('?')[0];
-  
-  let searchSlug = base.startsWith('/') ? base : '/' + base;
-  if (!searchSlug.endsWith('/')) {
-    searchSlug += '/';
+  // Handle shop.robbies.com
+  if (url.includes('shop.robbies.com')) {
+    return '/shop';
   }
-  
-  // Normalize checking for both variants
-  if (slugs.has(searchSlug) || slugs.has(searchSlug.slice(0, -1)) || (searchSlug === '/' && slugs.has('/'))) {
-    return relativeUrl.replace(migrationConfig.oldSiteDomain, ''); // use local relative
+
+  // Strip robbies.com domains
+  let cleanUrl = url
+    .replace(/^https?:\/\/(www\.)?robbies\.com/, '')
+    .replace(/^https?:\/\/shop\.robbies\.com/, '');
+
+  if (!cleanUrl || cleanUrl === '') {
+    cleanUrl = '/';
   }
-  
-  // Otherwise point to old site
-  if (relativeUrl.startsWith('/')) {
-    return migrationConfig.oldSiteDomain + relativeUrl;
+
+  // Ensure leading slash if not hash
+  if (!cleanUrl.startsWith('/') && !cleanUrl.startsWith('#')) {
+    cleanUrl = '/' + cleanUrl;
   }
-  
-  return migrationConfig.oldSiteDomain + '/' + relativeUrl;
+
+  return cleanUrl;
 }

@@ -10,17 +10,17 @@ const slides = [
   {
     textDesktop: "Click To Shop Robbie's Merch",
     textMobile: "Tap To Shop Robbie's Merch",
-    url: "https://shop.robbies.com/"
+    url: "/shop"
   },
   {
     textDesktop: "Click To Book A Fishing Trip",
     textMobile: "Tap To Book A Fishing Trip",
-    url: "https://www.robbies.com/islamorada-fishing.htm"
+    url: "/"
   },
   {
     textDesktop: "Click For Best Charter Boat Fishing in Islamorada",
     textMobile: "Best Charter Boat Fishing in Islamorada",
-    url: "https://www.robbies.com/boat-rentals.htm"
+    url: "/"
   }
 ];
 ---
@@ -47,8 +47,6 @@ const slides = [
             {slide.url !== '#' ? (
               <a 
                 href={slide.url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
                 class="hover:underline font-bold transition-opacity hover:opacity-90 inline-flex items-center gap-1 text-white drop-shadow-sm truncate max-w-[280px] xs:max-w-[360px] sm:max-w-none"
               >
                 <span class="hidden sm:inline">{slide.textDesktop}</span>

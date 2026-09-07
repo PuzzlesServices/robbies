@@ -4,34 +4,34 @@ import { ShoppingBag, Search, Phone, Menu, X, ChevronDown } from '@lucide/astro'
 import { getProgressiveUrl } from '../../migration/progressive-routing';
 
 const navItems = [
-  { name: 'ACTIVITIES', id: 'activities', hasMega: true, url: 'https://www.robbies.com/' },
-  { name: 'FISHING', id: 'fishing', hasMega: true, url: 'https://www.robbies.com/islamorada-fishing.htm' },
-  { name: 'RESTAURANT', id: 'restaurant', hasMega: false, url: 'https://www.robbies.com/hungry-tarpon-restaurant.htm' },
+  { name: 'ACTIVITIES', id: 'activities', hasMega: true, url: '/' },
+  { name: 'FISHING', id: 'fishing', hasMega: true, url: '/' },
+  { name: 'RESTAURANT', id: 'restaurant', hasMega: false, url: '/' },
   { name: 'SHOP', id: 'shop', hasMega: true, url: '/shop' },
-  { name: 'OPEN-AIR SHOPPING', id: 'open-air', hasMega: false, url: 'https://www.robbies.com/' },
-  { name: 'WEBCAM', id: 'webcam', hasMega: false, url: 'https://www.robbies.com/webcam.htm' },
-  { name: 'CONTACT US', id: 'contact', hasMega: true, url: 'https://www.robbies.com/' },
-  { name: "VISITOR'S CENTER", id: 'visitor', hasMega: true, url: 'https://www.robbies.com/' },
+  { name: 'OPEN-AIR SHOPPING', id: 'open-air', hasMega: false, url: '/' },
+  { name: 'WEBCAM', id: 'webcam', hasMega: false, url: '/' },
+  { name: 'CONTACT US', id: 'contact', hasMega: true, url: '/' },
+  { name: "VISITOR'S CENTER", id: 'visitor', hasMega: true, url: '/' },
 ];
 
 const activitiesMega = {
   title: "ACTIVITIES IN ISLAMORADA",
   col1: [
-    { name: "ALL ACTIVITIES", url: "https://www.robbies.com/" },
-    { name: "MORNING ACTIVITIES", url: "https://www.robbies.com/" },
-    { name: "EVENING ACTIVITIES", url: "https://www.robbies.com/" },
-    { name: "TARPON FEEDING", url: "https://www.robbies.com/tarpon-feeding.htm" },
-    { name: "JET SKI ADVENTURES", url: "https://www.robbies.com/jet-ski.htm" },
-    { name: "SNORKELING", url: "https://www.robbies.com/snorkeling-tours.htm" },
-    { name: "SNUBA DIVE", url: "https://www.robbies.com/snuba.htm" },
+    { name: "ALL ACTIVITIES", url: "/" },
+    { name: "MORNING ACTIVITIES", url: "/" },
+    { name: "EVENING ACTIVITIES", url: "/" },
+    { name: "TARPON FEEDING", url: "/" },
+    { name: "JET SKI ADVENTURES", url: "/" },
+    { name: "SNORKELING", url: "/" },
+    { name: "SNUBA DIVE", url: "/" },
   ],
   col2: [
-    { name: "ISLAMORADA FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-    { name: "SUNSET CRUISES", url: "https://www.robbies.com/sunset-cruises.htm" },
-    { name: "KAYAK AND PADDLE BOARD RENTALS/TOURS", url: "https://www.robbies.com/kayak.htm" },
-    { name: "BOAT RENTALS", url: "https://www.robbies.com/boat-rentals.htm" },
-    { name: "ISLAMORADA ECO TOURS", url: "https://www.robbies.com/eco-tours.htm" },
-    { name: "GLASS BOTTOM BOAT TOURS", url: "https://www.robbies.com/glass-bottom.htm" },
+    { name: "ISLAMORADA FISHING", url: "/" },
+    { name: "SUNSET CRUISES", url: "/" },
+    { name: "KAYAK AND PADDLE BOARD RENTALS/TOURS", url: "/" },
+    { name: "BOAT RENTALS", url: "/" },
+    { name: "ISLAMORADA ECO TOURS", url: "/" },
+    { name: "GLASS BOTTOM BOAT TOURS", url: "/" },
   ],
   image: "/assets/home/imgi_18_feed-tarpon.webp"
 };
@@ -40,41 +40,41 @@ const fishingMega = {
   section1: {
     title: "ISLAMORADA FISHING",
     colA: [
-      { name: "ALL FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "PARTYBOAT FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "ISLAMORADA NIGHT FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "SPLIT CHARTER FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "OFFSHORE FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "MAHI-MAHI FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "SWORDFISH FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "ALL FISHING", url: "/" },
+      { name: "PARTYBOAT FISHING", url: "/" },
+      { name: "ISLAMORADA NIGHT FISHING", url: "/" },
+      { name: "SPLIT CHARTER FISHING", url: "/" },
+      { name: "OFFSHORE FISHING", url: "/" },
+      { name: "MAHI-MAHI FISHING", url: "/" },
+      { name: "SWORDFISH FISHING", url: "/" },
     ],
     colB: [
-      { name: "REEF & WRECK FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "TARPON & SHARK FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "BACKCOUNTRY FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "FAMILY FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "FLY FISHING", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "FISHING CALENDAR", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "REEF & WRECK FISHING", url: "/" },
+      { name: "TARPON & SHARK FISHING", url: "/" },
+      { name: "BACKCOUNTRY FISHING", url: "/" },
+      { name: "FAMILY FISHING", url: "/" },
+      { name: "FLY FISHING", url: "/" },
+      { name: "FISHING CALENDAR", url: "/" },
     ]
   },
   section2: {
     title: "OUR CAPTAINS",
     colA: [
-      { name: "ALL CAPTAINS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "BLUE HEAVEN CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "CONTAGIOUS CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "DIRTYBOAT CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "FIN TASTIC CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "FOUR ACES CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "MISS PENNY CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "ALL CAPTAINS", url: "/" },
+      { name: "BLUE HEAVEN CHARTERS", url: "/" },
+      { name: "CONTAGIOUS CHARTERS", url: "/" },
+      { name: "DIRTYBOAT CHARTERS", url: "/" },
+      { name: "FIN TASTIC CHARTERS", url: "/" },
+      { name: "FOUR ACES CHARTERS", url: "/" },
+      { name: "MISS PENNY CHARTERS", url: "/" },
     ],
     colB: [
-      { name: "GO TIME CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "KATSIKAS CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "I'M BIT CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "CAPT. RICHARD HASTINGS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "SATISFACTION CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
-      { name: "CONCHED OUT CHARTERS", url: "https://www.robbies.com/islamorada-fishing.htm" },
+      { name: "GO TIME CHARTERS", url: "/" },
+      { name: "KATSIKAS CHARTERS", url: "/" },
+      { name: "I'M BIT CHARTERS", url: "/" },
+      { name: "CAPT. RICHARD HASTINGS", url: "/" },
+      { name: "SATISFACTION CHARTERS", url: "/" },
+      { name: "CONCHED OUT CHARTERS", url: "/" },
     ]
   },
   image: "/assets/home/imgi_51_TARPON-SHARK-FISHING.webp"
@@ -83,12 +83,12 @@ const fishingMega = {
 const shopMega = {
   title: "SHOP",
   items: [
-    { name: "MEN", url: "https://shop.robbies.com/collections/men" },
-    { name: "WOMEN", url: "https://shop.robbies.com/collections/women" },
-    { name: "KIDS", url: "https://shop.robbies.com/collections/kids" },
-    { name: "TODDLERS", url: "https://shop.robbies.com/collections/toddlers" },
-    { name: "HATS", url: "https://shop.robbies.com/collections/hats" },
-    { name: "TIM RAHN", url: "https://shop.robbies.com/collections/tim-rahn" },
+    { name: "MEN", url: "/shop?category=men" },
+    { name: "WOMEN", url: "/shop?category=women" },
+    { name: "KIDS", url: "/shop?category=kids" },
+    { name: "TODDLERS", url: "/shop?category=toddlers" },
+    { name: "HATS", url: "/shop?category=hats" },
+    { name: "TIM RAHN", url: "/shop?category=tim-rahn" },
   ],
   image: "/assets/home/imgi_52_OFFSHORE-FISHING.webp"
 };
@@ -97,21 +97,21 @@ const contactMega = {
   section1: {
     title: "CONTACT US",
     items: [
-      { name: "CONTACT US", url: "https://www.robbies.com/" },
-      { name: "DIRECTIONS", url: "https://www.robbies.com/" },
-      { name: "CAREERS", url: "https://www.robbies.com/" },
-      { name: "INFLUENCERS COLLABORATION", url: "https://www.robbies.com/" },
-      { name: "ABOUT US", url: "https://www.robbies.com/" },
-      { name: "LOCATION SHOOTS", url: "https://www.robbies.com/" },
-      { name: "WEDDINGS AND EVENTS", url: "https://www.robbies.com/" },
+      { name: "CONTACT US", url: "/" },
+      { name: "DIRECTIONS", url: "/" },
+      { name: "CAREERS", url: "/" },
+      { name: "INFLUENCERS COLLABORATION", url: "/" },
+      { name: "ABOUT US", url: "/" },
+      { name: "LOCATION SHOOTS", url: "/" },
+      { name: "WEDDINGS AND EVENTS", url: "/" },
     ]
   },
   section2: {
     title: "MORE FROM ROBBIE'S",
     items: [
-      { name: "ROBBIE'S OF KEY WEST", url: "https://www.robbies.com/" },
-      { name: "HUNGRY TARPON", url: "https://www.robbies.com/" },
-      { name: "CAPTAIN MICHAEL", url: "https://www.robbies.com/" },
+      { name: "ROBBIE'S OF KEY WEST", url: "/" },
+      { name: "HUNGRY TARPON", url: "/" },
+      { name: "CAPTAIN MICHAEL", url: "/" },
     ]
   },
   image: "/assets/home/imgi_9_Robbies-of-Islamorada.webp"
@@ -572,7 +572,7 @@ const visitorMega = {
 
       <!-- RESTAURANT Link -->
       <a 
-        href="https://www.robbies.com/hungry-tarpon-restaurant.htm" 
+        href="/" 
         class="text-white hover:opacity-75 text-base md:text-lg font-bold tracking-wider py-4 border-b border-white/10 uppercase transition-opacity block"
       >
         RESTAURANT
@@ -590,18 +590,18 @@ const visitorMega = {
         </button>
         <div id="mobile-acc-shop" class="hidden pl-4 pb-4 text-sm font-semibold text-white/80">
           {shopMega.items.map((sub) => (
-            <span class="block py-2.5 hover:text-white uppercase transition-colors border-b border-white/5 cursor-pointer">
+            <a href={sub.url} class="block py-2.5 hover:text-white uppercase transition-colors border-b border-white/5 cursor-pointer">
               {sub.name}
-            </span>
+            </a>
           ))}
         </div>
       </div>
 
       <!-- Other Main Links -->
-      <a href="https://www.robbies.com/" class="text-white hover:opacity-75 text-base md:text-lg font-bold tracking-wider py-4 border-b border-white/10 uppercase block">
+      <a href="/" class="text-white hover:opacity-75 text-base md:text-lg font-bold tracking-wider py-4 border-b border-white/10 uppercase block">
         OPEN-AIR SHOPPING
       </a>
-      <a href="https://www.robbies.com/webcam.htm" class="text-white hover:opacity-75 text-base md:text-lg font-bold tracking-wider py-4 border-b border-white/10 uppercase block">
+      <a href="/" class="text-white hover:opacity-75 text-base md:text-lg font-bold tracking-wider py-4 border-b border-white/10 uppercase block">
         WEBCAM
       </a>
 
