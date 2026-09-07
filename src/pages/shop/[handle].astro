@@ -36,8 +36,8 @@ if (!product) {
 
 const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
 const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
-const images = product.images?.edges?.map((e: any) => e.node) || [];
-const mainImage = product.featuredImage?.url || (images.length > 0 ? images[0].url : '/assets/home/imgi_19_shop.webp');
+const images = product.imagesList || [];
+const mainImage = product.featuredImageUrl || '/assets/home/imgi_19_shop.webp';
 const variants = product.variants?.edges?.map((e: any) => e.node) || [];
 const firstVariant = variants[0];
 ---
@@ -78,7 +78,7 @@ const firstVariant = variants[0];
 
           <!-- Thumbnails -->
           {images.length > 1 && (
-            <div class="flex items-center gap-3 overflow-x-auto pb-2">
+            <div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-thin">
               {images.map((img: any, i: number) => (
                 <button 
                   type="button" 

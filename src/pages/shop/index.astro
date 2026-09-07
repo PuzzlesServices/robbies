@@ -3,38 +3,66 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/header/Header.astro';
 import Footer from '../../components/common/Footer.astro';
 import CartDrawer from '../../components/shop/CartDrawer.astro';
-import { getProducts } from '../../lib/shopify';
-import { ShoppingBag, ArrowRight, ShieldCheck, Tag, Star } from '@lucide/astro';
+import { getProducts, getCollections, getProductsByCollection } from '../../lib/shopify';
+import { ShoppingBag, ArrowRight, ShieldCheck, Tag, Filter, ChevronLeft, ChevronRight, Layers } from '@lucide/astro';
 
-let products: any[] = [];
+const url = new URL(Astro.request.url);
+const currentCategory = url.searchParams.get('category') || '';
+const currentPage = parseInt(url.searchParams.get('page') || '1', 10);
+const ITEMS_PER_PAGE = 12;
+
+let allProducts: any[] = [];
+let collections: any[] = [];
 let errorMsg = '';
 
 try {
-  products = await getProducts(36);
+  // Fetch collections for category filter
+  collections = await getCollections(25);
+  // Filter out internal/system collections
+  collections = collections.filter(c => c.handle !== 'frontpage' && c.handle !== 'digital-goods-vat-tax');
+
+  // Fetch products (by collection if selected, else all)
+  if (currentCategory) {
+    allProducts = await getProductsByCollection(currentCategory, 100);
+  } else {
+    allProducts = await getProducts(100);
+  }
 } catch (e) {
-  console.error('Error loading Shopify products:', e);
-  errorMsg = 'Could not load products from Shopify Storefront API.';
+  console.error('Error loading Shopify shop data:', e);
+  errorMsg = 'Could not load products from Shopify API.';
 }
+
+// Calculate Pagination (12 items per page)
+const totalProducts = allProducts.length;
+const totalPages = Math.ceil(totalProducts / ITEMS_PER_PAGE) || 1;
+const validPage = Math.max(1, Math.min(currentPage, totalPages));
+const startIndex = (validPage - 1) * ITEMS_PER_PAGE;
+const paginatedProducts = allProducts.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+// Find current active collection title
+const activeCollectionObj = collections.find(c => c.handle === currentCategory);
+const activeCategoryName = activeCollectionObj ? activeCollectionObj.title : 'All Products';
 ---
 
 <Layout 
-  title="Official Shop | Robbie's of Islamorada"
-  description="Shop official Robbie's of Islamorada t-shirts, hats, art, and souvenirs directly on our website."
+  title={`${activeCategoryName} | Robbie's Shop`}
+  description="Browse official Robbie's of Islamorada merchandise, t-shirts, hats, art, and souvenirs directly on our website."
   image="/assets/home/imgi_19_shop.webp"
 >
   <Header />
 
-  <main class="flex-1 bg-slate-50">
+  <main class="flex-1 bg-slate-50 min-h-screen">
+    
     <!-- Hero Banner for Shop -->
-    <section class="w-full bg-[#2B447A] text-white py-16 px-6 relative overflow-hidden">
+    <section class="w-full bg-[#2B447A] text-white py-14 px-6 relative overflow-hidden">
       <div class="max-w-[1180px] mx-auto text-center relative z-10">
-        <span class="inline-flex items-center gap-1.5 bg-white/10 text-white/90 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 border border-white/20">
+        <span class="inline-flex items-center gap-1.5 bg-white/10 text-white/90 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-3 border border-white/20">
           <Tag class="w-3.5 h-3.5" /> Official Robbie's Merch
         </span>
-        <h1 class="font-heading font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight mb-4">
+        <h1 class="font-heading font-black text-3xl sm:text-4xl md:text-5xl uppercase tracking-tight mb-3">
           Robbie's Online Store
         </h1>
-        <p class="font-heading font-normal text-base sm:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
+        <p class="font-heading font-normal text-sm sm:text-base text-white/90 max-w-2xl mx-auto leading-relaxed">
           Bring the Florida Keys experience home! Browse our official t-shirts, souvenirs, local artwork, and accessories.
         </p>
       </div>
@@ -44,37 +72,86 @@ try {
       <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
     </section>
 
-    <!-- Products Grid Section -->
-    <section class="max-w-[1180px] mx-auto px-6 py-16">
+    <!-- Main Content Area: Categories & Products -->
+    <section class="max-w-[1180px] mx-auto px-6 py-12">
       
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-4 border-b border-slate-200">
-        <div>
-          <h2 class="font-heading font-black text-2xl text-slate-900 uppercase">Featured Products</h2>
-          <p class="text-xs text-slate-500 mt-1">Directly integrated with Shopify Storefront API</p>
+      <!-- Category Filter Tabs Bar (Categorías) -->
+      <div class="mb-10">
+        <div class="flex items-center gap-2 mb-3">
+          <Filter class="w-4 h-4 text-[#2B447A]" />
+          <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-slate-700">Filter by Category:</h3>
         </div>
-        <span class="text-xs font-bold text-slate-400 bg-white border border-slate-200 px-3 py-1.5 rounded-full shadow-xs self-start sm:self-auto">
-          {products.length} Products Available
-        </span>
+
+        <div class="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-thin">
+          <a 
+            href="/shop" 
+            class={`px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all ${
+              !currentCategory 
+                ? 'bg-[#2B447A] text-white shadow-sm' 
+                : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
+            }`}
+          >
+            All Products ({allProducts.length && !currentCategory ? allProducts.length : 'All'})
+          </a>
+
+          {collections.map((col) => {
+            const isActive = currentCategory === col.handle;
+            return (
+              <a 
+                href={`/shop?category=${col.handle}`} 
+                class={`px-4 py-2.5 rounded-xl font-heading font-bold text-xs uppercase tracking-wider whitespace-nowrap transition-all ${
+                  isActive 
+                    ? 'bg-[#2B447A] text-white shadow-sm' 
+                    : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
+                }`}
+              >
+                {col.title}
+              </a>
+            );
+          })}
+        </div>
       </div>
 
+      <!-- Section Title & Active Filters Count -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 pb-4 border-b border-slate-200">
+        <div>
+          <h2 class="font-heading font-black text-2xl text-slate-900 uppercase">
+            {activeCategoryName}
+          </h2>
+          <p class="text-xs text-slate-500 mt-0.5">
+            Showing {startIndex + 1}-{Math.min(startIndex + ITEMS_PER_PAGE, totalProducts)} of {totalProducts} products
+          </p>
+        </div>
+
+        {currentCategory && (
+          <a href="/shop" class="text-xs text-[#2B55FF] font-bold hover:underline flex items-center gap-1">
+            ✕ Clear Category Filter
+          </a>
+        )}
+      </div>
+
+      <!-- Products Grid -->
       {errorMsg ? (
         <div class="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-md mx-auto my-12">
           <p class="text-red-600 font-bold text-sm mb-2">{errorMsg}</p>
-          <p class="text-slate-500 text-xs">Please verify your Shopify credentials and Storefront API permissions.</p>
+          <p class="text-slate-500 text-xs">Please try refreshing the page or check back later.</p>
         </div>
-      ) : products.length === 0 ? (
+      ) : paginatedProducts.length === 0 ? (
         <div class="text-center py-20 bg-white rounded-2xl border border-slate-200 shadow-xs max-w-lg mx-auto">
           <ShoppingBag class="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <h3 class="font-heading font-black text-slate-800 text-lg">No products found</h3>
-          <p class="text-slate-500 text-xs mt-1">Make sure products are set as active and available on the Storefront channel in Shopify Admin.</p>
+          <h3 class="font-heading font-black text-slate-800 text-lg">No products found in this category</h3>
+          <p class="text-slate-500 text-xs mt-1 mb-6">Try selecting another category or view all products.</p>
+          <a href="/shop" class="inline-block bg-[#2B447A] text-white font-heading font-bold text-xs uppercase px-6 py-3 rounded-xl">
+            View All Products
+          </a>
         </div>
       ) : (
         <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => {
+          {paginatedProducts.map((product) => {
             const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
             const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
             const firstVariant = product.variants?.edges[0]?.node;
-            const imageUrl = product.featuredImage?.url || '/assets/home/imgi_19_shop.webp';
+            const imageUrl = product.featuredImageUrl;
 
             return (
               <div class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col group">
@@ -116,7 +193,7 @@ try {
                       <button 
                         type="button" 
                         class="bg-[#2B55FF] hover:bg-[#1D4ED8] text-white p-2.5 rounded-xl transition-colors shadow-sm cursor-pointer add-to-cart-quick-btn"
-                        data-[#2B55FF]={firstVariant.id}
+                        data-variant-id={firstVariant.id}
                         data-product-id={product.id}
                         data-title={product.title}
                         data-price={firstVariant.price?.amount || minPrice}
@@ -134,9 +211,68 @@ try {
           })}
         </div>
       )}
+
+      <!-- PAGINADOR (12 Productos por página) -->
+      {totalPages > 1 && (
+        <div class="mt-14 flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-200">
+          <p class="text-xs font-semibold text-slate-500">
+            Page <strong class="text-slate-900">{validPage}</strong> of <strong class="text-slate-900">{totalPages}</strong>
+          </p>
+
+          <div class="flex items-center gap-2">
+            <!-- Previous Button -->
+            {validPage > 1 ? (
+              <a 
+                href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${validPage - 1}`}
+                class="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl font-heading font-bold text-xs uppercase transition-colors inline-flex items-center gap-1"
+              >
+                <ChevronLeft class="w-4 h-4" /> Previous
+              </a>
+            ) : (
+              <span class="px-4 py-2 bg-slate-100 text-slate-400 border border-slate-200 rounded-xl font-heading font-bold text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
+                <ChevronLeft class="w-4 h-4" /> Previous
+              </span>
+            )}
+
+            <!-- Page Number Buttons -->
+            <div class="hidden sm:flex items-center gap-1">
+              {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
+                const isCurrent = pageNum === validPage;
+                return (
+                  <a 
+                    href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${pageNum}`}
+                    class={`w-9 h-9 rounded-xl flex items-center justify-center font-heading font-bold text-xs transition-colors ${
+                      isCurrent 
+                        ? 'bg-[#2B447A] text-white shadow-sm' 
+                        : 'bg-white text-slate-700 border border-slate-200 hover:bg-slate-100'
+                    }`}
+                  >
+                    {pageNum}
+                  </a>
+                );
+              })}
+            </div>
+
+            <!-- Next Button -->
+            {validPage < totalPages ? (
+              <a 
+                href={`/shop?${currentCategory ? `category=${currentCategory}&` : ''}page=${validPage + 1}`}
+                class="px-4 py-2 bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 rounded-xl font-heading font-bold text-xs uppercase transition-colors inline-flex items-center gap-1"
+              >
+                Next <ChevronRight class="w-4 h-4" />
+              </a>
+            ) : (
+              <span class="px-4 py-2 bg-slate-100 text-slate-400 border border-slate-200 rounded-xl font-heading font-bold text-xs uppercase cursor-not-allowed inline-flex items-center gap-1">
+                Next <ChevronRight class="w-4 h-4" />
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+
     </section>
 
-    <!-- Trust Badges Bar -->
+    <!-- Trust Badges Bar (Limpio de texto 'Headless') -->
     <section class="w-full bg-white border-t border-slate-200 py-12 px-6">
       <div class="max-w-[1180px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
         <div class="flex flex-col items-center">
@@ -159,16 +295,14 @@ try {
           <div class="w-12 h-12 bg-blue-50 text-[#2B447A] rounded-2xl flex items-center justify-center mb-3">
             <ShoppingBag class="w-6 h-6" />
           </div>
-          <h4 class="font-heading font-bold text-sm text-slate-900 uppercase">Headless Speed</h4>
-          <p class="text-xs text-slate-500 mt-1 max-w-xs">Browse our catalog instantly without full page reloads.</p>
+          <h4 class="font-heading font-bold text-sm text-slate-900 uppercase">Lightning Fast Storefront</h4>
+          <p class="text-xs text-slate-500 mt-1 max-w-xs">Browse our official catalog instantly with modern web performance.</p>
         </div>
       </div>
     </section>
   </main>
 
   <Footer />
-
-  <!-- Side Cart Drawer -->
   <CartDrawer />
 </Layout>
 

@@ -477,6 +477,18 @@
             {
               "status": "completed",
               "text": "Interactive Shopping Side Cart Drawer & Secure Shopify Checkout Handoff"
+            },
+            {
+              "status": "completed",
+              "text": "Product Image Fallback Resolution (Featured + Gallery Images)"
+            },
+            {
+              "status": "completed",
+              "text": "Catalog 12-Product Pagination & Category/Collection Filter Tabs"
+            },
+            {
+              "status": "completed",
+              "text": "Cleaned all technical Headless copy from store UI"
             }
           ]
         },

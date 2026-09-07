@@ -1,5 +1,5 @@
-const domain = import.meta.env.PUBLIC_SHOPIFY_STORE_DOMAIN || 'shop.robbies.com';
-const storefrontToken = import.meta.env.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '0d87a6f954a1e1d67f633ecce7ddfd2b';
+const domain = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SHOPIFY_STORE_DOMAIN) || 'shop.robbies.com';
+const storefrontToken = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN) || '0d87a6f954a1e1d67f633ecce7ddfd2b';
 
 export async function shopifyFetch<T = any>({
   query,
@@ -34,11 +34,30 @@ export async function shopifyFetch<T = any>({
   }
 }
 
+// Helper to normalize product images safely
+export function formatProduct(node: any) {
+  if (!node) return null;
+  
+  const images = node.images?.edges?.map((e: any) => e.node) || [];
+  let featuredImageUrl = node.featuredImage?.url;
+  
+  // Fallback to first image in images list if featuredImage is null
+  if (!featuredImageUrl && images.length > 0) {
+    featuredImageUrl = images[0].url;
+  }
+
+  return {
+    ...node,
+    featuredImageUrl: featuredImageUrl || '/assets/home/imgi_19_shop.webp',
+    imagesList: images.length > 0 ? images : [{ url: featuredImageUrl || '/assets/home/imgi_19_shop.webp', altText: node.title }]
+  };
+}
+
 // 1. Fetch Products List
-export async function getProducts(first = 24) {
+export async function getProducts(first = 100, queryStr = '') {
   const query = `
-    query getProducts($first: Int!) {
-      products(first: $first) {
+    query getProducts($first: Int!, $queryStr: String) {
+      products(first: $first, query: $queryStr) {
         edges {
           node {
             id
@@ -54,7 +73,7 @@ export async function getProducts(first = 24) {
               width
               height
             }
-            images(first: 5) {
+            images(first: 10) {
               edges {
                 node {
                   url
@@ -93,11 +112,107 @@ export async function getProducts(first = 24) {
     }
   `;
 
-  const data = await shopifyFetch({ query, variables: { first } });
-  return data?.products?.edges.map((edge: any) => edge.node) || [];
+  const data = await shopifyFetch({ query, variables: { first, queryStr } });
+  const rawProducts = data?.products?.edges.map((edge: any) => edge.node) || [];
+  return rawProducts.map(formatProduct);
 }
 
-// 2. Fetch Single Product By Handle
+// 2. Fetch Collections / Categories
+export async function getCollections(first = 20) {
+  const query = `
+    query getCollections($first: Int!) {
+      collections(first: $first) {
+        edges {
+          node {
+            id
+            title
+            handle
+            description
+            image {
+              url
+              altText
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await shopifyFetch({ query, variables: { first } });
+  return data?.collections?.edges.map((edge: any) => edge.node) || [];
+}
+
+// 3. Fetch Products By Collection Handle
+export async function getProductsByCollection(collectionHandle: string, first = 100) {
+  const query = `
+    query getProductsByCollection($handle: String!, $first: Int!) {
+      collection(handle: $handle) {
+        id
+        title
+        handle
+        description
+        products(first: $first) {
+          edges {
+            node {
+              id
+              title
+              handle
+              description
+              descriptionHtml
+              vendor
+              productType
+              featuredImage {
+                url
+                altText
+                width
+                height
+              }
+              images(first: 10) {
+                edges {
+                  node {
+                    url
+                    altText
+                    width
+                    height
+                  }
+                }
+              }
+              priceRange {
+                minVariantPrice {
+                  amount
+                  currencyCode
+                }
+                maxVariantPrice {
+                  amount
+                  currencyCode
+                }
+              }
+              variants(first: 10) {
+                edges {
+                  node {
+                    id
+                    title
+                    availableForSale
+                    price {
+                      amount
+                      currencyCode
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  `;
+
+  const data = await shopifyFetch({ query, variables: { handle: collectionHandle, first } });
+  const rawProducts = data?.collection?.products?.edges.map((edge: any) => edge.node) || [];
+  return rawProducts.map(formatProduct);
+}
+
+// 4. Fetch Single Product By Handle
 export async function getProductByHandle(handle: string) {
   const query = `
     query getProductByHandle($handle: String!) {
@@ -163,118 +278,5 @@ export async function getProductByHandle(handle: string) {
   `;
 
   const data = await shopifyFetch({ query, variables: { handle } });
-  return data?.product || null;
-}
-
-// 3. Create Shopify Cart
-export async function createCart(lines: { merchandiseId: string; quantity: number }[]) {
-  const query = `
-    mutation cartCreate($input: CartInput!) {
-      cartCreate(input: $input) {
-        cart {
-          id
-          checkoutUrl
-          totalQuantity
-          cost {
-            subtotalAmount {
-              amount
-              currencyCode
-            }
-            totalAmount {
-              amount
-              currencyCode
-            }
-          }
-          lines(first: 50) {
-            edges {
-              node {
-                id
-                quantity
-                cost {
-                  totalAmount {
-                    amount
-                    currencyCode
-                  }
-                }
-                merchandise {
-                  ... on ProductVariant {
-                    id
-                    title
-                    product {
-                      title
-                      handle
-                      featuredImage {
-                        url
-                        altText
-                      }
-                    }
-                    price {
-                      amount
-                      currencyCode
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-        userErrors {
-          field
-          message
-        }
-      }
-    }
-  `;
-
-  const data = await shopifyFetch({ query, variables: { input: { lines } } });
-  return data?.cartCreate?.cart || null;
-}
-
-// 4. Add Items to Existing Cart
-export async function addToCart(cartId: string, lines: { merchandiseId: string; quantity: number }[]) {
-  const query = `
-    mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
-      cartLinesAdd(cartId: $cartId, lines: $lines) {
-        cart {
-          id
-          checkoutUrl
-          totalQuantity
-          cost {
-            totalAmount {
-              amount
-              currencyCode
-            }
-          }
-          lines(first: 50) {
-            edges {
-              node {
-                id
-                quantity
-                merchandise {
-                  ... on ProductVariant {
-                    id
-                    title
-                    product {
-                      title
-                      handle
-                      featuredImage {
-                        url
-                      }
-                    }
-                    price {
-                      amount
-                      currencyCode
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `;
-
-  const data = await shopifyFetch({ query, variables: { cartId, lines } });
-  return data?.cartLinesAdd?.cart || null;
+  return data?.product ? formatProduct(data.product) : null;
 }
