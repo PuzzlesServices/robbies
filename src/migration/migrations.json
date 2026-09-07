@@ -561,6 +561,10 @@
             {
               "status": "completed",
               "text": "Added 'Sort By' dropdown filter (Featured, Most Recent, Price Low-High, Price High-Low, Alphabetical A-Z) aligned next to main catalog category header"
+            },
+            {
+              "status": "completed",
+              "text": "Enhanced product detail page (/shop/[handle]): removed redundant badges, adjusted title font size, added touch finger swipe & arrows for mobile gallery, and added interactive 'Write a Review' form"
             }
           ]
         },

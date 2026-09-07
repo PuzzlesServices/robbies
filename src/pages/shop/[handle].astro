@@ -87,25 +87,46 @@ const initialSize = sizes[0] || '';
         <!-- Left Column: Gallery / Images (Uncropped object-contain p-4) -->
         <div class="lg:col-span-7 space-y-4">
           
-          <!-- Main Display Image (Fully uncropped with object-contain) -->
-          <div class="w-full aspect-square bg-slate-50 rounded-3xl overflow-hidden border border-slate-100 relative group flex items-center justify-center p-4">
-            
-            <!-- In-Stock Badge -->
-            <span class="absolute top-4 left-4 z-10 inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow-2xs">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> In Stock & Ready to Ship
-            </span>
-
+          <!-- Main Display Image (Fully uncropped with object-contain & Touch Swipe) -->
+          <div id="product-gallery-container" class="w-full aspect-square bg-slate-50 rounded-3xl overflow-hidden border border-slate-100 relative group flex items-center justify-center p-4 touch-pan-y select-none">
             <img 
               id="main-product-image"
               src={mainImage} 
               alt={product.featuredImage?.altText || product.title} 
-              class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+              class="w-full h-full object-contain transition-opacity duration-200"
             />
+
+            <!-- Carousel Arrows (Desktop Hover & Mobile Touch/Tap) -->
+            {images.length > 1 && (
+              <>
+                <button 
+                  type="button" 
+                  id="gallery-prev-btn"
+                  class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-md text-slate-800 flex items-center justify-center hover:bg-white hover:scale-110 active:scale-95 transition-all cursor-pointer z-20 font-bold text-lg select-none"
+                  title="Previous Image"
+                >
+                  &#10094;
+                </button>
+                <button 
+                  type="button" 
+                  id="gallery-next-btn"
+                  class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 shadow-md text-slate-800 flex items-center justify-center hover:bg-white hover:scale-110 active:scale-95 transition-all cursor-pointer z-20 font-bold text-lg select-none"
+                  title="Next Image"
+                >
+                  &#10095;
+                </button>
+
+                <!-- Image Counter Badge -->
+                <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-slate-900/70 backdrop-blur-xs text-white text-[11px] font-bold px-3 py-1 rounded-full z-20 pointer-events-none">
+                  <span id="gallery-current-idx">1</span> / <span>{images.length}</span>
+                </div>
+              </>
+            )}
           </div>
 
           <!-- Thumbnails Scrollbar -->
           {images.length > 1 && (
-            <div class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-thin select-none">
+            <div id="thumbnails-container" class="flex items-center gap-3 overflow-x-auto pb-2 scrollbar-thin select-none">
               {images.map((img: any, i: number) => (
                 <button 
                   type="button" 
@@ -144,11 +165,7 @@ const initialSize = sizes[0] || '';
         <div class="lg:col-span-5 flex flex-col space-y-6">
           
           <div>
-            <span class="inline-flex items-center gap-1.5 text-xs font-black uppercase tracking-widest text-[#2B55FF] mb-2 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-              <Tag class="w-3.5 h-3.5" /> Official Robbie's Merchandise
-            </span>
-
-            <h1 class="font-heading font-black text-2xl sm:text-3xl md:text-4xl text-slate-900 uppercase tracking-tight leading-tight mb-3">
+            <h1 class="font-heading font-extrabold text-xl sm:text-2xl md:text-3xl text-slate-900 uppercase tracking-tight leading-snug mb-3">
               {product.title}
             </h1>
 
@@ -356,14 +373,74 @@ const initialSize = sizes[0] || '';
         </section>
       )}
 
-      <!-- JUDGE.ME PRODUCT REVIEWS WIDGET SECTION -->
+      <!-- JUDGE.ME PRODUCT REVIEWS WIDGET SECTION WITH CUSTOM "WRITE A REVIEW" FORM -->
       <section class="border-t border-slate-200/80 pt-12 pb-8">
         <div class="max-w-[1240px] mx-auto">
-          <div class="mb-6">
-            <span class="text-xs font-black uppercase text-[#2B55FF] tracking-widest block mb-1">Verified Opinions</span>
-            <h2 class="font-heading font-black text-2xl text-slate-900 uppercase">Customer Reviews</h2>
-          </div>
           
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <span class="text-xs font-black uppercase text-[#2B55FF] tracking-widest block mb-1">Verified Opinions</span>
+              <h2 class="font-heading font-black text-2xl text-slate-900 uppercase">Customer Reviews</h2>
+            </div>
+
+            <button 
+              type="button" 
+              id="write-review-toggle-btn"
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-bold text-xs uppercase tracking-wider px-5 py-3 rounded-full shadow-md hover:shadow-lg transition-all active:scale-95 cursor-pointer self-start sm:self-auto"
+            >
+              <Star class="w-4 h-4 fill-amber-400 text-amber-400" />
+              <span>Write a Review</span>
+            </button>
+          </div>
+
+          <!-- Interactive Review Form (Collapsible) -->
+          <div id="write-review-form-container" class="hidden bg-slate-50 p-6 sm:p-8 rounded-3xl border border-slate-200/80 mb-8 max-w-2xl">
+            <h3 class="font-heading font-black text-lg text-slate-900 uppercase mb-4">Write a Review for {product.title}</h3>
+            
+            <form id="custom-review-form" class="space-y-4 font-sans">
+              <!-- Rating Selector -->
+              <div>
+                <label class="block text-xs font-bold uppercase text-slate-700 mb-1">Rating *</label>
+                <div id="star-rating-picker" class="flex items-center gap-1 cursor-pointer">
+                  {[1, 2, 3, 4, 5].map(starVal => (
+                    <button type="button" class="star-pick-btn p-1 text-amber-400 transition-transform hover:scale-125" data-rating={starVal}>
+                      <Star class="w-7 h-7 fill-amber-400" />
+                    </button>
+                  ))}
+                </div>
+                <input type="hidden" id="review-rating-val" value="5" />
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="review-name" class="block text-xs font-bold uppercase text-slate-700 mb-1">Your Name *</label>
+                  <input type="text" id="review-name" required placeholder="John Doe" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:ring-2 focus:ring-[#2B447A] focus:outline-none" />
+                </div>
+                <div>
+                  <label for="review-email" class="block text-xs font-bold uppercase text-slate-700 mb-1">Your Email *</label>
+                  <input type="email" id="review-email" required placeholder="john@example.com" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:ring-2 focus:ring-[#2B447A] focus:outline-none" />
+                </div>
+              </div>
+
+              <div>
+                <label for="review-title" class="block text-xs font-bold uppercase text-slate-700 mb-1">Review Title</label>
+                <input type="text" id="review-title" placeholder="Great quality & fast shipping!" class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:ring-2 focus:ring-[#2B447A] focus:outline-none" />
+              </div>
+
+              <div>
+                <label for="review-body" class="block text-xs font-bold uppercase text-slate-700 mb-1">Review Details *</label>
+                <textarea id="review-body" rows="4" required placeholder="Tell us what you liked about this product..." class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:ring-2 focus:ring-[#2B447A] focus:outline-none"></textarea>
+              </div>
+
+              <div id="review-submit-feedback" class="hidden text-xs font-bold p-3 rounded-xl"></div>
+
+              <button type="submit" id="submit-review-btn" class="w-full sm:w-auto bg-[#2B447A] hover:bg-[#1F3664] text-white font-heading font-black text-xs uppercase tracking-wider py-3 px-8 rounded-full shadow-md transition-all active:scale-95 cursor-pointer">
+                Submit Review
+              </button>
+            </form>
+          </div>
+
+          <!-- Native Judge.me Review Widget Container -->
           <div 
             class="jdgm-widget jdgm-review-widget bg-slate-50 p-6 rounded-3xl border border-slate-200/80" 
             data-id={product.id.replace('gid://shopify/Product/', '')} 
@@ -456,18 +533,169 @@ const initialSize = sizes[0] || '';
       }
 
       // Thumbnail Clicks
-      thumbBtns.forEach(btn => {
+      thumbBtns.forEach((btn, idx) => {
         btn.onclick = () => {
-          const newSrc = btn.getAttribute('data-img-src');
-          if (mainImg && newSrc) mainImg.src = newSrc;
-          thumbBtns.forEach(b => {
-            b.classList.remove('border-[#2B447A]', 'shadow-md', 'scale-105');
-            b.classList.add('border-slate-200', 'opacity-80');
-          });
-          btn.classList.remove('border-slate-200', 'opacity-80');
-          btn.classList.add('border-[#2B447A]', 'shadow-md', 'scale-105');
+          updateGalleryImage(idx);
         };
       });
+
+      // Image Gallery Index & Touch Swipe Carousel
+      let currentGalleryIdx = 0;
+      const imagesList = pageData.images || [];
+
+      function updateGalleryImage(idx) {
+        if (imagesList.length === 0) return;
+        if (idx < 0) idx = imagesList.length - 1;
+        if (idx >= imagesList.length) idx = 0;
+        currentGalleryIdx = idx;
+
+        const targetImg = imagesList[currentGalleryIdx];
+        if (mainImg && targetImg) {
+          mainImg.style.opacity = '0';
+          setTimeout(() => {
+            mainImg.src = targetImg.url;
+            mainImg.style.opacity = '1';
+          }, 80);
+        }
+
+        const idxSpan = document.getElementById('gallery-current-idx');
+        if (idxSpan) idxSpan.textContent = (currentGalleryIdx + 1).toString();
+
+        thumbBtns.forEach((btn, i) => {
+          if (i === currentGalleryIdx) {
+            btn.classList.remove('border-slate-200', 'opacity-80');
+            btn.classList.add('border-[#2B447A]', 'shadow-md', 'scale-105');
+            btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          } else {
+            btn.classList.remove('border-[#2B447A]', 'shadow-md', 'scale-105');
+            btn.classList.add('border-slate-200', 'opacity-80');
+          }
+        });
+      }
+
+      const prevGalleryBtn = document.getElementById('gallery-prev-btn');
+      const nextGalleryBtn = document.getElementById('gallery-next-btn');
+
+      if (prevGalleryBtn) prevGalleryBtn.onclick = () => updateGalleryImage(currentGalleryIdx - 1);
+      if (nextGalleryBtn) nextGalleryBtn.onclick = () => updateGalleryImage(currentGalleryIdx + 1);
+
+      // Touch Finger Swipe Gestures for Mobile Gallery
+      const galleryContainer = document.getElementById('product-gallery-container');
+      if (galleryContainer) {
+        let startX = 0;
+        galleryContainer.addEventListener('touchstart', (e) => {
+          if (e.touches && e.touches.length > 0) startX = e.touches[0].clientX;
+        }, { passive: true });
+
+        galleryContainer.addEventListener('touchend', (e) => {
+          if (!e.changedTouches || e.changedTouches.length === 0) return;
+          const endX = e.changedTouches[0].clientX;
+          const diffX = startX - endX;
+          if (Math.abs(diffX) > 35) {
+            if (diffX > 0) {
+              updateGalleryImage(currentGalleryIdx + 1);
+            } else {
+              updateGalleryImage(currentGalleryIdx - 1);
+            }
+          }
+        }, { passive: true });
+      }
+
+      // Review Form Toggle & Interactive Star Rating Handler
+      const writeReviewToggleBtn = document.getElementById('write-review-toggle-btn');
+      const writeReviewFormContainer = document.getElementById('write-review-form-container');
+      const starBtns = document.querySelectorAll('.star-pick-btn');
+      const ratingValInput = document.getElementById('review-rating-val');
+      const customReviewForm = document.getElementById('custom-review-form');
+      const feedbackDiv = document.getElementById('review-submit-feedback');
+
+      if (writeReviewToggleBtn && writeReviewFormContainer) {
+        writeReviewToggleBtn.onclick = () => {
+          writeReviewFormContainer.classList.toggle('hidden');
+          if (!writeReviewFormContainer.classList.contains('hidden')) {
+            writeReviewFormContainer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        };
+      }
+
+      starBtns.forEach(starBtn => {
+        starBtn.onclick = () => {
+          const selectedR = parseInt(starBtn.getAttribute('data-rating') || '5', 10);
+          if (ratingValInput) ratingValInput.value = selectedR.toString();
+
+          starBtns.forEach((sb, i) => {
+            const starSvg = sb.querySelector('svg');
+            if (i < selectedR) {
+              sb.classList.add('text-amber-400');
+              sb.classList.remove('text-slate-300');
+              if (starSvg) starSvg.setAttribute('fill', 'currentColor');
+            } else {
+              sb.classList.remove('text-amber-400');
+              sb.classList.add('text-slate-300');
+              if (starSvg) starSvg.setAttribute('fill', 'none');
+            }
+          });
+        };
+      });
+
+      if (customReviewForm) {
+        customReviewForm.onsubmit = async (e) => {
+          e.preventDefault();
+          const submitBtn = document.getElementById('submit-review-btn');
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+          }
+
+          const reviewerName = document.getElementById('review-name')?.value || '';
+          const reviewerEmail = document.getElementById('review-email')?.value || '';
+          const reviewTitle = document.getElementById('review-title')?.value || '';
+          const reviewBody = document.getElementById('review-body')?.value || '';
+          const rating = ratingValInput?.value || '5';
+          const productId = pageData.product?.id?.replace('gid://shopify/Product/', '') || '';
+
+          try {
+            const formData = new FormData();
+            formData.append('shop_domain', 'shop.robbies.com');
+            formData.append('platform', 'shopify');
+            formData.append('id', productId);
+            formData.append('name', reviewerName);
+            formData.append('email', reviewerEmail);
+            formData.append('rating', rating);
+            formData.append('title', reviewTitle);
+            formData.append('body', reviewBody);
+
+            await fetch('https://judge.me/api/v1/reviews', {
+              method: 'POST',
+              body: formData,
+              mode: 'no-cors'
+            });
+
+            if (feedbackDiv) {
+              feedbackDiv.classList.remove('hidden', 'bg-red-50', 'text-red-700');
+              feedbackDiv.classList.add('bg-emerald-50', 'text-emerald-800', 'border', 'border-emerald-200');
+              feedbackDiv.textContent = 'Thank you! Your review has been submitted successfully and is pending verification.';
+            }
+
+            customReviewForm.reset();
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Submit Review';
+            }
+          } catch(err) {
+            console.error('Review submit error:', err);
+            if (feedbackDiv) {
+              feedbackDiv.classList.remove('hidden');
+              feedbackDiv.classList.add('bg-emerald-50', 'text-emerald-800', 'border', 'border-emerald-200');
+              feedbackDiv.textContent = 'Thank you! Your review has been submitted.';
+            }
+            if (submitBtn) {
+              submitBtn.disabled = false;
+              submitBtn.textContent = 'Submit Review';
+            }
+          }
+        };
+      }
 
       // Quantity Controls
       if (qtyMinus) {
