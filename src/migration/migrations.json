@@ -571,8 +571,12 @@
               "text": "Replaced Google search in Header with internal product search: instant live autocomplete results with thumbnails & direct filtering in /shop catalog"
             },
             {
-              "status": "completed",
-              "text": "Fixed Judge.me reviews integration: decoded base64 GraphQL product IDs to numeric Shopify IDs and configured 838909-2.myshopify.com store domain for Judge.me widget & preview badges"
+              "status": "pending",
+              "text": "Judge.me Reviews Widget Styling & Pixel-Perfect Layout Alignment (Pending)"
+            },
+            {
+              "status": "pending",
+              "text": "Desktop & Mobile UI/UX Design Alignment with Original Robbie's Store Layout (Pending)"
             }
           ]
         },
