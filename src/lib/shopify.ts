@@ -46,9 +46,9 @@ export function formatProduct(node: any) {
     featuredImageUrl = images[0].url;
   }
 
-  const variants = node.variants?.edges?.map((e: any) => e.node) || [];
-  const inStockVariants = variants.filter((v: any) => v.availableForSale !== false);
-  const activeVariants = inStockVariants.length > 0 ? inStockVariants : variants;
+  const rawVariants = node.variants?.edges?.map((e: any) => e.node) || [];
+  const inStockVariants = rawVariants.filter((v: any) => v.availableForSale !== false);
+  const activeVariants = inStockVariants.length > 0 ? inStockVariants : rawVariants;
 
   // Extract Sizes and Colors options
   const sizesSet = new Set<string>();
@@ -80,8 +80,32 @@ export function formatProduct(node: any) {
     'pink': '#ec4899',
     'purple': '#7e22ce',
     'yellow': '#eab308',
-    'orange': '#ea580c'
+    'orange': '#ea580c',
+    'charcoal': '#374151',
+    'heather': '#9ca3af',
+    'natural': '#f5f5f4'
   };
+
+  const formattedVariants = activeVariants.map((v: any) => {
+    const optionsObj: Record<string, string> = {};
+    v.selectedOptions?.forEach((so: any) => {
+      const nameLower = so.name.toLowerCase();
+      if (nameLower.includes('size') || nameLower.includes('talla')) optionsObj.size = so.value;
+      if (nameLower.includes('color') || nameLower.includes('colour')) optionsObj.color = so.value;
+      optionsObj[nameLower] = so.value;
+    });
+
+    return {
+      id: v.id,
+      title: v.title,
+      price: v.price?.amount || '',
+      currency: v.price?.currencyCode || 'USD',
+      availableForSale: v.availableForSale,
+      selectedOptions: v.selectedOptions || [],
+      optionsObj,
+      imageUrl: v.image?.url || featuredImageUrl || ''
+    };
+  });
 
   const colors = Array.from(colorsSet).map(c => {
     const lower = c.toLowerCase();
@@ -92,7 +116,9 @@ export function formatProduct(node: any) {
         break;
       }
     }
-    return { name: c, hex };
+    // Find variant image for this color if available
+    const colorVar = formattedVariants.find(v => v.optionsObj.color === c && v.imageUrl);
+    return { name: c, hex, imageUrl: colorVar?.imageUrl || '' };
   });
 
   return {
@@ -100,7 +126,7 @@ export function formatProduct(node: any) {
     featuredImageUrl: featuredImageUrl || '',
     hasRealImage: !!featuredImageUrl,
     imagesList: images.length > 0 ? images : (featuredImageUrl ? [{ url: featuredImageUrl, altText: node.title }] : []),
-    variantsList: activeVariants,
+    variantsList: formattedVariants,
     sizes: Array.from(sizesSet),
     colors,
     inStock: node.availableForSale !== false && activeVariants.length > 0
@@ -165,6 +191,10 @@ export async function getProducts(first = 250) {
                   selectedOptions {
                     name
                     value
+                  }
+                  image {
+                    url
+                    altText
                   }
                 }
               }
@@ -271,6 +301,10 @@ export async function getProductsByCollection(collectionHandle: string, first = 
                     selectedOptions {
                       name
                       value
+                    }
+                    image {
+                      url
+                      altText
                     }
                   }
                 }

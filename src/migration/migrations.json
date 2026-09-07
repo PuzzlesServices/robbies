@@ -504,7 +504,27 @@
             },
             {
               "status": "completed",
-              "text": "Fixed 12-Item Interactive Paginator with Previous/Next & Page Numbers"
+              "text": "Refactored Shop Grid to 9 items per page (3x3 grid) for optimal image size and visual balance"
+            },
+            {
+              "status": "completed",
+              "text": "Implemented Compact Truncated Paginator with ellipsis (...) preventing multi-page button overflow"
+            },
+            {
+              "status": "completed",
+              "text": "Added Mobile & Desktop Category Filter Dropdown synced with Category Accordion"
+            },
+            {
+              "status": "completed",
+              "text": "Made Product Card Color Swatches & Size Pills interactive with automatic default option selection"
+            },
+            {
+              "status": "completed",
+              "text": "Added Product Card Image Carousel & Image Switcher on Swatch Hover/Click"
+            },
+            {
+              "status": "completed",
+              "text": "GraphQL Variant Image & Option Mapping Enrichment in shopify.ts"
             }
           ]
         },
