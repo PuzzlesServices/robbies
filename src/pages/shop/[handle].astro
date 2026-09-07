@@ -57,6 +57,20 @@ const sizes = product.sizes || [];
 
 const initialColor = colors[0]?.name || '';
 const initialSize = sizes[0] || '';
+
+function getNumericProductId(rawId: string) {
+  if (!rawId) return '';
+  if (/^\d+$/.test(rawId)) return rawId;
+  try {
+    const decoded = typeof atob !== 'undefined' ? atob(rawId) : Buffer.from(rawId, 'base64').toString('utf-8');
+    const match = decoded.match(/Product\/(\d+)/) || decoded.match(/(\d+)/);
+    if (match) return match[1];
+  } catch (e) {}
+  const match = rawId.match(/(\d+)/);
+  return match ? match[1] : rawId;
+}
+
+const numericProductId = getNumericProductId(product.id);
 ---
 
 <Layout 
@@ -172,7 +186,7 @@ const initialSize = sizes[0] || '';
             <!-- Judge.me Star Rating Preview Badge -->
             <div 
               class="jdgm-widget jdgm-preview-badge mb-3" 
-              data-id={product.id.replace('gid://shopify/Product/', '')} 
+              data-id={numericProductId} 
               data-handle={product.handle}
             ></div>
 
@@ -443,7 +457,7 @@ const initialSize = sizes[0] || '';
           <!-- Native Judge.me Review Widget Container -->
           <div 
             class="jdgm-widget jdgm-review-widget bg-slate-50 p-6 rounded-3xl border border-slate-200/80" 
-            data-id={product.id.replace('gid://shopify/Product/', '')} 
+            data-id={numericProductId} 
             data-handle={product.handle}
             data-product-title={product.title}
           ></div>
@@ -453,11 +467,18 @@ const initialSize = sizes[0] || '';
     </div>
   </main>
 
+  <link rel="stylesheet" href="https://cdn.shopify.com/extensions/01a07c5d-5dba-7b3a-8c44-13a607138a75/judgeme-741/assets/shopify_v2.css" />
   <script is:inline>
+    window.jdgmSettings = window.jdgmSettings || {
+      shop_domain: '838909-2.myshopify.com',
+      platform: 'shopify',
+      widget_load_with_code_splitting: true
+    };
     window.jdgm = window.jdgm || {};
-    window.jdgm.SHOP_DOMAIN = 'shop.robbies.com';
+    window.jdgm.SHOP_DOMAIN = '838909-2.myshopify.com';
     window.jdgm.PLATFORM = 'shopify';
   </script>
+  <script is:inline src="https://cdn.shopify.com/extensions/01a07c5d-5dba-7b3a-8c44-13a607138a75/judgeme-741/assets/loader.js" defer></script>
   <script is:inline src="https://cdn.judge.me/widget_v2.js" async></script>
 
   <!-- STICKY FLOATING BUY BAR (Appears on Scroll for High Conversion) -->
@@ -652,13 +673,25 @@ const initialSize = sizes[0] || '';
           const reviewTitle = document.getElementById('review-title')?.value || '';
           const reviewBody = document.getElementById('review-body')?.value || '';
           const rating = ratingValInput?.value || '5';
-          const productId = pageData.product?.id?.replace('gid://shopify/Product/', '') || '';
+          const rawProdId = pageData.product?.id || '';
+          let numId = rawProdId;
+          if (typeof atob !== 'undefined') {
+            try {
+              const decoded = atob(rawProdId);
+              const m = decoded.match(/Product\/(\d+)/) || decoded.match(/(\d+)/);
+              if (m) numId = m[1];
+            } catch(e) {}
+          }
+          if (!/^\d+$/.test(numId)) {
+            const m = rawProdId.match(/(\d+)/);
+            if (m) numId = m[1];
+          }
 
           try {
             const formData = new FormData();
-            formData.append('shop_domain', 'shop.robbies.com');
+            formData.append('shop_domain', '838909-2.myshopify.com');
             formData.append('platform', 'shopify');
-            formData.append('id', productId);
+            formData.append('id', numId);
             formData.append('name', reviewerName);
             formData.append('email', reviewerEmail);
             formData.append('rating', rating);
