@@ -1,6 +1,23 @@
 {
   "batches": [
     {
+      "date": "2026-09-07",
+      "routes": [
+        {
+          "slug": "/shop/",
+          "title": "Shop",
+          "seo": {
+            "score": 100,
+            "metaTitle": true,
+            "metaDescription": true,
+            "openGraph": true,
+            "schemaOrg": true,
+            "canonical": true
+          }
+        }
+      ]
+    },
+    {
       "date": "2026-09-04",
       "routes": [
         {
@@ -444,6 +461,25 @@
     {
       "weekLabel": "Week 1 · Sep 01 - Sep 07, 2026",
       "days": [
+        {
+          "date": "2026-09-07",
+          "dayName": "Monday",
+          "title": "Shopify Headless Storefront Integration",
+          "tasks": [
+            {
+              "status": "completed",
+              "text": "Shopify Headless Storefront API Connection (shop.robbies.com)"
+            },
+            {
+              "status": "completed",
+              "text": "Native Internal Catalog Page (/shop) & Dynamic Product Detail Pages (/shop/[handle])"
+            },
+            {
+              "status": "completed",
+              "text": "Interactive Shopping Side Cart Drawer & Secure Shopify Checkout Handoff"
+            }
+          ]
+        },
         {
           "date": "2026-09-04",
           "dayName": "Friday",

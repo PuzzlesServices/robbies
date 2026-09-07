@@ -1,0 +1,344 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/header/Header.astro';
+import Footer from '../../components/common/Footer.astro';
+import CartDrawer from '../../components/shop/CartDrawer.astro';
+import { getProductByHandle, getProducts } from '../../lib/shopify';
+import { ShoppingBag, ArrowRight, ShieldCheck, ChevronRight, Tag } from '@lucide/astro';
+
+export async function getStaticPaths() {
+  try {
+    const products = await getProducts(100);
+    return products.map((product: any) => ({
+      params: { handle: product.handle },
+      props: { product }
+    }));
+  } catch (e) {
+    console.error('Error generating static paths for shop products:', e);
+    return [];
+  }
+}
+
+const { handle } = Astro.params;
+let { product } = Astro.props;
+
+if (!product && handle) {
+  try {
+    product = await getProductByHandle(handle);
+  } catch (e) {
+    console.error(`Error loading product [${handle}]:`, e);
+  }
+}
+
+if (!product) {
+  return Astro.redirect('/shop');
+}
+
+const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
+const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
+const images = product.images?.edges?.map((e: any) => e.node) || [];
+const mainImage = product.featuredImage?.url || (images.length > 0 ? images[0].url : '/assets/home/imgi_19_shop.webp');
+const variants = product.variants?.edges?.map((e: any) => e.node) || [];
+const firstVariant = variants[0];
+---
+
+<Layout 
+  title={`${product.title} | Robbie's Shop`}
+  description={product.description || `Buy ${product.title} official merchandise from Robbie's of Islamorada.`}
+  image={mainImage}
+>
+  <Header />
+
+  <main class="flex-1 bg-slate-50 py-12">
+    <div class="max-w-[1180px] mx-auto px-6">
+      
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-xs font-semibold text-slate-500 mb-8">
+        <a href="/" class="hover:text-slate-900 transition-colors">Home</a>
+        <ChevronRight class="w-3.5 h-3.5 text-slate-300" />
+        <a href="/shop" class="hover:text-slate-900 transition-colors">Shop</a>
+        <ChevronRight class="w-3.5 h-3.5 text-slate-300" />
+        <span class="text-slate-900 truncate max-w-xs">{product.title}</span>
+      </nav>
+
+      <!-- Main Product Details Grid -->
+      <div class="bg-white rounded-3xl border border-slate-200/80 shadow-xs p-6 md:p-10 grid grid-cols-1 lg:grid-cols-12 gap-10">
+        
+        <!-- Left Column: Gallery / Images -->
+        <div class="lg:col-span-6 space-y-4">
+          <!-- Main Display Image -->
+          <div class="w-full aspect-square bg-slate-100 rounded-2xl overflow-hidden border border-slate-200/80 relative">
+            <img 
+              id="main-product-image"
+              src={mainImage} 
+              alt={product.featuredImage?.altText || product.title} 
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          <!-- Thumbnails -->
+          {images.length > 1 && (
+            <div class="flex items-center gap-3 overflow-x-auto pb-2">
+              {images.map((img: any, i: number) => (
+                <button 
+                  type="button" 
+                  class={`w-20 h-20 rounded-xl overflow-hidden border-2 transition-all shrink-0 cursor-pointer thumbnail-btn ${i === 0 ? 'border-[#2B55FF]' : 'border-slate-200 hover:border-slate-300'}`}
+                  data-img-src={img.url}
+                >
+                  <img src={img.url} alt={img.altText || product.title} class="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Right Column: Product Title, Variants, Pricing & Actions -->
+        <div class="lg:col-span-6 flex flex-col">
+          <span class="inline-flex items-center gap-1 text-[11px] font-extrabold uppercase tracking-widest text-[#2B55FF] mb-2">
+            <Tag class="w-3.5 h-3.5" /> Official Robbie's Merch
+          </span>
+
+          <h1 class="font-heading font-black text-2xl md:text-3xl lg:text-4xl text-slate-900 uppercase tracking-tight mb-4">
+            {product.title}
+          </h1>
+
+          <!-- Price Display -->
+          <div class="flex items-baseline gap-3 mb-6 pb-6 border-b border-slate-100">
+            <span id="product-price-display" class="font-heading font-black text-3xl text-[#2B447A]">
+              ${minPrice} <span class="text-sm font-bold text-slate-400">{currency}</span>
+            </span>
+          </div>
+
+          <!-- Variant Options Selector -->
+          {variants.length > 1 && (
+            <div class="mb-6 space-y-3">
+              <label class="block font-heading font-bold text-xs uppercase tracking-wider text-slate-700">
+                Select Option / Size:
+              </label>
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {variants.map((v: any, index: number) => (
+                  <button 
+                    type="button" 
+                    class={`variant-select-btn p-3 rounded-xl border text-xs font-bold text-center transition-all cursor-pointer ${index === 0 ? 'bg-[#2B447A] text-white border-[#2B447A] shadow-sm' : 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'}`}
+                    data-variant-id={v.id}
+                    data-price={v.price?.amount || minPrice}
+                    data-title={v.title}
+                  >
+                    {v.title}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <!-- Quantity & Action Buttons -->
+          <div class="space-y-4 mb-8">
+            <div class="flex items-center gap-4">
+              <span class="font-heading font-bold text-xs uppercase tracking-wider text-slate-700">Quantity:</span>
+              <div class="flex items-center border border-slate-300 rounded-xl bg-slate-50 overflow-hidden font-bold">
+                <button type="button" id="qty-minus" class="px-3 py-2 text-slate-600 hover:bg-slate-200 transition-colors">-</button>
+                <span id="qty-val" class="px-4 text-slate-900 text-sm">1</span>
+                <button type="button" id="qty-plus" class="px-3 py-2 text-slate-600 hover:bg-slate-200 transition-colors">+</button>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-3 pt-2">
+              <button 
+                id="add-to-cart-btn"
+                type="button"
+                class="flex-1 bg-[#2B55FF] hover:bg-[#1D4ED8] text-white font-heading font-extrabold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 uppercase tracking-wider text-xs sm:text-sm cursor-pointer"
+                data-selected-variant-id={firstVariant?.id || ''}
+                data-product-id={product.id}
+                data-title={product.title}
+                data-price={firstVariant?.price?.amount || minPrice}
+                data-image={mainImage}
+                data-handle={product.handle}
+              >
+                <ShoppingBag class="w-5 h-5" />
+                <span>Add to Cart</span>
+              </button>
+
+              <button 
+                id="buy-now-btn"
+                type="button"
+                class="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-heading font-extrabold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 uppercase tracking-wider text-xs sm:text-sm cursor-pointer"
+              >
+                <span>Buy Now</span>
+                <ArrowRight class="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          <!-- Description Section -->
+          {product.descriptionHtml ? (
+            <div class="border-t border-slate-100 pt-6 mt-auto">
+              <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-slate-400 mb-3">Product Description</h3>
+              <div class="prose prose-slate text-xs sm:text-sm text-slate-600 leading-relaxed font-sans" set:html={product.descriptionHtml} />
+            </div>
+          ) : product.description ? (
+            <div class="border-t border-slate-100 pt-6 mt-auto">
+              <h3 class="font-heading font-bold text-xs uppercase tracking-wider text-slate-400 mb-3">Product Description</h3>
+              <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">{product.description}</p>
+            </div>
+          ) : null}
+
+          <div class="flex items-center gap-2 text-xs text-slate-400 mt-6 pt-4 border-t border-slate-100">
+            <ShieldCheck class="w-4 h-4 text-emerald-500" />
+            <span>Official Robbie's Product · Fast Shipping</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </main>
+
+  <Footer />
+  <CartDrawer />
+</Layout>
+
+<script is:inline>
+  (function() {
+    function initProductDetail() {
+      const mainImg = document.getElementById('main-product-image');
+      const thumbBtns = document.querySelectorAll('.thumbnail-btn');
+      const variantBtns = document.querySelectorAll('.variant-select-btn');
+      const priceDisplay = document.getElementById('product-price-display');
+      const addToCartBtn = document.getElementById('add-to-cart-btn');
+      const buyNowBtn = document.getElementById('buy-now-btn');
+      const qtyMinus = document.getElementById('qty-minus');
+      const qtyPlus = document.getElementById('qty-plus');
+      const qtyVal = document.getElementById('qty-val');
+
+      let currentQty = 1;
+      let selectedVariantTitle = '';
+
+      // Thumbnail switching
+      thumbBtns.forEach(btn => {
+        btn.onclick = () => {
+          const newSrc = btn.getAttribute('data-img-src');
+          if (mainImg && newSrc) mainImg.src = newSrc;
+          thumbBtns.forEach(b => b.classList.remove('border-[#2B55FF]'));
+          btn.classList.add('border-[#2B55FF]');
+        };
+      });
+
+      // Quantity controls
+      if (qtyMinus) {
+        qtyMinus.onclick = () => {
+          if (currentQty > 1) {
+            currentQty--;
+            if (qtyVal) qtyVal.textContent = currentQty;
+          }
+        };
+      }
+      if (qtyPlus) {
+        qtyPlus.onclick = () => {
+          currentQty++;
+          if (qtyVal) qtyVal.textContent = currentQty;
+        };
+      }
+
+      // Variant selection
+      variantBtns.forEach(btn => {
+        btn.onclick = () => {
+          variantBtns.forEach(b => {
+            b.classList.remove('bg-[#2B447A]', 'text-white', 'border-[#2B447A]', 'shadow-sm');
+            b.classList.add('bg-slate-50', 'text-slate-700', 'border-slate-200');
+          });
+          btn.classList.remove('bg-slate-50', 'text-slate-700', 'border-slate-200');
+          btn.classList.add('bg-[#2B447A]', 'text-white', 'border-[#2B447A]', 'shadow-sm');
+
+          const varId = btn.getAttribute('data-variant-id');
+          const varPrice = btn.getAttribute('data-price');
+          selectedVariantTitle = btn.getAttribute('data-title') || '';
+
+          if (addToCartBtn) {
+            addToCartBtn.setAttribute('data-selected-variant-id', varId);
+            addToCartBtn.setAttribute('data-price', varPrice);
+          }
+
+          if (priceDisplay && varPrice) {
+            priceDisplay.innerHTML = `$${parseFloat(varPrice).toFixed(2)} <span class="text-sm font-bold text-slate-400">USD</span>`;
+          }
+        };
+      });
+
+      // Add to cart click
+      if (addToCartBtn) {
+        addToCartBtn.onclick = () => {
+          const variantId = addToCartBtn.getAttribute('data-selected-variant-id');
+          const productId = addToCartBtn.getAttribute('data-product-id');
+          const title = addToCartBtn.getAttribute('data-title');
+          const price = addToCartBtn.getAttribute('data-price');
+          const image = addToCartBtn.getAttribute('data-image');
+          const handle = addToCartBtn.getAttribute('data-handle');
+
+          if (window.addShopifyItemToCart) {
+            window.addShopifyItemToCart({
+              variantId,
+              productId,
+              title,
+              variantTitle: selectedVariantTitle,
+              price,
+              image,
+              handle,
+              quantity: currentQty
+            });
+          }
+        };
+      }
+
+      // Buy Now click -> direct checkout
+      if (buyNowBtn) {
+        buyNowBtn.onclick = async () => {
+          const variantId = addToCartBtn?.getAttribute('data-selected-variant-id');
+          if (!variantId) return;
+
+          buyNowBtn.disabled = true;
+          buyNowBtn.innerHTML = '<span>Creating Checkout...</span>';
+
+          try {
+            const query = `
+              mutation cartCreate($input: CartInput!) {
+                cartCreate(input: $input) {
+                  cart {
+                    checkoutUrl
+                  }
+                }
+              }
+            `;
+
+            const res = await fetch('https://shop.robbies.com/api/2024-07/graphql.json', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Shopify-Storefront-Access-Token': '0d87a6f954a1e1d67f633ecce7ddfd2b'
+              },
+              body: JSON.stringify({ query, variables: { input: { lines: [{ merchandiseId: variantId, quantity: currentQty }] } } })
+            });
+
+            const json = await res.json();
+            const checkoutUrl = json.data?.cartCreate?.cart?.checkoutUrl;
+
+            if (checkoutUrl) {
+              window.location.href = checkoutUrl;
+            } else {
+              alert('Error creating checkout URL.');
+              buyNowBtn.disabled = false;
+              buyNowBtn.innerHTML = '<span>Buy Now</span>';
+            }
+          } catch(err) {
+            console.error('Buy Now error:', err);
+            buyNowBtn.disabled = false;
+            buyNowBtn.innerHTML = '<span>Buy Now</span>';
+          }
+        };
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', initProductDetail);
+    document.addEventListener('astro:page-load', initProductDetail);
+  })();
+</script>

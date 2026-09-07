@@ -1,0 +1,203 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/header/Header.astro';
+import Footer from '../../components/common/Footer.astro';
+import CartDrawer from '../../components/shop/CartDrawer.astro';
+import { getProducts } from '../../lib/shopify';
+import { ShoppingBag, ArrowRight, ShieldCheck, Tag, Star } from '@lucide/astro';
+
+let products: any[] = [];
+let errorMsg = '';
+
+try {
+  products = await getProducts(36);
+} catch (e) {
+  console.error('Error loading Shopify products:', e);
+  errorMsg = 'Could not load products from Shopify Storefront API.';
+}
+---
+
+<Layout 
+  title="Official Shop | Robbie's of Islamorada"
+  description="Shop official Robbie's of Islamorada t-shirts, hats, art, and souvenirs directly on our website."
+  image="/assets/home/imgi_19_shop.webp"
+>
+  <Header />
+
+  <main class="flex-1 bg-slate-50">
+    <!-- Hero Banner for Shop -->
+    <section class="w-full bg-[#2B447A] text-white py-16 px-6 relative overflow-hidden">
+      <div class="max-w-[1180px] mx-auto text-center relative z-10">
+        <span class="inline-flex items-center gap-1.5 bg-white/10 text-white/90 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 border border-white/20">
+          <Tag class="w-3.5 h-3.5" /> Official Robbie's Merch
+        </span>
+        <h1 class="font-heading font-black text-4xl sm:text-5xl md:text-6xl uppercase tracking-tight mb-4">
+          Robbie's Online Store
+        </h1>
+        <p class="font-heading font-normal text-base sm:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed">
+          Bring the Florida Keys experience home! Browse our official t-shirts, souvenirs, local artwork, and accessories.
+        </p>
+      </div>
+
+      <!-- Decorative background blur -->
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    </section>
+
+    <!-- Products Grid Section -->
+    <section class="max-w-[1180px] mx-auto px-6 py-16">
+      
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-10 pb-4 border-b border-slate-200">
+        <div>
+          <h2 class="font-heading font-black text-2xl text-slate-900 uppercase">Featured Products</h2>
+          <p class="text-xs text-slate-500 mt-1">Directly integrated with Shopify Storefront API</p>
+        </div>
+        <span class="text-xs font-bold text-slate-400 bg-white border border-slate-200 px-3 py-1.5 rounded-full shadow-xs self-start sm:self-auto">
+          {products.length} Products Available
+        </span>
+      </div>
+
+      {errorMsg ? (
+        <div class="bg-red-50 border border-red-200 rounded-2xl p-8 text-center max-w-md mx-auto my-12">
+          <p class="text-red-600 font-bold text-sm mb-2">{errorMsg}</p>
+          <p class="text-slate-500 text-xs">Please verify your Shopify credentials and Storefront API permissions.</p>
+        </div>
+      ) : products.length === 0 ? (
+        <div class="text-center py-20 bg-white rounded-2xl border border-slate-200 shadow-xs max-w-lg mx-auto">
+          <ShoppingBag class="w-12 h-12 text-slate-300 mx-auto mb-3" />
+          <h3 class="font-heading font-black text-slate-800 text-lg">No products found</h3>
+          <p class="text-slate-500 text-xs mt-1">Make sure products are set as active and available on the Storefront channel in Shopify Admin.</p>
+        </div>
+      ) : (
+        <div class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((product) => {
+            const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').toFixed(2);
+            const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
+            const firstVariant = product.variants?.edges[0]?.node;
+            const imageUrl = product.featuredImage?.url || '/assets/home/imgi_19_shop.webp';
+
+            return (
+              <div class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col group">
+                <!-- Product Image Container -->
+                <a href={`/shop/${product.handle}`} class="relative block w-full aspect-square bg-slate-100 overflow-hidden">
+                  <img 
+                    src={imageUrl} 
+                    alt={product.featuredImage?.altText || product.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-xs text-slate-900 text-xs font-black px-2.5 py-1 rounded-full shadow-md font-heading">
+                    ${minPrice} {currency}
+                  </div>
+                </a>
+
+                <!-- Product Content -->
+                <div class="p-5 flex flex-col flex-1">
+                  <a href={`/shop/${product.handle}`} class="block mb-2">
+                    <h3 class="font-heading font-black text-sm text-slate-900 group-hover:text-[#2B55FF] transition-colors line-clamp-2 uppercase">
+                      {product.title}
+                    </h3>
+                  </a>
+
+                  {product.description && (
+                    <p class="text-xs text-slate-500 line-clamp-2 mb-4 font-sans leading-relaxed">
+                      {product.description}
+                    </p>
+                  )}
+
+                  <div class="mt-auto pt-4 border-t border-slate-100 flex items-center gap-2">
+                    <a 
+                      href={`/shop/${product.handle}`} 
+                      class="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-heading font-bold text-xs uppercase tracking-wider py-2.5 px-3 rounded-xl text-center transition-colors"
+                    >
+                      View Product
+                    </a>
+                    {firstVariant && (
+                      <button 
+                        type="button" 
+                        class="bg-[#2B55FF] hover:bg-[#1D4ED8] text-white p-2.5 rounded-xl transition-colors shadow-sm cursor-pointer add-to-cart-quick-btn"
+                        data-[#2B55FF]={firstVariant.id}
+                        data-product-id={product.id}
+                        data-title={product.title}
+                        data-price={firstVariant.price?.amount || minPrice}
+                        data-image={imageUrl}
+                        data-handle={product.handle}
+                        title="Add to Cart"
+                      >
+                        <ShoppingBag class="w-4 h-4" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </section>
+
+    <!-- Trust Badges Bar -->
+    <section class="w-full bg-white border-t border-slate-200 py-12 px-6">
+      <div class="max-w-[1180px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div class="flex flex-col items-center">
+          <div class="w-12 h-12 bg-blue-50 text-[#2B447A] rounded-2xl flex items-center justify-center mb-3">
+            <ShieldCheck class="w-6 h-6" />
+          </div>
+          <h4 class="font-heading font-bold text-sm text-slate-900 uppercase">Secure Shopify Checkout</h4>
+          <p class="text-xs text-slate-500 mt-1 max-w-xs">All purchases are processed securely with SSL encryption by Shopify.</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="w-12 h-12 bg-blue-50 text-[#2B447A] rounded-2xl flex items-center justify-center mb-3">
+            <Tag class="w-6 h-6" />
+          </div>
+          <h4 class="font-heading font-bold text-sm text-slate-900 uppercase">Authentic Merchandise</h4>
+          <p class="text-xs text-slate-500 mt-1 max-w-xs">Directly from Robbie's of Islamorada Marina in the Florida Keys.</p>
+        </div>
+
+        <div class="flex flex-col items-center">
+          <div class="w-12 h-12 bg-blue-50 text-[#2B447A] rounded-2xl flex items-center justify-center mb-3">
+            <ShoppingBag class="w-6 h-6" />
+          </div>
+          <h4 class="font-heading font-bold text-sm text-slate-900 uppercase">Headless Speed</h4>
+          <p class="text-xs text-slate-500 mt-1 max-w-xs">Browse our catalog instantly without full page reloads.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+
+  <!-- Side Cart Drawer -->
+  <CartDrawer />
+</Layout>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', initQuickAdd);
+  document.addEventListener('astro:page-load', initQuickAdd);
+
+  function initQuickAdd() {
+    document.querySelectorAll('.add-to-cart-quick-btn').forEach(btn => {
+      btn.onclick = () => {
+        const variantId = btn.getAttribute('data-variant-id');
+        const productId = btn.getAttribute('data-product-id');
+        const title = btn.getAttribute('data-title');
+        const price = btn.getAttribute('data-price');
+        const image = btn.getAttribute('data-image');
+        const handle = btn.getAttribute('data-handle');
+
+        if (window.addShopifyItemToCart) {
+          window.addShopifyItemToCart({
+            variantId,
+            productId,
+            title,
+            price,
+            image,
+            handle,
+            quantity: 1
+          });
+        }
+      };
+    });
+  }
+</script>

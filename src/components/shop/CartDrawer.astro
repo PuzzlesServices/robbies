@@ -1,0 +1,285 @@
+---
+import { ShoppingBag, X, Trash2, ArrowRight, ShieldCheck } from '@lucide/astro';
+---
+
+<!-- Cart Drawer Overlay -->
+<div 
+  id="shopify-cart-drawer"
+  class="fixed inset-y-0 right-0 w-full sm:w-[420px] max-w-full bg-white z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col shadow-2xl border-l border-slate-200"
+>
+  <!-- Header -->
+  <div class="flex items-center justify-between p-6 border-b border-slate-100 bg-[#2B447A] text-white">
+    <div class="flex items-center gap-2">
+      <ShoppingBag class="w-5 h-5" />
+      <h2 class="font-heading font-extrabold text-base uppercase tracking-wider">Shopping Cart</h2>
+      <span id="cart-badge-count" class="bg-white/20 text-white text-xs font-bold px-2 py-0.5 rounded-full ml-1">0</span>
+    </div>
+    <button 
+      id="close-cart-drawer-btn" 
+      class="p-1 text-white/80 hover:text-white hover:bg-white/10 rounded-lg transition-colors"
+      aria-label="Close cart"
+    >
+      <X class="w-6 h-6" />
+    </button>
+  </div>
+
+  <!-- Cart Items List (Scrollable) -->
+  <div id="cart-items-container" class="flex-1 overflow-y-auto p-6 space-y-4">
+    <!-- Empty State -->
+    <div id="cart-empty-state" class="text-center py-16 px-4">
+      <div class="w-16 h-16 bg-blue-50 text-[#2B447A] rounded-full flex items-center justify-center mx-auto mb-4">
+        <ShoppingBag class="w-8 h-8" />
+      </div>
+      <h3 class="font-heading font-black text-slate-800 text-lg mb-2">Your cart is empty</h3>
+      <p class="text-slate-500 text-xs mb-6">Explore Robbie's official merchandise and add items to your cart.</p>
+      <a 
+        href="/shop" 
+        class="inline-block bg-[#2B447A] hover:bg-[#1D4ED8] text-white font-heading font-bold text-xs uppercase tracking-widest px-6 py-3 rounded-xl transition-colors shadow-md"
+      >
+        Explore Shop
+      </a>
+    </div>
+
+    <!-- Items dynamically injected via JS -->
+    <div id="cart-items-list" class="space-y-4 hidden"></div>
+  </div>
+
+  <!-- Footer with Totals & Checkout -->
+  <div id="cart-footer" class="p-6 bg-slate-50 border-t border-slate-200 hidden space-y-4">
+    <div class="space-y-2 text-sm">
+      <div class="flex justify-between text-slate-500">
+        <span>Subtotal</span>
+        <span id="cart-subtotal" class="font-bold text-slate-800">$0.00 USD</span>
+      </div>
+      <div class="flex justify-between text-xs text-slate-400 border-b border-slate-200 pb-2">
+        <span>Taxes & Shipping</span>
+        <span>Calculated at checkout</span>
+      </div>
+      <div class="flex justify-between text-base font-black text-slate-900 pt-1 font-heading">
+        <span>Total</span>
+        <span id="cart-total">$0.00 USD</span>
+      </div>
+    </div>
+
+    <!-- Checkout Button (Handsoff to Shopify) -->
+    <button 
+      id="shopify-checkout-btn"
+      class="w-full bg-[#2B55FF] hover:bg-[#1D4ED8] text-white font-heading font-extrabold py-3.5 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 uppercase tracking-wider text-sm cursor-pointer"
+    >
+      <span>Proceed to Checkout</span>
+      <ArrowRight class="w-4 h-4" />
+    </button>
+
+    <div class="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 font-medium">
+      <ShieldCheck class="w-4 h-4 text-emerald-500" />
+      <span>Encrypted Payment Handled Securely by Shopify</span>
+    </div>
+  </div>
+</div>
+
+<!-- Backdrop Overlay -->
+<div 
+  id="cart-drawer-backdrop" 
+  class="fixed inset-0 bg-slate-950/60 backdrop-blur-xs z-40 hidden transition-opacity"
+></div>
+
+<script is:inline>
+  (function() {
+    function initCartDrawer() {
+      const drawer = document.getElementById('shopify-cart-drawer');
+      const backdrop = document.getElementById('cart-drawer-backdrop');
+      const closeBtn = document.getElementById('close-cart-drawer-btn');
+      const emptyState = document.getElementById('cart-empty-state');
+      const itemsList = document.getElementById('cart-items-list');
+      const footer = document.getElementById('cart-footer');
+      const checkoutBtn = document.getElementById('shopify-checkout-btn');
+      const subtotalEl = document.getElementById('cart-subtotal');
+      const totalEl = document.getElementById('cart-total');
+      const badgeCountEl = document.getElementById('cart-badge-count');
+
+      // Global window helpers for cart
+      window.openShopifyCart = function() {
+        if (drawer) drawer.classList.remove('translate-x-full');
+        if (backdrop) backdrop.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        renderCartUI();
+      };
+
+      window.closeShopifyCart = function() {
+        if (drawer) drawer.classList.add('translate-x-full');
+        if (backdrop) backdrop.classList.add('hidden');
+        document.body.style.overflow = '';
+      };
+
+      if (closeBtn) closeBtn.onclick = window.closeShopifyCart;
+      if (backdrop) backdrop.onclick = window.closeShopifyCart;
+
+      // LocalStorage Cart Helper
+      function getLocalCart() {
+        try {
+          return JSON.parse(localStorage.getItem('robbies_cart') || '[]');
+        } catch(e) {
+          return [];
+        }
+      }
+
+      function saveLocalCart(cart) {
+        localStorage.setItem('robbies_cart', JSON.stringify(cart));
+        renderCartUI();
+      }
+
+      window.addShopifyItemToCart = function(item) {
+        const cart = getLocalCart();
+        const existing = cart.find(i => i.variantId === item.variantId);
+        if (existing) {
+          existing.quantity += item.quantity || 1;
+        } else {
+          cart.push({
+            variantId: item.variantId,
+            productId: item.productId,
+            title: item.title,
+            variantTitle: item.variantTitle || 'Default',
+            price: item.price,
+            image: item.image || '/assets/home/imgi_19_shop.webp',
+            quantity: item.quantity || 1,
+            handle: item.handle
+          });
+        }
+        saveLocalCart(cart);
+        window.openShopifyCart();
+      };
+
+      function renderCartUI() {
+        const cart = getLocalCart();
+        const totalItems = cart.reduce((acc, i) => acc + i.quantity, 0);
+
+        if (badgeCountEl) badgeCountEl.textContent = totalItems;
+
+        if (cart.length === 0) {
+          if (emptyState) emptyState.classList.remove('hidden');
+          if (itemsList) itemsList.classList.add('hidden');
+          if (footer) footer.classList.add('hidden');
+          return;
+        }
+
+        if (emptyState) emptyState.classList.add('hidden');
+        if (itemsList) itemsList.classList.remove('hidden');
+        if (footer) footer.classList.remove('hidden');
+
+        let totalPrice = 0;
+        itemsList.innerHTML = cart.map((item, index) => {
+          const itemTotal = parseFloat(item.price) * item.quantity;
+          totalPrice += itemTotal;
+
+          return `
+            <div class="flex items-center gap-4 p-3 bg-slate-50 border border-slate-200/80 rounded-xl relative group">
+              <img src="${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded-lg bg-white border border-slate-200" />
+              <div class="flex-1 min-w-0">
+                <h4 class="font-bold text-slate-800 text-xs truncate uppercase font-heading">${item.title}</h4>
+                ${item.variantTitle && item.variantTitle !== 'Default' ? `<p class="text-[11px] text-slate-500">${item.variantTitle}</p>` : ''}
+                <p class="text-xs font-black text-[#2B447A] mt-1 font-heading">$${parseFloat(item.price).toFixed(2)} USD</p>
+              </div>
+
+              <!-- Quantity Controls -->
+              <div class="flex items-center border border-slate-300 rounded-lg bg-white overflow-hidden text-xs">
+                <button type="button" class="px-2 py-1 hover:bg-slate-100 text-slate-600 font-bold update-qty-btn" data-index="${index}" data-delta="-1">-</button>
+                <span class="px-2 font-bold text-slate-800">${item.quantity}</span>
+                <button type="button" class="px-2 py-1 hover:bg-slate-100 text-slate-600 font-bold update-qty-btn" data-index="${index}" data-delta="1">+</button>
+              </div>
+
+              <!-- Delete Button -->
+              <button type="button" class="text-slate-400 hover:text-red-500 p-1 remove-cart-btn" data-index="${index}">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+              </button>
+            </div>
+          `;
+        }).join('');
+
+        if (subtotalEl) subtotalEl.textContent = `$${totalPrice.toFixed(2)} USD`;
+        if (totalEl) totalEl.textContent = `$${totalPrice.toFixed(2)} USD`;
+
+        // Event Listeners for quantity and removal
+        itemsList.querySelectorAll('.update-qty-btn').forEach(btn => {
+          btn.onclick = () => {
+            const index = parseInt(btn.getAttribute('data-index'));
+            const delta = parseInt(btn.getAttribute('data-delta'));
+            const cart = getLocalCart();
+            if (cart[index]) {
+              cart[index].quantity += delta;
+              if (cart[index].quantity <= 0) cart.splice(index, 1);
+              saveLocalCart(cart);
+            }
+          };
+        });
+
+        itemsList.querySelectorAll('.remove-cart-btn').forEach(btn => {
+          btn.onclick = () => {
+            const index = parseInt(btn.getAttribute('data-index'));
+            const cart = getLocalCart();
+            cart.splice(index, 1);
+            saveLocalCart(cart);
+          };
+        });
+      }
+
+      // Checkout Handler -> Shopify Checkout Redirection
+      if (checkoutBtn) {
+        checkoutBtn.onclick = async () => {
+          const cart = getLocalCart();
+          if (cart.length === 0) return;
+
+          checkoutBtn.disabled = true;
+          checkoutBtn.innerHTML = '<span>Creating Checkout...</span>';
+
+          try {
+            const lineItems = cart.map(i => ({
+              merchandiseId: i.variantId,
+              quantity: i.quantity
+            }));
+
+            // Call Storefront GraphQL API to create Cart
+            const query = `
+              mutation cartCreate($input: CartInput!) {
+                cartCreate(input: $input) {
+                  cart {
+                    checkoutUrl
+                  }
+                }
+              }
+            `;
+
+            const res = await fetch('https://shop.robbies.com/api/2024-07/graphql.json', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'X-Shopify-Storefront-Access-Token': '0d87a6f954a1e1d67f633ecce7ddfd2b'
+              },
+              body: JSON.stringify({ query, variables: { input: { lines: lineItems } } })
+            });
+
+            const json = await res.json();
+            const checkoutUrl = json.data?.cartCreate?.cart?.checkoutUrl;
+
+            if (checkoutUrl) {
+              window.location.href = checkoutUrl;
+            } else {
+              alert('Error creating checkout URL. Please try again.');
+              checkoutBtn.disabled = false;
+              checkoutBtn.innerHTML = '<span>Proceed to Checkout</span>';
+            }
+          } catch(err) {
+            console.error('Checkout error:', err);
+            alert('Could not connect to Shopify Checkout.');
+            checkoutBtn.disabled = false;
+            checkoutBtn.innerHTML = '<span>Proceed to Checkout</span>';
+          }
+        };
+      }
+
+      renderCartUI();
+    }
+
+    document.addEventListener('DOMContentLoaded', initCartDrawer);
+    document.addEventListener('astro:page-load', initCartDrawer);
+  })();
+</script>
