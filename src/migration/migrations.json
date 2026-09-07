@@ -544,7 +544,15 @@
             },
             {
               "status": "completed",
-              "text": "Removed redundant Dropdown selector & implemented Mobile Accordion Filter Drawer"
+              "text": "Fixed 404 Migration Page error by generating static paths for all 250 products in [handle].astro"
+            },
+            {
+              "status": "completed",
+              "text": "Fixed Cart Drawer to display selected Size & Color (variantTitle) when adding directly from /shop grid"
+            },
+            {
+              "status": "completed",
+              "text": "Enhanced product detail pages (/shop/[handle]) with high-conversion UX, stock badges, and direct checkout"
             }
           ]
         },

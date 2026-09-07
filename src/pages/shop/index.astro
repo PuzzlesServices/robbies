@@ -730,6 +730,16 @@ const categoryStructure = [
               addToCartBtn.setAttribute('data-variant-id', matchedVar.id);
               if (matchedVar.price) addToCartBtn.setAttribute('data-price', matchedVar.price);
               if (matchedVar.imageUrl) addToCartBtn.setAttribute('data-image', matchedVar.imageUrl);
+
+              let vTitle = matchedVar.title && matchedVar.title !== 'Default Title' ? matchedVar.title : '';
+              if (selectedColor && selectedSize) {
+                vTitle = `Color: ${selectedColor} / Size: ${selectedSize}`;
+              } else if (selectedSize) {
+                vTitle = `Size: ${selectedSize}`;
+              } else if (selectedColor) {
+                vTitle = `Color: ${selectedColor}`;
+              }
+              addToCartBtn.setAttribute('data-variant-title', vTitle);
             }
             if (priceDisplay && matchedVar.price) {
               priceDisplay.innerHTML = `$${parseFloat(matchedVar.price).toFixed(2)} <span class="text-xs font-bold text-slate-400">USD</span>`;
@@ -792,6 +802,7 @@ const categoryStructure = [
             const variantId = addToCartBtn.getAttribute('data-variant-id');
             const productId = addToCartBtn.getAttribute('data-product-id');
             const title = addToCartBtn.getAttribute('data-title');
+            const variantTitle = addToCartBtn.getAttribute('data-variant-title') || '';
             const price = addToCartBtn.getAttribute('data-price');
             const image = addToCartBtn.getAttribute('data-image');
             const handle = addToCartBtn.getAttribute('data-handle');
@@ -801,6 +812,7 @@ const categoryStructure = [
                 variantId,
                 productId,
                 title,
+                variantTitle,
                 price,
                 image,
                 handle,

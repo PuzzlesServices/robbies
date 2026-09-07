@@ -8,7 +8,7 @@ import { ShoppingBag, ArrowRight, ShieldCheck, ChevronRight, Tag } from '@lucide
 
 export async function getStaticPaths() {
   try {
-    const products = await getProducts(100);
+    const products = await getProducts(250);
     return products.map((product: any) => ({
       params: { handle: product.handle },
       props: { product }
@@ -38,7 +38,7 @@ const minPrice = parseFloat(product.priceRange?.minVariantPrice?.amount || '0').
 const currency = product.priceRange?.minVariantPrice?.currencyCode || 'USD';
 const images = product.imagesList || [];
 const mainImage = product.featuredImageUrl || '/assets/home/imgi_19_shop.webp';
-const variants = product.variants?.edges?.map((e: any) => e.node) || [];
+const variants = product.variantsList || product.variants?.edges?.map((e: any) => e.node) || [];
 const firstVariant = variants[0];
 ---
 
