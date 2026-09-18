@@ -8,6 +8,11 @@ astro dev --background
 
 Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
 
+## Design Directives
+
+- **Hero Sections**: Hero banners MUST feature full background photos without artificial color overlays, mix-blend-overlay, or heavy color tints. Present clear, un-tinted photos with clean readable contrast.
+- **Instagram Section**: The Instagram section is hidden across pages per project directive.
+
 ## Documentation
 
 Full documentation: https://docs.astro.build

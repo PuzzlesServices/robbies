@@ -671,6 +671,30 @@
               "text": "Updated Header desktop mega menu, mobile drawer, and Footer links to connect directly to all newly migrated internal activity pages"
             },
             {
+              "status": "completed",
+              "text": "Refined /morning-activities page pixel-perfect: updated AVOID THE CROWD intro background, Operation Hours & Breakfast 50/50 white container cards, Fishing Charters spotlight banner layout with untinted text overlay, and added full-width turquoise palm tree callout banner"
+            },
+            {
+              "status": "completed",
+              "text": "Refined /evening-activities page pixel-perfect: centered Hero title, added HUNGRY TARPON RESTAURANT button in intro section, updated 50/50 cards to clean white containers, synced exact copy, and added missing bottom twilight callout banner with turquoise palm tree backdrop"
+            },
+            {
+              "status": "completed",
+              "text": "Rebuilt /tarpon page 100% pixel-perfect matching 9 reference PDF sections: Hero banner, Feed The Tarpon navy section with price badges ($2.50 / $5.00), Voted #1 Place section with trophy badge, 2 Livecam webcam spotlight blocks, 'Amazing, Breathtaking, and Impressive' section with dual vertical photo grid, full-width dock photo banner, video spotlight section, The Story Of Scarface 50/50 block, and Where To Eat While You Feed The Tarpon 50/50 block"
+            },
+            {
+              "status": "completed",
+              "text": "Fixed 'Voted the #1 Place in the Florida Keys' section on /tarpon pixel-perfect: added full-width background photo of tarpon feeding dock (imgi_6_TARPON-FEEDING-1.webp) with twin floating white rounded cards (trophy icon card + description card)"
+            },
+            {
+              "status": "completed",
+              "text": "Fixed 'Amazing, Breathtaking, and Impressive' section on /tarpon pixel-perfect: updated to 3-column layout matching reference PDF (Left vertical photo imgi_56_Enmascarar-grupo-100.png, center text block, and right dual vertical photos imgi_54_Enmascarar-grupo-90.png + imgi_53_Enmascarar-grupo-99-108x300.png)"
+            },
+            {
+              "status": "completed",
+              "text": "Expanded /tarpon section 'Amazing, Breathtaking, and Impressive' to full-width container (max-w-[1700px] with min-h-[540px] tall rounded cards), updated full-width dock banner photo to aerial dock tarpon view, and created full-width dark blue swimming tarpon background strip (imgi_46_tarpons-swimming.png) around the video spotlight player matching reference photos"
+            },
+            {
               "status": "pending",
               "text": "Judge.me Reviews Widget Styling & Pixel-Perfect Layout Alignment (Pending)"
             },

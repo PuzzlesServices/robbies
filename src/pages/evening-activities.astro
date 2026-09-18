@@ -2,29 +2,29 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/header/Header.astro';
 import Footer from '../components/common/Footer.astro';
-import { ChevronRight, Clock, Moon, Utensils, Anchor, Waves, Eye, Calendar } from '@lucide/astro';
+import { Calendar } from '@lucide/astro';
 
 const operationHours = [
-  { name: "Robbie's of Islamorada", hours: "Mon-Sun: 7:00am – 5:30pm" },
-  { name: "Hungry Tarpon Restaurant", hours: "Mon-Sun: 6:30am – 9:00pm" },
-  { name: "Tarpon Booth", hours: "Mon-Sun: 7:00am – 5:00pm" },
-  { name: "Captain Michael Fishing", hours: "Mon-Sun: 7:00am – 5:00pm" }
+  { name: "Robbie's Of Islamorada", hours: "Mon-Sun: 7:00am - 9:00pm" },
+  { name: "Hungry Tarpon Restaurant", hours: "Mon-Sun: 6:30am - 9:00pm" },
+  { name: "Tarpon Booth", hours: "Mon-Sun: 7:00am - 9:00pm" },
+  { name: "Captain Michael Fishing", hours: "Mon-Sun: 7:00am - 8:00pm" }
 ];
 
 const eveningCards = [
   {
     title: "SUNSET CRUISES",
-    image: "/assets/home/imgi_197_BEST-SUNSET-CRUISES-IN-THE-FLORIDA-KEYS.webp",
+    image: "/assets/evening-activities/imgi_72_8d1cd71124e974bd0b8b6d931ae3dad2.Sunset-Cruises.webp",
     url: "/#sunset-cruises"
   },
   {
     title: "TARPON FEEDING",
-    image: "/assets/home/imgi_18_feed-tarpon.webp",
+    image: "/assets/evening-activities/imgi_71_1dee52fc8dbeacddb31b08fe7811c70a.Tarpon-Feeding-1.webp",
     url: "/tarpon"
   },
   {
     title: "CAPTAIN MICHAEL PARTYBOAT",
-    image: "/assets/home/imgi_195_CAPTAIN-MICHAEL-PARTYBOAT-FISHING.webp",
+    image: "/assets/evening-activities/imgi_70_3718e0069e9477f681c77a94a5f8e0b1.Captain-Michael-Partyboat.webp",
     url: "/#party-boat"
   }
 ];
@@ -33,91 +33,77 @@ const eveningCards = [
 <Layout 
   title="Evening Activities in Islamorada | Robbie's of Islamorada"
   description="Discover the best nightlife and evening activities in Islamorada at Robbie's Marina! Sunset cruises, night glass bottom boat tours, waterfront dinner, and night fishing."
-  image="/assets/home/imgi_197_BEST-SUNSET-CRUISES-IN-THE-FLORIDA-KEYS.webp"
+  image="/assets/evening-activities/imgi_39_80f0654c3f51052d624e73ac249cc232.Calling-All-Night-Owls-scaled.webp"
   schemaType="TouristAttraction"
 >
   <Header />
 
-  <main class="flex-1 bg-slate-50 font-sans selection:bg-robbies-ocean selection:text-white">
+  <main class="flex-1 bg-white font-sans selection:bg-robbies-ocean selection:text-white w-full">
     
-    <!-- 1. HERO BANNER -->
-    <section class="relative bg-[#0F172A] text-white py-24 sm:py-32 lg:py-40 px-4 overflow-hidden border-b border-blue-900/40">
+    <!-- 1. HERO BANNER - UNTINTED PHOTO, CENTERED TEXT -->
+    <section class="relative text-white py-20 sm:py-28 lg:py-36 px-4 overflow-hidden w-full min-h-[380px] sm:min-h-[460px] flex items-center justify-center">
       <div class="absolute inset-0 z-0">
         <img 
-          src="/assets/home/imgi_197_BEST-SUNSET-CRUISES-IN-THE-FLORIDA-KEYS.webp" 
+          src="/assets/evening-activities/imgi_39_80f0654c3f51052d624e73ac249cc232.Calling-All-Night-Owls-scaled.webp" 
           alt="Evening Activities in Islamorada Florida Keys" 
-          class="w-full h-full object-cover object-center opacity-40 mix-blend-overlay scale-105 transform"
+          class="w-full h-full object-cover object-center"
           loading="eager"
           fetchpriority="high"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#0F172A] via-[#0F172A]/60 to-transparent"></div>
       </div>
 
-      <div class="relative z-10 max-w-[1280px] mx-auto text-center space-y-4">
-        <div class="inline-flex items-center gap-2 bg-indigo-500/20 backdrop-blur-md border border-indigo-300/30 rounded-full px-4 py-1.5 text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-indigo-200 shadow-sm">
-          <Moon class="w-4 h-4 text-indigo-300" /> NIGHTLIFE & SUNSET EXPERIENCES
-        </div>
-
-        <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white drop-shadow-lg leading-tight max-w-4xl mx-auto">
+      <div class="relative z-10 max-w-[1280px] w-full mx-auto text-center space-y-3">
+        <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.7)] leading-[1.1] max-w-4xl mx-auto">
           EVENING ACTIVITIES IN ISLAMORADA
         </h1>
+      </div>
+    </section>
 
-        <!-- Breadcrumbs -->
-        <div class="pt-4 flex items-center justify-center gap-2 text-xs text-white/80 font-medium tracking-wider uppercase">
-          <a href="/" class="hover:text-blue-200 transition-colors">Home</a>
-          <ChevronRight class="w-3.5 h-3.5 text-blue-300" />
-          <a href="/activities" class="hover:text-blue-200 transition-colors">Activities</a>
-          <ChevronRight class="w-3.5 h-3.5 text-blue-300" />
-          <span class="text-white font-bold">Evening Activities</span>
+    <!-- 2. INTRO SECTION -->
+    <section class="w-full bg-[#f4f5f7] py-10 sm:py-14 px-4 sm:px-6 lg:px-8 text-center">
+      <div class="max-w-[1100px] mx-auto space-y-4">
+        <h2 class="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-[#37467a] uppercase tracking-wide leading-snug">
+          BEST THINGS TO DO IN ISLAMORADA AT NIGHT TIME
+        </h2>
+        <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body max-w-3xl mx-auto">
+          Looking for what to do in Islamorada at night? After a thrilling day of adventures in Islamorada, it's time to unwind and embrace the vibrant nightlife with some amazing evening activities. Discover where to enjoy a delightful dinner or drinks, and make sure to visit Hungry Tarpon Restaurant for a memorable evening meal by the water's edge, soaking in the captivating atmosphere of the Keys after dark.
+        </p>
+        <div class="pt-2">
+          <a 
+            href="/" 
+            class="inline-block bg-[#37467a] hover:bg-[#28345c] text-white font-heading font-bold uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow transition-colors duration-200"
+          >
+            HUNGRY TARPON RESTAURANT
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- 2. INTRO SECTION: BEST THINGS TO DO AT NIGHT TIME -->
-    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1000px] mx-auto text-center space-y-5">
-      <h2 class="font-heading font-black text-xl sm:text-2xl lg:text-3xl text-[#182A4D] uppercase tracking-wide leading-snug">
-        BEST THINGS TO DO IN ISLAMORADA AT NIGHT TIME
-      </h2>
-      <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-body max-w-3xl mx-auto">
-        Looking for ways to extend your day into night? After an exciting day of adventures in Islamorada, it's time to unwind and embrace the vibrant nightlife with some amazing evening activities. Discover where to enjoy a delightful dinner or drinks, and make sure to visit Hungry Tarpon Restaurant for a memorable evening meal by the water's edge, soaking in the captivating atmosphere of the Keys after dark.
-      </p>
-      <div>
-        <a 
-          href="/" 
-          class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3.5 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
-        >
-          HUNGRY TARPON RESTAURANT <ChevronRight class="w-4 h-4" />
-        </a>
-      </div>
-    </section>
-
-    <!-- 3. OPERATION HOURS AT ROBBIE'S -->
-    <section class="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
-        <!-- Night Boat Image -->
-        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[16/10]">
+    <!-- 3. OPERATION HOURS AT ROBBIE'S - FULL WIDTH 50/50 -->
+    <section class="w-full bg-white">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch w-full">
+        <div class="w-full h-full min-h-[280px] sm:min-h-[340px] lg:min-h-[380px]">
           <img 
-            src="/assets/home/imgi_195_CAPTAIN-MICHAEL-PARTYBOAT-FISHING.webp" 
+            src="/assets/evening-activities/imgi_40_night-hours.webp" 
             alt="Robbie's Marina Night Tour" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            class="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
 
-        <!-- Hours List & Quadrants -->
-        <div class="space-y-6">
-          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
+        <div class="p-8 sm:p-12 lg:p-16 flex flex-col justify-center items-start space-y-6 bg-white">
+          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#37467a] uppercase tracking-wide">
             OPERATION HOURS AT ROBBIE'S
           </h3>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
             {operationHours.map((item) => (
-              <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-1.5 shadow-sm hover:border-blue-300 transition-colors">
-                <div class="flex items-center gap-2 text-[#2B447A] font-heading font-bold text-xs uppercase">
-                  <Clock class="w-4 h-4 text-blue-600 flex-shrink-0" />
+              <div class="space-y-1">
+                <div class="flex items-center gap-2 text-[#37467a] font-heading font-bold text-xs sm:text-sm uppercase">
+                  <Calendar class="w-4 h-4 text-[#37467a] flex-shrink-0" />
                   <span>{item.name}</span>
                 </div>
-                <p class="text-slate-700 font-semibold text-xs pl-6">{item.hours}</p>
+                <p class="text-slate-500 text-xs pl-6 font-medium">{item.hours}</p>
               </div>
             ))}
           </div>
@@ -125,90 +111,85 @@ const eveningCards = [
       </div>
     </section>
 
-    <!-- 4. DINNER TIME! (HUNGRY TARPON RESTAURANT) -->
-    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
-        <div class="space-y-5">
+    <!-- 4. DINNER TIME! (HUNGRY TARPON RESTAURANT) - FULL WIDTH 50/50 -->
+    <section class="w-full bg-white">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch w-full">
+        <div class="p-8 sm:p-12 lg:p-16 flex flex-col justify-center items-start space-y-4 bg-white order-2 lg:order-1">
           <div class="space-y-1">
-            <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
-              HUNGRY TARPON RESTAURANT
-            </span>
-            <h3 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide leading-tight">
+            <h3 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#37467a] uppercase tracking-wide leading-tight">
               DINNER TIME!
             </h3>
+            <span class="text-[#37467a] font-heading font-extrabold text-xs sm:text-sm tracking-widest block">
+              Hungry Tarpon Restaurant
+            </span>
           </div>
 
-          <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-body">
-            After a thrilling day exploring Islamorada's coastline, treat yourself to a delightful dinner at Hungry Tarpon Restaurant, located in the heart of Islamorada. Our restaurant offers a welcoming atmosphere and a menu filled with fresh seafood and local flavors. Whether you're craving signature cocktails, fresh local catch, or decadent Key Lime pie, Hungry Tarpon is the perfect way to cap off your night in paradise.
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body max-w-xl">
+            After a thrilling evening exploring Islamorada's nightlife, treat yourself to a delightful dinner at Hungry Tarpon Restaurant. Nestled in the heart of this vibrant Keys community, our restaurant offers a welcoming ambiance and a menu filled with fresh seafood and local flavors. Whether you're craving a juicy steak or our signature Key Lime Pie, dining at Hungry Tarpon is the perfect way to cap off your night in paradise. Join us and unwind with great food and good company, just moments away from the action.
           </p>
 
-          <div>
+          <div class="pt-2">
             <a 
               href="/" 
-              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3.5 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+              class="inline-block bg-[#37467a] hover:bg-[#28345c] text-white font-heading font-bold uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow transition-colors duration-200"
             >
-              RESERVE A TABLE <ChevronRight class="w-4 h-4" />
+              RESERVE A TABLE
             </a>
           </div>
         </div>
 
-        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
+        <div class="w-full h-full min-h-[280px] sm:min-h-[340px] lg:min-h-[380px] order-1 lg:order-2">
           <img 
-            src="/assets/home/imgi_17_Hungry-tarpon1.webp" 
+            src="/assets/evening-activities/imgi_45_Dinner-Time.webp" 
             alt="Dinner at Hungry Tarpon Restaurant Islamorada" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            class="w-full h-full object-cover"
             loading="lazy"
           />
         </div>
       </div>
     </section>
 
-    <!-- 5. GLASSBOTTOM BOAT TOURS: ISLAMORADA NIGHT TOUR -->
-    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
-        <!-- Glowing Underwater Glass Bottom Image -->
-        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
+    <!-- 5. GLASSBOTTOM BOAT TOURS - FULL WIDTH 50/50 -->
+    <section class="w-full bg-white">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch w-full">
+        <div class="w-full h-full min-h-[280px] sm:min-h-[340px] lg:min-h-[380px]">
           <img 
-            src="/assets/home/imgi_132_glass-700x707.webp" 
+            src="/assets/evening-activities/imgi_50_Glassbottom-Boat-Tours.webp" 
             alt="Glass Bottom Boat Night Tour in Islamorada" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            class="w-full h-full object-cover"
             loading="lazy"
           />
-          <div class="absolute top-4 left-4 bg-indigo-600 text-white text-xs font-heading font-black uppercase px-3.5 py-1.5 rounded-full shadow-md">
-            Illuminated Night Reef
-          </div>
         </div>
 
-        <!-- Description & Booking -->
-        <div class="space-y-5">
+        <div class="p-8 sm:p-12 lg:p-16 flex flex-col justify-center items-start space-y-4 bg-white">
           <div class="space-y-1">
-            <h3 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide leading-tight">
+            <h3 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#37467a] uppercase tracking-wide leading-tight">
               GLASSBOTTOM BOAT TOURS
             </h3>
-            <span class="text-indigo-600 font-heading font-extrabold text-sm tracking-widest uppercase block">
+            <span class="text-[#37467a] font-heading font-extrabold text-xs sm:text-sm tracking-widest block">
               Islamorada Night Tour
             </span>
           </div>
 
-          <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-body">
-            Embark on an extraordinary adventure with Islamorada's exclusive Glassbottom Boat Tour at Night. Experience the enchanting underwater world after dark, illuminated by high-powered underwater lights that showcase the vibrant nightlife of marine creatures. After your tour, join us at Hungry Tarpon Restaurant for a delightful dinner, where you can share tales of your underwater discoveries over delicious cuisine and relaxed surroundings.
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body max-w-xl">
+            Embark on an extraordinary adventure with Islamorada's exclusive Glassbottom Eco Tour at Night. Explore the captivating underwater world after dark, illuminated by underwater lights that showcase the vibrant nightlife of marine creatures. After your tour, join us at Hungry Tarpon Restaurant for a delightful dinner, where you can share tales of your underwater discoveries over delicious cuisine and relaxed surroundings.
           </p>
 
-          <div>
+          <div class="pt-2">
             <a 
               href="/#glass-bottom" 
-              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3.5 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+              class="inline-block bg-[#37467a] hover:bg-[#28345c] text-white font-heading font-bold uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow transition-colors duration-200"
             >
-              BOOK NOW <ChevronRight class="w-4 h-4" />
+              BOOK NOW
             </a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 6. ISLAMORADA EVENING ACTIVITIES (3 CARDS OVERLAY) -->
-    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto space-y-8">
-      <h2 class="text-center font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide">
+    <!-- 6. ISLAMORADA EVENING ACTIVITIES -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1340px] mx-auto space-y-8">
+      <h2 class="text-center font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#37467a] uppercase tracking-wide">
         ISLAMORADA EVENING ACTIVITIES
       </h2>
 
@@ -216,16 +197,16 @@ const eveningCards = [
         {eveningCards.map((card) => (
           <a 
             href={card.url}
-            class="group relative rounded-3xl overflow-hidden shadow-xl aspect-[3/4] block transform hover:-translate-y-1.5 transition-all duration-300"
+            class="group relative rounded-2xl overflow-hidden shadow-lg aspect-[3/4] block transform hover:-translate-y-1.5 transition-all duration-300"
           >
             <img 
               src={card.image} 
               alt={card.title} 
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
               loading="lazy"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/85 via-slate-950/30 to-transparent flex items-center justify-center p-6 text-center">
-              <h3 class="font-heading font-black text-xl sm:text-2xl text-white uppercase tracking-widest drop-shadow-md group-hover:text-blue-300 transition-colors">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent flex items-center justify-center p-6 text-center">
+              <h3 class="font-heading font-black text-2xl sm:text-3xl text-white uppercase tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                 {card.title}
               </h3>
             </div>
@@ -234,19 +215,27 @@ const eveningCards = [
       </div>
     </section>
 
-    <!-- 7. TWILIGHT CTA BANNER -->
-    <section class="relative bg-[#0284C7] text-white py-16 sm:py-20 px-4 text-center overflow-hidden">
-      <div class="relative z-10 max-w-3xl mx-auto space-y-6">
-        <p class="text-white/95 text-sm sm:text-base md:text-lg leading-relaxed font-body drop-shadow-sm font-medium">
+    <!-- 7. TWILIGHT CALLOUT BANNER (TURQUOISE BACKGROUND WITH PALM TREES) -->
+    <section class="relative w-full py-16 sm:py-20 px-6 text-center overflow-hidden flex items-center justify-center">
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="/assets/evening-activities/imgi_73_17caced72b55809c117b33b07a05fa49.Reserve-a-table-scaled.webp" 
+          alt="Reserve a table at Robbie's Marina" 
+          class="w-full h-full object-cover object-center"
+          loading="lazy"
+        />
+      </div>
+      <div class="relative z-10 max-w-4xl mx-auto space-y-6">
+        <p class="text-white text-sm sm:text-base lg:text-lg leading-relaxed font-body font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">
           Experience the magic of twilight in Islamorada with these evening activities. Whether you're casting your line at Robbie's Marina, exploring local trails, or diving into the turquoise waters, there's something for everyone to enjoy at the end of the day.
         </p>
 
         <div>
           <a 
             href="/" 
-            class="inline-flex items-center gap-2 bg-[#182A4D] hover:bg-white hover:text-[#182A4D] text-white font-heading font-black uppercase rounded-full px-10 py-4 text-xs sm:text-sm tracking-wider shadow-xl transition-all transform hover:-translate-y-0.5"
+            class="inline-block bg-[#37467a] hover:bg-[#28345c] text-white font-heading font-bold uppercase rounded-full px-9 py-3.5 text-xs sm:text-sm tracking-wider shadow-xl transition-colors duration-200"
           >
-            RESERVE A TABLE <ChevronRight class="w-4 h-4" />
+            RESERVE A TABLE
           </a>
         </div>
       </div>

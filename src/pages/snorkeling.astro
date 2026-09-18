@@ -2,286 +2,104 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/header/Header.astro';
 import Footer from '../components/common/Footer.astro';
-import { ChevronRight, Star, Anchor, ShieldCheck, Compass, Calendar, Clock, DollarSign, Waves } from '@lucide/astro';
-
-const calendarDays = [
-  { day: "Sun", date: 13, available: false },
-  { day: "Mon", date: 14, available: false },
-  { day: "Tue", date: 15, available: false },
-  { day: "Wed", date: 16, available: false },
-  { day: "Thu", date: 17, available: false },
-  { day: "Fri", date: 18, available: true },
-  { day: "Sat", date: 19, available: true },
-  { day: "Sun", date: 20, available: true },
-  { day: "Mon", date: 21, available: true },
-  { day: "Tue", date: 22, available: true },
-  { day: "Wed", date: 23, available: true },
-  { day: "Thu", date: 24, available: true },
-  { day: "Fri", date: 25, available: true },
-  { day: "Sat", date: 26, available: true },
-  { day: "Sun", date: 27, available: true },
-  { day: "Mon", date: 28, available: true },
-  { day: "Tue", date: 29, available: true },
-  { day: "Wed", date: 30, available: true }
-];
 ---
 
 <Layout 
   title="Florida Keys Snorkeling Tours | Robbie's of Islamorada"
   description="Experience world-class snorkeling tours in Islamorada at Robbie's Marina! Daily catamaran reef trips, Alligator Reef Lighthouse, sea turtles, and pristine coral."
-  image="/assets/home/imgi_196_FLORIDA-KEYS-SNORKELING-TOURS.webp"
+  image="/assets/snorkeling/imgi_53_ACTIVITIES-AT-ROBBIES-OF-ISLAMORADA-2-1536x628.webp"
   schemaType="TouristAttraction"
 >
   <Header />
 
-  <main class="flex-1 bg-slate-50 font-sans selection:bg-robbies-ocean selection:text-white">
+  <main class="flex-1 bg-white font-sans selection:bg-robbies-ocean selection:text-white w-full">
     
-    <!-- 1. HERO BANNER -->
-    <section class="relative bg-[#182A4D] text-white py-24 sm:py-32 lg:py-44 px-4 overflow-hidden border-b border-blue-900/40">
+    <!-- 1. HERO BANNER - UNTINTED PHOTO, LEFT ALIGNED TEXT -->
+    <section class="relative text-white py-20 sm:py-28 lg:py-32 px-6 sm:px-12 lg:px-16 overflow-hidden w-full min-h-[380px] sm:min-h-[440px] flex items-center">
       <div class="absolute inset-0 z-0">
         <img 
-          src="/assets/home/imgi_196_FLORIDA-KEYS-SNORKELING-TOURS.webp" 
+          src="/assets/snorkeling/imgi_53_ACTIVITIES-AT-ROBBIES-OF-ISLAMORADA-2-1536x628.webp" 
           alt="Florida Keys Snorkeling Tours at Robbie's Marina" 
-          class="w-full h-full object-cover object-center opacity-55 mix-blend-overlay scale-105 transform"
+          class="w-full h-full object-cover object-center"
           loading="eager"
           fetchpriority="high"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-[#182A4D] via-[#182A4D]/40 to-transparent"></div>
       </div>
 
-      <div class="relative z-10 max-w-[1280px] mx-auto text-center space-y-4">
-        <div class="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-md border border-blue-300/30 rounded-full px-4 py-1.5 text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-blue-200 shadow-sm">
-          <Waves class="w-4 h-4 text-cyan-300" /> LIVING CORAL BARRIER REEF
-        </div>
-
-        <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white drop-shadow-lg leading-tight max-w-4xl mx-auto">
+      <div class="relative z-10 max-w-[1400px] w-full mx-auto text-left space-y-3">
+        <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] leading-[1.1] max-w-2xl">
           FLORIDA KEYS SNORKELING TOURS
         </h1>
 
-        <!-- Breadcrumbs -->
-        <div class="pt-4 flex items-center justify-center gap-2 text-xs text-white/80 font-medium tracking-wider uppercase">
-          <a href="/" class="hover:text-blue-200 transition-colors">Home</a>
-          <ChevronRight class="w-3.5 h-3.5 text-blue-300" />
-          <a href="/activities" class="hover:text-blue-200 transition-colors">Activities</a>
-          <ChevronRight class="w-3.5 h-3.5 text-blue-300" />
-          <span class="text-white font-bold">Snorkeling</span>
-        </div>
+        <p class="font-heading font-bold text-xs sm:text-sm lg:text-base text-white uppercase tracking-wider drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)] max-w-xl">
+          DISCOVER THE LIVING CORAL BARRIER REEF AT ROBBIE'S MARINA
+        </p>
       </div>
     </section>
 
-    <!-- 2. SECTION 1: BEST SNORKELING TOURS IN ISLAMORADA -->
-    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
-        <!-- Content Left -->
-        <div class="space-y-4">
-          <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide leading-tight">
+    <!-- 2. SECTION 1: BEST SNORKELING TOURS IN ISLAMORADA - FULL WIDTH 50/50 -->
+    <section class="w-full bg-[#f0f2f5]">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch w-full">
+        <div class="p-6 sm:p-10 lg:p-12 flex flex-col justify-center items-start space-y-4 bg-[#f0f2f5] order-2 lg:order-1">
+          <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#37467a] uppercase tracking-wide leading-tight">
             Best Snorkeling Tours In Islamorada, Florida
           </h2>
 
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
-            Looking for a chance to explore North America's only living coral barrier reef? Snorkeling in Islamorada with our experienced captains and crew offers an unforgettable adventure for all skill levels!
+          <p class="text-slate-700 text-xs sm:text-sm leading-relaxed font-body max-w-xl">
+            Snorkel trips available on two different vessels. Blue departs twice a day, 10:00AM and 1:30PM. KeyZ Charters can be booked for parties of 6 people or less. Join our activities!
           </p>
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
-            Join us on the famous "Happy Cat" 45-foot motorized catamaran or private charters to explore crystal-clear coral formations teeming with tropical fish, sea turtles, graceful stingrays, and nurse sharks. Daily scheduled departures leave at 8:45 am, 11:30 am, and 2:15 pm.
-          </p>
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
-            All high-quality gear (mask, snorkel, fins, and vest) is provided. Snorkelers and riders of all ages are welcome on board!
-          </p>
-        </div>
-
-        <!-- Diver Photo Right -->
-        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/5]">
-          <img 
-            src="/assets/home/imgi_22_snorkeling.webp" 
-            alt="Snorkeler in Islamorada Crystal Waters" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-            loading="lazy"
-          />
-        </div>
-      </div>
-    </section>
-
-    <!-- 3. SPLIT CHARTER CARDS: KEYZ CHARTERS & SUNDANCE WATERSPORTS -->
-    <section class="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto space-y-10">
-      
-      <!-- Card A: KEYZ CHARTERS -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
-        <div class="space-y-4">
-          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
-            KEYZ CHARTERS
-          </h3>
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
-            Join Captain Samantha on a private boat tour away from the crowds! Personalized charters customized for your group of up to 6 passengers.
-          </p>
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
-            Keyz Charters can create custom boat tours for private parties of 6 people or less.
-          </p>
-          <div>
-            <a 
-              href="tel:3056649875" 
-              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
-            >
-              BOOK NOW <ChevronRight class="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-
-        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
-          <img 
-            src="/assets/home/imgi_210_snork.webp" 
-            alt="Keyz Charters Snorkeling Selfie" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-            loading="lazy"
-          />
-        </div>
-      </div>
-
-      <!-- Card B: SUNDANCE WATERSPORTS -->
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
-        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3] order-2 lg:order-1">
-          <img 
-            src="/assets/home/imgi_196_FLORIDA-KEYS-SNORKELING-TOURS.webp" 
-            alt="Sundance Watersports Snorkeling Catamaran" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-            loading="lazy"
-          />
-        </div>
-
-        <div class="space-y-4 order-1 lg:order-2">
-          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
-            SUNDANCE WATERSPORTS
-          </h3>
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
-            Come aboard The Happy Cat for our daily scheduled reef snorkeling trips!
-          </p>
-          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
-            Our 45-ft motorized power catamaran features a spacious deck, freshwater showers, a full head (bathroom), charging station for your cameras and devices, and experienced guides! Perfect for snorkelers of all ages and abilities.
-          </p>
-          <div>
-            <a 
-              href="tel:3056649875" 
-              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
-            >
-              BOOK NOW <ChevronRight class="w-4 h-4" />
-            </a>
-          </div>
-        </div>
-      </div>
-
-    </section>
-
-    <!-- 4. NAVY INFO BOX: WHAT IS SNORKELING & BEST PLACES -->
-    <section class="bg-[#182A4D] text-white py-14 sm:py-20 px-4 sm:px-6 lg:px-8 border-y border-blue-900/40">
-      <div class="max-w-[1000px] mx-auto space-y-8 text-center">
-        <div class="space-y-3">
-          <h2 class="font-heading font-black text-xl sm:text-2xl lg:text-3xl uppercase tracking-wider text-cyan-300">
-            WHAT IS SNORKELING?
-          </h2>
-          <p class="text-white/85 text-xs sm:text-sm leading-relaxed font-body max-w-3xl mx-auto">
-            Snorkeling is a fun and easy way to explore the underwater world without needing heavy equipment or scuba diving training. Equipped with a mask, snorkel, and fins, you can float on the surface to observe and admire marine life up close. A snorkel is a curved tube that allows you to breathe while keeping your face submerged in the water. With a clear mask covering your eyes and nose, you'll have a wide view of the underwater world as you move effortlessly through the water, making your experience even more enjoyable.
-          </p>
-        </div>
-
-        <div class="space-y-3 pt-4 border-t border-white/10">
-          <h2 class="font-heading font-black text-xl sm:text-2xl lg:text-3xl uppercase tracking-wider text-cyan-300">
-            BEST PLACES TO SNORKEL IN FLORIDA
-          </h2>
-          <p class="text-white/85 text-xs sm:text-sm leading-relaxed font-body max-w-3xl mx-auto">
-            The best snorkeling in Florida is found in the Florida Keys, especially the Middle Keys area of Islamorada. If you are considering booking a snorkel tour in the Florida Keys, Robbie's Marina in Islamorada is the perfect spot. Book your snorkeling tour with us today at Robbie's and discover why we're the top choice for snorkeling in the Keys!
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 5. REAL-TIME BOOKING CALENDAR WIDGET -->
-    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[800px] mx-auto space-y-6 text-center">
-      <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 font-heading font-bold text-xs uppercase tracking-widest px-4 py-1.5 rounded-full border border-emerald-200">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Real-time Availability
-      </div>
-
-      <div class="bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-200 space-y-6">
-        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-          <h3 class="font-heading font-black text-lg sm:text-xl text-[#182A4D] uppercase">
-            September 2026
-          </h3>
-          <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Daily Tours Available</span>
-        </div>
-
-        <div class="grid grid-cols-7 gap-2 text-center text-xs">
-          {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((day) => (
-            <span class="font-heading font-bold text-slate-400 py-1 uppercase">{day}</span>
-          ))}
-
-          {calendarDays.map((d) => (
-            <button 
-              type="button"
-              class={`py-3 rounded-xl font-heading font-bold text-xs sm:text-sm transition-all ${
-                d.available 
-                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm hover:scale-105 cursor-pointer' 
-                  : 'bg-slate-100 text-slate-400 cursor-not-allowed'
-              }`}
-            >
-              {d.date}
-            </button>
-          ))}
-        </div>
-
-        <p class="text-[11px] text-slate-500 font-medium">Click on any available date to reserve your tour instantly.</p>
-      </div>
-    </section>
-
-    <!-- 6. ISLAMORADA SNORKELING TOURS SUMMARY BOX -->
-    <section class="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
-        <!-- Aerial Reef Lighthouse Image -->
-        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[16/10]">
-          <img 
-            src="/assets/home/hero-tarpon.jpg" 
-            alt="Alligator Reef Lighthouse Snorkeling" 
-            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-            loading="lazy"
-          />
-        </div>
-
-        <!-- Tour Summary Details -->
-        <div class="space-y-4">
-          <div class="space-y-1">
-            <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
-              ISLAMORADA SNORKELING TOURS
-            </h3>
-            <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
-              The Best place to snorkel in the Florida Keys
-            </span>
-          </div>
-
-          <div class="space-y-2 text-xs sm:text-sm text-slate-700 font-medium">
-            <p><strong class="text-[#182A4D]">Rates:</strong> $45 Per Person (Adults) &bull; $35 Children (4-12) &bull; Free (Under 3)</p>
-            <p><strong class="text-[#182A4D]">Duration:</strong> 2.5 Hours</p>
-            <p><strong class="text-[#182A4D]">Daily Departure Times:</strong> 8:45 AM, 11:30 AM, and 2:15 PM</p>
-            <p><strong class="text-[#182A4D]">Location:</strong> Robbie's Marina &bull; Mile Marker 77.5 Islamorada</p>
-          </div>
 
           <div class="pt-2">
             <a 
               href="tel:3056649875" 
-              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3.5 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+              class="inline-block bg-[#37467a] hover:bg-[#28345c] text-white font-heading font-bold uppercase rounded-full px-8 py-2.5 text-xs sm:text-sm tracking-wider shadow transition-colors duration-200"
             >
-              BOOK NOW <ChevronRight class="w-4 h-4" />
+              BOOK NOW
             </a>
           </div>
+        </div>
+
+        <div class="w-full h-full min-h-[260px] sm:min-h-[320px] order-1 lg:order-2">
+          <img 
+            src="/assets/snorkeling/imgi_38_9a53c9be82e893c77a8754f51b65c986.DJI_0480-Edit.webp" 
+            alt="Snorkeling Reef Trip Islamorada" 
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
         </div>
       </div>
     </section>
 
-    <!-- 7. NAVY BANNER CTA -->
-    <section class="bg-[#2B447A] text-white py-12 px-4 sm:px-6 text-center border-t border-blue-900/40">
-      <div class="max-w-2xl mx-auto space-y-3">
-        <h2 class="font-heading font-black text-xl sm:text-2xl uppercase tracking-wider text-white">
-          BOOK A SNORKELING EXCURSION IN ISLAMORADA
-        </h2>
-        <p class="text-blue-100 text-xs sm:text-sm leading-relaxed font-body">
-          The Florida Keys are famous for their world-class snorkeling, and Robbie's offers access to several of the best snorkeling in the Keys. If you're searching for the ultimate Islamorada snorkeling experience, look no further.
-        </p>
+    <!-- 3. SECTION 2: KEYZ CHARTERS -->
+    <section class="w-full bg-[#f0f2f5]">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 items-stretch w-full">
+        <div class="w-full h-full min-h-[260px] sm:min-h-[320px]">
+          <img 
+            src="/assets/snorkeling/imgi_39_Keyz-Charters.webp" 
+            alt="KeyZ Charters Snorkeling Vessel" 
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="p-6 sm:p-10 lg:p-12 flex flex-col justify-center items-start space-y-4 bg-[#f0f2f5]">
+          <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#37467a] uppercase tracking-wide leading-tight">
+            KeyZ Charters Private Snorkeling
+          </h2>
+
+          <p class="text-slate-700 text-xs sm:text-sm leading-relaxed font-body max-w-xl">
+            KeyZ Charters can be booked for intimate private parties of 6 people or less. Explore shallow reefs, sandbars, and secluded island ecosystems with an experienced captain.
+          </p>
+
+          <div class="pt-2">
+            <a 
+              href="tel:3056649875" 
+              class="inline-block bg-[#37467a] hover:bg-[#28345c] text-white font-heading font-bold uppercase rounded-full px-8 py-2.5 text-xs sm:text-sm tracking-wider shadow transition-colors duration-200"
+            >
+              BOOK PRIVATE CHARTER
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 
