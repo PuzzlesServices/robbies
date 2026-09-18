@@ -1,0 +1,341 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/header/Header.astro';
+import Footer from '../components/common/Footer.astro';
+import { ChevronRight, Star, Award, Video, Eye, Heart, DollarSign, Clock, Users, Play } from '@lucide/astro';
+
+const visitorPhotos = [
+  { img: "/assets/home/imgi_18_feed-tarpon.webp", alt: "Feeding Giant Tarpon at Dock" },
+  { img: "/assets/home/imgi_117_feed-tarpon-300x286.webp", alt: "Tarpon Leaping Out Of Water" },
+  { img: "/assets/home/hero-tarpon.jpg", alt: "Family at Robbie's Marina Dock" }
+];
+---
+
+<Layout 
+  title="Tarpon Feeding in Islamorada | Robbie's of Islamorada"
+  description="Feed 100+ giant wild tarpon right from your hand at Robbie's Marina in Islamorada! Voted the #1 place to visit in the Florida Keys. Dock access $2.50, fish buckets $5.00."
+  image="/assets/home/imgi_18_feed-tarpon.webp"
+  schemaType="TouristAttraction"
+>
+  <Header />
+
+  <main class="flex-1 bg-slate-50 font-sans selection:bg-robbies-ocean selection:text-white">
+    
+    <!-- 1. HERO BANNER -->
+    <section class="relative bg-[#182A4D] text-white py-24 sm:py-32 lg:py-44 px-4 overflow-hidden border-b border-blue-900/40">
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="/assets/home/hero-tarpon.jpg" 
+          alt="Tarpon Feeding Dock at Robbie's Marina" 
+          class="w-full h-full object-cover object-center opacity-55 mix-blend-overlay scale-105 transform"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#182A4D] via-[#182A4D]/40 to-transparent"></div>
+      </div>
+
+      <div class="relative z-10 max-w-[1280px] mx-auto text-center space-y-4">
+        <div class="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-md border border-blue-300/30 rounded-full px-4 py-1.5 text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-blue-200 shadow-sm">
+          <Star class="w-4 h-4 text-amber-300 fill-amber-300" /> A FLORIDA KEYS TRADITION SINCE 1976 <Star class="w-4 h-4 text-amber-300 fill-amber-300" />
+        </div>
+
+        <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white drop-shadow-lg leading-tight max-w-4xl mx-auto">
+          BEST TARPON FEEDING IN THE FLORIDA KEYS
+        </h1>
+
+        <!-- Breadcrumbs -->
+        <div class="pt-4 flex items-center justify-center gap-2 text-xs text-white/80 font-medium tracking-wider uppercase">
+          <a href="/" class="hover:text-blue-200 transition-colors">Home</a>
+          <ChevronRight class="w-3.5 h-3.5 text-blue-300" />
+          <a href="/activities" class="hover:text-blue-200 transition-colors">Activities</a>
+          <ChevronRight class="w-3.5 h-3.5 text-blue-300" />
+          <span class="text-white font-bold">Tarpon Feeding</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. PRICING & ADMISSION BANNER -->
+    <section class="relative bg-[#182A4D] text-white py-12 sm:py-16 px-4 sm:px-6 lg:px-8 border-y border-blue-900/40">
+      <div class="max-w-[1280px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        <!-- Left Photo Card -->
+        <div class="lg:col-span-4 relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 aspect-[4/3]">
+          <img 
+            src="/assets/home/imgi_18_feed-tarpon.webp" 
+            alt="Hand Feeding Tarpon at Robbie's Marina" 
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Right Content & Stats -->
+        <div class="lg:col-span-8 space-y-6">
+          <div class="space-y-2">
+            <span class="inline-block bg-blue-500/30 text-blue-200 text-xs font-heading font-bold uppercase tracking-widest px-3 py-1 rounded-full border border-blue-400/30">
+              AFFORDABLE FAMILY FUN
+            </span>
+            <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-white uppercase tracking-wide leading-tight">
+              Feed The Tarpon At Robbie's Marina For Affordable Fun In Islamorada!
+            </h2>
+            <p class="text-white/80 text-xs sm:text-sm leading-relaxed font-body">
+              Feeding the famous tarpon right off the dock at Robbie's Marina is a world-renowned experience. Over 100 wild tarpon gather daily, waiting to leap for a fresh fish!
+            </p>
+          </div>
+
+          <!-- Price Badges Grid -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 flex items-center gap-4 shadow-sm">
+              <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-amber-300 font-black text-xl font-heading">
+                $2.50
+              </div>
+              <div>
+                <span class="block text-white font-heading font-black text-sm uppercase tracking-wider">DOCK ACCESS</span>
+                <span class="text-white/70 text-xs">Per person general admission</span>
+              </div>
+            </div>
+
+            <div class="bg-[#243A66] rounded-2xl p-5 border border-white/10 flex items-center gap-4 shadow-sm">
+              <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-emerald-300 font-black text-xl font-heading">
+                $5.00
+              </div>
+              <div>
+                <span class="block text-white font-heading font-black text-sm uppercase tracking-wider">FISH BUCKET</span>
+                <span class="text-white/70 text-xs">Bucket of fresh bait fish included</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 3. VOTED #1 & ROBBIE'S STORY CARDS -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
+        
+        <!-- Card 1: Voted #1 -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-100 flex flex-col justify-center text-center space-y-4">
+          <div class="w-16 h-16 rounded-full bg-blue-50 text-[#2B447A] flex items-center justify-center mx-auto shadow-sm">
+            <Award class="w-8 h-8 text-[#2B447A]" />
+          </div>
+          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
+            VOTED THE #1 PLACE IN THE FLORIDA KEYS
+          </h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            Consistently recognized by travel guides, National Geographic, and visitors worldwide as the single most iconic must-do attraction in the Florida Keys.
+          </p>
+        </div>
+
+        <!-- Card 2: Robbie's Heritage -->
+        <div class="bg-white rounded-3xl p-8 sm:p-10 shadow-xl border border-slate-100 space-y-3 flex flex-col justify-center">
+          <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
+            OUR LEGENDARY ORIGINS
+          </span>
+          <h3 class="font-heading font-black text-xl sm:text-2xl text-[#182A4D] uppercase tracking-wide">
+            Robbie's of Islamorada
+          </h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            What started in 1976 when Robbie and Mona rescued an injured tarpon named Scarface has blossomed into a global landmark. Today, hundreds of massive silver kings return to our docks every single day.
+          </p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 4. LIVE WEBCAMS SHOWCASE -->
+    <section class="py-12 sm:py-16 bg-slate-100 border-y border-slate-200">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 text-blue-700 font-heading font-bold text-xs uppercase tracking-widest">
+            <Video class="w-4 h-4" /> WATCH LIVE FROM ISLAMORADA
+          </div>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-tight">
+            ROBBIE'S LIVE WEBCAMS
+          </h2>
+        </div>
+
+        <!-- Webcam 1: Dock Live Cam -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-slate-200">
+          <div class="relative rounded-2xl overflow-hidden shadow-md aspect-video bg-slate-900 group">
+            <img 
+              src="/assets/home/hero-tarpon.jpg" 
+              alt="Live Dock Cam Robbie's Marina" 
+              class="w-full h-full object-cover opacity-80"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 flex items-center justify-center">
+              <a 
+                href="/webcam" 
+                class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center shadow-2xl transition-transform transform group-hover:scale-110"
+              >
+                <Play class="w-7 h-7 fill-current translate-x-0.5" />
+              </a>
+            </div>
+            <div class="absolute top-4 left-4 bg-red-600 text-white text-[10px] font-heading font-black uppercase px-2.5 py-1 rounded-md flex items-center gap-1.5 shadow">
+              <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> LIVE DOCK CAM
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
+              LIVE CAM FROM ISLAMORADA WEBCAM OF ROBBIE'S
+            </h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+              Watch real-time tarpon feeding action, dock activity, and beautiful weather at Robbie's Marina 24/7 with our high-definition live streaming webcam.
+            </p>
+            <div>
+              <a 
+                href="/webcam" 
+                class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+              >
+                WATCH LIVE CAM <ChevronRight class="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Webcam 2: Underwater Cam -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-lg border border-slate-200">
+          <div class="space-y-4 order-2 lg:order-1">
+            <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
+              LIVE WEBCAM ROBBIE'S OF ISLAMORADA UNDERWATER
+            </h3>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+              Take a peek beneath the surface! See giant schools of tarpon, snook, mangrove snappers, and marine life swimming gracefully under our marina dock.
+            </p>
+            <div>
+              <a 
+                href="/webcam" 
+                class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+              >
+                WATCH UNDERWATER CAM <ChevronRight class="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+
+          <div class="relative rounded-2xl overflow-hidden shadow-md aspect-video bg-slate-900 group order-1 lg:order-2">
+            <img 
+              src="/assets/home/imgi_21_snuba.webp" 
+              alt="Live Underwater Tarpon Cam" 
+              class="w-full h-full object-cover opacity-80"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 flex items-center justify-center">
+              <a 
+                href="/webcam" 
+                class="w-16 h-16 rounded-full bg-blue-600 hover:bg-blue-700 text-white flex items-center justify-center shadow-2xl transition-transform transform group-hover:scale-110"
+              >
+                <Play class="w-7 h-7 fill-current translate-x-0.5" />
+              </a>
+            </div>
+            <div class="absolute top-4 left-4 bg-blue-600 text-white text-[10px] font-heading font-black uppercase px-2.5 py-1 rounded-md flex items-center gap-1.5 shadow">
+              <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span> LIVE UNDERWATER
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 5. VISITOR REVIEWS & PHOTOS GALLERY -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto space-y-8">
+      <div class="text-center space-y-2 max-w-2xl mx-auto">
+        <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
+          FEED THE TARPON
+        </span>
+        <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide">
+          "AMAZING," "BREATHTAKING," AND "IMPRESSIVE"
+        </h2>
+        <p class="text-slate-600 text-xs sm:text-sm font-body">
+          Visitors from all around the world share their unforgettable experience feeding giant wild tarpon at Robbie's Marina.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {visitorPhotos.map((photo) => (
+          <div class="rounded-3xl overflow-hidden shadow-lg aspect-[4/5] bg-slate-100 group">
+            <img 
+              src={photo.img} 
+              alt={photo.alt} 
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 6. SECTION BANNER -->
+    <div class="w-full bg-[#2B447A] text-white py-4 px-4 text-center shadow-inner">
+      <h2 class="max-w-[1280px] mx-auto font-heading font-black text-base sm:text-xl lg:text-2xl uppercase tracking-widest drop-shadow-sm">
+        FEEDING THE TARPON ON OUR DOCK AT ROBBIE'S OF ISLAMORADA
+      </h2>
+    </div>
+
+    <!-- 7. THE STORY OF SCARFACE -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto space-y-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <div class="space-y-4">
+          <h3 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide">
+            The Story Of Scarface
+          </h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            In 1976, Robbie noticed a 4-foot tarpon struggling in the shallow waters near the dock with its jaw severely torn. Feeling compassion for the injured creature, Robbie brought the fish to a shallow pool, cleaned the wound, and hand-fed it small fish until it healed.
+          </p>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            Nicknamed "Scarface," the grateful fish was released back into the wild. To Robbie's amazement, Scarface returned to the dock days later — bringing along dozens of other wild tarpon! Over forty years later, this incredible bond continues to thrive.
+          </p>
+          <div>
+            <a 
+              href="/#about" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              READ MORE <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
+          <img 
+            src="/assets/home/imgi_108_Coconuts-Painting-1.webp" 
+            alt="The Story of Scarface Tarpon" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+      <!-- Where To Eat Spotlight -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3] order-2 lg:order-1">
+          <img 
+            src="/assets/home/imgi_17_Hungry-tarpon1.webp" 
+            alt="Where to Eat at Robbie's Marina" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="space-y-4 order-1 lg:order-2">
+          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
+            Where To Eat While You Feed The Tarpon?
+          </h3>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            After feeding the giant tarpon, step right into the historic Hungry Tarpon Restaurant! Enjoy freshly prepared seafood, signature cocktails, and waterfront views right alongside the marina dock.
+          </p>
+          <div>
+            <a 
+              href="/" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              RESERVE A TABLE <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

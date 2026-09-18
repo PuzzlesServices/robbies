@@ -4,7 +4,7 @@ import { ShoppingBag, Search, Phone, Menu, X, ChevronDown } from '@lucide/astro'
 import { getProgressiveUrl } from '../../migration/progressive-routing';
 
 const navItems = [
-  { name: 'ACTIVITIES', id: 'activities', hasMega: true, url: '/' },
+  { name: 'ACTIVITIES', id: 'activities', hasMega: true, url: '/activities' },
   { name: 'FISHING', id: 'fishing', hasMega: true, url: '/' },
   { name: 'RESTAURANT', id: 'restaurant', hasMega: false, url: '/' },
   { name: 'SHOP', id: 'shop', hasMega: true, url: '/shop' },
@@ -17,21 +17,21 @@ const navItems = [
 const activitiesMega = {
   title: "ACTIVITIES IN ISLAMORADA",
   col1: [
-    { name: "ALL ACTIVITIES", url: "/" },
-    { name: "MORNING ACTIVITIES", url: "/" },
-    { name: "EVENING ACTIVITIES", url: "/" },
-    { name: "TARPON FEEDING", url: "/" },
-    { name: "JET SKI ADVENTURES", url: "/" },
-    { name: "SNORKELING", url: "/" },
-    { name: "SNUBA DIVE", url: "/" },
+    { name: "ALL ACTIVITIES", url: "/activities" },
+    { name: "MORNING ACTIVITIES", url: "/morning-activities" },
+    { name: "EVENING ACTIVITIES", url: "/evening-activities" },
+    { name: "TARPON FEEDING", url: "/tarpon" },
+    { name: "JET SKI ADVENTURES", url: "/jet-ski-adventures" },
+    { name: "SNORKELING", url: "/snorkeling" },
+    { name: "SNUBA DIVE", url: "/snuba" },
   ],
   col2: [
-    { name: "ISLAMORADA FISHING", url: "/" },
-    { name: "SUNSET CRUISES", url: "/" },
-    { name: "KAYAK AND PADDLE BOARD RENTALS/TOURS", url: "/" },
-    { name: "BOAT RENTALS", url: "/" },
-    { name: "ISLAMORADA ECO TOURS", url: "/" },
-    { name: "GLASS BOTTOM BOAT TOURS", url: "/" },
+    { name: "ISLAMORADA FISHING", url: "/activities" },
+    { name: "SUNSET CRUISES", url: "/evening-activities" },
+    { name: "KAYAK AND PADDLE BOARD RENTALS/TOURS", url: "/activities" },
+    { name: "BOAT RENTALS", url: "/activities" },
+    { name: "ISLAMORADA ECO TOURS", url: "/activities" },
+    { name: "GLASS BOTTOM BOAT TOURS", url: "/evening-activities" },
   ],
   image: "/assets/home/imgi_18_feed-tarpon.webp"
 };
@@ -255,18 +255,18 @@ const visitorMega = {
           <ul class="space-y-4">
             {activitiesMega.col1.map((item) => (
               <li>
-                <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                <a href={item.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
                   {item.name}
-                </span>
+                </a>
               </li>
             ))}
           </ul>
           <ul class="space-y-4">
             {activitiesMega.col2.map((item) => (
               <li>
-                <span class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
+                <a href={item.url} class="font-heading font-bold text-xs text-white hover:opacity-75 transition-opacity uppercase tracking-wide block text-left cursor-pointer">
                   {item.name}
-                </span>
+                </a>
               </li>
             ))}
           </ul>
@@ -533,9 +533,9 @@ const visitorMega = {
         </button>
         <div id="mobile-acc-activities" class="hidden pl-4 pb-4 text-sm font-semibold text-white/80">
           {activitiesMega.col1.concat(activitiesMega.col2).map((sub) => (
-            <span class="block py-2.5 hover:text-white uppercase transition-colors border-b border-white/5 cursor-pointer">
+            <a href={sub.url} class="block py-2.5 hover:text-white uppercase transition-colors border-b border-white/5 cursor-pointer">
               {sub.name}
-            </span>
+            </a>
           ))}
         </div>
       </div>

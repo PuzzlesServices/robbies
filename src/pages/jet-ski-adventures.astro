@@ -1,0 +1,226 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/header/Header.astro';
+import Footer from '../components/common/Footer.astro';
+import { ChevronRight, Star, ShieldCheck, Compass, Phone, Mail, Play, Waves, Award } from '@lucide/astro';
+---
+
+<Layout 
+  title="Jet Ski in Islamorada | Robbie's of Islamorada"
+  description="Experience high-speed wave action with Islamorada Jet Ski rentals and guided safari tours at Robbie's Marina! 14-22 mile tours, mangrove trails, and sandbars."
+  image="/assets/home/imgi_19_jet-ski.webp"
+  schemaType="TouristAttraction"
+>
+  <Header />
+
+  <main class="flex-1 bg-slate-50 font-sans selection:bg-robbies-ocean selection:text-white">
+    
+    <!-- 1. HERO BANNER -->
+    <section class="relative bg-[#182A4D] text-white py-24 sm:py-32 lg:py-44 px-4 overflow-hidden border-b border-blue-900/40">
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="/assets/home/imgi_19_jet-ski.webp" 
+          alt="Jet Ski Adventures in Islamorada Florida Keys" 
+          class="w-full h-full object-cover object-center opacity-55 mix-blend-overlay scale-105 transform"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#182A4D] via-[#182A4D]/40 to-transparent"></div>
+      </div>
+
+      <div class="relative z-10 max-w-[1280px] mx-auto text-center space-y-4">
+        <div class="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-md border border-blue-300/30 rounded-full px-4 py-1.5 text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-blue-200 shadow-sm">
+          <Waves class="w-4 h-4 text-cyan-300" /> TOP-RATED WATERSPORTS ADVENTURE
+        </div>
+
+        <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white drop-shadow-lg leading-tight max-w-4xl mx-auto">
+          JET SKI IN ISLAMORADA
+        </h1>
+
+        <!-- Breadcrumbs -->
+        <div class="pt-4 flex items-center justify-center gap-2 text-xs text-white/80 font-medium tracking-wider uppercase">
+          <a href="/" class="hover:text-blue-200 transition-colors">Home</a>
+          <ChevronRight class="w-3.5 h-3.5 text-blue-300" />
+          <a href="/activities" class="hover:text-blue-200 transition-colors">Activities</a>
+          <ChevronRight class="w-3.5 h-3.5 text-blue-300" />
+          <span class="text-white font-bold">Jet Ski Adventures</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. SPOTLIGHT 1: BEST PLACE TO JET-SKI -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <!-- Aerial Circular Wake Image -->
+        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
+          <img 
+            src="/assets/home/imgi_129_jet-ski-700x708.webp" 
+            alt="Best Place to Jet Ski in Florida Keys" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Content -->
+        <div class="space-y-4">
+          <div class="space-y-1">
+            <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide leading-tight">
+              BEST PLACE TO JET-SKI IN THE FLORIDA KEYS
+            </h2>
+            <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
+              AVAILABLE 7 DAYS A WEEK! | 14-22 MILE TOURS!
+            </span>
+          </div>
+
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            Ride past the beautiful Key shores & mangrove tunnels in Islamorada. Within North America, the Florida Keys offer some of the most open water adventures, including jet skiing, ocean tours, and boat rentals. Robbie's Marina offers the best places to jet ski in the Florida Keys. If you're booking a Florida Keys vacation, you definitely should consider jet skiing as an activity.
+          </p>
+
+          <div>
+            <a 
+              href="tel:3056649875" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3.5 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              BOOK NOW <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. SPOTLIGHT 2: ISLAMORADA JET SKI TOURS & RENTAL -->
+    <section class="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <!-- Content Left -->
+        <div class="space-y-4 order-2 lg:order-1">
+          <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide leading-tight">
+            ISLAMORADA JET SKI TOURS & RENTAL
+          </h2>
+
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            Get out and ride! Our 1.5 to 2-hour tours are fantastic, first spot is in South Florida with top bays of Islamorada. Ride a limited amount on a ride!
+          </p>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            Our island tours provide an active way to enjoy views of the island and allow you to explore the other around world-famous keys. Witness up to 22 miles of breathtaking coastlines, all around open marine waters of Islamorada, and experience dolphins and sea turtles playing in their natural habitats.
+          </p>
+
+          <div>
+            <a 
+              href="tel:3056649875" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3.5 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              BOOK NOW <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Formation Jet Skis Image Right -->
+        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3] order-1 lg:order-2">
+          <img 
+            src="/assets/home/imgi_19_jet-ski.webp" 
+            alt="Jet Ski Tours Formation in Islamorada" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SPOTLIGHT 3: VIDEO TOUR FEATURE -->
+    <section class="py-6 sm:py-10 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <!-- Video Card Left -->
+        <div class="relative rounded-2xl overflow-hidden shadow-lg aspect-video bg-slate-900 group">
+          <img 
+            src="/assets/home/imgi_129_jet-ski-700x708.webp" 
+            alt="Alligator Reef Jetski Safari Video" 
+            class="w-full h-full object-cover opacity-80"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 flex items-center justify-center">
+            <a 
+              href="https://www.youtube.com/watch?v=sample" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="w-16 h-16 rounded-full bg-red-600 hover:bg-red-700 text-white flex items-center justify-center shadow-2xl transition-transform transform group-hover:scale-110"
+            >
+              <Play class="w-7 h-7 fill-current translate-x-0.5" />
+            </a>
+          </div>
+          <div class="absolute bottom-3 left-4 text-white text-xs font-heading font-bold drop-shadow">
+            Alligator Reef Jet Ski Safari &bull; Watch on YouTube
+          </div>
+        </div>
+
+        <!-- Content Right -->
+        <div class="space-y-4">
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide leading-tight">
+            ISLAMORADA JET SKI TOURS & RENTAL
+          </h2>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            Get out and ride! Our 1.5 to 2-hour tours are fantastic, first spot is in South Florida with top bays of Islamorada. Ride a limited amount on a ride!
+          </p>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            Join the ride with friends and family at Robbie's Marina for the best time!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. SPOTLIGHT 4: THE BEST ISLAMORADA WATERSPORTS -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <!-- Rental Booth Photo Left -->
+        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
+          <img 
+            src="/assets/home/imgi_128_jet-ski-297x300.webp" 
+            alt="Jet Ski Rental Booth at Robbie's Marina" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        </div>
+
+        <!-- Description Right -->
+        <div class="space-y-4">
+          <h2 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide leading-tight">
+            THE BEST ISLAMORADA WATERSPORTS
+          </h2>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            If you are looking for adventure on the water, Robbie's Marina is the ultimate destination for water activities in Islamorada. Whether you're craving high-speed thrills, a peaceful paddle through mangrove trails, or a chance to explore the vibrant marine life of the Florida Keys, we have something for everyone.
+          </p>
+          <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+            Venture into the open waters with a boat rental, feel the wind in your hair as you zip across the waves, or bask in breathtaking views as you soar high above the ocean while parasailing. For those who seek underwater experiences, kayaking and paddleboarding offer the perfect ways to explore Islamorada's hidden waterways at a slower pace.
+          </p>
+          <div>
+            <a 
+              href="tel:3056649875" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3.5 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              BOOK NOW <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. CONTACT & RESERVATION BANNER -->
+    <section class="bg-[#2B447A] text-white py-12 px-4 sm:px-6 text-center border-t border-blue-900/40">
+      <div class="max-w-2xl mx-auto space-y-4">
+        <h2 class="font-heading font-black text-xl sm:text-2xl uppercase tracking-wider text-white">
+          For More Information Or To Schedule Your Adventure
+        </h2>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6 pt-2 text-sm sm:text-base font-medium">
+          <a href="tel:3056649875" class="inline-flex items-center gap-2 hover:text-cyan-300 transition-colors">
+            <Phone class="w-5 h-5 text-cyan-300" /> (305) 664-9875
+          </a>
+          <a href="mailto:robbiesrentals@gmail.com" class="inline-flex items-center gap-2 hover:text-cyan-300 transition-colors">
+            <Mail class="w-5 h-5 text-cyan-300" /> robbiesrentals@gmail.com
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>

@@ -26,6 +26,78 @@
             "schemaOrg": true,
             "canonical": true
           }
+        },
+        {
+          "slug": "/morning-activities/",
+          "title": "Morning Activities",
+          "seo": {
+            "score": 100,
+            "metaTitle": true,
+            "metaDescription": true,
+            "openGraph": true,
+            "schemaOrg": true,
+            "canonical": true
+          }
+        },
+        {
+          "slug": "/evening-activities/",
+          "title": "Evening Activities",
+          "seo": {
+            "score": 100,
+            "metaTitle": true,
+            "metaDescription": true,
+            "openGraph": true,
+            "schemaOrg": true,
+            "canonical": true
+          }
+        },
+        {
+          "slug": "/tarpon/",
+          "title": "Tarpon Feeding",
+          "seo": {
+            "score": 100,
+            "metaTitle": true,
+            "metaDescription": true,
+            "openGraph": true,
+            "schemaOrg": true,
+            "canonical": true
+          }
+        },
+        {
+          "slug": "/jet-ski-adventures/",
+          "title": "Jet Ski Adventures",
+          "seo": {
+            "score": 100,
+            "metaTitle": true,
+            "metaDescription": true,
+            "openGraph": true,
+            "schemaOrg": true,
+            "canonical": true
+          }
+        },
+        {
+          "slug": "/snorkeling/",
+          "title": "Snorkeling Tours",
+          "seo": {
+            "score": 100,
+            "metaTitle": true,
+            "metaDescription": true,
+            "openGraph": true,
+            "schemaOrg": true,
+            "canonical": true
+          }
+        },
+        {
+          "slug": "/snuba/",
+          "title": "SNUBA Diving",
+          "seo": {
+            "score": 100,
+            "metaTitle": true,
+            "metaDescription": true,
+            "openGraph": true,
+            "schemaOrg": true,
+            "canonical": true
+          }
         }
       ]
     },
@@ -589,6 +661,14 @@
             {
               "status": "completed",
               "text": "Migrated /activities (activities.htm) with 301 legacy redirect rule in astro.config.mjs, full responsive design system replica, and TouristAttraction SEO Schema"
+            },
+            {
+              "status": "completed",
+              "text": "Migrated 5 landmark pages: /morning-activities, /evening-activities, /tarpon, /jet-ski-adventures, /snorkeling, and /snuba with dedicated asset folders in public/assets/, 301 legacy redirects in astro.config.mjs, and pixel-perfect mobile-first layouts"
+            },
+            {
+              "status": "completed",
+              "text": "Updated Header desktop mega menu, mobile drawer, and Footer links to connect directly to all newly migrated internal activity pages"
             },
             {
               "status": "pending",
