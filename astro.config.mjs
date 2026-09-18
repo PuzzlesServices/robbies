@@ -6,6 +6,9 @@ import sitemap from '@astrojs/sitemap';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://robbies.com',
+  redirects: {
+    '/activities.htm': '/activities'
+  },
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()]

@@ -14,6 +14,18 @@
             "schemaOrg": true,
             "canonical": true
           }
+        },
+        {
+          "slug": "/activities/",
+          "title": "Activities",
+          "seo": {
+            "score": 100,
+            "metaTitle": true,
+            "metaDescription": true,
+            "openGraph": true,
+            "schemaOrg": true,
+            "canonical": true
+          }
         }
       ]
     },
@@ -573,6 +585,10 @@
             {
               "status": "completed",
               "text": "Removed all external robbies.com / shop.robbies.com links across Header, TopBanner, Footer, and progressive-routing.ts, converting shop categories to internal relative routes (/shop?category=...)"
+            },
+            {
+              "status": "completed",
+              "text": "Migrated /activities (activities.htm) with 301 legacy redirect rule in astro.config.mjs, full responsive design system replica, and TouristAttraction SEO Schema"
             },
             {
               "status": "pending",

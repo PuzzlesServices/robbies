@@ -1,0 +1,490 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/header/Header.astro';
+import Footer from '../components/common/Footer.astro';
+import { ChevronRight, Star, Anchor, Compass, ShieldCheck, Heart, Camera } from '@lucide/astro';
+
+const watersportsCards = [
+  {
+    title: "JET SKI ADVENTURES",
+    badge: "GUIDED TOURS & RENTALS",
+    image: "/assets/home/imgi_19_jet-ski.webp",
+    description: "Feel the rush of high-speed wave action! Explore pristine Keys sandbars, island shorelines, and turquoise waters on state-of-the-art Yamaha WaveRunners with guided tours or free riding.",
+    url: "/#jet-ski",
+  },
+  {
+    title: "KAYAK AND PADDLEBOARD RENTALS / TOURS",
+    badge: "MANGROVE & BAY TOURS",
+    image: "/assets/home/imgi_20_kayak.webp",
+    description: "Paddle through tranquil mangrove tunnels and coastal ecosystems. Rent single/double kayaks or stand-up paddleboards for a peaceful self-guided adventure or expert eco-tour.",
+    url: "/#kayak",
+  }
+];
+
+const fishingCards = [
+  {
+    title: "PARTY BOAT FISHING",
+    badge: "ABOARD CAPTAIN MICHAEL",
+    image: "/assets/home/imgi_51_TARPON-SHARK-FISHING.webp",
+    description: "Hop aboard Captain Michael, the premiere 65-foot party boat in Islamorada! Perfect for families and groups wanting an affordable, fun reef fishing trip with full gear provided.",
+    url: "/#party-boat",
+  },
+  {
+    title: "CHARTER FISHING",
+    badge: "OFFSHORE & BACKCOUNTRY",
+    image: "/assets/home/imgi_52_OFFSHORE-FISHING.webp",
+    description: "Book a private charter with Islamorada's legendary captain fleet. Target Sailfish, Mahi-Mahi, Wahoo, Tarpon, and Snook in deep sea, reef, or backcountry waters.",
+    url: "/#charter-fishing",
+  }
+];
+
+const instagramPhotos = [
+  { img: "/assets/home/imgi_18_feed-tarpon.webp", caption: "Feeding 100+ lb wild tarpon at Robbie's Marina dock!" },
+  { img: "/assets/home/imgi_19_jet-ski.webp", caption: "Jet ski safari through turquoise Keys waters." },
+  { img: "/assets/home/imgi_21_snuba.webp", caption: "Exploring North America's living coral reef!" },
+  { img: "/assets/home/imgi_20_kayak.webp", caption: "Paddling through peaceful mangrove tunnels." }
+];
+---
+
+<Layout 
+  title="Activities in Islamorada | Robbie's of Islamorada"
+  description="Explore all top activities in Islamorada at Robbie's Marina! Feed giant tarpon, rent jet skis, kayaks, paddleboards, book snorkeling tours, snuba diving, and eco-tours."
+  image="/assets/home/hero-tarpon.jpg"
+  schemaType="TouristAttraction"
+>
+  <Header />
+
+  <main class="flex-1 bg-slate-50 font-sans selection:bg-robbies-ocean selection:text-white">
+    
+    <!-- 1. HERO BANNER -->
+    <section class="relative bg-[#182A4D] text-white py-20 sm:py-28 lg:py-36 px-4 overflow-hidden border-b border-blue-900/40">
+      <!-- Background Image with Dark Gradient Overlay -->
+      <div class="absolute inset-0 z-0">
+        <img 
+          src="/assets/home/hero-tarpon.jpg" 
+          alt="Robbie's Marina Islamorada Activities" 
+          class="w-full h-full object-cover object-center opacity-40 mix-blend-overlay scale-105 transform animate-fade-in"
+          loading="eager"
+          fetchpriority="high"
+        />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#182A4D] via-[#182A4D]/60 to-transparent"></div>
+      </div>
+
+      <!-- Hero Content -->
+      <div class="relative z-10 max-w-[1280px] mx-auto text-center space-y-4">
+        <div class="inline-flex items-center gap-2 bg-blue-500/20 backdrop-blur-md border border-blue-300/30 rounded-full px-4 py-1.5 text-xs sm:text-sm font-heading font-extrabold uppercase tracking-widest text-blue-200 shadow-sm">
+          <Star class="w-4 h-4 text-amber-300 fill-amber-300" /> VOTED #1 PLACE TO VISIT IN THE KEYS <Star class="w-4 h-4 text-amber-300 fill-amber-300" />
+        </div>
+
+        <h1 class="font-heading font-black text-3xl sm:text-5xl lg:text-6xl uppercase tracking-tight text-white drop-shadow-lg leading-tight max-w-4xl mx-auto">
+          ACTIVITIES AT ROBBIE'S OF ISLAMORADA
+        </h1>
+
+        <p class="font-heading font-extrabold text-sm sm:text-lg md:text-xl text-blue-200 uppercase tracking-widest max-w-2xl mx-auto drop-shadow">
+          FEEL THE THRILL IN ISLAMORADA
+        </p>
+
+        <!-- Breadcrumbs -->
+        <div class="pt-4 flex items-center justify-center gap-2 text-xs text-white/80 font-medium tracking-wider uppercase">
+          <a href="/" class="hover:text-blue-200 transition-colors">Home</a>
+          <ChevronRight class="w-3.5 h-3.5 text-blue-300" />
+          <span class="text-white font-bold">Activities</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. FEATURED HIGHLIGHT 1: TARPON FEEDING -->
+    <section class="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-xl border border-slate-100">
+        <!-- Image Container -->
+        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3]">
+          <img 
+            src="/assets/home/imgi_18_feed-tarpon.webp" 
+            alt="Tarpon Feeding at Robbie's Marina" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="eager"
+          />
+          <div class="absolute top-4 left-4 bg-[#2B447A] text-white text-xs font-heading font-black uppercase px-3 py-1.5 rounded-full shadow-md">
+            World Famous Tradition
+          </div>
+        </div>
+
+        <!-- Text Content -->
+        <div class="space-y-5">
+          <div class="space-y-1">
+            <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
+              FEED THE TARPON!
+            </span>
+            <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide leading-tight">
+              TARPON FEEDING
+            </h2>
+          </div>
+
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-body">
+            Feeding the world-famous giant tarpon right off our dock is the #1 bucket-list activity in Islamorada! Stand on the wooden pier and hold a fish over the water as massive 100+ lb tarpon leap into the air to snap it right from your hand.
+          </p>
+
+          <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+            <li class="flex items-center gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-blue-100 text-[#2B447A] flex items-center justify-center font-bold text-xs">✓</span>
+              Feed over 100 giant wild tarpon swimming right beside the dock
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-blue-100 text-[#2B447A] flex items-center justify-center font-bold text-xs">✓</span>
+              Fun, safe, and thrilling for kids, families, and travelers of all ages
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-blue-100 text-[#2B447A] flex items-center justify-center font-bold text-xs">✓</span>
+              Open daily 7:00 AM – 5:00 PM (No reservations required)
+            </li>
+          </ul>
+
+          <div class="pt-2">
+            <a 
+              href="/shop" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
+            >
+              LEARN MORE <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. FEATURED HIGHLIGHT 2: TASTING FLORIDA KEYS HISTORY -->
+    <section class="py-8 sm:py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-14 items-center bg-white rounded-3xl p-6 sm:p-10 lg:p-12 shadow-xl border border-slate-100">
+        <!-- Text Content (Left on Desktop) -->
+        <div class="space-y-5 order-2 lg:order-1">
+          <div class="space-y-1">
+            <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
+              HUNGRY TARPON RESTAURANT
+            </span>
+            <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-wide leading-tight">
+              TASTING FLORIDA KEYS HISTORY
+            </h2>
+          </div>
+
+          <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-body">
+            Relax on our historic waterfront deck and taste authentic Florida Keys flavors. From our world-famous Trailer Trash Bloody Mary to fresh catch prepared your way, dining at Hungry Tarpon is an essential Islamorada culinary experience.
+          </p>
+
+          <ul class="space-y-2.5 text-xs sm:text-sm text-slate-700 font-medium">
+            <li class="flex items-center gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-blue-100 text-[#2B447A] flex items-center justify-center font-bold text-xs">✓</span>
+              Open for Breakfast, Lunch & Dinner daily on the open-air deck
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-blue-100 text-[#2B447A] flex items-center justify-center font-bold text-xs">✓</span>
+              "You Cook It, We Cook It": Bring your fresh catch for our chef to prepare
+            </li>
+            <li class="flex items-center gap-2.5">
+              <span class="w-5 h-5 rounded-full bg-blue-100 text-[#2B447A] flex items-center justify-center font-bold text-xs">✓</span>
+              Signature craft cocktails, local draft beers & Key Lime delicacies
+            </li>
+          </ul>
+
+          <div class="pt-2">
+            <a 
+              href="/" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all duration-200 transform hover:-translate-y-0.5"
+            >
+              LEARN MORE <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+        <!-- Image Container (Right on Desktop) -->
+        <div class="relative group rounded-2xl overflow-hidden shadow-lg aspect-[4/3] order-1 lg:order-2">
+          <img 
+            src="/assets/home/imgi_9_Robbies-of-Islamorada.webp" 
+            alt="Hungry Tarpon Restaurant & Bar" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+          <div class="absolute top-4 right-4 bg-amber-500 text-slate-900 text-xs font-heading font-black uppercase px-3 py-1.5 rounded-full shadow-md">
+            Waterfront Dining
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. SECTION DIVIDER BAR 1: WATERSPORTS -->
+    <div class="w-full bg-[#2B447A] text-white py-4 px-4 text-center shadow-inner">
+      <h2 class="max-w-[1280px] mx-auto font-heading font-black text-lg sm:text-xl lg:text-2xl uppercase tracking-widest drop-shadow-sm">
+        WATERSPORTS ACTIVITIES IN ISLAMORADA
+      </h2>
+    </div>
+
+    <!-- 5. WATERSPORTS CARDS GRID SECTION -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        {watersportsCards.map((card) => (
+          <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img 
+                src={card.image} 
+                alt={card.title} 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                loading="lazy"
+              />
+              <span class="absolute top-4 left-4 bg-[#2B447A] text-white text-[11px] font-heading font-extrabold uppercase px-3 py-1 rounded-full shadow">
+                {card.badge}
+              </span>
+            </div>
+
+            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <h3 class="font-heading font-black text-xl sm:text-2xl text-[#182A4D] uppercase tracking-wide">
+                  {card.title}
+                </h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+                  {card.description}
+                </p>
+              </div>
+
+              <div class="pt-4 border-t border-slate-100">
+                <a 
+                  href={card.url}
+                  class="w-full inline-flex items-center justify-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full py-3 text-xs sm:text-sm tracking-wider shadow transition-all duration-200"
+                >
+                  LEARN MORE <ChevronRight class="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 6. SECTION DIVIDER BAR 2: UNDERWATER -->
+    <div class="w-full bg-[#2B447A] text-white py-4 px-4 text-center shadow-inner">
+      <h2 class="max-w-[1280px] mx-auto font-heading font-black text-lg sm:text-xl lg:text-2xl uppercase tracking-widest drop-shadow-sm">
+        BEST UNDERWATER ACTIVITIES IN ISLAMORADA
+      </h2>
+    </div>
+
+    <!-- 7. UNDERWATER ZIG-ZAG SECTION -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto space-y-12">
+      
+      <!-- Row A: SNUBA (Image Left, Text Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <div class="relative group rounded-2xl overflow-hidden shadow-md aspect-[4/3]">
+          <img 
+            src="/assets/home/imgi_21_snuba.webp" 
+            alt="SNUBA Diving in Islamorada" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="space-y-4">
+          <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
+            NO SCUBA CERTIFICATION REQUIRED!
+          </span>
+          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
+            SNUBA DIVING IN ISLAMORADA
+          </h3>
+          <p class="text-slate-600 text-sm leading-relaxed font-body">
+            Experience underwater diving down to 20 feet depth without heavy scuba gear or certification! SNUBA allows you to breathe under water effortlessly while raft-supported air tanks float gently on the ocean surface above.
+          </p>
+          <div>
+            <a 
+              href="/#snuba" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              LEARN MORE <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row B: SNORKELING (Text Left, Image Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <div class="space-y-4 order-2 lg:order-1">
+          <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
+            NORTH AMERICA'S LIVING CORAL REEF
+          </span>
+          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
+            SNORKELING IN THE KEYS
+          </h3>
+          <p class="text-slate-600 text-sm leading-relaxed font-body">
+            Discover colorful sea turtles, tropical reef fish, rays, and vibrant coral formations! Our daily guided boat tours head out to shallow crystal-clear coral reef locations perfect for all swimming levels.
+          </p>
+          <div>
+            <a 
+              href="/#snorkeling" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              LEARN MORE <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+        <div class="relative group rounded-2xl overflow-hidden shadow-md aspect-[4/3] order-1 lg:order-2">
+          <img 
+            src="/assets/home/imgi_22_snorkeling.webp" 
+            alt="Snorkeling in Islamorada Florida Keys" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 8. SECTION DIVIDER BAR 3: FISHING TRIPS -->
+    <div class="w-full bg-[#2B447A] text-white py-4 px-4 text-center shadow-inner">
+      <h2 class="max-w-[1280px] mx-auto font-heading font-black text-lg sm:text-xl lg:text-2xl uppercase tracking-widest drop-shadow-sm">
+        UNFORGETTABLE FISHING TRIPS IN ISLAMORADA
+      </h2>
+    </div>
+
+    <!-- 9. FISHING CARDS GRID SECTION -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+        {fishingCards.map((card) => (
+          <div class="bg-white rounded-3xl overflow-hidden shadow-lg border border-slate-100 flex flex-col group hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1">
+            <div class="relative aspect-[16/10] overflow-hidden">
+              <img 
+                src={card.image} 
+                alt={card.title} 
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                loading="lazy"
+              />
+              <span class="absolute top-4 left-4 bg-[#2B447A] text-white text-[11px] font-heading font-extrabold uppercase px-3 py-1 rounded-full shadow">
+                {card.badge}
+              </span>
+            </div>
+
+            <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between space-y-4">
+              <div class="space-y-2">
+                <h3 class="font-heading font-black text-xl sm:text-2xl text-[#182A4D] uppercase tracking-wide">
+                  {card.title}
+                </h3>
+                <p class="text-slate-600 text-xs sm:text-sm leading-relaxed font-body">
+                  {card.description}
+                </p>
+              </div>
+
+              <div class="pt-4 border-t border-slate-100">
+                <a 
+                  href={card.url}
+                  class="w-full inline-flex items-center justify-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full py-3 text-xs sm:text-sm tracking-wider shadow transition-all duration-200"
+                >
+                  LEARN MORE <ChevronRight class="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 10. ECO TOURS & BOAT RENTALS ZIG-ZAG SECTION -->
+    <section class="py-12 sm:py-16 px-4 sm:px-6 lg:px-8 max-w-[1280px] mx-auto space-y-12">
+      
+      <!-- Row A: ECO TOURS (Image Left, Text Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <div class="relative group rounded-2xl overflow-hidden shadow-md aspect-[4/3]">
+          <img 
+            src="/assets/home/imgi_188_Navigating_Menu_visitor.webp" 
+            alt="Islamorada Eco Tours" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        </div>
+
+        <div class="space-y-4">
+          <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
+            EVERGLADES & FLORIDA BAY WILDLIFE
+          </span>
+          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
+            ECO TOURS
+          </h3>
+          <p class="text-slate-600 text-sm leading-relaxed font-body">
+            Immerse yourself in the natural wonders of Florida Bay and Everglades National Park! Spot wild dolphins, gentle manatees, exotic coastal birds, and pristine uninhabited island habitats with our knowledgeable local guides.
+          </p>
+          <div>
+            <a 
+              href="/#eco-tours" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              LEARN MORE <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Row B: BOAT RENTALS (Text Left, Image Right) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-white rounded-3xl p-6 sm:p-10 shadow-xl border border-slate-100">
+        <div class="space-y-4 order-2 lg:order-1">
+          <span class="text-[#2B447A] font-heading font-extrabold text-xs tracking-widest uppercase block">
+            BE YOUR OWN CAPTAIN!
+          </span>
+          <h3 class="font-heading font-black text-2xl sm:text-3xl text-[#182A4D] uppercase tracking-wide">
+            ISLAMORADA BOAT RENTALS
+          </h3>
+          <p class="text-slate-600 text-sm leading-relaxed font-body">
+            Take the helm! Rent top-of-the-line powerboats to navigate Islamorada's famous sandbars, coastal reefs, and mangrove channels at your own pace. Clean, reliable, and fully equipped fleet ready for launch.
+          </p>
+          <div>
+            <a 
+              href="/#boat-rentals" 
+              class="inline-flex items-center gap-2 bg-[#2B447A] hover:bg-[#182A4D] text-white font-heading font-black uppercase rounded-full px-8 py-3 text-xs sm:text-sm tracking-wider shadow-md hover:shadow-xl transition-all"
+            >
+              LEARN MORE <ChevronRight class="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+
+        <div class="relative group rounded-2xl overflow-hidden shadow-md aspect-[4/3] order-1 lg:order-2">
+          <img 
+            src="/assets/home/hero-tarpon.jpg" 
+            alt="Islamorada Boat Rentals" 
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            loading="lazy"
+          />
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 11. INSTAGRAM & VISITOR MEDIA CAROUSEL SECTION -->
+    <section class="py-12 sm:py-16 bg-white border-t border-slate-200">
+      <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <div class="text-center space-y-2">
+          <div class="inline-flex items-center gap-2 text-rose-500 font-heading font-bold text-xs uppercase tracking-widest">
+            <Camera class="w-4 h-4" /> TAG US ON INSTAGRAM
+          </div>
+          <h2 class="font-heading font-black text-2xl sm:text-3xl lg:text-4xl text-[#182A4D] uppercase tracking-tight">
+            #ROBBIESOFISLAMORADA
+          </h2>
+          <p class="text-slate-500 text-xs sm:text-sm font-body">
+            Share your favorite memories at Robbie's Marina for a chance to be featured!
+          </p>
+        </div>
+
+        <!-- 4 Image Grid / Mobile Carousel -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {instagramPhotos.map((photo, i) => (
+            <div class="group relative rounded-2xl overflow-hidden shadow-md aspect-square bg-slate-100">
+              <img 
+                src={photo.img} 
+                alt={photo.caption} 
+                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex flex-col justify-end text-white text-xs font-medium">
+                <p class="line-clamp-2">{photo.caption}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <Footer />
+</Layout>
